@@ -164,6 +164,8 @@ function checkServerStatus(signInType){
                     googleSignIn()
                 } else if(signInType == "FacebookLogin"){
                     facebookLogin();
+                } else if (signInType == "GoogleSignInStudent"){
+                    googleSignInStudent();
                 }
             }
         }
