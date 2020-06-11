@@ -31,6 +31,7 @@ function facebookLogin() {
         console.log("Facebook Sign In Failed")
         if(err.code == "auth/account-exists-with-different-credential"){
             console.log("credentials exist");
+            document.getElementById("alert4").innerHTML = `<strong>Oops!</strong>There is already an account with this email</div>`;
         }
         document.getElementById("alert4").style.display = "initial";
     })
