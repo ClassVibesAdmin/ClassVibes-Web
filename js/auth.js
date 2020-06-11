@@ -29,6 +29,9 @@ function facebookLogin() {
     }).catch(function (err) {
         console.log(err)
         console.log("Facebook Sign In Failed")
+        if(err.code == "auth/account-exists-with-different-credential"){
+            console.log("credentials exist");
+        }
         document.getElementById("alert4").style.display = "initial";
     })
 }
