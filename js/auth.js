@@ -158,8 +158,8 @@ function checkServerStatus(signInType){
             } else {
                 if(signInType == "GoogleSignIn"){
                     googleSignIn()
-                } else {
-                    
+                } else if(signInType == "FacebookLogin"){
+                    facebookLogin();
                 }
             }
         }
