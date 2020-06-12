@@ -101,16 +101,6 @@ googleSignInStudent = () => {
 
 }
 
-//Add login event
-
-firebase.auth().onAuthStateChanged(firebaseUser => {
-    if (firebaseUser) {
-        console.log(firebaseUser);
-    } else {
-        console.log('not logged in')
-    }
-})
-
 const btnLogout = document.getElementById("btnLogout").value;
 
 
@@ -148,5 +138,56 @@ function checkServerStatus(signInType){
             }
         }
     });
+}
+
+function emailSignUp(type){
+
+    var email = document.getElementById('inputEmail').value;
+    var displayName = document.getElementById('inputDisplayName').value;
+    var password = document.getElementById('inputPassword').value;
+    var repeatPassword = document.getElementById('inputRepeatPassword').value;
+
+    var errorMessage = document.getElementById('signupError');
+
+    var errorHTML = `<div class="alert alert-danger" role="alert"
+    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    <strong>Oops! </strong>${errorMessage}
+</div>`;
+
+    if(email == "" || displayName == "" || password == "" || repeatPassword == ""){
+        errorHTML = `<div class="alert alert-danger" role="alert" 
+    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    <strong>Oops! </strong> You cannot leave any of the fields blank
+</div>`;
+
+        errorMessage.innerHTML = errorHTML;
+    } else {
+        if(password != repeatPassword){
+            errorHTML = `<div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Oops! </strong> Password and repeat password dont' match
+        </div>`;
+        
+                errorMessage.innerHTML = errorHTML;
+        } else {
+
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                console.log(errorMessage);
+
+                errorHTML = `<div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Oops! </strong> ERROR
+        </div>`;
+        
+                errorMessage.innerHTML = errorHTML;
+                // ...
+              });
+              
+        }
+    }
 }
 
