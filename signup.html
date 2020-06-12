@@ -93,12 +93,44 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
         </div>
 
         <div class="signup-fourm">
-           <h1 class="option-btns-row">
-               
-           </h1>
+
+          <div style="margin-left: 45%; margin-top: 2%;">
+            <h1>Sign Up</h1>  
+          </div>
+          
+
+          <h3 style="padding-top: 30px; padding-left: 30px;">I am a..</h3>
+
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-left:5%; padding-top: 1%;" >
+            <label class="btn btn-primary active">
+              <input type="radio" name="options" id="student" autocomplete="off" checked> Student
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="teacher" autocomplete="off" onclick='document.getElementById("teacher").style.display = "initial";'> Teacher
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="district" autocomplete="off"> District
+            </label>
+          </div>
+
+          <h3 style="margin-left: 26px; margin-top: 5%;">Sign Up Instructions</h3>
+
+           <div id = "studentsInfo" class="description">
+             <p>If you are a student, you should ask your teacher or district adminastrator for your login credentials. You will be provided with a default password, just make sure to change your password later.</p>
+           </div>
+
+           <div id = "teacherInfo" class="description">
+            <p>Teachers</p>
+          </div>
+
+
         </div>
 
     </div>
+
+    <script>
+      
+    </script>
 
 </section>
 
