@@ -40,7 +40,7 @@ function getChartData() {
   var myPieChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ["Good", "Moderate", "Needs Help"],
+      labels: ["Doing Great", "Needs Help", "Frustrated"],
       datasets: [{
         data: studentsReactionLists,
         backgroundColor: ['#4feb34', '#ebe834', '#eb0c00'],
@@ -49,7 +49,7 @@ function getChartData() {
       }],
     },
     options: {
-      maintainAspectRatio: false,
+      maintainAspectRatio: false,000000000
       tooltips: {
         backgroundColor: "rgb(255,255,255)",
         bodyFontColor: "#858796",
