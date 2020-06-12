@@ -33,6 +33,7 @@ function updateReaction(reaction) {
 function setMainClassForMood(selectedClassName) {
 
   var dropDownButton = document.getElementById("selectedClassForDropdown");
+  var dropDownButton1 = document.getElementById("selectedClassForDropdown1");
 
   var dropDownMenu = document.getElementById("dropDownMoodPicker");
 
@@ -42,6 +43,7 @@ function setMainClassForMood(selectedClassName) {
 `;
 
   dropDownButton.innerHTML = outputButton;
+  dropDownButton1.innerHTML = outputButton;
 
   dropDownMenu.innerHTML = dropDownMenuItems;
 
