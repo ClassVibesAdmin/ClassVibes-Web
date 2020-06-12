@@ -21,36 +21,6 @@
 </head>
 
 <body id="page-top">
-  <script>
-    $(document).ready(function () {
-      function getProfileInfo() {
-        var name = localStorage.getItem("name");
-    var pic = localStorage.getItem("photo");
-
-      let outputPic = "";
-      outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
-
-   `
-
-      if (outputPic !== "") {
-        $(outputPic).appendTo("#profilePic")
-      }
-
-      document.getElementById("displayName").innerHTML = name
-
-    }
-
-    getProfileInfo();
-    var email = localStorage.getItem("email");
-
-    getStudentClasses(email);
-    getStudentStatus();
-    getMeetings();
-    getAnnouncements();
-});
-  </script>
-
 
   <!-- Page Wrapper -->
   <div id="wrapper">
