@@ -53,7 +53,9 @@ function setMainClassForMood(selectedClassName) {
 
 function getStudentClasses(studentUsername) {
 
-  document.getElementById("classesRowDisplay").innerHTML = "";
+  if (document.getElementById("classesRowDisplay") != null){
+    document.getElementById("classesRowDisplay").innerHTML = "";
+  }
 
   let output = "";
 
