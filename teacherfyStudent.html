@@ -388,7 +388,7 @@
               Dropdown button
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id = "dropdown-menu-drawer">
-              <div>1</div>
+              
             </div>
           </div>
 
@@ -485,8 +485,6 @@
       var classesList = [];
       console.log(classesList);
 
-      $("#dropdownMenuButton").replaceWith(classesList[0]);
-
       console.log("FIRST: " + classesList[0]);
 
       classesRef.once("value", (snap) => {
@@ -496,10 +494,16 @@
         if (rawData != null) {
           snap.forEach((child) => {
             classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
+
+            output = `<a class="dropdown-item" href="#">${child.child('class-name')}</a>`; 
+
+            $().appendTo('#dropdown-menu-drawer');
             storeClassforChart(child.child.code);
           })
         }
       }).then(function () {
+
+        $(classesList[0]).appendTo("#dropdownMenuButton");
 
         for (var i = 0; i <= classesList.length; i++) {
           let output = "";
