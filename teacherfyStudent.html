@@ -495,7 +495,7 @@
           snap.forEach((child) => {
             classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
 
-            output = `<a class="dropdown-item" href="#">${child.child('class-name')}</a>`; 
+            output = `<a class="dropdown-item" href="#">${child.child('class-name').val()}</a>`; 
 
             $(output).appendTo('#dropdown-menu-drawer');
             storeClassforChart(child.child.code);
@@ -505,7 +505,7 @@
 
         var element = document.findElementById('#dropdownMenuButton');
 
-        element.innerHTML = 'classesList[0]';
+        element.innerHTML = classesList[0];
 
         for (var i = 0; i <= classesList.length; i++) {
           let output = "";
