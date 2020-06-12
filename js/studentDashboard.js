@@ -360,18 +360,18 @@ function getStudentStatus(){
 
     if(value != null){
       if(value == "needs help"){
-        page.innerHTML = `<i class="fas fa-frown fa-5x" style = "margin-right: 20px;"></i>`;
+        page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" >&#128545;</h1>`;
       }
 
       if(value == "meh"){
-        page.innerHTML = `<i class="fas fa-meh fa-5x" style = "margin-right: 20px; margin-left: 20px;"></i>`;
+        page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;" style="color: yellow;">&#128533;</h1>`;
       }
 
       if(value == "good"){
-        page.innerHTML = `<i class="fas fa-smile-beam fa-5x" style = "margin-left: 20px;"></i>`;
+        page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
       }
     } else {
-      page.innerHTML = `<i class="fas fa-smile-beam fa-5x" style = "margin-left: 20px;"></i>`;
+      page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
     }
   });
 
