@@ -497,13 +497,15 @@
 
             output = `<a class="dropdown-item" href="#">${child.child('class-name')}</a>`; 
 
-            $().appendTo('#dropdown-menu-drawer');
+            $(output).appendTo('#dropdown-menu-drawer');
             storeClassforChart(child.child.code);
           })
         }
       }).then(function () {
 
-        $(classesList[0]).appendTo("#dropdownMenuButton");
+        var element = document.findElementById('#dropdownMenuButton');
+
+        element.innerHTML = 'classesList[0]';
 
         for (var i = 0; i <= classesList.length; i++) {
           let output = "";
