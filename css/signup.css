@@ -1,0 +1,91 @@
+html
+{
+    overflow-x: hidden;
+    margin: none;
+}
+
+body
+{
+    background-color: royalblue;
+    margin: none;
+    padding: none;
+    width: 100%;
+}
+
+.bg-img {
+    /* The image used */
+    background-image: url('img/background_signup.png');
+  
+    /* Full height */
+    height: 100%;
+    width: 100%;
+  
+    /* Center and scale the image nicely */
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.card-center
+{
+    margin-top: 6%;
+    height: 750px;
+    width: 70%;
+    margin-left: 15%;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.side-descript
+{
+    width: 45%;
+    height: 750px;
+    background-color: steelblue;
+}
+
+.signup-fourm
+{
+    width: 45%;
+    height: 750px;
+    background-color: white;
+}
+
+.mainTitle
+{
+    font-size:80px;
+    margin-top: 20%;
+}
+
+.option-text
+{
+    padding: 3%;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+#option-btns-row
+{
+    margin-top: 4%;
+    margin-bottom: 30%;
+}
+
+#option-btns
+  {
+    background-color: royalblue;
+    margin-left: 50px;
+    height: 50px;
+    width: 180px;
+    border-radius: 10px;
+
+  }
+
+  #option-btns:hover
+  {
+    background-color: rgb(98, 118, 184);
+  }
+
+  #option-btns:active
+  {
+    background-color: rgb(123, 149, 226);
+  }

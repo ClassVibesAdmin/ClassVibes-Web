@@ -1,5 +1,3 @@
-
-
 function facebookLogin() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -22,9 +20,6 @@ function facebookLogin() {
         _ref.child("username").set(formattedEmail1);
         localStorage.setItem("email", formattedEmail1);
         window.location = "/dashboard.html";
-
-
-
 
     }).catch(function (err) {
         console.log(err)
@@ -61,9 +56,6 @@ googleSignIn = () => {
         _ref.child("username").set(formattedEmail1);
         localStorage.setItem("email", formattedEmail1);
         window.location = "/dashboard.html";
-
-
-
 
     }).catch(function (err) {
         console.log(err)
@@ -109,21 +101,7 @@ googleSignInStudent = () => {
 
 }
 
-
-
-
-
-
-
-
-
 //Add login event
-
-
-
-
-
-
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
@@ -171,15 +149,4 @@ function checkServerStatus(signInType){
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
 
