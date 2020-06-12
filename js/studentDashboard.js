@@ -6,7 +6,7 @@ var dropDownMenuItems = ``;
 function updateReaction(reaction) {
   var box = document.getElementById("moodBox");
 
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div></div></div>';
+  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
 
   var currentDate = new Date();
 
@@ -26,6 +26,11 @@ function updateReaction(reaction) {
 
   getStudentStatus();
 
+
+}
+
+function reloadPage() {
+  window.location.reload();
 
 }
 
