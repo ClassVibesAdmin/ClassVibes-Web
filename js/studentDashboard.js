@@ -368,7 +368,7 @@ function getStudentStatus(){
       }
 
       if(value == "good"){
-        page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
+        page.innerHTML = `<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;" style="color: green;">&#128513;</h1>`;
       }
     } else {
       page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
