@@ -542,20 +542,8 @@
             </div>
           `;
 
-            output2 = `
-          <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
-          `;
-
-            output3 = `
-          <a class="dropdown-item" href="#" onclick = "storeClassforChart(${classCode})">${className}</a>
-                      <div class="dropdown-divider"></div>
-          
-          `;
 
             $(output).appendTo("#topClassesSection");
-            $(output2).appendTo("#classesOp");
-            $(output3).appendTo("#classesOp1");
-            $(output3).appendTo("#classesOp2");
           }
 
         }
