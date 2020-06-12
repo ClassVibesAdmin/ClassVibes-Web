@@ -261,17 +261,24 @@
                 <div class="card-body">
                   <div class="row">
                     <!--KNOWS-->
-                    <i class="fas fa-smile-beam fa-5x" style = "margin-left: 20px;" onclick="updateReaction('good')"></i>
+                    <h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;" onclick="updateReaction('good')" style="color: green;">&#128513;</h1>
 
                     <!--MEJH-->
-                    <i class="fas fa-meh fa-5x" style = "margin-right: 20px; margin-left: 20px;" onclick="updateReaction('meh')"></i>
+                    <h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;" onclick="updateReaction('meh')" style="color: yellow;">&#128533;</h1>
 
                     <!--NEEDS HELP-->
-                    <i class="fas fa-frown fa-5x" style = "margin-right: 20px;" onclick="updateReaction('needs help')"></i>
+                    <h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" onclick="updateReaction('needs help')">&#128545;</h1>
 
                   </div>
                 </div>
               </div>
+
+              <style>
+                .icon-hover:hover {
+                  cursor: pointer;
+
+                }
+              </style>
 
               <div class="card shadow mb-4" style="width: max-content; height: max-content;" id = "moodBox">
                 <div class="card-header py-3">
