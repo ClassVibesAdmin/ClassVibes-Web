@@ -29,6 +29,7 @@
 </filter>
 <linearGradient id="paint0_linear" x1="994" y1="0" x2="994" y2="1080" gradientUnits="userSpaceOnUse">
 <stop stop-color="#4169E1"/>
+<stop offset="0.166667" stop-color="#4172E1"/>
 <stop offset="1" stop-color="#40CEDD"/>
 </linearGradient>
 <linearGradient id="paint1_linear" x1="350.5" y1="207" x2="350.5" y2="505" gradientUnits="userSpaceOnUse">

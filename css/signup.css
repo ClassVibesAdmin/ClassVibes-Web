@@ -9,7 +9,23 @@ body
     background-color: royalblue;
     margin: none;
     padding: none;
+    width: 100%;
 }
+
+.bg-img {
+    /* The image used */
+    background-image: url('img/background_signup.png');
+  
+    /* Full height */
+    height: 100%;
+    width: 100%;
+  
+    /* Center and scale the image nicely */
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
 .card-center
 {
