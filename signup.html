@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/index.css">
   
 
-  <title>SignUp ClassVibes</title>
+  <title>ClassVibes Signup</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -53,23 +53,13 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
   <div class="container-fluid" style="background-color: royalblue;">
     <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-      <a class="navbar-brand" href="#header" style="color: white; font-size: 25px; font-weight: 700;">Class Vibe</a>
+      <a class="navbar-brand" href="index.html" style="color: white; font-size: 25px; font-weight: 700;">Class Vibe</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" style="color: white;">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#featuresSection2" style="color: white;">Features</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#pricing" style="color: white;">Pricing</a>
-          </li>
 
         </ul>
 
@@ -93,12 +83,94 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
         </div>
 
         <div class="signup-fourm">
-           <h1 class="option-btns-row">
-               
-           </h1>
+
+          <div style="margin-left: 45%; margin-top: 4%;">
+            <h1>Sign Up</h1>  
+          </div>
+          
+
+          <h3 style="padding-top: 30px; padding-left: 30px;">I am a..</h3>
+
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-left:5%; padding-top: 1%;" >
+            <label class="btn btn-primary active" onclick='showInfoSelected("student")'>
+              <input type="radio" name="options" id="student" autocomplete="off" checked > Student
+            </label>
+            <label class="btn btn-primary" onclick='showInfoSelected("teacher")'>
+              <input type="radio" name="options" id="teacher" autocomplete="off" > Teacher
+            </label>
+            <label class="btn btn-primary" onclick='showInfoSelected("district")'>
+              <input type="radio" name="options" id="district" autocomplete="off" > District
+            </label>
+          </div>
+
+          <h3 style="margin-left: 26px; margin-top: 5%;">Sign Up Instructions</h3>
+
+           <div id = "studentsInfo" >
+
+             <p>ADD STUDENT LOGIN</p>
+
+            </div>
+
+           <div id = "teacherInfo" style="display: none;">
+            <div class="description">
+
+              <h4> - In a district</h4>
+              <p>If you are a teacher managed by a district, please ask your district administrator for your login credentials. If they did not already create an account for you, ask them to do so. You will be able to change your password later.</p>
+             
+              <h4> - Not in a district</h4>
+              <p>If you are a solo teacher and not managed by a district, please contact <a href = "mailto:sales@classvibes.net">sales@classvibes.net</a> for creating your account and subscribing you for a plan.</p>
+            
+              <h4> - Im Using the Free Plan</h4>
+              <p>If you are are planning to use the free plan, <a href="#">click here</a> to signup for an free account for our service.</p>
+
+              <p>For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
+            
+            
+            </div>
+          </div>
+
+          <div id = "districtInfo" style="display: none;">
+            <div class="description">
+             <p>If you are a district looking to use our services, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a> to set up your account and for pricing information. We will get back to you in 2-3 business days.</p>
+
+              <p>For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
+            
+            
+            </div>
+          </div>
+
+          
+
+
         </div>
 
     </div>
+
+    <script>
+      function showInfoSelected(selected){
+        console.log(selected);
+
+        if(selected == 'student'){
+          document.getElementById("studentsInfo").style.display = "initial";
+          document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("districtInfo").style.display = "none";
+        }
+
+
+        if(selected == 'teacher'){
+          document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("teacherInfo").style.display = "initial";
+          document.getElementById("districtInfo").style.display = "none";
+        }
+
+        if(selected == 'district'){
+          document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("districtInfo").style.display = "initial";
+        }
+        
+      }
+    </script>
 
 </section>
 

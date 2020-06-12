@@ -30,7 +30,7 @@ body
 .card-center
 {
     margin-top: 6%;
-    height: 750px;
+    height: 720px;
     width: 70%;
     margin-left: 15%;
     background-color: white;
@@ -40,14 +40,14 @@ body
 .side-descript
 {
     width: 45%;
-    height: 750px;
+    height: 720px;
     background-color: steelblue;
 }
 
 .signup-fourm
 {
     width: 45%;
-    height: 750px;
+    height: 720px;
     background-color: white;
 }
 
@@ -70,12 +70,12 @@ body
     margin-bottom: 30%;
 }
 
-.option-btns
+#option-btns
   {
     background-color: royalblue;
-    margin-left: 50px;
-    height: 50px;
-    width: 180px;
+    margin-right: 10px;
+    height: 40px;
+    width: 120px;
     border-radius: 10px;
 
   }
@@ -88,4 +88,15 @@ body
   #option-btns:active
   {
     background-color: rgb(123, 149, 226);
+  }
+
+  .description
+  {
+    margin-left: 26px;
+    margin-top: 20px;
+  }
+
+  .teacherInfo1
+  {
+    display: none;
   }
