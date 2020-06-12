@@ -51,7 +51,7 @@
 
     getProfileInfo();
     var email = localStorage.getItem("email");
-    
+
     getStudentClasses(email);
     getStudentStatus();
     getMeetings();
@@ -119,6 +119,12 @@
           <span>Announcements</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="teacherfyStudent.html">
+          <i class="fa fa-telegram"></i>
+          <span>Teacherfy</span>
+        </a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -179,7 +185,7 @@
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
-              
+
             </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -227,7 +233,7 @@
           <!--CLASSES SECTION-->
 
           <div class="row" id = "classesRowDisplay">
-            
+
 
           </div>
 
@@ -239,30 +245,30 @@
               <div class="card shadow mb-4" style="width: max-content; height: max-content;" id = "moodBox">
                 <div class="card-header py-3">
                   <div class="row justify-content-between">
-    
+
                   <h6 style = "margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Mood</h6>
-    
+
                   <div class="btn-group" id = "selectedClassForDropdown">
-                  
+
                     <div class="dropdown-menu" id = "dropDownMoodPicker">
-    
+
                     </div> <!--MAKE DYNAMIC -->
                   </div>
-                  
-    
+
+
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="row">
                     <!--KNOWS-->
                     <i class="fas fa-smile-beam fa-5x" style = "margin-left: 20px;" onclick="updateReaction('good')"></i>
-    
+
                     <!--MEJH-->
                     <i class="fas fa-meh fa-5x" style = "margin-right: 20px; margin-left: 20px;" onclick="updateReaction('meh')"></i>
-    
+
                     <!--NEEDS HELP-->
                     <i class="fas fa-frown fa-5x" style = "margin-right: 20px;" onclick="updateReaction('needs help')"></i>
-    
+
                   </div>
                 </div>
               </div>
@@ -270,17 +276,17 @@
               <div class="card shadow mb-4" style="width: max-content; height: max-content;" id = "moodBox">
                 <div class="card-header py-3">
                   <div class="row justify-content-between">
-    
+
                   <h6 style = "margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Current Status</h6>
-                  
+
                   </div>
                 </div>
                 <div class="card-body" id = "currentStatusSection">
-                  
+
                 </div>
               </div>
             </div>
-          
+
 
           <!--MEETINGS SECTION-->
 
@@ -301,10 +307,10 @@
 
             </div>
             <div class="card-body" id = "AnnouncementsPageSection" style="min-width: 400px;">
-            
+
 
             </div>
-            
+
           </div>
 
          </div>
