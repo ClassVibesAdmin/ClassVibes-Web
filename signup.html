@@ -102,26 +102,37 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
           <h3 style="padding-top: 30px; padding-left: 30px;">I am a..</h3>
 
           <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-left:5%; padding-top: 1%;" >
-            <label class="btn btn-primary active">
-              <input type="radio" name="options" id="student" autocomplete="off" checked> Student
+            <label class="btn btn-primary active" onclick='showInfoSelected("student")'>
+              <input type="radio" name="options" id="student" autocomplete="off" checked > Student
             </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="teacher" autocomplete="off" onclick='document.getElementById("teacher").style.display = "initial";'> Teacher
+            <label class="btn btn-primary" onclick='showInfoSelected("teacher")'>
+              <input type="radio" name="options" id="teacher" autocomplete="off" > Teacher
             </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="district" autocomplete="off"> District
+            <label class="btn btn-primary" onclick='showInfoSelected("district")'>
+              <input type="radio" name="options" id="district" autocomplete="off" > District
             </label>
           </div>
 
           <h3 style="margin-left: 26px; margin-top: 5%;">Sign Up Instructions</h3>
 
-           <div id = "studentsInfo" class="description">
-             <p>If you are a student, you should ask your teacher or district adminastrator for your login credentials. You will be provided with a default password, just make sure to change your password later.</p>
+           <div id = "studentsInfo" >
+             <p class="description">If you are a student, you should ask your teacher or district administrator for your login credentials. You will be provided with a default password, just make sure to change your password later.</p>
            </div>
 
-           <div id = "teacherInfo" class="description">
-            <p>Teachers</p>
+           <div id = "teacherInfo" >
+            <div class="description">
+              <h4> - In a district</h4>
+              <p>If you are a teacher managed by a district, please ask your district administrator for your login credentials. If they did not already create an account for you, ask them to do so. You will be able to change your password later.</p>
+             
+              <h4> - Not in a district</h4>
+              <p>If you are a solo teacher and not managed by a district, please contact <a href = "mailto:sales@classvibes.net">sales@classvibes.net</a> </p>
+            
+            
+            
+            </div>
           </div>
+
+          
 
 
         </div>
@@ -129,7 +140,21 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
     </div>
 
     <script>
-      
+      function showInfoSelected(selected){
+        console.log(selected);
+
+        if(selected == 'student'){
+          document.getElementById("studentsInfo").style.display = "initial";
+          document.getElementById("teacherInfo").style.display = "none";
+        }
+
+
+        if(selected == 'teacher'){
+          document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("teacherInfo").style.display = "initial";
+        }
+        
+      }
     </script>
 
 </section>
