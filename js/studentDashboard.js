@@ -57,8 +57,6 @@ function getStudentClasses(studentUsername) {
     document.getElementById("classesRowDisplay").innerHTML = "";
   }
 
-  
-
   let output = "";
 
   classesList = [];
