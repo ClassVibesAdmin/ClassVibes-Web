@@ -64,13 +64,13 @@ body
     font-size: 20px;
 }
 
-#option-btns-row
+.option-btns-row
 {
     margin-top: 4%;
     margin-bottom: 30%;
 }
 
-#option-btns
+.option-btns
   {
     background-color: royalblue;
     margin-left: 50px;
