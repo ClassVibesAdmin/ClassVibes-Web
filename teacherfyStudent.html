@@ -505,7 +505,9 @@
 
         var element = document.findElementById('#dropdownMenuButton');
 
-        element.innerHTML = classesList[0];
+        element.innerHTML = `<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ${classesList[0][1]}
+            </button>;`;
 
         for (var i = 0; i <= classesList.length; i++) {
           let output = "";
