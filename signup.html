@@ -117,7 +117,8 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
            <div id = "studentsInfo" >
              <p class="description">If you are a student, you should ask your teacher or district administrator for your login credentials. You will be provided with a default password, just make sure to change your password later.</p>
-           </div>
+             <p class="description">For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
+            </div>
 
            <div id = "teacherInfo" style="display: none;">
             <div class="description">
@@ -129,6 +130,16 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
             
               <h4> - Im Using the Free Plan</h4>
               <p>If you are are planning to use the free plan, <a href="#">click here</a> to signup for an free account for our service.</p>
+
+              <p>For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
+            
+            
+            </div>
+          </div>
+
+          <div id = "districtInfo" style="display: none;">
+            <div class="description">
+             <p>If you are a district looking to use our services, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a> to set up your account and for pricing information. We will get back to you in 2-3 business days.</p>
 
               <p>For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
             
@@ -150,12 +161,20 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
         if(selected == 'student'){
           document.getElementById("studentsInfo").style.display = "initial";
           document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("districtInfo").style.display = "none";
         }
 
 
         if(selected == 'teacher'){
           document.getElementById("studentsInfo").style.display = "none";
           document.getElementById("teacherInfo").style.display = "initial";
+          document.getElementById("districtInfo").style.display = "none";
+        }
+
+        if(selected == 'district'){
+          document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("districtInfo").style.display = "initial";
         }
         
       }
