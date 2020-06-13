@@ -231,7 +231,8 @@ function emailSignUp(type){
                         _ref.child("display-name").set(displayName);
                         _ref.child("email").set(email);
                         _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('student');
+                        _ref.child("Account Type").set('Student');
+                        _ref.child("Account Status").set('Deactivated');
                    }
                     
                     else if(type == 'teacher'){
@@ -241,7 +242,8 @@ function emailSignUp(type){
                         _ref.child("display-name").set(displayName);
                         _ref.child("email").set(email);
                         _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('teacher');
+                        _ref.child("Account Type").set('Teacher');
+                        _ref.child("Account Status").set('Deactivated');
                     } 
                     
                     else if(type == 'district'){
@@ -251,7 +253,8 @@ function emailSignUp(type){
                         _ref.child("display-name").set(displayName);
                         _ref.child("email").set(email);
                         _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('district');
+                        _ref.child("Account Type").set('District');
+                        _ref.child("Account Status").set('Deactivated');
                     }
 
 
