@@ -101,7 +101,7 @@ googleSignInStudent = () => {
 
 }
 
-const btnLogout = document.getElementById("btnLogout").value;
+const btnLogout = document.getElementById("btnLogout");
 
 
 function checkServerStatus(signInType){
