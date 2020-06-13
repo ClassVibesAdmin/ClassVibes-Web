@@ -157,9 +157,9 @@
                 for (var i = 0; i <= classInfoList.length; i++) {
                     let descriptionOutput = "";
                     classInfoData = classInfoList[i];
-                    var happy = '<i class="fas fa-smile-beam fa-5x fa-2x text-gray-300" style="margin-right: 30px;" id = "face"></i>';
-                    var meh = '<i class="fas fa-meh fa-5x fa-5x fa-2x text-gray-300" style="margin-right: 30px;" id = "face"></i>';
-                    var sad = '<i class="fas fa-frown fa-5x fa-5x fa-5x fa-2x text-gray-300" style="margin-right: 30px;" id = "face"></i>'
+                    var happy = '<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1>';
+                    var meh = '<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1>';
+                    var sad = '<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>'
 
                     if (classInfoData != null || classInfoData != undefined) {
                         console.log("works")
@@ -171,7 +171,7 @@
 
 
                         descriptionOutput = `
-                        <div class="card mb-4 py-3 border-left-success">
+                        <div class="card mb-4 py-3 border-left-success" id = "studentCard">
                             <div class="row">
                                 <div class="card-body">
                                     <h4>${studentName}</h4>
@@ -234,12 +234,75 @@
                             document.getElementById("face").outerHTML = happy;
                         }
 
+                        function displayAll() {
+                            document.getElementById("studentCard").style.display = "initial";
 
+                        }
+
+                        function displayGreat() {
+                            if (studentReaction == "good") {
+
+                                document.getElementById("face").outerHTML = happy;
+                                document.getElementById("studentCard").style.display = "inital"
+
+                            } else if (studentReaction == "meh") {
+                                document.getElementById("face").outerHTML = meh;
+                                document.getElementById("studentCard").style.display = "none"
+
+
+                            } else if (studentReaction == "needs help") {
+                                document.getElementById("face").outerHTML = sad;
+                                document.getElementById("studentCard").style.display = "none"
+
+
+                            }
+
+                            function displayHelp() {
+                                if (studentReaction == "good") {
+
+                                    document.getElementById("face").outerHTML = happy;
+                                    document.getElementById("studentCard").style.display = "none"
+
+                                } else if (studentReaction == "meh") {
+                                    document.getElementById("face").outerHTML = meh;
+                                    document.getElementById("studentCard").style.display = "initial"
+
+
+                                } else if (studentReaction == "needs help") {
+                                    document.getElementById("face").outerHTML = sad;
+                                    document.getElementById("studentCard").style.display = "none"
+
+
+                                }
+
+                            }
+
+                            function displayFrustrated() {
+                                if (studentReaction == "good") {
+
+                                    document.getElementById("face").outerHTML = happy;
+                                    document.getElementById("studentCard").style.display = "none"
+
+                                } else if (studentReaction == "meh") {
+                                    document.getElementById("face").outerHTML = meh;
+                                    document.getElementById("studentCard").style.display = "none"
+
+
+                                } else if (studentReaction == "needs help") {
+                                    document.getElementById("face").outerHTML = sad;
+                                    document.getElementById("studentCard").style.display = "initial"
+
+
+                                }
+
+                            }
+
+
+
+                        }
 
                     }
-
-                }
-            })
+                })
 
         }
 
@@ -257,7 +320,7 @@
             var nameLocal = localStorage.getItem("email");
             var meetingTitle = document.getElementById("title").value;
             var meetingDate = document.getElementById("date").value;
-            var _refSchedualMeeting  = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
+            var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
 
 
             _refSchedualMeeting.child("Title").set(meetingTitle);
@@ -265,7 +328,7 @@
             _refSchedualMeeting.child("Course").set(course);
 
 
-            var _refSchedualMeeting  = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
+            var _refSchedualMeeting = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
 
 
             _refSchedualMeeting.child("Title").set(meetingTitle);
@@ -273,6 +336,8 @@
             _refSchedualMeeting.child("Course").set(course);
 
         }
+
+
 
 
 
@@ -288,12 +353,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon">
-            <img src="/img/classvibelogo.png" alt="" style="width: 50px;">
-          </div>
-        <div class="sidebar-brand-text mx-3">Class Vibe</div>
-      </a>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="/img/classvibelogo.png" alt="" style="width: 50px;">
+                </div>
+                <div class="sidebar-brand-text mx-3">Class Vibe</div>
+            </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -369,11 +434,11 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-                            
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -420,7 +485,28 @@
 
                 <div class="card shadow mb-4" style="margin-left: 15px;">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+                        <div class="row">
+                            <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+                            <div style="margin-left: 65%;">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary active" onclick="displayAll()">
+                                        <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
+                                        All Students
+                                    </label>
+                                    <label class="btn btn-secondary" onclick="displayGreat()">
+                                        <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
+                                    </label>
+                                    <label class="btn btn-secondary" onclick="displayHelp()">
+                                        <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
+                                    </label>
+                                    <label class="btn btn-secondary" onclick="displayFrustrated()">
+                                        <input type="radio" name="options" id="frustrated" autocomplete="off">
+                                        Frustrated
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-body" id="studentsList">
 
