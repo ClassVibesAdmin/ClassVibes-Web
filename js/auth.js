@@ -235,11 +235,23 @@ function emailSignUp(type){
                    }
                     
                     else if(type == 'teacher'){
-
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('teacher');
                     } 
                     
                     else if(type == 'district'){
-
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('district');
                     }
 
 
