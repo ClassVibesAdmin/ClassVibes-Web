@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="/css/index.css">
+  <script src="js/auth.js"></script>
   
 
   <title>ClassVibes Signup</title>
@@ -21,13 +22,14 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="css/signup.css" rel="stylesheet">
+
 
   <!--BOOTSTRAP-->
+  <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
   <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
-  <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+
 
   <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
 <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
@@ -50,6 +52,8 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
   <script>
     AOS.init();
   </script>
+
+  
 
   <!-- NAVBAR -->
 
@@ -105,96 +109,138 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
             </label>
           </div>
 
-           <div id = "studentsInfo" style="margin-left: 4%;">
+          <section id="signupError">
+
+          </section>
+
+           <section id = "studentsInfo">
+             <div style="margin-left: 4%;">
+
+              
+              <div class="container" style="margin-top: 5%;">
+
+                <div class="row">
+  
+                  <button class="fb-btn">
+                    <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                   </button>
+  
+  
+                   <button class="google-btn">
+                    <i class="fa fa-google fa-fw"></i> Login with Google
+                   </button>
+  
+                </div>
+  
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
+                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="name" id="inputDisplayName" class="form-control" placeholder="Full Name" required autofocus>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputRepeatPassword" class="form-control" placeholder="Confirm Password" required autofocus>
+                </div>
+  
+                <button class="sign-up-btn" style="margin-bottom: 30%;" onclick="emailSignUp('student')">
+                  Sign Up As a Student
+                </button>
+            </div>
              
-            <div class="container" style="margin-top: 5%;">
-
-              <div class="row">
-
-                <button class="fb-btn">
-                  <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-                 </button>
+            
 
 
-                 <button class="google-btn">
-                  <i class="fa fa-google fa-fw"></i> Login with Google
-                 </button>
+          </section>
 
-              </div>
+           <section id = "teacherInfo" style="display: none;">
 
-              </div>
+            <div  style="margin-left: 4%;">
+              <div class="container" style="margin-top: 5%;">
 
-              <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Full Name" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="password" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="password" id="inputEmail" class="form-control" placeholder="Confirm Password" required autofocus>
-              </div>
-
-              <button class="sign-up-btn">
-                Sign Up As a Student
-              </button>
-
-
+                <div class="row">
+  
+                  <button class="fb-btn">
+                    <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                   </button>
+  
+  
+                   <button class="google-btn">
+                    <i class="fa fa-google fa-fw"></i> Login with Google
+                   </button>
+  
+                </div>
+  
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
+                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="name" id="inputDisplayName" class="form-control" placeholder="Full Name" required>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputRepeatPassword" class="form-control" placeholder="Confirm Password" required>
+                </div>
+  
+                <button class="sign-up-btn" style="margin-bottom: 30%;">
+                  Sign Up As a Teacher
+                </button>
             </div>
 
-           <div id = "teacherInfo" style="display: none;">
-
-            <div class="container" style="margin-top: 5%;">
-
-              <div class="row">
-
-                <button class="fb-btn">
-                  <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-                 </button>
-
-
-                 <button class="google-btn">
-                  <i class="fa fa-google fa-fw"></i> Login with Google
-                 </button>
-
-              </div>
-
-              </div>
-
-              <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Full Name" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="password" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
-              </div>
-
-              <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-                <input type="password" id="inputEmail" class="form-control" placeholder="Confirm Password" required autofocus>
-              </div>
-
-              <button class="sign-up-btn">
-                Sign Up As a Teacher
-              </button>
-
-          </div>
+            </section>
 
           <div id = "districtInfo" style="display: none;">
-            <div class="description">
-             <p>If you are a district looking to use our services, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a> to set up your account and for pricing information. We will get back to you in 2-3 business days.</p>
+            <div  style="margin-left: 4%;">
+              <div class="container" style="margin-top: 5%;">
 
-              <p>For any questions or inquiries, please contact <a href="mailto:support@classvibes.net">support@classvibes.net</a></p>
-            
-            
+                <div class="row">
+  
+                  <button class="fb-btn">
+                    <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                   </button>
+  
+  
+                   <button class="google-btn">
+                    <i class="fa fa-google fa-fw"></i> Login with Google
+                   </button>
+  
+                </div>
+  
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
+                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="name" id="inputDisplayName" class="form-control" placeholder="Full Name" required>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                </div>
+  
+                <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
+                  <input type="password" id="inputRepeatPassword" class="form-control" placeholder="Confirm Password" required>
+                </div>
+  
+                <button class="sign-up-btn" style="margin-bottom: 30%;">
+                  Sign Up As a District Admin
+                </button>
             </div>
           </div>
 
@@ -321,6 +367,37 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
 </footer>
 <!-- Footer -->
+
+ <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
+
+<script>
+    var firebaseConfig = {
+    apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
+    authDomain: "cyberdojo-a2a3e.firebaseapp.com",
+    databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
+    projectId: "cyberdojo-a2a3e",
+    storageBucket: "cyberdojo-a2a3e.appspot.com",
+    messagingSenderId: "938057332518",
+    appId: "1:938057332518:web:99c34da5abf1b1548533e7",
+    measurementId: "G-0EWJ1V40VX"
+  };
+  
+  // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+</script>
+
+<link href="css/signup.css" rel="stylesheet">
 
 
 
