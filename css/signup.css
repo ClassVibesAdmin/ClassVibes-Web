@@ -156,3 +156,9 @@ body
   border: none;
   outline: none;
 }
+
+.invalid-form
+{
+  color: red;
+  font-weight: 600;
+}

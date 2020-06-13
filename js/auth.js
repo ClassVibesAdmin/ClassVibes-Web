@@ -147,6 +147,8 @@ function emailSignUp(type){
     var password = document.getElementById('inputPassword').value;
     var repeatPassword = document.getElementById('inputRepeatPassword').value;
 
+    var loginSuccess = true;
+
     var errorMessage = document.getElementById('signupError');
 
     var errorHTML = `<div class="alert alert-danger" role="alert"
@@ -177,16 +179,40 @@ function emailSignUp(type){
                 var errorMessage = error.message;
 
                 console.log(errorMessage);
+                console.log(errorCode);
 
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> ERROR
-        </div>`;
-        
-                errorMessage.innerHTML = errorHTML;
-                // ...
-              });
-              
+                loginSuccess = false;
+
+                if(errorCode == "auth/invalid-email"){
+                    document.getElementById('email-error').innerHTML = errorMessage;
+                    document.getElementById('password-error').innerHTML = "";
+                } 
+
+                if(errorCode == "auth/weak-password"){
+                    document.getElementById('password-error').innerHTML = errorMessage;
+                    document.getElementById('email-error').innerHTML = "";
+                }
+
+                if(errorCode == "auth/email-already-in-use"){
+                    document.getElementById('email-error').innerHTML = errorMessage;
+                    document.getElementById('password-error').innerHTML = "";
+                }
+
+              }).then(() => {
+
+                console.log(loginSuccess);
+
+                if(loginSuccess == true){
+                    var signUpPage = document.getElementById('signup-page-full');
+
+                    signUpPage.style.display = "none";
+    
+                    var successPage = document.getElementById('signup-success-form');
+    
+                    successPage.style.display = "initial";
+                }
+
+              });  
         }
     }
 }
