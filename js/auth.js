@@ -142,6 +142,12 @@ function checkServerStatus(signInType){
 
 function emailSignUp(type){
 
+    console.log(type);
+
+    document.getElementById('signup-btn-text').style.display = "none";
+    document.getElementById('signup-btn-main-button').disabled = true;
+    document.getElementById('btn-loading').style.display = "initial";
+
     var email = document.getElementById('inputEmail').value;
     var displayName = document.getElementById('inputDisplayName').value;
     var password = document.getElementById('inputPassword').value;
@@ -167,13 +173,17 @@ function emailSignUp(type){
         if(password != repeatPassword){
             errorHTML = `<div class="alert alert-danger" role="alert"
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> Password and repeat password dont' match
+            <strong>Oops! </strong> Password and repeat password don't match
         </div>`;
         
                 errorMessage.innerHTML = errorHTML;
         } else {
 
             firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+
+                document.getElementById('signupError').innerHTML = "";
+
+
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -210,10 +220,43 @@ function emailSignUp(type){
                     var successPage = document.getElementById('signup-success-form');
     
                     successPage.style.display = "initial";
+
+                    //FIREBASE DATABASE UPLOAD
+
+                    if(type == "student"){
+
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('student');
+                   }
+                    
+                    else if(type == 'teacher'){
+
+                    } 
+                    
+                    else if(type == 'district'){
+
+                    }
+
+
                 }
 
               });  
         }
     }
+
+    setTimeout(() => { 
+        document.getElementById('signup-btn-text').style.display = "initial";
+        document.getElementById('signup-btn-main-button').disabled = false;
+        document.getElementById('btn-loading').style.display = "none";
+     }, 500)
+
+
+
+   
 }
 
