@@ -101,7 +101,7 @@ googleSignInStudent = () => {
 
 }
 
-const btnLogout = document.getElementById("btnLogout").value;
+const btnLogout = document.getElementById("btnLogout");
 
 
 function checkServerStatus(signInType){
@@ -142,10 +142,18 @@ function checkServerStatus(signInType){
 
 function emailSignUp(type){
 
+    console.log(type);
+
+    document.getElementById('signup-btn-text').style.display = "none";
+    document.getElementById('signup-btn-main-button').disabled = true;
+    document.getElementById('btn-loading').style.display = "initial";
+
     var email = document.getElementById('inputEmail').value;
     var displayName = document.getElementById('inputDisplayName').value;
     var password = document.getElementById('inputPassword').value;
     var repeatPassword = document.getElementById('inputRepeatPassword').value;
+
+    var loginSuccess = true;
 
     var errorMessage = document.getElementById('signupError');
 
@@ -165,29 +173,105 @@ function emailSignUp(type){
         if(password != repeatPassword){
             errorHTML = `<div class="alert alert-danger" role="alert"
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> Password and repeat password dont' match
+            <strong>Oops! </strong> Password and repeat password don't match
         </div>`;
         
                 errorMessage.innerHTML = errorHTML;
         } else {
 
             firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+
+                document.getElementById('signupError').innerHTML = "";
+
+
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
 
                 console.log(errorMessage);
+                console.log(errorCode);
 
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> ERROR
-        </div>`;
-        
-                errorMessage.innerHTML = errorHTML;
-                // ...
-              });
-              
+                loginSuccess = false;
+
+                if(errorCode == "auth/invalid-email"){
+                    document.getElementById('email-error').innerHTML = errorMessage;
+                    document.getElementById('password-error').innerHTML = "";
+                } 
+
+                if(errorCode == "auth/weak-password"){
+                    document.getElementById('password-error').innerHTML = errorMessage;
+                    document.getElementById('email-error').innerHTML = "";
+                }
+
+                if(errorCode == "auth/email-already-in-use"){
+                    document.getElementById('email-error').innerHTML = errorMessage;
+                    document.getElementById('password-error').innerHTML = "";
+                }
+
+              }).then(() => {
+
+                console.log(loginSuccess);
+
+                if(loginSuccess == true){
+                    var signUpPage = document.getElementById('signup-page-full');
+
+                    signUpPage.style.display = "none";
+    
+                    var successPage = document.getElementById('signup-success-form');
+    
+                    successPage.style.display = "initial";
+
+                    //FIREBASE DATABASE UPLOAD
+
+                    if(type == "student"){
+
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('Student');
+                        _ref.child("Account Status").set('Deactivated');
+                   }
+                    
+                    else if(type == 'teacher'){
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('Teacher');
+                        _ref.child("Account Status").set('Deactivated');
+                    } 
+                    
+                    else if(type == 'district'){
+                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                        console.log(formattedEmail);
+                        _ref.child("display-name").set(displayName);
+                        _ref.child("email").set(email);
+                        _ref.child("username").set(formattedEmail);
+                        _ref.child("Account Type").set('District');
+                        _ref.child("Account Status").set('Deactivated');
+                    }
+
+
+                }
+
+              });  
         }
     }
+
+    setTimeout(() => { 
+        document.getElementById('signup-btn-text').style.display = "initial";
+        document.getElementById('signup-btn-main-button').disabled = false;
+        document.getElementById('btn-loading').style.display = "none";
+     }, 500)
+
+
+
+   
 }
 
