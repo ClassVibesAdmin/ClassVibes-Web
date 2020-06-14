@@ -531,6 +531,7 @@ function loginWithEmailStudent(){
 
         if(authValid == true){
             console.log('Login Success');
+            window.location = "studentDashboard.html";
         }
       });
 
