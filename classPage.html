@@ -168,7 +168,7 @@
                         var studentName = classInfoData[0];
 
                         var studentReaction = classInfoData[1];
-                        
+
                         var studentEmail = classInfoData[2];
 
 
@@ -223,83 +223,23 @@
                         $(descriptionOutput).appendTo("#studentsList");
 
                         if (studentReaction == "good") {
-
                             document.getElementById("face").outerHTML = happy;
-
+                            $(descriptionOutput).appendTo("#studentsListGreat");
+                            
                         } else if (studentReaction == "meh") {
                             document.getElementById("face").outerHTML = meh;
+                            $(descriptionOutput).appendTo("#studentsListHelp");
+                            
 
                         } else if (studentReaction == "needs help") {
                             document.getElementById("face").outerHTML = sad;
+                            $(descriptionOutput).appendTo("#studentsListFrustrated");
+                            
 
                         } else {
                             document.getElementById("face").outerHTML = happy;
+                            $(descriptionOutput).appendTo("#studentsListGreat");
                         }
-
-                        function displayAll() {
-                            document.getElementById("studentCard").style.display = "initial";
-
-                        }
-
-                        function displayGreat() {
-                            if (studentReaction == "good") {
-
-                                document.getElementById("face").outerHTML = happy;
-                                document.getElementById("studentCard").style.display = "inital"
-
-                            } else if (studentReaction == "meh") {
-                                document.getElementById("face").outerHTML = meh;
-                                document.getElementById("studentCard").style.display = "none"
-
-
-                            } else if (studentReaction == "needs help") {
-                                document.getElementById("face").outerHTML = sad;
-                                document.getElementById("studentCard").style.display = "none"
-
-
-                            }
-                        }
-
-                            function displayHelp() {
-                                if (studentReaction == "good") {
-
-                                    document.getElementById("face").outerHTML = happy;
-                                    document.getElementById("studentCard").style.display = "none"
-
-                                } else if (studentReaction == "meh") {
-                                    document.getElementById("face").outerHTML = meh;
-                                    document.getElementById("studentCard").style.display = "initial"
-
-
-                                } else if (studentReaction == "needs help") {
-                                    document.getElementById("face").outerHTML = sad;
-                                    document.getElementById("studentCard").style.display = "none"
-
-
-                                }
-
-                            }
-
-                            function displayFrustrated() {
-                                if (studentReaction == "good") {
-
-                                    document.getElementById("face").outerHTML = happy;
-                                    document.getElementById("studentCard").style.display = "none"
-
-                                } else if (studentReaction == "meh") {
-                                    document.getElementById("face").outerHTML = meh;
-                                    document.getElementById("studentCard").style.display = "none"
-
-
-                                } else if (studentReaction == "needs help") {
-                                    document.getElementById("face").outerHTML = sad;
-                                    document.getElementById("studentCard").style.display = "initial"
-
-
-                                }
-
-                            }
-
 
 
                         }
@@ -512,6 +452,21 @@
 
                     </div>
                     <div class="card-body" id="studentsList">
+
+
+                    </div>
+
+                    <div class="card-body" id="studentsListGreat" style="display: none;">
+
+
+                    </div>
+
+                    <div class="card-body" id="studentsListHelp" style="display: none;">
+
+
+                    </div>
+
+                    <div class="card-body" id="studentsListFrustrated" style="display: none;">
 
 
                     </div>
