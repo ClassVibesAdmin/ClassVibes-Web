@@ -272,11 +272,8 @@ function emailSignUp(type){
 
 function googleSignUp(type){
 
-    
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
-
-        console.log("TYPE:" + type);
 
         var user = result.user;
         var email = user.email;
