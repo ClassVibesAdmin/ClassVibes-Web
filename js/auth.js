@@ -347,7 +347,7 @@ facebookSignUp = (type) => {
 
     }).catch(function (err) {
         console.log(err)
-        console.log("Google Sign In Failed")
+        console.log("Facebppl Sign In Failed")
         document.getElementById("alert3").style.display = "initial";
     })
 }
