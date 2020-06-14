@@ -75,27 +75,40 @@ googleSignInStudent = () => {
         var email = user.email;
         var name3 = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-        console.log(formattedEmail1);
-        localStorage.setItem("photo", profilePic);
-        localStorage.setItem("email", formattedEmail1);
-        localStorage.setItem("name", name3);
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
-        console.log(formattedEmail1);
-        console.log(name);
-        _ref.child("display-name").set(name3);
-        _ref.child("email").set(email);
-        _ref.child("username").set(formattedEmail1);
-        localStorage.setItem("email", formattedEmail1);
-        window.location = "/studentDashboard.html";
 
+        var errorMessage = document.getElementById('signupError');
 
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("email");
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            if(exists == null){
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account is not yet registered.
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                
+
+            } else {
+                localStorage.setItem("photo", profilePic);
+                localStorage.setItem("email", formattedEmail);
+                localStorage.setItem("name", name3);
+
+                window.location = "/studentDashboard.html";
+            }
+
+        });
+
+        
 
     }).catch(function (err) {
         console.log(err)
-        console.log("Google Sign In Failed")
-        document.getElementById("alert3").style.display = "initial";
+        console.log("Google Sign In Failed");
     })
 }
 
