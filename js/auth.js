@@ -270,7 +270,7 @@ function emailSignUp(type){
 }
 
 
-function googleSignUp(type){
+googleSignUp = (type) => {
 
     console.log("TYPE:" + type);
 
