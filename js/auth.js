@@ -569,3 +569,67 @@ function loginWithEmailStudent(){
 
 }
 
+function loginWithEmailTeacher(){
+    var email = document.getElementById('inputEmail').value;
+    var password = document.getElementById('inputPassword').value;
+
+    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+    var authValid = true;
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(errorMessage);
+
+        errorHTML = `<div class="alert alert-danger" role="alert"
+        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+        <strong>Error! </strong> Credentials are not valid.
+    </div>`;
+
+            document.getElementById('signupError').innerHTML = errorHTML;
+
+        authValid = false;
+        // ...
+      }).then(() => {
+
+        if(authValid == true){
+
+            var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('Account Type');
+
+            _ref.once('value').then(function (snapshot) {
+                var exists = snapshot.val();
+                console.log(exists);
+
+                if(exists != null){
+                    if(exists == "Teacher"){
+                        console.log('Login Success');
+                        window.location = "dashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                    </div>`;
+    
+                document.getElementById('signupError').innerHTML = errorHTML;
+                
+                    }
+                } else {
+                   
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+            
+                        document.getElementById('signupError').innerHTML = errorHTML; 
+                }
+            });
+            
+        }
+      });
+
+}
+
