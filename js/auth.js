@@ -277,6 +277,7 @@ function googleSignUp(type){
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
 
+        console.log("Google login success:");
 
         var user = result.user;
         var email = user.email;
