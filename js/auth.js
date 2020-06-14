@@ -67,9 +67,7 @@ function facebookLoginStudent() {
                     localStorage.setItem("email", formattedEmail);
                     localStorage.setItem("name", name3);
     
-                    window.location = "/studentDashboard.html";localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", formattedEmail);
-                    localStorage.setItem("name", name3);
+                    window.location = "/studentDashboard.html";
     
                     window.location = "/studentDashboard.html";
                 }else {
@@ -140,9 +138,7 @@ function facebookLoginDistrict() {
                     localStorage.setItem("email", formattedEmail);
                     localStorage.setItem("name", name3);
     
-                    window.location = "/dashboard.html";localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", formattedEmail);
-                    localStorage.setItem("name", name3);
+                    window.location = "/dashboard.html";
     
                     window.location = "/districtDashboard.html";
                 }else {
@@ -210,10 +206,6 @@ function facebookLoginTeacher() {
 
                 if(exists == "Teacher"){
                     localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", formattedEmail);
-                    localStorage.setItem("name", name3);
-    
-                    window.location = "/dashboard.html";localStorage.setItem("photo", profilePic);
                     localStorage.setItem("email", formattedEmail);
                     localStorage.setItem("name", name3);
     
@@ -389,6 +381,8 @@ googleSignInStudent = () => {
                     localStorage.setItem("photo", profilePic);
                     localStorage.setItem("email", formattedEmail);
                     localStorage.setItem("name", name3);
+
+
     
                     window.location = "/studentDashboard.html";
                 }else {
@@ -791,6 +785,7 @@ function loginWithEmailStudent(){
                 if(exists != null){
                     if(exists == "Student"){
                         console.log('Login Success');
+                        localStorage.setItem("email", formattedEmail);
                         window.location = "studentDashboard.html";
                     } else {
 
@@ -854,7 +849,13 @@ function loginWithEmailTeacher(){
 
                 if(exists != null){
                     if(exists == "Teacher"){
+
+
                         console.log('Login Success');
+
+                        localStorage.setItem("email", formattedEmail);
+
+
                         window.location = "dashboard.html";
                     } else {
 
@@ -918,7 +919,12 @@ function loginWithEmailDistrict(){
 
                 if(exists != null){
                     if(exists == "District"){
+
                         console.log('Login Success');
+
+                        localStorage.setItem("email", formattedEmail);
+
+
                         window.location = "districtDashboard.html";
                     } else {
 
@@ -927,7 +933,7 @@ function loginWithEmailDistrict(){
                         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
                     </div>`;
     
-                document.getElementById('signupError').innerHTML = errorHTML;
+                    document.getElementById('signupError').innerHTML = errorHTML;
                 
                     }
                 } else {
