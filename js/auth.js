@@ -105,6 +105,79 @@ function facebookLoginStudent() {
     })
 }
 
+function facebookLoginDistrict() {
+    base_provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
+        var user = result.user;
+        var email = user.email;
+        var name3 = user.displayName;
+        var profilePic = user.photoURL;
+
+        var errorMessage = document.getElementById('signupError');
+
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            console.log(exists);
+
+            if(exists == null){
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                
+
+            } else {
+
+                if(exists == "District"){
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/dashboard.html";localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/districtDashboard.html";
+                }else {
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                }
+                
+            }
+
+        });
+
+        
+
+    }).catch(function (err) {
+
+        var errorMessage = document.getElementById('signupError');
+
+        console.log(err)
+        console.log("Facebook Sign In Failed");
+
+        if(err.code == "auth/account-exists-with-different-credential"){
+            errorHTML = `<div class="alert alert-danger" role="alert" 
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Oops! </strong> An account with this email is already registered.
+        </div>`;
+        
+                errorMessage.innerHTML = errorHTML;
+        }
+    })
+}
+
 function facebookLoginTeacher() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -211,6 +284,59 @@ googleSignInTeacher = () => {
                     localStorage.setItem("name", name3);
     
                     window.location = "/dashboard.html";
+                }else {
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                }
+            }
+
+        });
+
+        
+
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed");
+    })
+}
+
+googleSignInDistrict = () => {
+    base_provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
+        var user = result.user;
+        var email = user.email;
+        var name3 = user.displayName;
+        var profilePic = user.photoURL;
+
+        var errorMessage = document.getElementById('signupError');
+
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            if(exists == null){
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                
+
+            } else {
+                if(exists == "District"){
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/districtDashboard.html";
                 }else {
                     errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
@@ -730,6 +856,70 @@ function loginWithEmailTeacher(){
                     if(exists == "Teacher"){
                         console.log('Login Success');
                         window.location = "dashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                    </div>`;
+    
+                document.getElementById('signupError').innerHTML = errorHTML;
+                
+                    }
+                } else {
+                   
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+            
+                        document.getElementById('signupError').innerHTML = errorHTML; 
+                }
+            });
+            
+        }
+      });
+
+}
+
+function loginWithEmailDistrict(){
+    var email = document.getElementById('inputEmail').value;
+    var password = document.getElementById('inputPassword').value;
+
+    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+    var authValid = true;
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(errorMessage);
+
+        errorHTML = `<div class="alert alert-danger" role="alert"
+        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+        <strong>Error! </strong> Credentials are not valid.
+    </div>`;
+
+            document.getElementById('signupError').innerHTML = errorHTML;
+
+        authValid = false;
+        // ...
+      }).then(() => {
+
+        if(authValid == true){
+
+            var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('Account Type');
+
+            _ref.once('value').then(function (snapshot) {
+                var exists = snapshot.val();
+                console.log(exists);
+
+                if(exists != null){
+                    if(exists == "District"){
+                        console.log('Login Success');
+                        window.location = "districtDashboard.html";
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
