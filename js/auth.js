@@ -269,8 +269,44 @@ function emailSignUp(type){
      }, 500)
 }
 
-
 googleSignUp = (type) => {
+
+    console.log(type);
+    base_provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
+        console.log(result);
+        console.log("Success, Google Account Linked");
+        var user = result.user;
+        var email = user.email;
+        var name3 = user.displayName;
+        var profilePic = user.photoURL;
+        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        console.log(formattedEmail1);
+        localStorage.setItem("photo", profilePic);
+        localStorage.setItem("email", formattedEmail1);
+        localStorage.setItem("name", name3);
+        //var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
+        console.log(formattedEmail1);
+        console.log(name);
+        //_ref.child("display-name").set(name3);
+        //_ref.child("email").set(email);
+        //_ref.child("username").set(formattedEmail1);
+        //localStorage.setItem("email", formattedEmail1);
+        //window.location = "/studentDashboard.html";
+
+
+
+
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed")
+        document.getElementById("alert3").style.display = "initial";
+    })
+}
+
+
+
+test = (type) => {
 
     console.log("TYPE:" + type);
 
