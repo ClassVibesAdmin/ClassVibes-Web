@@ -505,3 +505,32 @@ googleSignUp = (type) => {
     })
 }
 
+function loginWithEmailStudent(){
+    var email = document.getElementById('inputEmail').value;
+    var password = document.getElementById('inputPassword').value;
+
+    var authValid = true;
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        errorHTML = `<div class="alert alert-danger" role="alert"
+        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+        <strong>Error! </strong> Credentials are not valid.
+    </div>`;
+
+            document.getElementById('signupError').innerHTML = errorHTML;
+
+        authValid = false;
+        // ...
+      }).then(() => {
+
+        if(authValid == true){
+
+        }
+      });
+
+}
+
