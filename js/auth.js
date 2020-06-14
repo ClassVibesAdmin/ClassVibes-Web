@@ -271,6 +271,8 @@ function emailSignUp(type){
 
 
 function googleSignUp(type){
+
+    console.log(type);
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
 
@@ -325,6 +327,8 @@ function googleSignUp(type){
                     _ref.child("Account Type").set('District');
                     _ref.child("Account Status").set('Deactivated');
                 }
+
+                console.log('signup success google');
                        
             }
         });
