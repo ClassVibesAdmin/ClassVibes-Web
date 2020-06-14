@@ -535,6 +535,7 @@ function loginWithEmailStudent(){
 
             _ref.once('value').then(function (snapshot) {
                 var exists = snapshot.val();
+                console.log(exists);
 
                 if(exists != null){
                     if(exists == "Student"){
