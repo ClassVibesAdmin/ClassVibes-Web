@@ -280,6 +280,36 @@
 
         }
 
+        function showGreat(){
+            document.getElementById('studentsList').style.display = "none";
+            document.getElementById('studentsListGreat').style.display = "initial";
+            document.getElementById('studentsListHelp').style.display = "none";
+            document.getElementById('studentsListFrustrated').style.display = "none";
+
+        }
+
+        function showHelp(){
+            document.getElementById('studentsList').style.display = "none";
+            document.getElementById('studentsListGreat').style.display = "none";
+            document.getElementById('studentsListHelp').style.display = "initial";
+            document.getElementById('studentsListFrustrated').style.display = "none";
+        }
+
+        function showFrustrated(){
+            document.getElementById('studentsList').style.display = "none";
+            document.getElementById('studentsListGreat').style.display = "none";
+            document.getElementById('studentsListHelp').style.display = "none";
+            document.getElementById('studentsListFrustrated').style.display = "initial";
+        }
+
+        function showAll(){
+            document.getElementById('studentsList').style.display = "initial";
+            document.getElementById('studentsListGreat').style.display = "none";
+            document.getElementById('studentsListHelp').style.display = "none";
+            document.getElementById('studentsListFrustrated').style.display = "none";
+        }
+
+
 
 
 
@@ -432,17 +462,17 @@
                             <h6 class="m-0 font-weight-bold text-primary">Students</h6>
                             <div style="margin-left: 65%;">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-secondary active" onclick="displayAll()">
+                                    <label class="btn btn-secondary active" onclick="showAll()">
                                         <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
                                         All Students
                                     </label>
-                                    <label class="btn btn-secondary" onclick="displayGreat()">
+                                    <label class="btn btn-secondary" onclick="showGreat()">
                                         <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
                                     </label>
-                                    <label class="btn btn-secondary" onclick="displayHelp()">
+                                    <label class="btn btn-secondary" onclick="showHelp()">
                                         <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
                                     </label>
-                                    <label class="btn btn-secondary" onclick="displayFrustrated()">
+                                    <label class="btn btn-secondary" onclick="showFrustrated()">
                                         <input type="radio" name="options" id="frustrated" autocomplete="off">
                                         Frustrated
                                     </label>
