@@ -71,6 +71,9 @@ function facebookLoginStudent() {
         
 
     }).catch(function (err) {
+
+        var errorMessage = document.getElementById('signupError');
+
         console.log(err)
         console.log("Facebook Sign In Failed");
 
