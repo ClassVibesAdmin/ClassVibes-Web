@@ -530,7 +530,7 @@ function loginWithEmailStudent(){
       }).then(() => {
 
         if(authValid == true){
-
+            console.log('Login Success');
         }
       });
 
