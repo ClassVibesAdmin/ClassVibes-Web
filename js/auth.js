@@ -544,20 +544,23 @@ function loginWithEmailStudent(){
                         console.log('Login Success');
                         window.location = "studentDashboard.html";
                     } else {
-                        errorHTML = `<div class="alert alert-danger" role="alert"
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
                         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                        <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                        <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
                     </div>`;
+    
+                document.getElementById('signupError').innerHTML = errorHTML;
                 
-                            document.getElementById('signupError').innerHTML = errorHTML; 
                     }
                 } else {
-                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                   
+                    errorHTML = `<div class="alert alert-danger" role="alert"
                     style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                    <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
                 </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
+            
+                        document.getElementById('signupError').innerHTML = errorHTML; 
                 }
             });
             
