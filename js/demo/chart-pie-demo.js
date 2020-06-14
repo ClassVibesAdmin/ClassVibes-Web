@@ -49,7 +49,7 @@ function getChartData() {
       }],
     },
     options: {
-      maintainAspectRatio: false,000000000
+      maintainAspectRatio: false,
       tooltips: {
         backgroundColor: "rgb(255,255,255)",
         bodyFontColor: "#858796",
