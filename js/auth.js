@@ -44,7 +44,7 @@ function facebookLoginStudent() {
 
         var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("email");
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
         _ref.once('value').then(function (snapshot) {
             var exists = snapshot.val();
@@ -59,11 +59,26 @@ function facebookLoginStudent() {
                 
 
             } else {
-                localStorage.setItem("photo", profilePic);
-                localStorage.setItem("email", formattedEmail);
-                localStorage.setItem("name", name3);
 
-                window.location = "/studentDashboard.html";
+                if(exists == "Student"){
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/studentDashboard.html";localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/studentDashboard.html";
+                }else {
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                }
+                
             }
 
         });
