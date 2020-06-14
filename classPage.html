@@ -222,21 +222,21 @@
                         $(descriptionOutput).appendTo("#studentsList");
 
                         if (studentReaction == "good") {
-                            $(happy).appendTo("#face");
+                            document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput).appendTo("#studentsListGreat");
                             
                         } else if (studentReaction == "meh") {
-                            $(meh).appendTo("#face");
+                            document.getElementById("face").outerHTML = meh;
                             $(descriptionOutput).appendTo("#studentsListHelp");
                             
 
                         } else if (studentReaction == "needs help") {
-                            $(sad).appendTo("#face");
+                            document.getElementById("face").outerHTML = sad;
                             $(descriptionOutput).appendTo("#studentsListFrustrated");
                             
 
                         } else {
-                            $(happy).appendTo("#face");
+                            document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput).appendTo("#studentsListGreat");
                         }
 
