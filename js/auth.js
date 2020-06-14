@@ -269,40 +269,6 @@ function emailSignUp(type){
      }, 500)
 }
 
-test = (type) => {
-
-    console.log(type);
-    base_provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(base_provider).then(function (result) {
-        console.log(result);
-        console.log("Success, Google Account Linked");
-        var user = result.user;
-        var email = user.email;
-        var name3 = user.displayName;
-        var profilePic = user.photoURL;
-        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-        console.log(formattedEmail1);
-        localStorage.setItem("photo", profilePic);
-        localStorage.setItem("email", formattedEmail1);
-        localStorage.setItem("name", name3);
-        //var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
-        console.log(formattedEmail1);
-        console.log(name);
-        //_ref.child("display-name").set(name3);
-        //_ref.child("email").set(email);
-        //_ref.child("username").set(formattedEmail1);
-        //localStorage.setItem("email", formattedEmail1);
-        //window.location = "/studentDashboard.html";
-
-
-
-
-    }).catch(function (err) {
-        console.log(err)
-        console.log("Google Sign In Failed")
-        document.getElementById("alert3").style.display = "initial";
-    })
-}
 
 
 
@@ -372,19 +338,17 @@ googleSignUp = (type) => {
                 console.log('signup success google');
 
                 setTimeout(() => { 
-                    document.getElementById('signup-btn-text').style.display = "initial";
-                    document.getElementById('signup-btn-main-button').disabled = false;
-                    document.getElementById('btn-loading').style.display = "none";
-                 }, 500)
+                    var signUpPage = document.getElementById('signup-page-full');
+
+                    signUpPage.style.display = "none";
+    
+                    var successPage = document.getElementById('signup-success-form');
+    
+                    successPage.style.display = "initial";
+                 }, 200)
                        
             }
         });
-
-        //var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
-
-       // _ref.child("display-name").set(displayName);
-       // _ref.child("email").set(email);
-       // _ref.child("username").set(formattedEmail1);
 
 
     }).catch(function (err) {
