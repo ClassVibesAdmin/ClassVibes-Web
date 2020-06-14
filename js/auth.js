@@ -80,7 +80,7 @@ function facebookLoginStudent() {
         if(err.code == "auth/account-exists-with-different-credential"){
             errorHTML = `<div class="alert alert-danger" role="alert" 
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> An account with this email is already registered. <a href = "signup.html">Sign Up</a>
+            <strong>Oops! </strong> An account with this email is already registered.
         </div>`;
         
                 errorMessage.innerHTML = errorHTML;
