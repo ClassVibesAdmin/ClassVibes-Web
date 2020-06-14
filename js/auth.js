@@ -105,6 +105,60 @@ function facebookLoginStudent() {
     })
 }
 
+googleSignInTeacher = () => {
+    base_provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
+        var user = result.user;
+        var email = user.email;
+        var name3 = user.displayName;
+        var profilePic = user.photoURL;
+
+        var errorMessage = document.getElementById('signupError');
+
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            if(exists == null){
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                
+
+            } else {
+                if(exists == "Teacher"){
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", formattedEmail);
+                    localStorage.setItem("name", name3);
+    
+                    window.location = "/dashboard.html";
+                }else {
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+            </div>`;
+            
+                    errorMessage.innerHTML = errorHTML;
+                }
+            }
+
+        });
+
+        
+
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed");
+    })
+}
+
+
 googleSignInStudent = () => {
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -134,10 +188,6 @@ googleSignInStudent = () => {
             } else {
                 if(exists == "Student"){
                     localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", formattedEmail);
-                    localStorage.setItem("name", name3);
-    
-                    window.location = "/studentDashboard.html";localStorage.setItem("photo", profilePic);
                     localStorage.setItem("email", formattedEmail);
                     localStorage.setItem("name", name3);
     
