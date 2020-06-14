@@ -530,8 +530,34 @@ function loginWithEmailStudent(){
       }).then(() => {
 
         if(authValid == true){
-            console.log('Login Success');
-            window.location = "studentDashboard.html";
+
+            var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('Account Type');
+
+            _ref.once('value').then(function (snapshot) {
+                var exists = snapshot.val();
+
+                if(exists != null){
+                    if(exists == "Student"){
+                        console.log('Login Success');
+                        window.location = "studentDashboard.html";
+                    } else {
+                        errorHTML = `<div class="alert alert-danger" role="alert"
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                    </div>`;
+                
+                            document.getElementById('signupError').innerHTML = errorHTML; 
+                    }
+                } else {
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                </div>`;
+
+            document.getElementById('signupError').innerHTML = errorHTML;
+                }
+            });
+            
         }
       });
 
