@@ -49,6 +49,8 @@ function facebookLoginStudent() {
         _ref.once('value').then(function (snapshot) {
             var exists = snapshot.val();
 
+            console.log(exists);
+
             if(exists == null){
                 errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
