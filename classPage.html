@@ -179,7 +179,7 @@
                                     <h4>${studentName}</h4>
                                 </div>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>
-                                <i style="margin-right: 30px;" id = "face"></i>
+                                <div style="margin-right: 25px;" id = "face"></div>
 
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -222,21 +222,21 @@
                         $(descriptionOutput).appendTo("#studentsList");
 
                         if (studentReaction == "good") {
-                            document.getElementById("face").outerHTML = happy;
+                            $(happy).appendTo("#face");
                             $(descriptionOutput).appendTo("#studentsListGreat");
                             
                         } else if (studentReaction == "meh") {
-                            document.getElementById("face").outerHTML = meh;
+                            $(meh).appendTo("#face");
                             $(descriptionOutput).appendTo("#studentsListHelp");
                             
 
                         } else if (studentReaction == "needs help") {
-                            document.getElementById("face").outerHTML = sad;
+                            $(sad).appendTo("#face");
                             $(descriptionOutput).appendTo("#studentsListFrustrated");
                             
 
                         } else {
-                            document.getElementById("face").outerHTML = happy;
+                            $(happy).appendTo("#face");
                             $(descriptionOutput).appendTo("#studentsListGreat");
                         }
 
