@@ -285,7 +285,15 @@ function googleSignUp(){
         _ref.once('value').then(function (snapshot) {
             var value = snapshot.val();
 
-            console.log("EXISTS:" + value);
+            if(value != null || value != undefined){
+
+                errorHTML = `<div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Error! </strong> An account with this email already exists
+        </div>`;
+
+                document.getElementById('signupError').innerHTML = errorHTML;
+            }
         });
 
         //var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
