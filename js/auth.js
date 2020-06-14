@@ -333,6 +333,12 @@ function googleSignUp(type){
                 }
 
                 console.log('signup success google');
+
+                setTimeout(() => { 
+                    document.getElementById('signup-btn-text').style.display = "initial";
+                    document.getElementById('signup-btn-main-button').disabled = false;
+                    document.getElementById('btn-loading').style.display = "none";
+                 }, 500)
                        
             }
         });
