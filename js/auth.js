@@ -88,7 +88,7 @@ googleSignInStudent = () => {
             if(exists == null){
                 errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account is not yet registered.
+                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
             </div>`;
             
                     errorMessage.innerHTML = errorHTML;
