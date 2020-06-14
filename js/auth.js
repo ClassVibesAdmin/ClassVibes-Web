@@ -269,7 +269,7 @@ function emailSignUp(type){
      }, 500)
 }
 
-googleSignUp = (type) => {
+test = (type) => {
 
     console.log(type);
     base_provider = new firebase.auth.GoogleAuthProvider();
@@ -306,7 +306,7 @@ googleSignUp = (type) => {
 
 
 
-test = (type) => {
+googleSignUp = (type) => {
 
     console.log("TYPE:" + type);
 
