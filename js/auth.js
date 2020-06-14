@@ -97,8 +97,6 @@ googleSignInStudent = () => {
         console.log("Google Sign In Failed")
         document.getElementById("alert3").style.display = "initial";
     })
-
-
 }
 
 const btnLogout = document.getElementById("btnLogout");
@@ -269,9 +267,38 @@ function emailSignUp(type){
         document.getElementById('signup-btn-main-button').disabled = false;
         document.getElementById('btn-loading').style.display = "none";
      }, 500)
+}
 
 
+function googleSignUp(){
+    base_provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
 
-   
+        var user = result.user;
+        var email = user.email;
+        var displayName = user.displayName;
+        var profilePic = user.photoURL;
+        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail1).child('email');
+
+        _ref.once('value').then(function (snapshot) {
+            var value = snapshot.val();
+
+            console.log("EXISTS:" + value);
+        });
+
+        //var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
+
+       // _ref.child("display-name").set(displayName);
+       // _ref.child("email").set(email);
+       // _ref.child("username").set(formattedEmail1);
+
+
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed")
+        document.getElementById("alert3").style.display = "initial";
+    })
 }
 

@@ -130,6 +130,19 @@ body
     width: 48%;
   }
 
+  .google-btn:hover
+  {
+    border: none;
+    outline: none;
+    background-color: rgb(207, 98, 89);
+  }
+
+  .google-btn:focus
+  {
+    border: none;
+    outline: none;
+  }
+
   .sign-up-btn
   {
     background-color: royalblue;
