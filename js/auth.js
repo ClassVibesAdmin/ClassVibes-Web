@@ -140,8 +140,6 @@ function checkServerStatus(signInType){
 
 function emailSignUp(type){
 
-    console.log(type);
-
     document.getElementById('signup-btn-text').style.display = "none";
     document.getElementById('signup-btn-main-button').disabled = true;
     document.getElementById('btn-loading').style.display = "initial";
@@ -270,7 +268,89 @@ function emailSignUp(type){
 }
 
 
+facebookSignUp = (type) => {
 
+    base_provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(base_provider).then(function (result) {
+
+        console.log("Facebook login success:");
+
+        var user = result.user;
+        var email = user.email;
+        var displayName = user.displayName;
+        var profilePic = user.photoURL;
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
+
+        _ref.once('value').then(function (snapshot) {
+            var value = snapshot.val();
+
+            console.log("EXISTS:" + value);
+
+            if(value != null || value != undefined){
+
+                errorHTML = `<div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Error! </strong> An account with this email already exists
+        </div>`;
+
+                document.getElementById('signupError').innerHTML = errorHTML;
+            } else {
+
+                if(type == "student"){
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('Student');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+
+                else if(type == 'teacher'){
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('Teacher');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+
+                else if(type == 'district'){
+
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('District');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+
+                console.log('signup success google');
+
+                setTimeout(() => { 
+                    var signUpPage = document.getElementById('signup-page-full');
+
+                    signUpPage.style.display = "none";
+    
+                    var successPage = document.getElementById('signup-success-form');
+    
+                    successPage.style.display = "initial";
+                 }, 200)
+                       
+            }
+        });
+
+
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed")
+        document.getElementById("alert3").style.display = "initial";
+    })
+}
 
 googleSignUp = (type) => {
 
