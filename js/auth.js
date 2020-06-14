@@ -287,6 +287,8 @@ function googleSignUp(type){
         _ref.once('value').then(function (snapshot) {
             var value = snapshot.val();
 
+            console.log("EXISTS:" + value);
+
             if(value != null || value != undefined){
 
                 errorHTML = `<div class="alert alert-danger" role="alert"
