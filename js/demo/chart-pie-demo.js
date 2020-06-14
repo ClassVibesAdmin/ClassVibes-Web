@@ -3,16 +3,18 @@ function getChartData() {
 
   var code = localStorage.getItem("codeForChart");
 
-  var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Student Reactions");
+  var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
   _chartDataRef.on('value', get);
 
   function get(snapshot){
+    
     var studentsReactionLists = [0,0,0];
   
       console.log(snapshot.val());
   
       if(snapshot.val() != null){
         snapshot.forEach((child) => {
+          
           console.log(child);
           if(child.child("Reaction").val() == "good"){
             studentsReactionLists[0] = studentsReactionLists[0] + 1;
