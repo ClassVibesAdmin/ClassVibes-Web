@@ -270,7 +270,7 @@ function emailSignUp(type){
 }
 
 
-function googleSignUp(){
+function googleSignUp(type){
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
 
@@ -278,9 +278,9 @@ function googleSignUp(){
         var email = user.email;
         var displayName = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail1).child('email');
+        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
 
         _ref.once('value').then(function (snapshot) {
             var value = snapshot.val();
@@ -293,6 +293,39 @@ function googleSignUp(){
         </div>`;
 
                 document.getElementById('signupError').innerHTML = errorHTML;
+            } else {
+
+                if(type == "student"){
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('Student');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+
+                else if(type == 'teacher'){
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('Teacher');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+
+                else if(type == 'district'){
+
+                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
+                    console.log(formattedEmail);
+                    _ref.child("display-name").set(displayName);
+                    _ref.child("email").set(email);
+                    _ref.child("username").set(formattedEmail);
+                    _ref.child("Account Type").set('District');
+                    _ref.child("Account Status").set('Deactivated');
+                }
+                       
             }
         });
 

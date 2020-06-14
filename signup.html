@@ -126,8 +126,8 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
         </section>
 
-        <div style="margin-left: 4%;">
-
+        <section id="studentsInfo-mediaLogin">
+          <div style="margin-left: 4%;">
           <div class="container" style="margin-top: 5%;">
 
             <div class="row">
@@ -137,13 +137,59 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
               </button>
 
 
-              <button class="google-btn" onclick="googleSignUp()">
+              <button class="google-btn" onclick="googleSignUp('student')">
                 <i class="fa fa-google fa-fw"></i> Login with Google
               </button>
 
             </div>
 
           </div>
+        </div>
+      </section>
+
+      <section id="teacherInfo-mediaLogin" style="display: none;">
+        <div style="margin-left: 4%;">
+        <div class="container" style="margin-top: 5%;">
+
+          <div class="row">
+
+            <button class="fb-btn">
+              <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+            </button>
+
+
+            <button class="google-btn" onclick="googleSignUp('teacher')">
+              <i class="fa fa-google fa-fw"></i> Login with Google
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="districtInfo-mediaLogin" style="display: none;">
+      <div style="margin-left: 4%;">
+      <div class="container" style="margin-top: 5%;">
+
+        <div class="row">
+
+          <button class="fb-btn">
+            <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+          </button>
+
+
+          <button class="google-btn" onclick="googleSignUp('district')">
+            <i class="fa fa-google fa-fw"></i> Login with Google
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+        <div style="margin-left: 4%;">
 
           <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -191,10 +237,6 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
               
             </button>
           </div>
-
-
-
-
         </section>
 
         <section id="teacherInfo" style="display: none;">
@@ -266,21 +308,30 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
         if (selected == 'student') {
           document.getElementById("studentsInfo").style.display = "initial";
+          document.getElementById("studentsInfo-mediaLogin").style.display = "initial";
           document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("teacherInfo-mediaLogin").style.display = "none";
           document.getElementById("districtInfo").style.display = "none";
+          document.getElementById("districtInfo-mediaLogin").style.display = "none";
         }
 
 
         if (selected == 'teacher') {
           document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("studentsInfo-mediaLogin").style.display = "none";
           document.getElementById("teacherInfo").style.display = "initial";
+          document.getElementById("teacherInfo-mediaLogin").style.display = "initial";
           document.getElementById("districtInfo").style.display = "none";
+          document.getElementById("districtInfo-mediaLogin").style.display = "none";
         }
 
         if (selected == 'district') {
           document.getElementById("studentsInfo").style.display = "none";
+          document.getElementById("studentsInfo-mediaLogin").style.display = "none";
           document.getElementById("teacherInfo").style.display = "none";
+          document.getElementById("teacherInfo-mediaLogin").style.display = "none";
           document.getElementById("districtInfo").style.display = "initial";
+          document.getElementById("districtInfo-mediaLogin").style.display = "initial";
         }
 
       }
