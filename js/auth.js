@@ -516,6 +516,8 @@ function loginWithEmailStudent(){
         var errorCode = error.code;
         var errorMessage = error.message;
 
+        console.log(errorMessage);
+
         errorHTML = `<div class="alert alert-danger" role="alert"
         style="margin-top: 20px; width: 94%; margin-left: 6%;">
         <strong>Error! </strong> Credentials are not valid.
