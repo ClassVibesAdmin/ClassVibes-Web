@@ -348,7 +348,12 @@ facebookSignUp = (type) => {
     }).catch(function (err) {
         console.log(err)
         console.log("Facebppl Sign In Failed")
-        document.getElementById("alert3").style.display = "initial";
+        errorHTML = `<div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            <strong>Error! </strong> An account with this email already exists
+        </div>`;
+
+                document.getElementById('signupError').innerHTML = errorHTML;
     })
 }
 
@@ -434,7 +439,6 @@ googleSignUp = (type) => {
     }).catch(function (err) {
         console.log(err)
         console.log("Google Sign In Failed")
-        document.getElementById("alert3").style.display = "initial";
     })
 }
 
