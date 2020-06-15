@@ -389,7 +389,7 @@ function createSchool() {
     
             console.log(schoolCode);
     
-            var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools');
+            var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(schoolCode);
     
             _ref.once('value').then(function (snapshot) {
                 var exists = snapshot.val();
