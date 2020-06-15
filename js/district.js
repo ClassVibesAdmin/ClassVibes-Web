@@ -247,6 +247,32 @@ function getDistrictData(code){
         }
     });
 
+    //PLAN DETAILS GET
+
+    var _planDetailsRef = firebase.database().ref().child('Districts').child(code).child("Plan Details");
+
+    _planDetailsRef.once('value').then(function (snapshot) {
+
+        var value = snapshot.val();
+
+        var planActivated = snapshot.child("Plan Activated").val();
+        var planExpires = snapshot.child("Plan Expires").val();
+        var planName = snapshot.child("Plan Name").val();
+        var planStatus = snapshot.child("Plan Status").val();
+
+        if(planStatus == null || planStatus == undefined){
+            $('#planStatus').html(`<span class="badge badge-danger" >Inactive</span>`);
+
+        } else {
+            
+            $('#planStatus').html(`<span class="badge badge-success" >${planStatus}</span>`);
+            $('#activatedDate').text(planActivated);
+            $('#expireDate').text(planExpires);
+            $('#planName').html(`<span class="badge badge-success" >${planStatus}</span>`);
+
+        }
+    });
+
     
 
 
