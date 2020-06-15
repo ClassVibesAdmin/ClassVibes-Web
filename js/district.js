@@ -172,14 +172,16 @@ function getDistrictData(code){
         var value = snapshot.val();
 
         if(value == null || value == undefined){
-            students = 12;
+            students = 0;
             _studentRef.set(students);
         } else {
             students = snapshot.val();
+
+            $('#studentsCount').text(students);
         }
     });
 
-    $('#studentsCount').text(students);
+    
 
 
 }
