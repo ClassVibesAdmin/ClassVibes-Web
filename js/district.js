@@ -14,6 +14,8 @@ function validateAccountState(page) {
         } else if (snapshot.val() == "Activated") {
 
             if (page == 'dashboard') {
+                getDistrictID();
+
                 getDistrictStatus();
             }
 
@@ -24,6 +26,8 @@ function validateAccountState(page) {
             }
 
             if(page == "schoolsPage"){
+                getDistrictID();
+
                 getSchoolStatusManageSchoolsScreen();
             }
 
@@ -65,6 +69,9 @@ function getSchoolStatusManageSchoolsScreen(){
     _ref.once('value').then(function (snapshot) {
         if (snapshot.exists()) {
             alert('exists');
+            console.log("exists");
+          } else {
+              console.log("none");
           }
     });
 }
