@@ -379,7 +379,10 @@
                   <div class="card-body">
                     <div class="chart-area">
                       <canvas id="myAreaChart"></canvas>
+                      
+                      
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -407,7 +410,26 @@
                     <div class="chart-pie pt-4 pb-2">
                       <canvas id="myPieChart"></canvas>
                     </div>
+                    <center>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+                        <label class="btn btn-primary active" onclick="showAll()">
+                            <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
+                            All Students
+                        </label>
+                        <label class="btn btn-success" onclick="showGreat()">
+                            <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
+                        </label>
+                        <label class="btn btn-warning" onclick="showHelp()">
+                            <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
+                        </label>
+                        <label class="btn btn-danger" onclick="showFrustrated()">
+                            <input type="radio" name="options" id="frustrated" autocomplete="off">
+                            Frustrated
+                        </label>
+                    </div>
+                    </center>
                     <div class="mt-4 text-center small">
+                      
                       <span class="mr-2">
                         <i class="fas fa-circle text-success"></i> Good
                       </span>
@@ -417,6 +439,7 @@
                       <span class="mr-2">
                         <i class="fas fa-circle text-danger"></i> Needs Help
                       </span>
+                      
                     </div>
                   </div>
                 </div>
