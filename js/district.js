@@ -142,3 +142,7 @@ function createDistrict(){
         });
     }
 }
+
+function getDistrictData(){
+    
+}
