@@ -357,18 +357,13 @@ async function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
-    $.when(inputDistrictID()).then(afterDistrictID());
-
     var districtID = "";
 
-
-    function inputDistrictID(){
         districtID = getDistrictID();
 
-        setTimeout(() => {}, 500).then(() => {console.log("done");})
-
-
-    }
+        setTimeout(() => {
+            afterDistrictID
+        }, 500)
 
     function afterDistrictID(){
         console.log(districtID);
