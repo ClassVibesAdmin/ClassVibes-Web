@@ -59,14 +59,7 @@
     <script>
         $(document).ready(async function (){
 
-            var funcResult = await validateAccountState();
-
-            console.log(funcResult);
-
-            if(funcResult == "Activated"){
-                getDistrictStatus();
-            }
-            
+           validateAccountState('dashboard');
             
         });
     </script>

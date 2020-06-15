@@ -1,5 +1,5 @@
 
-function validateAccountState(){
+function validateAccountState(page){
     var email = localStorage.getItem('email');
 
     var _ref = firebase.database().ref().child("UserData").child(email).child('Account Status');
@@ -12,7 +12,11 @@ function validateAccountState(){
             return "Deactivated";
 
         } else if(snapshot.val() == "Activated"){
-            
+
+            if(page == 'dashboard'){
+                getDistrictStatus();
+            }
+
             return "Activated";
         }
     });
