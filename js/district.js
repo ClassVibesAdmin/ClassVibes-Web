@@ -359,13 +359,13 @@ async function createSchool() {
 
     var districtID = "";
 
-        districtID = getDistrictID();
+    districtID = getDistrictID();
 
-        setTimeout(() => {
-            afterDistrictID();
-        }, 500)
+    setTimeout(() => {
+        afterDistrictID(districtID);
+    }, 500)
 
-    function afterDistrictID(){
+    function afterDistrictID(districtID){
         console.log(districtID);
 
         if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
