@@ -357,16 +357,9 @@ function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
-    function inputDistrictID(){
-        var districtID = getDistrictID();
 
-        return districtID;
-    }
+    afterDistrictID(getDistrictID());
 
-    $.when( inputDistrictID() ).done(function(val) {
-        console.log(val);
-        afterDistrictID(val);
- });
  
     function afterDistrictID(districtID){
         console.log(districtID);
