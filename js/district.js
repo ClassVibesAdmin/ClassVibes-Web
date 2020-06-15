@@ -268,7 +268,7 @@ function getDistrictData(code){
             $('#planStatus').html(`<span class="badge badge-success" >${planStatus}</span>`);
             $('#activatedDate').text(planActivated);
             $('#expireDate').text(planExpires);
-            $('#planName').html(`<span class="badge badge-success" >${planStatus}</span>`);
+            $('#planName').html(`<span class="badge badge-warning" >${planName}</span>`);
 
         }
     });
