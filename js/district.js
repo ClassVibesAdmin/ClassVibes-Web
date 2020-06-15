@@ -270,6 +270,22 @@ function getDistrictData(code){
             $('#expireDate').text(planExpires);
             $('#planName').html(`<span class="badge badge-warning" >${planName}</span>`);
 
+            function dateDiffInDays(date1, date2) {
+                // round to the nearest whole number
+                return Math.round((date2-date1)/(1000*60*60*24));
+            }
+            var totalDays=dateDiffInDays(new Date(planExpires), new Date(planActivated));
+
+            var untilExpireDays=dateDiffInDays(new Date(untilExpireDays), new Date(planActivated));
+
+            if(totalDays == 0){
+                console.log("PLAN EXPIRED");
+            }
+
+            console.log(totalDays);
+
+
+            console.log(untilExpireDays);
         }
     });
 
