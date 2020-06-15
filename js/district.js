@@ -364,11 +364,15 @@ async function createSchool() {
 
     function inputDistrictID(){
         districtID = getDistrictID();
+
+        setTimeout(() => { alert('Hello') }, 500)
+
+
     }
 
     function afterDistrictID(){
         console.log(districtID);
-        
+
         if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
 
             var errorHTML = `
