@@ -213,6 +213,23 @@ function getDistrictData(code){
         }
     });
 
+    //PENDING REQUESTS GET
+
+    var _pendingRequestsRef = firebase.database().ref().child('Districts').child(code).child("Pending Requests");
+
+    _pendingRequestsRef.once('value').then(function (snapshot) {
+        var value = snapshot.val();
+
+        if(value == null || value == undefined){
+            pendingTeacherRequests = 0;
+            _pendingRequestsRef.set(pendingTeacherRequests);
+        } else {
+            pendingTeacherRequests = snapshot.val();
+
+            $('#pendingRequests').html(`${pendingTeacherRequests} <span class="badge badge-warning" style="padding-top: -6px;">New</span>`);
+        }
+    });
+
     
 
 
