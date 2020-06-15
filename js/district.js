@@ -444,6 +444,23 @@ function createSchool() {
     
                 }
             }).then(() => {
+
+                var _ref1 = firebase.database().ref().child('Districts').child(districtID).child("Schools Count");
+
+                _ref1.once('value').then(function (snapshot) {
+                    if(snapshot.val() == null || snapshot.val() == undefined){
+                        _ref1.set("1");
+                    } else {
+                        var value = snapshot.val();
+
+                        _ref1.set(Number(value));
+
+
+                    }
+                });
+
+
+
                 var _ref = firebase.database().ref().child('Districts').child(districtID).child("Schools").child(schoolCode);
     
                 _ref.child("School Name").set(schoolName);
