@@ -12,6 +12,7 @@ function validateAccountState(){
             return "Deactivated";
 
         } else if(snapshot.val() == "Activated"){
+            
             return "Activated";
         }
     });

@@ -59,31 +59,15 @@
     <script>
         $(document).ready(function () {
 
-            var funcResult = "";
+            var funcResult = await validateAccountState();
 
-            function validate() {
-                return new Promise(resolve => {
-                    funcResult = validateAccountState();
+            console.log(funcResult);
 
-                    console.log(funcResult);
-                    resolve('resolved');
-                });
-            }
-
-            //async function:
-            async function asyncCall() {
-
-                const result = await validate();
-
-                console.log(result);
-                // expected output: 'resolved'
-
-                if (funcResult == 'Activated') {
+            if(funcResult == "Activated"){
                 getDistrictStatus();
             }
-            }
-
-            asyncCall();
+            
+            
         });
     </script>
 
