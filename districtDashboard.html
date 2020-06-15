@@ -57,7 +57,7 @@
     <script>
     $( document ).ready(function() {
 
-        validateAccountState().then((val) => {
+        validateAccountState().then(function(val) {
             if(val == 'Activated'){
                 getDistrictStatus();
             }
