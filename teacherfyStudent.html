@@ -495,6 +495,8 @@
                   <select id="classesTeacherfy">
                     
                   </select>
+                  <progress value="0" max="100" id="uploader">0%</progress>
+                  <input type="file" value="upload" id="fileButton">
 
 
 
@@ -601,11 +603,38 @@
               OverconstrainedError - constraint video settings preventing
               TypeError - audio: false, video: false
               *********************************/
+
+              var uploader = document.getElementById('uploader');
+              var fileButton = document.getElementById('fileButton');
+
+              fileButton.addEventListener('change', function(e) {
+                var file = e.target.files[0]
+
+                firebase.storage().ref('class_images/' + file.name)
+
+                var task = storageRef.put(file);
+
+                task.on('state_change',
+                  function progress(snapshot) {
+                    var percentage = (snapshot.bytesTransferres/snapshot.totalBytes) * 100;
+                    uploader.value = percentage;
+
+                  },
+
+                  function error(err) {
+
+                  },
+
+                  function complete() {
+
+                  }
+                )
+              }
           </script>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Upload!</button>
+          <button type="button" class="btn btn-primary" id = "uploadVideo">Upload!</button>
         </div>
       </div>
     </div>
