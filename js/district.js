@@ -19,7 +19,7 @@ function validateAccountState(page) {
                 getDistrictStatus();
             }
 
-            if (page = 'createPage') {
+            if (page == 'createPage') {
                 getDistrictStatusCreatePage();
 
                  getDistrictID();
@@ -63,6 +63,8 @@ function getDistrictStatus() {
 
 function getSchoolStatusManageSchoolsScreen(){
     var districtID = localStorage.getItem('district id');
+
+    console.log("TESTING...");
 
     var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools');
 
