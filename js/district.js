@@ -43,7 +43,7 @@ function getDistrictStatus(){
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
             snapshot.forEach((child) => {
-                console.log("CHILD:" + child);
+                console.log(child);
                 getDistrictData(child.child('Code'));
             });
             
