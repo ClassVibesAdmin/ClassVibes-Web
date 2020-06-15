@@ -22,7 +22,7 @@ function getDistrictStatus(){
 
     _ref.once('value').then(function (snapshot) {
         if(snapshot.val() == null){
-            document.getElementById('createDistrictOptions').style.display = "initial";
+            document.getElementById('createDistrictOptions').style.display = "nonen";
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
         }
