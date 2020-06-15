@@ -1,23 +1,23 @@
 
-function validateAccountState(page){
+function validateAccountState(page) {
     var email = localStorage.getItem('email');
 
     var _ref = firebase.database().ref().child("UserData").child(email).child('Account Status');
 
     _ref.once('value').then(function (snapshot) {
-        if(snapshot.val() == "Deactivated"){
+        if (snapshot.val() == "Deactivated") {
             document.getElementById('deactivatedAccountSection').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
 
             return "Deactivated";
 
-        } else if(snapshot.val() == "Activated"){
+        } else if (snapshot.val() == "Activated") {
 
-            if(page == 'dashboard'){
+            if (page == 'dashboard') {
                 getDistrictStatus();
             }
 
-            if(page = 'createPage'){
+            if (page = 'createPage') {
                 getDistrictStatusCreatePage();
             }
 
@@ -26,7 +26,7 @@ function validateAccountState(page){
     });
 }
 
-function getDistrictStatus(){
+function getDistrictStatus() {
     var email = localStorage.getItem('email');
 
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
@@ -35,9 +35,9 @@ function getDistrictStatus(){
 
 
 
-        
 
-        if(snapshot.val() == null){
+
+        if (snapshot.val() == null) {
             document.getElementById('createDistrictOptions').style.display = "initial";
             document.getElementById('districtInfo-stats').style.display = "none";
         } else {
@@ -55,7 +55,28 @@ function getDistrictStatus(){
     });
 }
 
-function getDistrictStatusCreatePage(){
+function getDistrictID() {
+    var email = localStorage.getItem('email');
+
+    var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
+
+    _ref.once('value').then(function (snapshot) {
+
+        if (snapshot.val() == null) {
+            return null;
+        } else {
+            var key = 0;
+
+            snapshot.forEach((child) => {
+                key = child.child('Code').val();
+            });
+
+            return key;
+        }
+    });
+}
+
+function getDistrictStatusCreatePage() {
     var email = localStorage.getItem('email');
 
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
@@ -63,7 +84,7 @@ function getDistrictStatusCreatePage(){
     _ref.once('value').then(function (snapshot) {
         //console.log(snapshot.val());
 
-        if(snapshot.val() == null){
+        if (snapshot.val() == null) {
             document.getElementById('createDistrict-page').style.display = "initial";
             document.getElementById('quotaReached').style.display = "none";
         } else {
@@ -73,7 +94,7 @@ function getDistrictStatusCreatePage(){
     });
 }
 
-function createDistrict(){
+function createDistrict() {
 
     var userEmail = localStorage.getItem('email');
     var name = document.getElementById('districtName').value;
@@ -86,7 +107,7 @@ function createDistrict(){
 
     var errorMessage = document.getElementById('districtCreateError');
 
-    if(name,email,website,headOffice,headEmail,phone,socialMedia == ""){
+    if (name, email, website, headOffice, headEmail, phone, socialMedia == "") {
 
         var errorHTML = `
         <div class="alert alert-danger" role="alert"
@@ -96,7 +117,7 @@ function createDistrict(){
         `;
 
         errorMessage.innerHTML = errorHTML;
-        
+
     } else {
         errorMessage.innerHTML = "";
 
@@ -109,14 +130,14 @@ function createDistrict(){
         _ref.once('value').then(function (snapshot) {
             var exists = snapshot.val();
 
-            while(exists != null){
+            while (exists != null) {
 
-                function generateNew(){
+                function generateNew() {
                     _newRef.once('value').then(function (snapshot) {
-                        if(snapshot.val() == null){
+                        if (snapshot.val() == null) {
                             code = newCode;
                             return true;
-                        }else {
+                        } else {
                             return false;
                         }
                     });
@@ -130,10 +151,10 @@ function createDistrict(){
 
                 var newCode = generateNew();
 
-                if(newCode == true){
+                if (newCode == true) {
                     break
                 }
-                
+
 
             }
         }).then(() => {
@@ -156,7 +177,7 @@ function createDistrict(){
     }
 }
 
-function getDistrictData(code){
+function getDistrictData(code) {
     var students = 0;
     var teachers = 0;
     var schools = 0;
@@ -171,7 +192,7 @@ function getDistrictData(code){
     _districtNameRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined){
+        if (value == null || value == undefined) {
             $('#districtName').text("Loading...");
         } else {
             districtName = snapshot.val();
@@ -186,7 +207,7 @@ function getDistrictData(code){
     _studentRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined){
+        if (value == null || value == undefined) {
             students = 0;
             _studentRef.set(students);
         } else {
@@ -203,7 +224,7 @@ function getDistrictData(code){
     _teacherRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined){
+        if (value == null || value == undefined) {
             teachers = 0;
             _teacherRef.set(teachers);
         } else {
@@ -220,7 +241,7 @@ function getDistrictData(code){
     _schoolsRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined){
+        if (value == null || value == undefined) {
             schools = 0;
             _schoolsRef.set(schools);
         } else {
@@ -237,7 +258,7 @@ function getDistrictData(code){
     _pendingRequestsRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined || value == 0){
+        if (value == null || value == undefined || value == 0) {
             pendingTeacherRequests = 0;
             _pendingRequestsRef.set(pendingTeacherRequests);
         } else {
@@ -260,11 +281,11 @@ function getDistrictData(code){
         var planName = snapshot.child("Plan Name").val();
         var planStatus = snapshot.child("Plan Status").val();
 
-        if(planStatus == null || planStatus == undefined || planStatus == "Deactivated"){
+        if (planStatus == null || planStatus == undefined || planStatus == "Deactivated") {
             $('#planStatus').html(`<span class="badge badge-danger" >Inactive</span>`);
 
         } else {
-            
+
             $('#planStatus').html(`<span class="badge badge-success" >${planStatus}</span>`);
             $('#activatedDate').text(planActivated);
             $('#expireDate').text(planExpires);
@@ -272,21 +293,21 @@ function getDistrictData(code){
 
             function dateDiffInDays(date1, date2) {
                 // round to the nearest whole number
-                return Math.round((date2-date1)/(1000*60*60*24));
+                return Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
             }
-            var totalDays=dateDiffInDays(new Date(planActivated), new Date(planExpires));
+            var totalDays = dateDiffInDays(new Date(planActivated), new Date(planExpires));
 
             var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); 
-var yyyy = today.getFullYear();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
 
-today = mm + '/' + dd + '/' + yyyy;
+            today = mm + '/' + dd + '/' + yyyy;
 
 
-            var untilExpireDays=dateDiffInDays(new Date(today), new Date(planExpires));
+            var untilExpireDays = dateDiffInDays(new Date(today), new Date(planExpires));
 
-            if(totalDays == 0){
+            if (totalDays == 0) {
                 console.log("PLAN EXPIRED");
             }
 
@@ -295,15 +316,121 @@ today = mm + '/' + dd + '/' + yyyy;
 
             console.log("DAYS LEFT: " + untilExpireDays);
 
-            var percentage = Math.round((untilExpireDays/totalDays)*100);
+            var percentage = Math.round((untilExpireDays / totalDays) * 100);
 
-          console.log(percentage + "%");
+            console.log(percentage + "%");
 
-          document.getElementById('percentageBar').style.width = percentage + "%";
+            document.getElementById('percentageBar').style.width = percentage + "%";
         }
     });
 
-    
+
+}
+
+function showSchoolsOptionClick() {
+    document.getElementById('createSchoolMessage').style.display = "none";
+    document.getElementById('createSchool-page').style.display = "initial";
+}
+
+function makeid(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function createSchool() {
+
+    var userEmail = localStorage.getItem('email');
+
+    var schoolName = document.getElementById('schoolName').value;
+    var schoolWebsite = document.getElementById('schoolWebsite').value;
+    var schoolAddress = document.getElementById('schoolAddress').value;
+    var principalEmail = document.getElementById('principalEmail').value;
+    var schoolPhone = document.getElementById('schoolPhone').value;
+    var schoolLogo = document.getElementById('schoolLogoLink').value;
+
+    var errorMessage = document.getElementById('schoolCreateError');
+
+    var districtID = getDistrictID();
+
+    if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
+
+        var errorHTML = `
+        <div class="alert alert-danger" role="alert"
+        style="margin-top: 20px; width: 100%;">
+        <strong>Error! </strong> You can't leave any fields blank
+    </div>
+        `;
+
+        errorMessage.innerHTML = errorHTML;
+
+    } else {
+        errorMessage.innerHTML = "";
+
+        var schoolCode = makeid(6);
+
+        console.log(schoolCode);
+
+        var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools');
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            while (exists != null) {
+
+                function generateNew() {
+                    _newRef.once('value').then(function (snapshot) {
+                        if (snapshot.val() == null) {
+                            schoolCode = newCode;
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+                console.log("exists");
+                var schoolCode = makeid(6);
+
+                console.log(newCode);
+
+                var _newRef = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(newCode);
+
+                var newCode = generateNew();
+
+                if (newCode == true) {
+                    break
+                }
 
 
+            }
+        }).then(() => {
+            var _ref = firebase.database().ref().child('Districts').child(districtID).child("Schools").child(schoolCode);
+
+            _ref.child("School Name").set(schoolName);
+            _ref.child("School Website").set(schoolWebsite);
+            _ref.child("School Address").set(schoolAddress);
+            _ref.child("Principal Email").set(principalEmail);
+            _ref.child("School Phone").set(schoolPhone);
+            _ref.child("School Logo Links").set(schoolLogo);
+            _ref.child("School Code").set(schoolCode);
+        });
+
+        document.getElementById("createSchool-page").style.display = "none";
+
+        document.getElementById("schoolCreateSuccess").style.display = "initial";
+
+        document.getElementById("schoolCodeCopy").value = schoolCode;
+    }
+}
+
+function copyToClipboard() {
+    var copyTextarea = document.getElementById("schoolCodeCopy");
+    copyTextarea.select(); //select the text area
+    document.execCommand("copy"); //copy to clipboard
+
+    console.log("COPIED: " + copyTextarea.value);
 }

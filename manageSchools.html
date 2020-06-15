@@ -11,7 +11,7 @@
 
   <script src="js/district.js"></script>
 
-  <title>Create District</title>
+  <title>Manage Schools</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -103,13 +103,13 @@
           <span>Manage District</span></a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="manageSchools.html">
           <i class="fas fa-school"></i>
             <span>Manage Schools</span></a>
     </li>
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="districtDashboard.html">
             <i class="fas fa-folder-plus"></i>
           <span>Create District</span></a>
@@ -207,63 +207,86 @@
              </center>
             </section>
 
-            <section id = "quotaReached" style="display: none;">
+            <section id = "createSchoolMessage" style="display: none;">
 
                 <center style="margin-top: 14%;">
 
-                    <img src="img/undraw_fill_forms_yltj.svg" width="20%" style="margin-bottom: 2%;">
+                    <img src="img/undraw_quite_town_mg2q.svg" width="20%" style="margin-bottom: 2%;">
 
-                    <h2>Quota Reached</h2>
+                    <h2>No Schools</h2>
 
-                    <p>You can only create one district per account</p>
+                    <p>Create a school to get started</p>
+
+                    <a href="#" class="btn btn-primary btn-icon-split btn-m"
+                                onclick="showSchoolsOptionClick()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                <span class="text">Create School</span>
+                            </a>
 
              </center>
 
             </section>
 
-            <section id = "createDistrict-page" style="display: none;">
-                <h1 style="margin-bottom: 1%;">Create District</h1>
+            <section id = "createSchool-page" style="display: none;">
+                <h1 style="margin-bottom: 1%;">Create School</h1>
 
-                <section id = "districtCreateError">
+                <section id = "schoolCreateError">
                     
                 </section>
               
-                <h5>District Name</h5>
+                <h5>School Name</h5>
 
-                <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtName" style="margin-bottom: 1%;">
+                <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName" style="margin-bottom: 1%;">
 
-                <h5>District Email</h5>
+                <h5>School Address</h5>
 
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtEmail" style="margin-bottom: 1%;">
+                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress" style="margin-bottom: 1%;">
 
-                <h5>District Website</h5>
+                <h5>School Website</h5>
 
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtWebsite" style="margin-bottom: 1%;">
+                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite" style="margin-bottom: 1%;">
 
+                <h5>Principal Email</h5>
 
-                <h5>Head Office Address</h5>
+                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail" style="margin-bottom: 1%;">
 
-                <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtAddress" style="margin-bottom: 1%;">
+                <h5>School Phone</h5>
 
-                <h5>Superintendent Email</h5>
-
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtEmailHead" style="margin-bottom: 1%;">
-
-
-                <h5>District Phone</h5>
-
-                <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtPhone" style="margin-bottom: 1%;">
+                <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone" style="margin-bottom: 1%;">
             
-                <h5>District Social Media Link</h5>
+                <h5>School Logo Link (Direct Link)</h5>
 
-                <input type="text"  class="form-control bg-light border-3 large" placeholder="ie. Instagram or Twitter" aria-label="Search" aria-describedby="basic-addon2" id = "districtSocialMedia" style="margin-bottom: 1%;">
+                <input type="text"  class="form-control bg-light border-3 large" placeholder="ie. Instagram or Twitter" aria-label="Search" aria-describedby="basic-addon2" id = "schoolLogoLink" style="margin-bottom: 1%;">
 
-                <p>By creating a district with ClassVibes you agree to our <a href = "#">Privacy Policy</a> and our <a href = "#">Terms & Conditions</a></p>
+                <p>By creating a school with ClassVibes you agree to our <a href = "#">Privacy Policy</a> and our <a href = "#">Terms & Conditions</a></p>
 
-                <a href="#" class="btn btn-primary btn-icon-split btn-lg" onclick="createDistrict()">
-                    <span class="text">Create District</span>
+                <a href="#" class="btn btn-primary btn-icon-split btn-lg" onclick="createSchool()">
+                    <span class="text">Create School</span>
                   </a>
 
+            </section>
+
+            <section id = "schoolCreateSuccess" style="display: initial;">
+                <center>
+                    <div style = "margin-top: 23%;">
+                        <i class="far fa-check-circle fa-5x" style="color: green;"></i>
+                        <h2 style="margin-top: 10px;">School Created</h2>
+                        <p class="col col-lg-4">Share your school code below with teachers, they can use it to join your school. </p>
+
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                              <input type="text" class="form-control bg-light border-4 small" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" disabled=true id = "schoolCodeCopy">
+                              <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" onclick="copyToClipboard()">
+                                  Copy
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                    </div>
+                </center>
             </section>
 
          
