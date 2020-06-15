@@ -19,6 +19,8 @@ function validateAccountState(page) {
 
             if (page = 'createPage') {
                 getDistrictStatusCreatePage();
+
+                localStorage.setItem("district id", getDistrictID());
             }
 
             return "Activated";
@@ -357,8 +359,9 @@ function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
+    var districtID = localStorage.getItem('district id');
 
-    afterDistrictID(getDistrictID());
+    afterDistrictID(districtID);
 
  
     function afterDistrictID(districtID){
