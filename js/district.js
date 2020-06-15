@@ -276,7 +276,16 @@ function getDistrictData(code){
             }
             var totalDays=dateDiffInDays(new Date(planExpires), new Date(planActivated));
 
-            var untilExpireDays=dateDiffInDays(new Date(untilExpireDays), new Date(planActivated));
+            var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
+document.write(today);
+
+
+            var untilExpireDays=dateDiffInDays(new Date(today), new Date(planActivated));
 
             if(totalDays == 0){
                 console.log("PLAN EXPIRED");
