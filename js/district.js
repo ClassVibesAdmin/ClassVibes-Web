@@ -172,7 +172,7 @@ function getDistrictData(code){
         var value = snapshot.val();
 
         if(value == null || value == undefined){
-            $('#studentsCount').text("Loading...");
+            $('#districtName').text("Loading...");
         } else {
             districtName = snapshot.val();
             $('#districtName').text(districtName);
