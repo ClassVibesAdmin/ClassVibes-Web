@@ -32,10 +32,10 @@ function getDistrictStatus(){
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
-        console.log(snapshot.key);
 
         snapshot.forEach((child) => {
-            console.log(child);
+            console.log(child.val());
+            console.log(child.key);
         });
 
         var value = snapshot.child('Code').val();
