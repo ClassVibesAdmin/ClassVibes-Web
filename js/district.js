@@ -365,7 +365,7 @@ async function createSchool() {
     function inputDistrictID(){
         districtID = getDistrictID();
 
-        setTimeout(() => { alert('Hello') }, 500)
+        setTimeout(() => {}, 500).then(() => {console.log("done");})
 
 
     }
