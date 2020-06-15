@@ -34,8 +34,36 @@
 
 <body id="page-top">
 
+   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+  
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
+        authDomain: "cyberdojo-a2a3e.firebaseapp.com",
+        databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
+        projectId: "cyberdojo-a2a3e",
+        storageBucket: "cyberdojo-a2a3e.appspot.com",
+        messagingSenderId: "938057332518",
+        appId: "1:938057332518:web:99c34da5abf1b1548533e7",
+        measurementId: "G-0EWJ1V40VX"
+      };
+      firebase.initializeApp(firebaseConfig);
+
+    </script>
+
   <script>
     $(document).ready(function () {
+      getClassData()
       function getProfileInfo() {
         var name = localStorage.getItem("name");
     var pic = localStorage.getItem("photo");
@@ -60,6 +88,67 @@
     getStudentClasses(email);
 
     setMainClassForMood();
+
+    
+      })
+
+      function getClassData() {
+        var emailRef = localStorage.getItem("email")
+        var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+        var classesList = [];
+        console.log(classesList);
+  
+        classesRef.once("value", (snap) => {
+          console.log(snap.val());
+          rawData = snap.val();
+  
+          if (rawData != null) {
+            snap.forEach((child) => {
+              classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
+              storeClassforChart(child.child.code);
+            })
+          }
+        }).then(function () {
+  
+          for (var i = 0; i <= classesList.length; i++) {
+            let output3 = "";
+            var classData = classesList[i];
+            console.log(classData);
+  
+            if (classData != null || classData != undefined) {
+  
+              console.log("works");
+              var className = classData[1];
+              var classCode = classData[0];
+  
+              output3 = `
+              <option value="${className}" onclick = "setClassCode(${classCode})">${className}</option>
+
+            
+            `
+
+            function setClassCode(classCode) {
+              localStorage.setItem("code", classCode);
+            }
+  
+           
+  
+  
+              $(output3).appendTo("#classesTeacherfy");
+            }
+  
+          }
+  
+  
+  
+  
+  
+  
+  
+  
+        }).then(() => {
+        });
+  
 });
   </script>
 
@@ -403,10 +492,9 @@
                       <h6 class="collapse-header">MY CLASSES</h6>
                     </div>
                   </div>
-                  <div class="btn-group" id = "selectedClassForDropdown1">
-
-
-                </div>
+                  <select name="cars" id="cars" id="classesTeacherfy">
+                    
+                  </select>
 
 
 
