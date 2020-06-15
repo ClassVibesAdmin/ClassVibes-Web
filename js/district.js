@@ -297,10 +297,10 @@ today = mm + '/' + dd + '/' + yyyy;
 
             var percentage = Math.round((untilExpireDays/totalDays)*100);
 
-          console.log(percentage);
+          console.log(percentage + "%");
 
           var totalMinusPercentage = 100 - percentage;
-          console.log(totalMinusPercentage);
+          console.log(totalMinusPercentage + "%/100");
 
           document.getElementById('percentageBar').style.width = totalMinusPercentage + "%";
         }
