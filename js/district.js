@@ -399,7 +399,7 @@ function createSchool() {
                     function generateNew() {
                         _newRef.once('value').then(function (snapshot) {
                             if (snapshot.val() == null) {
-                                schoolCode = newCode;
+                                schoolCode = snapshot.val();
                                 return true;
                             } else {
                                 return false;
@@ -415,7 +415,7 @@ function createSchool() {
 
                     var newCodeGenerated = generateNew();
 
-                    if (newCode == true) {
+                    if (newCodeGenerated == true) {
                         break
                     }
     
