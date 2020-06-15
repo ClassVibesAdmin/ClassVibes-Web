@@ -71,6 +71,8 @@ function getDistrictID() {
                 key = child.child('Code').val();
             });
 
+            console.log("district id:" + key);
+
             return key;
         }
     });
