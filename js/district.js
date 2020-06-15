@@ -7,7 +7,7 @@ function validateAccountState(){
     _ref.once('value').then(function (snapshot) {
         if(snapshot.val() == "Deactivated"){
             document.getElementById('deactivatedAccountSection').style.display = "initial";
-            document.getElementById('createDistrictOptions').style.display = "nonne";
+            document.getElementById('createDistrictOptions').style.display = "none";
 
         } else if(snapshot.val() == "Activated"){
             
