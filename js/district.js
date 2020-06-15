@@ -34,19 +34,16 @@ function getDistrictStatus(){
     _ref.once('value').then(function (snapshot) {
         console.log(snapshot.val());
 
-        var value = snapshot.val();
-
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
             document.getElementById('districtInfo-stats').style.display = "none";
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
-            snapshot.forEach((child) => {
-                console.log("////////////");
-                console.log(child);
-                getDistrictData(child.child('Code'));
-            });
+
+            getDistrictData(snapshot.child('Code').val());
+
+            console.log(snapshot.child('Code').val());
             
         }
     });
