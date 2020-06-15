@@ -70,10 +70,11 @@ function getSchoolStatusManageSchoolsScreen(){
 
     _ref.once('value').then(function (snapshot) {
         if (snapshot.exists()) {
-            alert('exists');
-            console.log("exists");
+            document.getElementById('createSchoolMessage').style.display = "none";
+            document.getElementById('schoolsInfoSection').style.display = "initial";
           } else {
-              console.log("none");
+            document.getElementById('createSchoolMessage').style.display = "initial";
+            document.getElementById('schoolsInfoSection').style.display = "none";
           }
     });
 }
