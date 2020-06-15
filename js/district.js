@@ -34,7 +34,7 @@ function getDistrictStatus(){
     _ref.once('value').then(function (snapshot) {
 
         snapshot.forEach((child) => {
-            console.log(child.val());
+            console.log(child.child('Code').val());
             console.log(child.key);
         });
 
