@@ -132,7 +132,6 @@
         function storeClassPref(code, name) {
             localStorage.setItem("code", code);
             localStorage.setItem("className", name);
-            var code = localStorage.getItem("code");
             console.log(code);
 
 
@@ -140,6 +139,8 @@
         }
 
         function getStudentData() {
+            var code = localStorage.getItem("code");
+
 
             var classInfoRef = firebase.database().ref().child("Classes").child(code).child("Students");
             var classInfoList = [];
