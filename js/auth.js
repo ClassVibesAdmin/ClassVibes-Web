@@ -933,7 +933,7 @@ function loginWithEmailDistrict(){
                         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
                     </div>`;
     
-                    document.getElementById('signupError').innerHTML = errorHTML;
+                document.getElementById('signupError').innerHTML = errorHTML;
                 
                     }
                 } else {
