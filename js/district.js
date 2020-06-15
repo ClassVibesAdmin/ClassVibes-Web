@@ -299,10 +299,7 @@ today = mm + '/' + dd + '/' + yyyy;
 
           console.log(percentage + "%");
 
-          var totalMinusPercentage = 100 - percentage;
-          console.log(totalMinusPercentage + "%/100");
-
-          document.getElementById('percentageBar').style.width = totalMinusPercentage + "%";
+          document.getElementById('percentageBar').style.width = percentage + "%";
         }
     });
 
