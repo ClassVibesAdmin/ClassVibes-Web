@@ -66,6 +66,7 @@ function createDistrict(){
                 function generateNew(){
                     _newRef.once('value').then(function (snapshot) {
                         if(snapshot.val() == null){
+                            code = newCode;
                             return true;
                         }else {
                             return false;
@@ -88,7 +89,7 @@ function createDistrict(){
 
             }
         }).then(() => {
-            var _ref = firebase.database().ref().child('Districts');
+            var _ref = firebase.database().ref().child('Districts').child(code);
 
             _ref.child("Name").set(name);
             _ref.child("Email").set(email);
