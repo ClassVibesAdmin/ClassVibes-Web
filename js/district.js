@@ -274,7 +274,7 @@ function getDistrictData(code){
                 // round to the nearest whole number
                 return Math.round((date2-date1)/(1000*60*60*24));
             }
-            var totalDays=dateDiffInDays(new Date(planExpires), new Date(planActivated));
+            var totalDays=dateDiffInDays(new Date(planActivated), new Date(planExpires));
 
             var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
