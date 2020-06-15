@@ -449,6 +449,8 @@ function copyToClipboard() {
 
   var clipboard = new ClipboardJS('.btn btn-primary');
 
+  document.getElementById('copyButtonText').innerText = "Copied!";
+
 clipboard.on('success', function(e) {
     console.info('Action:', e.action);
     console.info('Text:', e.text);
