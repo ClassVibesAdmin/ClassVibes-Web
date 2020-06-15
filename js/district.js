@@ -9,8 +9,10 @@ function validateAccountState(){
             document.getElementById('deactivatedAccountSection').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
 
+            return "Deactivated";
+
         } else if(snapshot.val() == "Activated"){
-            
+            return "Activated";
         }
     });
 }

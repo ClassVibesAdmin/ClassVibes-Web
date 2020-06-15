@@ -56,8 +56,13 @@
     </script>
     <script>
     $( document ).ready(function() {
-        validateAccountState();
-        getDistrictStatusCreatePage();
+
+        
+        validateAccountState().then((val) => {
+            if(val == 'Activated'){
+                getDistrictStatusCreatePage();
+            }
+        });
     });
 </script>
 
