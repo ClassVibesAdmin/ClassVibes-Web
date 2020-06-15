@@ -33,12 +33,17 @@ function getDistrictStatus(){
 
     _ref.once('value').then(function (snapshot) {
         console.log(snapshot.val());
+
+        var value = snapshot.val();
+
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
             document.getElementById('districtInfo-stats').style.display = "none";
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
+
+            getDistrictData(value['Code']);
         }
     });
 }
@@ -50,6 +55,7 @@ function getDistrictStatusCreatePage(){
 
     _ref.once('value').then(function (snapshot) {
         console.log(snapshot.val());
+
         if(snapshot.val() == null){
             document.getElementById('createDistrict-page').style.display = "initial";
             document.getElementById('quotaReached').style.display = "none";
@@ -143,6 +149,28 @@ function createDistrict(){
     }
 }
 
-function getDistrictData(){
-    
+function getDistrictData(code){
+    var students = 0;
+    var teachers = 0;
+    var schools = 0;
+    var pendingTeacherRequests = 0;
+
+    //STUDENTS GET
+
+    var _studentRef = firebase.database().ref().child('Districts').child(code).child("Student Count");
+
+    _studentRef.once('value').then(function (snapshot) {
+        var value = snapshot.val();
+
+        if(value == null || value == undefined){
+            students = 12;
+            _studentRef.set(students);
+        } else {
+            students = snapshot.val();
+        }
+    });
+
+    $('#studentsCount').text(students);
+
+
 }
