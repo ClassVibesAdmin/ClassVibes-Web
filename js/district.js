@@ -362,7 +362,7 @@ async function createSchool() {
         districtID = getDistrictID();
 
         setTimeout(() => {
-            afterDistrictID
+            afterDistrictID();
         }, 500)
 
     function afterDistrictID(){
