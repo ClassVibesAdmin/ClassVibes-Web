@@ -42,8 +42,10 @@ function getDistrictStatus(){
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
-
-            getDistrictData(snapshot.val().child('Code'));
+            snapshot.forEach((child) => {
+                getDistrictData(child.child('Code'));
+            });
+            
         }
     });
 }
