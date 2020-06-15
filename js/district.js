@@ -357,6 +357,8 @@ function createSchool() {
 
     var districtID = getDistrictID();
 
+    console.log(districtID);
+
     if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
 
         var errorHTML = `
