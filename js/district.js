@@ -357,78 +357,89 @@ async function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
-    var districtID = await getDistrictID();
+    $.when(inputDistrictID()).then(afterDistrictID());
 
-    console.log(districtID);
-
-    if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
-
-        var errorHTML = `
-        <div class="alert alert-danger" role="alert"
-        style="margin-top: 20px; width: 100%;">
-        <strong>Error! </strong> You can't leave any fields blank
-    </div>
-        `;
-
-        errorMessage.innerHTML = errorHTML;
-
-    } else {
-        errorMessage.innerHTML = "";
-
-        var schoolCode = makeid(6);
-
-        console.log(schoolCode);
-
-        var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools');
-
-        _ref.once('value').then(function (snapshot) {
-            var exists = snapshot.val();
-
-            while (exists != null) {
-
-                function generateNew() {
-                    _newRef.once('value').then(function (snapshot) {
-                        if (snapshot.val() == null) {
-                            schoolCode = newCode;
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
-                }
-                console.log("exists");
-                var schoolCode = makeid(6);
-
-                console.log(newCode);
-
-                var _newRef = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(newCode);
-
-                var newCode = generateNew();
-
-                if (newCode == true) {
-                    break
-                }
+    var districtID = "";
 
 
-            }
-        }).then(() => {
-            var _ref = firebase.database().ref().child('Districts').child(districtID).child("Schools").child(schoolCode);
-
-            _ref.child("School Name").set(schoolName);
-            _ref.child("School Website").set(schoolWebsite);
-            _ref.child("School Address").set(schoolAddress);
-            _ref.child("Principal Email").set(principalEmail);
-            _ref.child("School Phone").set(schoolPhone);
-            _ref.child("School Logo Links").set(schoolLogo);
-            _ref.child("School Code").set(schoolCode);
-        });
-
-        document.getElementById("createSchool-page").style.display = "none";
-
-        document.getElementById("schoolCreateSuccess").style.display = "initial";
-
-        document.getElementById("schoolCodeCopy").value = schoolCode;
+    function inputDistrictID(){
+        districtID = getDistrictID();
     }
+
+    function afterDistrictID(){
+        console.log(districtID);
+        
+        if (schoolName, schoolWebsite, schoolAddress, principalEmail, schoolPhone, schoolLogo == "") {
+
+            var errorHTML = `
+            <div class="alert alert-danger" role="alert"
+            style="margin-top: 20px; width: 100%;">
+            <strong>Error! </strong> You can't leave any fields blank
+        </div>
+            `;
+    
+            errorMessage.innerHTML = errorHTML;
+    
+        } else {
+            errorMessage.innerHTML = "";
+    
+            var schoolCode = makeid(6);
+    
+            console.log(schoolCode);
+    
+            var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools');
+    
+            _ref.once('value').then(function (snapshot) {
+                var exists = snapshot.val();
+    
+                while (exists != null) {
+    
+                    function generateNew() {
+                        _newRef.once('value').then(function (snapshot) {
+                            if (snapshot.val() == null) {
+                                schoolCode = newCode;
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        });
+                    }
+                    console.log("exists");
+                    var schoolCode = makeid(6);
+    
+                    console.log(newCode);
+    
+                    var _newRef = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(newCode);
+    
+                    var newCode = generateNew();
+    
+                    if (newCode == true) {
+                        break
+                    }
+    
+    
+                }
+            }).then(() => {
+                var _ref = firebase.database().ref().child('Districts').child(districtID).child("Schools").child(schoolCode);
+    
+                _ref.child("School Name").set(schoolName);
+                _ref.child("School Website").set(schoolWebsite);
+                _ref.child("School Address").set(schoolAddress);
+                _ref.child("Principal Email").set(principalEmail);
+                _ref.child("School Phone").set(schoolPhone);
+                _ref.child("School Logo Links").set(schoolLogo);
+                _ref.child("School Code").set(schoolCode);
+            });
+    
+            document.getElementById("createSchool-page").style.display = "none";
+    
+            document.getElementById("schoolCreateSuccess").style.display = "initial";
+    
+            document.getElementById("schoolCodeCopy").value = schoolCode;
+        }
+    }
+
+
 }
 
 function copyToClipboard() {
