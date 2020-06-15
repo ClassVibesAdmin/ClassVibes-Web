@@ -409,12 +409,12 @@ function createSchool() {
                     console.log("exists");
                     var schoolCode = makeid(6);
     
-                    console.log(newCode);
-    
-                    var _newRef = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(newCode);
-    
-                    var newCode = generateNew();
-    
+                    console.log(schoolCode);
+
+                    var _newRef = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(schoolCode);
+
+                    var newCodeGenerated = generateNew();
+
                     if (newCode == true) {
                         break
                     }
