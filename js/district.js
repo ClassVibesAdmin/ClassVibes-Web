@@ -294,6 +294,15 @@ today = mm + '/' + dd + '/' + yyyy;
 
 
             console.log(untilExpireDays);
+
+            var percentage = Math.round((untilExpireDays/totalDays)*100);
+
+          console.log(percentage);
+
+          var totalMinusPercentage = 100 - percentage;
+          console.log(totalMinusPercentage);
+
+          document.getElementById('percentageBar').style.width = totalMinusPercentage + "%";
         }
     });
 
