@@ -226,7 +226,7 @@ function getDistrictData(code){
         } else {
             schools = snapshot.val();
 
-            $('#teachersCount').text(schools);
+            $('#schoolsCount').text(schools);
         }
     });
 
