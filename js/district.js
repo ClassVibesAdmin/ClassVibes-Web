@@ -17,6 +17,10 @@ function validateAccountState(page){
                 getDistrictStatus();
             }
 
+            if(page = 'createPage'){
+                getDistrictStatusCreatePage();
+            }
+
             return "Activated";
         }
     });

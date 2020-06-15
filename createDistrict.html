@@ -58,11 +58,8 @@
     $( document ).ready(function() {
 
         
-        validateAccountState().then((val) => {
-            if(val == 'Activated'){
-                getDistrictStatusCreatePage();
-            }
-        });
+        validateAccountState('createPage')
+
     });
 </script>
 
