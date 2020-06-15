@@ -59,10 +59,12 @@
     <script>
         $(document).ready(function () {
 
+            var funcResult = "";
+
             function validate() {
                 return new Promise(resolve => {
-                    var val = validateAccountState();
-                    resolve(val);
+                    funcResult = validateAccountState();
+                    resolve('resolved');
                 });
             }
 
@@ -74,7 +76,7 @@
                 console.log(result);
                 // expected output: 'resolved'
 
-                if (result == 'Activated') {
+                if (funcResult == 'Activated') {
                 getDistrictStatus();
             }
             }
