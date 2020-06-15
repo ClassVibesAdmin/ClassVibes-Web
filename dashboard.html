@@ -138,6 +138,11 @@
                         <div class="dropdown-divider"></div>
             
             `
+
+            function setClassCode() {
+              localStorage.setItem("code", classCode);
+              localStorage.setItem("className", className);
+            }
   
            
   
@@ -410,7 +415,9 @@
                     <div class="chart-pie pt-4 pb-2">
                       <canvas id="myPieChart"></canvas>
                     </div>
-                    <center>
+                    <div style="height: 20px;"></div>
+                    <!--
+                      <center>
                       <div class="btn-group btn-group-toggle" data-toggle="buttons" >
                         <label class="btn btn-primary active" onclick="showAll()">
                             <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
@@ -428,6 +435,7 @@
                         </label>
                     </div>
                     </center>
+                    -->
                     <div class="mt-4 text-center small">
                       
                       <span class="mr-2">
