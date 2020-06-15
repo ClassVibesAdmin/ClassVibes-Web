@@ -52,15 +52,51 @@ function createDistrict(){
     } else {
         errorMessage.innerHTML = "";
 
-        var _ref = firebase.database().ref().child('Districts');
+        var code = Math.floor(100000 + Math.random() * 900000);
 
-        _ref.child("Name").set(name);
-        _ref.child("Email").set(email);
-        _ref.child("Website").set(website);
-        _ref.child("Address").set(headOffice);
-        _ref.child("Name").set(name);
-        _ref.child("Name").set(name);
-        _ref.child("Name").set(name);
+        console.log(code);
 
+        var _ref = firebase.database().ref().child('Districts').child(code).child('Name');
+
+        _ref.once('value').then(function (snapshot) {
+            var exists = snapshot.val();
+
+            while(exists != null){
+
+                function generateNew(){
+                    _newRef.once('value').then(function (snapshot) {
+                        if(snapshot.val() == null){
+                            return true;
+                        }else {
+                            return false;
+                        }
+                    });
+                }
+                console.log("exists");
+                var newCode = Math.floor(100000 + Math.random() * 900000);
+
+                console.log(newCode);
+
+                var _newRef = firebase.database().ref().child('Districts').child(newCode).child('Name');
+
+                var newCode = generateNew();
+
+                if(newCode == true){
+                    break
+                }
+                
+
+            }
+        }).then(() => {
+            var _ref = firebase.database().ref().child('Districts');
+
+            _ref.child("Name").set(name);
+            _ref.child("Email").set(email);
+            _ref.child("Website").set(website);
+            _ref.child("Address").set(headOffice);
+            _ref.child("Head Email").set(headEmail);
+            _ref.child("Phone").set(phone);
+            _ref.child("Social Media Links").set(socialMedia);
+        });
     }
 }
