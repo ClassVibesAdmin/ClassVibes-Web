@@ -33,11 +33,9 @@ function getDistrictStatus(){
 
     _ref.once('value').then(function (snapshot) {
 
-        var key = 0;
 
-        snapshot.forEach((child) => {
-            key = child.child('Code').val();
-        });
+
+        
 
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
@@ -45,6 +43,12 @@ function getDistrictStatus(){
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
+
+            var key = 0;
+
+            snapshot.forEach((child) => {
+                key = child.child('Code').val();
+            });
 
             getDistrictData(key);
         }
