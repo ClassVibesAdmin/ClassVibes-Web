@@ -23,6 +23,10 @@ function validateAccountState(page) {
                  getDistrictID();
             }
 
+            if(page == "schoolsPage"){
+                getSchoolStatusManageSchoolsScreen();
+            }
+
             return "Activated";
         }
     });
@@ -34,10 +38,6 @@ function getDistrictStatus() {
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
-
-
-
-
 
         if (snapshot.val() == null) {
             document.getElementById('createDistrictOptions').style.display = "initial";
@@ -54,6 +54,18 @@ function getDistrictStatus() {
 
             getDistrictData(key);
         }
+    });
+}
+
+function getSchoolStatusManageSchoolsScreen(){
+    var districtID = localStorage.getItem('district id');
+
+    var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools');
+
+    _ref.once('value').then(function (snapshot) {
+        if (snapshot.exists()) {
+            alert('exists');
+          }
     });
 }
 
