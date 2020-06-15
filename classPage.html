@@ -37,13 +37,16 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
     <script>
+
         $(document).ready(function () {
-            getClassData();
+
             getProfileInfo();
+            getStudentData();
+            getClassData();
         });
-    </script>
-    <script>
+
         var firebaseConfig = {
             apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
             authDomain: "cyberdojo-a2a3e.firebaseapp.com",
@@ -129,8 +132,15 @@
         function storeClassPref(code, name) {
             localStorage.setItem("code", code);
             localStorage.setItem("className", name);
-            var code = localStorage.getItem("code");
             console.log(code);
+
+
+
+        }
+
+        function getStudentData() {
+            var code = localStorage.getItem("code");
+
 
             var classInfoRef = firebase.database().ref().child("Classes").child(code).child("Students");
             var classInfoList = [];
@@ -151,7 +161,6 @@
                 }
 
 
-            }).then(function () {
                 document.getElementById("studentsList").innerHTML = "";
 
                 for (var i = 0; i <= classInfoList.length; i++) {
@@ -173,67 +182,67 @@
 
 
                         descriptionOutput = `
-                        <div class="card mb-4 py-3 border-left-success" id = "studentCard">
-                            <div class="row">
-                                <div class="card-body">
-                                    <h4>${studentName}</h4>
-                                </div>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>
-                                <div style="margin-right: 25px;" id = "face"></div>
+        <div class="card mb-4 py-3 border-left-success" id = "studentCard">
+            <div class="row">
+                <div class="card-body">
+                    <h4>${studentName}</h4>
+                </div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>
+                <div style="margin-right: 25px;" id = "face"></div>
 
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Schedual Meeting</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Title:</label>
-                                            <input type="text" class="form-control" id="title">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Date/Time</label>
-                                            <input type="text" class="form-control" id="date">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Student</label>
-                                            <input type="text" class="form-control" placeholder = "${studentName}" readonly>
-                                        </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick = "schedualMeeting('${studentEmail}', '${className}')" data-dismiss = "modal">Send message</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Schedual Meeting</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Title:</label>
+                            <input type="text" class="form-control" id="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Date/Time</label>
+                            <input type="text" class="form-control" id="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Student</label>
+                            <input type="text" class="form-control" placeholder = "${studentName}" readonly>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick = "schedualMeeting('${studentEmail}', '${className}')" data-dismiss = "modal">Send message</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
 
-                            </div>
+            </div>
 
-                            
-                    
-                    `;
+            
+    
+    `;
                         $(descriptionOutput).appendTo("#studentsList");
 
                         if (studentReaction == "good") {
                             document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput).appendTo("#studentsListGreat");
-                            
+
                         } else if (studentReaction == "meh") {
                             document.getElementById("face").outerHTML = meh;
                             $(descriptionOutput).appendTo("#studentsListHelp");
-                            
+
 
                         } else if (studentReaction == "needs help") {
                             document.getElementById("face").outerHTML = sad;
                             $(descriptionOutput).appendTo("#studentsListFrustrated");
-                            
+
 
                         } else {
                             document.getElementById("face").outerHTML = happy;
@@ -241,10 +250,10 @@
                         }
 
 
-                        }
-
                     }
-                });
+
+                }
+            })
 
         }
 
@@ -279,7 +288,7 @@
 
         }
 
-        function showGreat(){
+        function showGreat() {
             document.getElementById('studentsList').style.display = "none";
             document.getElementById('studentsListGreat').style.display = "initial";
             document.getElementById('studentsListHelp').style.display = "none";
@@ -287,21 +296,21 @@
 
         }
 
-        function showHelp(){
+        function showHelp() {
             document.getElementById('studentsList').style.display = "none";
             document.getElementById('studentsListGreat').style.display = "none";
             document.getElementById('studentsListHelp').style.display = "initial";
             document.getElementById('studentsListFrustrated').style.display = "none";
         }
 
-        function showFrustrated(){
+        function showFrustrated() {
             document.getElementById('studentsList').style.display = "none";
             document.getElementById('studentsListGreat').style.display = "none";
             document.getElementById('studentsListHelp').style.display = "none";
             document.getElementById('studentsListFrustrated').style.display = "initial";
         }
 
-        function showAll(){
+        function showAll() {
             document.getElementById('studentsList').style.display = "initial";
             document.getElementById('studentsListGreat').style.display = "none";
             document.getElementById('studentsListHelp').style.display = "none";
@@ -462,11 +471,11 @@
                             <div style="margin-left: 65%;">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     <label class="btn btn-secondary active" onclick="showAll()">
-                                        <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
+                                        <input type="radio" name="options" id="allstudents" autocomplete="off" checked>
                                         All Students
                                     </label>
                                     <label class="btn btn-secondary" onclick="showGreat()">
-                                        <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
+                                        <input type="radio" name="options" id="great" autocomplete="off"> Doing Great
                                     </label>
                                     <label class="btn btn-secondary" onclick="showHelp()">
                                         <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
