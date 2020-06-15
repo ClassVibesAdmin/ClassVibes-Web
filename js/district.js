@@ -459,4 +459,6 @@ function copyToClipboard() {
   document.execCommand("copy");
 
   console.log("COPIED: " + copyText.value);
+
+  document.getElementById('copyButtonText').innerText = "Copied!";
 }
