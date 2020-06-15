@@ -155,6 +155,8 @@ function getDistrictData(code){
     var schools = 0;
     var pendingTeacherRequests = 0;
 
+    console.log("CODE: " + code);
+
     //STUDENTS GET
 
     var _studentRef = firebase.database().ref().child('Districts').child(code).child("Student Count");
