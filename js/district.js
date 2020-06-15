@@ -7,6 +7,8 @@ function validateAccountState(){
     _ref.once('value').then(function (snapshot) {
         if(snapshot.val() == "Deactivated"){
             document.getElementById('deactivatedAccountSection').style.display = "initial";
+            document.getElementById('createDistrictOptions').style.display = "none";
+
         } else if(snapshot.val() == "Activated"){
             
         }
@@ -19,15 +21,37 @@ function getDistrictStatus(){
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
+        console.log(snapshot.val());
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
+            document.getElementById('districtInfo-stats').style.display = "none";
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
+            document.getElementById('createDistrictOptions').style.display = "none";
+        }
+    });
+}
+
+function getDistrictStatusCreatePage(){
+    var email = localStorage.getItem('email');
+
+    var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
+
+    _ref.once('value').then(function (snapshot) {
+        console.log(snapshot.val());
+        if(snapshot.val() == null){
+            document.getElementById('createDistrict-page').style.display = "initial";
+            document.getElementById('quotaReached').style.display = "none";
+        } else {
+            document.getElementById('quotaReached').style.display = "initial";
+            document.getElementById('createDistrict-page').style.display = "none";
         }
     });
 }
 
 function createDistrict(){
+
+    var userEmail = localStorage.getItem('email');
     var name = document.getElementById('districtName').value;
     var email = document.getElementById('districtEmail').value;
     var website = document.getElementById('districtWebsite').value;
@@ -66,6 +90,7 @@ function createDistrict(){
                 function generateNew(){
                     _newRef.once('value').then(function (snapshot) {
                         if(snapshot.val() == null){
+                            code = newCode;
                             return true;
                         }else {
                             return false;
@@ -88,7 +113,7 @@ function createDistrict(){
 
             }
         }).then(() => {
-            var _ref = firebase.database().ref().child('Districts');
+            var _ref = firebase.database().ref().child('Districts').child(code);
 
             _ref.child("Name").set(name);
             _ref.child("Email").set(email);
@@ -97,6 +122,12 @@ function createDistrict(){
             _ref.child("Head Email").set(headEmail);
             _ref.child("Phone").set(phone);
             _ref.child("Social Media Links").set(socialMedia);
+            _ref.child("Code").set(code);
+
+            var _ref = firebase.database().ref().child('UserData').child(userEmail).child("Districts").child(code);
+
+            _ref.child("Name").set(name);
+            _ref.child("Code").set(code);
         });
     }
 }
