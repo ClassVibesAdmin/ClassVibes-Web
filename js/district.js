@@ -28,6 +28,8 @@ function getDistrictStatus(){
 }
 
 function createDistrict(){
+
+    var userEmail = localStorage.getItem('email');
     var name = document.getElementById('districtName').value;
     var email = document.getElementById('districtEmail').value;
     var website = document.getElementById('districtWebsite').value;
@@ -100,7 +102,7 @@ function createDistrict(){
             _ref.child("Social Media Links").set(socialMedia);
             _ref.child("Code").set(code);
 
-            var _ref = firebase.database().ref().child('UserData').child(email).child("Districts").child(code);
+            var _ref = firebase.database().ref().child('UserData').child(userEmail).child("Districts").child(code);
 
             _ref.child("Name").set(name);
             _ref.child("Code").set(code);
