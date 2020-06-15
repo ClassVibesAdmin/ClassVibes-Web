@@ -260,7 +260,7 @@ function getDistrictData(code){
         var planName = snapshot.child("Plan Name").val();
         var planStatus = snapshot.child("Plan Status").val();
 
-        if(planStatus == null || planStatus == undefined){
+        if(planStatus == null || planStatus == undefined || planStatus == "Deactivated"){
             $('#planStatus').html(`<span class="badge badge-danger" >Inactive</span>`);
 
         } else {
