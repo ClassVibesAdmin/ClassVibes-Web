@@ -20,7 +20,7 @@ function validateAccountState(page) {
             if (page = 'createPage') {
                 getDistrictStatusCreatePage();
 
-                localStorage.setItem("district id", getDistrictID());
+                 getDistrictID();
             }
 
             return "Activated";
@@ -75,7 +75,11 @@ function getDistrictID() {
 
             console.log("district id:" + key);
 
+            localStorage.setItem("district id",key);
+
             return key;
+
+            
         }
     });
 }
