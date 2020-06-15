@@ -453,7 +453,7 @@ function createSchool() {
                     } else {
                         var value = snapshot.val();
 
-                        _ref1.set(Number(value));
+                        _ref1.set((Number(value) + 1));
 
 
                     }
