@@ -344,7 +344,7 @@ function makeid(length) {
     return result;
 }
 
-async function createSchool() {
+function createSchool() {
 
     var userEmail = localStorage.getItem('email');
 
@@ -357,14 +357,17 @@ async function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
-    var districtID = "";
+    function inputDistrictID(){
+        var districtID = getDistrictID();
 
-    districtID = getDistrictID();
+        return districtID;
+    }
 
-    setTimeout(() => {
-        afterDistrictID(districtID);
-    }, 500)
-
+    $.when( inputDistrictID() ).done(function(val) {
+        console.log(val);
+        afterDistrictID(val);
+ });
+ 
     function afterDistrictID(districtID){
         console.log(districtID);
 
