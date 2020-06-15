@@ -447,18 +447,22 @@ function createSchool() {
 function copyToClipboard() {
 
 
+  var clipboard = new ClipboardJS('.btn btn-primary');
 
-    /* Get the text field */
-  var copyText = document.getElementById("schoolCodeCopy");
+clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
 
-  /* Select the text field */
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    document.getElementById('copyButtonText').innerText = "Copied!";
 
-  /* Copy the text inside the text field */
-  document.execCommand("copy");
+    e.clearSelection();
+});
 
-  console.log("COPIED: " + copyText.value);
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+});
+  
 
-  document.getElementById('copyButtonText').innerText = "Copied!";
 }
