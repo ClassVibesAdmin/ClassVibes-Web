@@ -8,7 +8,7 @@ function validateAccountState(){
         if(snapshot.val() == "Deactivated"){
             document.getElementById('deactivatedAccountSection').style.display = "initial";
         } else if(snapshot.val() == "Activated"){
-            getDistrictStatus();
+            
         }
     });
 }
