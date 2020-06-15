@@ -161,7 +161,7 @@
                         var classCode = classData[0];
 
                         output2 = `
-          <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+          <a class="collapse-item" href="#" onclick = "setClassCode('${classCode}')">${className}</a>
           `;
 
                         output3 = `
@@ -169,6 +169,10 @@
         <div class="dropdown-divider"></div>
           
           `
+
+          function setClassCode(classCode) {
+              localStorage.setItem("code", classCode);
+            }
 
                         $(output).appendTo("#topClassesSection");
                         $(output2).appendTo("#classesOp");
