@@ -293,7 +293,7 @@ today = mm + '/' + dd + '/' + yyyy;
             console.log(totalDays);
 
 
-            console.log(untilExpireDays);
+            console.log("DAYS LEFT: " + untilExpireDays);
 
             var percentage = Math.round((untilExpireDays/totalDays)*100);
 
