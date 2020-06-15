@@ -58,7 +58,9 @@
     $( document ).ready(function() {
 
         
-        validateAccountState('createPage')
+        validateAccountState('createPage');
+
+        new ClipboardJS('.copyButtonText');
 
     });
 </script>
@@ -273,13 +275,13 @@
                     <div style = "margin-top: 23%;">
                         <i class="far fa-check-circle fa-5x" style="color: green;"></i>
                         <h2 style="margin-top: 10px;">School Created</h2>
-                        <p class="col col-lg-4">Share your school code below with teachers, they can use it to join your school. </p>
+                        <p class="col col-lg-4">Share your school code below with teachers, they can use it to join your school. Reload the page to view your school.</p>
 
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                               <input type="text" class="form-control bg-light border-4 small" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" disabled=true id = "schoolCodeCopy">
                               <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" onclick="copyToClipboard()" id = "copyButtonText">
+                                <button class="btn btn-primary" type="button" data-clipboard-target="#schoolCodeCopy" id = "copyButtonText">
                                   Copy
                                 </button>
                               </div>
