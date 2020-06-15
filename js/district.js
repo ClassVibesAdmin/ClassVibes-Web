@@ -1,5 +1,5 @@
 
-function validateAccountState(){
+function validateAccountState(page){
     var email = localStorage.getItem('email');
 
     var _ref = firebase.database().ref().child("UserData").child(email).child('Account Status');
@@ -12,6 +12,15 @@ function validateAccountState(){
             return "Deactivated";
 
         } else if(snapshot.val() == "Activated"){
+
+            if(page == 'dashboard'){
+                getDistrictStatus();
+            }
+
+            if(page = 'createPage'){
+                getDistrictStatusCreatePage();
+            }
+
             return "Activated";
         }
     });
@@ -45,8 +54,8 @@ function getDistrictStatusCreatePage(){
             document.getElementById('createDistrict-page').style.display = "initial";
             document.getElementById('quotaReached').style.display = "none";
         } else {
-            document.getElementById('quotaReached').style.display = "initial";
             document.getElementById('createDistrict-page').style.display = "none";
+            document.getElementById('quotaReached').style.display = "initial";
         }
     });
 }

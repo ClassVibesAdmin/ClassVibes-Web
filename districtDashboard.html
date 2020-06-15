@@ -57,33 +57,10 @@
         firebase.initializeApp(firebaseConfig);
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(async function (){
 
-            var funcResult = "";
-
-            function validate() {
-                return new Promise(resolve => {
-                    funcResult = validateAccountState();
-
-                    console.log(funcResult);
-                    resolve('resolved');
-                });
-            }
-
-            //async function:
-            async function asyncCall() {
-
-                const result = await validate();
-
-                console.log(result);
-                // expected output: 'resolved'
-
-                if (funcResult == 'Activated') {
-                getDistrictStatus();
-            }
-            }
-
-            asyncCall();
+           validateAccountState('dashboard');
+            
         });
     </script>
 
