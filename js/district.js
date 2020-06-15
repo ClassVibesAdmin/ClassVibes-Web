@@ -43,7 +43,7 @@ function getDistrictStatus(){
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
 
-            getDistrictData(value['Code']);
+            getDistrictData(snapshot.val().child('Code'));
         }
     });
 }
