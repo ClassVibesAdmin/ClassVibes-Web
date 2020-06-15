@@ -32,9 +32,9 @@ function getDistrictStatus(){
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
-        console.log(snapshot.val());
+        console.log(snapshot.keys());
 
-        var value = snapshot.val();
+        var value = snapshot.child('Code').val();
 
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
