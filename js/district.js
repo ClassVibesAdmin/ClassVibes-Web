@@ -54,8 +54,8 @@ function getDistrictStatusCreatePage(){
             document.getElementById('createDistrict-page').style.display = "initial";
             document.getElementById('quotaReached').style.display = "none";
         } else {
-            document.getElementById('quotaReached').style.display = "initial";
             document.getElementById('createDistrict-page').style.display = "none";
+            document.getElementById('quotaReached').style.display = "initial";
         }
     });
 }
