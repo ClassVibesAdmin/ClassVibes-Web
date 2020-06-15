@@ -24,8 +24,10 @@ function getDistrictStatus(){
         console.log(snapshot.val());
         if(snapshot.val() == null){
             document.getElementById('createDistrictOptions').style.display = "initial";
+            document.getElementById('districtInfo-stats').style.display = "none";
         } else {
             document.getElementById('districtInfo-stats').style.display = "initial";
+            document.getElementById('createDistrictOptions').style.display = "none";
         }
     });
 }
