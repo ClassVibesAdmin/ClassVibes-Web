@@ -237,7 +237,7 @@ function getDistrictData(code){
     _pendingRequestsRef.once('value').then(function (snapshot) {
         var value = snapshot.val();
 
-        if(value == null || value == undefined){
+        if(value == null || value == undefined || value == 0){
             pendingTeacherRequests = 0;
             _pendingRequestsRef.set(pendingTeacherRequests);
         } else {
