@@ -445,9 +445,18 @@ function createSchool() {
 }
 
 function copyToClipboard() {
-    var copyTextarea = document.getElementById("schoolCodeCopy");
-    copyTextarea.select(); //select the text area
-    document.execCommand("copy"); //copy to clipboard
 
-    console.log("COPIED: " + copyTextarea.value);
+
+
+    /* Get the text field */
+  var copyText = document.getElementById("schoolCodeCopy");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  console.log("COPIED: " + copyText.value);
 }
