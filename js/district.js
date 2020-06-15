@@ -344,7 +344,7 @@ function makeid(length) {
     return result;
 }
 
-function createSchool() {
+async function createSchool() {
 
     var userEmail = localStorage.getItem('email');
 
@@ -357,7 +357,7 @@ function createSchool() {
 
     var errorMessage = document.getElementById('schoolCreateError');
 
-    var districtID = getDistrictID();
+    var districtID = await getDistrictID();
 
     console.log(districtID);
 
