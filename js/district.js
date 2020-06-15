@@ -284,7 +284,7 @@ var yyyy = today.getFullYear();
 today = mm + '/' + dd + '/' + yyyy;
 
 
-            var untilExpireDays=dateDiffInDays(new Date(today), new Date(planActivated));
+            var untilExpireDays=dateDiffInDays(new Date(today), new Date(planExpires));
 
             if(totalDays == 0){
                 console.log("PLAN EXPIRED");
