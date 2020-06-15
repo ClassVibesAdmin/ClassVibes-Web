@@ -162,6 +162,23 @@ function getDistrictData(code){
     var schools = 0;
     var pendingTeacherRequests = 0;
 
+    var districtName = "";
+
+    //District NAME GET
+
+    var _districtNameRef = firebase.database().ref().child('Districts').child(code).child("Name");
+
+    _districtNameRef.once('value').then(function (snapshot) {
+        var value = snapshot.val();
+
+        if(value == null || value == undefined){
+            $('#studentsCount').text("Loading...");
+        } else {
+            districtName = snapshot.val();
+            $('#districtName').text(districtName);
+        }
+    });
+
     //STUDENTS GET
 
     var _studentRef = firebase.database().ref().child('Districts').child(code).child("Student Count");
