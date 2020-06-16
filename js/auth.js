@@ -683,7 +683,7 @@ googleSignUp = (type) => {
 
             console.log(value);
 
-            if(value == undefined || value == null){
+            if(value != undefined || value != null){
                 
                 console.log("EXISTS:" + value);
     
