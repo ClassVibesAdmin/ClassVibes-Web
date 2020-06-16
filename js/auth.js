@@ -332,7 +332,7 @@ googleSignInDistrict = () => {
                     localStorage.setItem("name", name3);
     
                     window.location = "/districtDashboard.html";
-                }else {
+                } else {
                     errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
