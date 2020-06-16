@@ -604,7 +604,7 @@ function getSchoolsData(){
                       </div>
   
                       <div class="float-right" style="margin-left: 11px; margin-top: 10px;">
-                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="updateSchoolInfo(${child.child('School Code').val()})">
+                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="updateSchoolInfo('${child.child('School Code').val()}')">
                           <span class="text" >Save Changes</span>
                         </a>
                       </div>
