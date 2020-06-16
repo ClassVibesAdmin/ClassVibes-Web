@@ -485,12 +485,12 @@ function createSchool() {
 
 }
 
-function copyToClipboard() {
+function copyToClipboard(schoolCode = "") {
 
 
   var clipboard = new ClipboardJS('.btn btn-primary');
 
-  document.getElementById('copyButtonText').innerText = "Copied!";
+  document.getElementById('copyButtonText' + schoolCode).innerText = "Copied!";
 
   console.log("copied!");
 
@@ -499,7 +499,7 @@ clipboard.on('success', function(e) {
     console.info('Text:', e.text);
     console.info('Trigger:', e.trigger);
 
-    document.getElementById('copyButtonText').innerText = "Copied!";
+    document.getElementById('copyButtonText' + schoolCode).innerText = "Copied!";
 
     e.clearSelection();
 });
