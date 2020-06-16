@@ -663,9 +663,8 @@ function updateSchoolInfo(schoolCode){
         $('#updateErrorList' + schoolCode).innerHTML = errorHTML;
 
 
-    }
-
-    var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools').child(schoolCode);
+    } else {
+        var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools').child(schoolCode);
 
     _ref.child("School Name").set(schoolName);
     _ref.child("School Website").set(schoolWebsite);
@@ -674,5 +673,8 @@ function updateSchoolInfo(schoolCode){
     _ref.child("Principal Email").set(principalEmail);
 
     $('#multiCollapse' + schoolCode).collapse('toggle');
+    }
+
+    
 
 }
