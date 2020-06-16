@@ -674,6 +674,8 @@ function updateSchoolInfo(schoolCode){
     _ref.child("Principal Email").set(principalEmail);
 
     $('#multiCollapse' + schoolCode).collapse('toggle');
+
+    location.reload();
     }
 
     
