@@ -653,7 +653,7 @@ function updateSchoolInfo(schoolCode){
     var schoolAddress = document.getElementById('schoolAddress' + schoolCode).value;
     var principalEmail = document.getElementById('principalEmail' + schoolCode).value;
 
-    if(schoolName, schoolWebsite, schoolPhone, schoolAddress, principalEmail == "" || schoolName, schoolWebsite, schoolPhone, schoolAddress, principalEmail == null){
+    if(schoolName == "" || schoolWebsite == "" || schoolPhone == "" || schoolAddress == "" || principalEmail == ""){
 
         errorHTML = `
         <div class="alert alert-danger" role="alert">
