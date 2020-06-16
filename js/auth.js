@@ -585,54 +585,55 @@ facebookSignUp = (type) => {
         var email = user.email;
         var displayName = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
+        firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
 
-        _ref.once('value').then(function (snapshot) {
-            var value = snapshot.val();
+            var value = documentSnapshot.data();
 
-            console.log("EXISTS:" + value);
+            console.log(value);
 
-            if(value != null || value != undefined){
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
-        </div>`;
-
+            if(value != undefined || value != null){
+                
+                console.log("EXISTS:" + value);
+    
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Error! </strong> An account with this email already exists
+            </div>`;
+    
                 document.getElementById('signupError').innerHTML = errorHTML;
+            
             } else {
-
                 if(type == "student"){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Student');
-                    _ref.child("Account Status").set('Deactivated');
+
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Student",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'teacher'){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Teacher');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Teacher",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'district'){
 
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('District');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "District",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 console.log('signup success google');
@@ -646,20 +647,22 @@ facebookSignUp = (type) => {
     
                     successPage.style.display = "initial";
                  }, 200)
-                       
+
             }
+        }).catch((e) => {
+            console.log(e);
         });
 
 
     }).catch(function (err) {
         console.log(err)
-        console.log("Facebppl Sign In Failed")
+        console.log("Facebook Sign In Failed")
         errorHTML = `<div class="alert alert-danger" role="alert"
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
+            <strong>Error! </strong> Facebook Login Failed
         </div>`;
 
-                document.getElementById('signupError').innerHTML = errorHTML;
+        document.getElementById('signupError').innerHTML = errorHTML;
     })
 }
 
