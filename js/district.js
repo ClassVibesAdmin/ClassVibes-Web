@@ -515,7 +515,7 @@ clipboard.on('error', function(e) {
 function getSchoolsData(){
     var districtID = localStorage.getItem('district id');
 
-    var _ref = firebase.database().child("Districts").child(districtID).child("Schools");
+    var _ref = firebase.database().ref().child("Districts").child(districtID).child("Schools");
 
     _ref.once('value').then(function (snapshot) {
 
