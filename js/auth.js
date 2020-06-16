@@ -677,7 +677,7 @@ googleSignUp = (type) => {
         var displayName = user.displayName;
         var profilePic = user.photoURL;
 
-        firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
+        firebase.firestore().collection("UserData").doc("test@gmail.com").get().then((documentSnapshot) => {
 
             var value = documentSnapshot.data();
 
