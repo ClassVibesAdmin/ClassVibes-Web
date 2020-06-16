@@ -412,19 +412,9 @@ const btnLogout = document.getElementById("btnLogout");
 
 
 function checkServerStatus(signInType){
-    var _ref = firebase.database().ref().child("Application Management").child("serversAreUp");
 
-    var serverMessage = document.getElementById("serverStatusMessage");
-
-    var errorMessage = `
-    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px">
-    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
-    style="margin-top: 20px; width: 600px; display: initial;">
-    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
-</div>`;
-
-    _ref.once('value').then(function (snapshot) {
-        var status = snapshot.val();
+    firebase.firestore().collection("Application Management").doc("Server Management").get().then((documentSnapshot) => {
+        var status = documentSnapshot.data().serversAreUp;
 
         console.log('Status: ' + status);
 
@@ -444,9 +434,20 @@ function checkServerStatus(signInType){
                 }
             }
         }
+
     });
+
+    var serverMessage = document.getElementById("serverStatusMessage");
+
+    var errorMessage = `
+    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px">
+    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
+    style="margin-top: 20px; width: 600px; display: initial;">
+    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
+</div>`;
 }
 
+//FIRESTORE MIGRATED
 function emailSignUp(type){
 
     document.getElementById('signup-btn-text').style.display = "none";
@@ -574,6 +575,7 @@ function emailSignUp(type){
 }
 
 
+//FIRESTORE MIGRATED
 facebookSignUp = (type) => {
 
     base_provider = new firebase.auth.FacebookAuthProvider();
@@ -666,6 +668,8 @@ facebookSignUp = (type) => {
     })
 }
 
+
+//FIRESTORE MIGRATED
 googleSignUp = (type) => {
 
     console.log("TYPE Signup:" + type);
