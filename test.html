@@ -64,9 +64,12 @@
     function test() {
       let db = firebase.firestore()
 
-      db.collection("UserData").doc("krishnatechpranav@gmail.com").collection("Classes").doc("123").set({
-        "ClassName": "Test"
-      });
+      firebase.firestore().collection("UserData").doc("test1@gmail.com").get().then((documentSnapshot) => {
+            
+            var data = documentSnapshot.data();
+
+            console.log(data.test);
+        });
 
     }
   </script>

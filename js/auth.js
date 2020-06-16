@@ -673,12 +673,10 @@ googleSignUp = (type) => {
         var email = user.email;
         var displayName = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
-
-        _ref.once('value').then(function (snapshot) {
-            var value = snapshot.val();
+        firebase.firestore().collection("UserData").doc("test1@gmail.com").get().then((documentSnapshot) => {
+            
+            var value = documentSnapshot.data().email;
 
             console.log("EXISTS:" + value);
 
@@ -689,38 +687,38 @@ googleSignUp = (type) => {
             <strong>Error! </strong> An account with this email already exists
         </div>`;
 
-                document.getElementById('signupError').innerHTML = errorHTML;
+            document.getElementById('signupError').innerHTML = errorHTML;
             } else {
-
                 if(type == "student"){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Student');
-                    _ref.child("Account Status").set('Deactivated');
+
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Student",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'teacher'){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Teacher');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Teacher",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'district'){
 
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('District');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "District",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 console.log('signup success google');
@@ -734,10 +732,9 @@ googleSignUp = (type) => {
     
                     successPage.style.display = "initial";
                  }, 200)
-                       
+
             }
         });
-
 
     }).catch(function (err) {
         console.log(err)
