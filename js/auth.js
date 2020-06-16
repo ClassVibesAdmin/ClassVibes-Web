@@ -680,7 +680,7 @@ googleSignUp = (type) => {
 
             if(value == undefined || value == null){
                 
-                console.log("EXISTS:" + value.email);
+                console.log("EXISTS:" + value);
     
                     errorHTML = `<div class="alert alert-danger" role="alert"
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
