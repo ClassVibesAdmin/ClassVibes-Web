@@ -665,7 +665,7 @@ facebookSignUp = (type) => {
 
 googleSignUp = (type) => {
 
-    console.log("TYPE:" + type);
+    console.log("TYPE Signup:" + type);
 
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
