@@ -527,36 +527,33 @@ function emailSignUp(type){
 
                     if(type == "student"){
 
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('Student');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "Student",
+                            "Account Status": "Deactivated",
+                        });
                    }
                     
                     else if(type == 'teacher'){
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('Teacher');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "Teacher",
+                            "Account Status": "Deactivated",
+                        });
                     } 
                     
                     else if(type == 'district'){
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('District');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "District",
+                            "Account Status": "Deactivated",
+                        });
                     }
 
 
