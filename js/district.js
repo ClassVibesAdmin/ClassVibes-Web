@@ -570,17 +570,17 @@ function getSchoolsData(){
   
                         <div class="col">
                           <h5>School Name</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName" style="margin-bottom: 1%;" value = '${child.child("School Name").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Name").val()}'>  
                         </div>
   
                         <div class="col">
                           <h5>School Website</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite" style="margin-bottom: 1%;" value = '${child.child("School Website").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Website").val()}'>  
                         </div>
   
                         <div class="col">
                           <h5>School Phone</h5>
-                          <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone" style="margin-bottom: 1%;" value = '${child.child("School Phone").val()}'>
+                          <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Phone").val()}'>
                         </div>
   
                       </div>
@@ -589,18 +589,22 @@ function getSchoolsData(){
   
                         <div class="col">
                           <h5>School Address</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress" style="margin-bottom: 1%;" value = '${child.child("School Address").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Address").val()}'>  
                         </div>
   
                         <div class="col">
                           <h5>Principal Email</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail" style="margin-bottom: 1%;" value = '${child.child("Principal Email").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("Principal Email").val()}'>  
                         </div>
   
                       </div>
+
+                      <div id = "updateErrorList${child.child('School Code').val()}">
+
+                      </div>
   
                       <div class="float-right" style="margin-left: 11px; margin-top: 10px;">
-                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="$('#multiCollapse${child.child("School Code").val()}').collapse('toggle')">
+                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="updateSchoolInfo(${child.child('School Code').val()})">
                           <span class="text" >Save Changes</span>
                         </a>
                       </div>
@@ -617,9 +621,9 @@ function getSchoolsData(){
 
                       <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                          <input type="text" class="form-control bg-light border-4 small" value = "${child.child("School Code").val()}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy" readonly>
+                          <input type="text" class="form-control bg-light border-4 small" value = "${child.child("School Code").val()}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy${child.child("School Code").val()}" readonly>
                           <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy" id = "copyButtonText" onclick="copyToClipboard()">
+                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy${child.child("School Code").val()}" id = "copyButtonText${child.child("School Code").val()}" onclick="copyToClipboard(${child.child("School Code").val()})">
                               Copy
                             </button>
                           </div>
@@ -638,4 +642,37 @@ function getSchoolsData(){
 
     });
     
+}
+
+function updateSchoolInfo(schoolCode){
+    var districtID = localStorage.getItem('district id');
+
+    var schoolName = document.getElementById('schoolName' + schoolCode).value;
+    var schoolWebsite = document.getElementById('schoolWebsite' + schoolCode).value;
+    var schoolPhone = document.getElementById('schoolPhone' + schoolCode).value;
+    var schoolAddress = document.getElementById('schoolAddress' + schoolCode).value;
+    var principalEmail = document.getElementById('principalEmail' + schoolCode).value;
+
+    if(schoolName, schoolWebsite, schoolPhone, schoolAddress, principalEmail == "" || schoolName, schoolWebsite, schoolPhone, schoolAddress, principalEmail == null){
+
+        errorHTML = `
+        <div class="alert alert-danger" role="alert">
+        You cannot leave any fields blank
+      </div>
+        `;
+        $('#updateErrorList' + schoolCode).innerHTML = errorHTML;
+
+
+    }
+
+    var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools').child(schoolCode);
+
+    _ref.child("School Name").set(schoolName);
+    _ref.child("School Website").set(schoolWebsite);
+    _ref.child("School Phone").set(schoolPhone);
+    _ref.child("School Address").set(schoolAddress);
+    _ref.child("Principal Email").set(principalEmail);
+
+    $('#multiCollapse' + schoolCode).collapse('toggle');
+
 }
