@@ -623,7 +623,7 @@ function getSchoolsData(){
                         <div class="input-group">
                           <input type="text" class="form-control bg-light border-4 small" value = "${child.child("School Code").val()}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy${child.child("School Code").val()}" readonly>
                           <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy${child.child("School Code").val()}" id = "copyButtonText${child.child("School Code").val()}" onclick="copyToClipboard(${child.child("School Code").val()})">
+                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy${child.child("School Code").val()}" id = "copyButtonText${child.child("School Code").val()}" onclick="copyToClipboard('${child.child("School Code").val()}')">
                               Copy
                             </button>
                           </div>
