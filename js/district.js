@@ -681,3 +681,10 @@ function updateSchoolInfo(schoolCode){
     
 
 }
+
+function toggleCreateSchoolView(){
+
+    document.getElementById("schoolsInfoSection").style.display = "none";
+    document.getElementById("createSchool-page").style.display = "initial";
+    
+}
