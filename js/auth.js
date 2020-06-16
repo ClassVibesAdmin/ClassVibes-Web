@@ -258,7 +258,10 @@ googleSignInTeacher = () => {
         var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
         _ref.once('value').then(function (snapshot) {
+
             var exists = snapshot.val();
+
+            console.log(exists);
 
             if(exists == null){
                 errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -677,6 +680,8 @@ googleSignUp = (type) => {
         firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
 
             var value = documentSnapshot.data();
+
+            console.log(value);
 
             if(value == undefined || value == null){
                 
