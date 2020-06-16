@@ -740,6 +740,8 @@ googleSignUp = (type) => {
                  }, 200)
 
             }
+        }).catch((e) => {
+            console.log(e);
         });
 
     }).catch(function (err) {
