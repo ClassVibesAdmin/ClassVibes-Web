@@ -413,7 +413,7 @@ const btnLogout = document.getElementById("btnLogout");
 
 function checkServerStatus(signInType){
 
-    firebase.firestore().collection("Application Management").doc("Server Management").get().then((documentSnapshot) => {
+    firebase.firestore().collection("Application Management").doc("ServerManagement").get().then((documentSnapshot) => {
         var status = documentSnapshot.data().serversAreUp;
 
         console.log('Status: ' + status);
