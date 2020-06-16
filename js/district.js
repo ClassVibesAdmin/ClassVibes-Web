@@ -72,6 +72,8 @@ function getSchoolStatusManageSchoolsScreen(){
         if (snapshot.exists()) {
             document.getElementById('createSchoolMessage').style.display = "none";
             document.getElementById('schoolsInfoSection').style.display = "initial";
+
+            getSchoolsData();
           } else {
             document.getElementById('createSchoolMessage').style.display = "initial";
             document.getElementById('schoolsInfoSection').style.display = "none";
@@ -508,4 +510,21 @@ clipboard.on('error', function(e) {
 });
   
 
+}
+
+function getSchoolsData(){
+    var districtID = localStorage.getItem('district id');
+
+    var _ref = firebase.database().child("Districts").child(districtID).child("Schools");
+
+    _ref.once('value').then(function (snapshot) {
+
+        console.log(snapshot.val());
+
+        snapshot.forEach((child) => {
+            key = child.child('Code').val();
+        });
+
+    });
+    
 }
