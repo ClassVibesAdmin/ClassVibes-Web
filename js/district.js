@@ -660,7 +660,8 @@ function updateSchoolInfo(schoolCode){
         You cannot leave any fields blank
       </div>
         `;
-        $('#updateErrorList' + schoolCode).innerHTML = errorHTML;
+
+        document.getElementById('updateErrorList' + schoolCode).innerHTML = errorHTML;
 
 
     } else {
