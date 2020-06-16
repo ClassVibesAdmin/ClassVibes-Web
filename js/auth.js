@@ -419,11 +419,16 @@ function checkServerStatus(signInType){
         console.log('Status: ' + status);
 
         if(status == null || status == undefined){
-            console.log("NULL");
-            $('#serverStatusMessage').replaceWith(errorMessage);
+
+           document.getElementById('serverErrorMessage').style.display = "initial";
+           document.getElementById('signup-section').style.display = "none";
+
+           
         } else {
             if(status == false){
-                serverMessage.parentNode.innerHTML = errorMessage;
+                document.getElementById('serverErrorMessage').style.display = "initial";
+                document.getElementById('signup-section').style.display = "none";
+                
             } else {
                 if(signInType == "GoogleSignIn"){
                     googleSignIn()
@@ -440,11 +445,14 @@ function checkServerStatus(signInType){
     var serverMessage = document.getElementById("serverStatusMessage");
 
     var errorMessage = `
-    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px">
+    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px; width:100px">
+
     <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
     style="margin-top: 20px; width: 600px; display: initial;">
     <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
-</div>`;
+</div>
+
+    `;
 }
 
 //FIRESTORE MIGRATED
