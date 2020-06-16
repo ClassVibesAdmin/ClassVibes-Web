@@ -675,19 +675,20 @@ googleSignUp = (type) => {
         var profilePic = user.photoURL;
 
         firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
+
+            var value = documentSnapshot.data();
+
+            if(value == undefined || value == null){
+                
+                console.log("EXISTS:" + value.email);
+    
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Error! </strong> An account with this email already exists
+            </div>`;
+    
+                document.getElementById('signupError').innerHTML = errorHTML;
             
-            var value = documentSnapshot.data().email;
-
-            console.log("EXISTS:" + value);
-
-            if(value != null || value != undefined){
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
             } else {
                 if(type == "student"){
 
