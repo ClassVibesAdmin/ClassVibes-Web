@@ -656,7 +656,7 @@ function updateSchoolInfo(schoolCode){
     if(schoolName === "" || schoolWebsite === "" || schoolPhone === "" || schoolAddress === "" || principalEmail === ""){
 
         errorHTML = `
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert" style = "margin-left: 6px; margin-top: 10px;">
         You cannot leave any fields blank
       </div>
         `;
