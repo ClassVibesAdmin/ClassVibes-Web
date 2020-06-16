@@ -522,7 +522,118 @@ function getSchoolsData(){
         console.log(snapshot.val());
 
         snapshot.forEach((child) => {
-            key = child.child('Code').val();
+            elementHTML = `
+            <div class="col-xl-12 col-md-6 mb-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+
+                          <div class="row" style="margin-left: 4px;">
+                            <i class="fas fa-users"></i>
+
+                            <h5 style="margin-left: 5px; margin-top: -4px;">901 Students</h5>
+                          </div>
+
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">${child.child("School Name").val()}</div>
+                        </div>
+
+                        
+
+                        <div class="col-auto" style="margin-right: 10px;">
+                          <a href="#" class="btn btn-primary btn-circle btn-lg">
+                            <i class="fas fa-eye"></i>
+                          </a>
+                        </div>
+
+                        <div class="col-auto" style="margin-right: 10px;">
+                          <a data-toggle="collapse" href="#inviteInfoCollapse${child.child("School Code").val()}" role="button" aria-expanded="false" aria-controls="inviteInfoCollapse${child.child("School Code").val()}" class="btn btn-primary btn-circle btn-lg">
+                            <i class="fas fa-user-plus"></i>
+                          </a>
+                        </div>
+
+                        <div class="col-auto">
+                          <a data-toggle="collapse" href="#multiCollapse${child.child("School Code").val()}" role="button" aria-expanded="false" aria-controls="multiCollapse${child.child("School Code").val()}" class="btn btn-primary btn-circle btn-lg">
+                            <i class="far fa-edit"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="collapse multi-collapse" id="multiCollapse${child.child("School Code").val()}">
+                    <div class="card card-body">
+                     
+                      <h2>Edit School</h2>
+  
+                      <div class="row" style="margin-left: 3px;">
+  
+                        <div class="col">
+                          <h5>School Name</h5>
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName" style="margin-bottom: 1%;" value = '${child.child("School Name").val()}'>  
+                        </div>
+  
+                        <div class="col">
+                          <h5>School Website</h5>
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite" style="margin-bottom: 1%;" value = '${child.child("School Website").val()}'>  
+                        </div>
+  
+                        <div class="col">
+                          <h5>School Phone</h5>
+                          <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone" style="margin-bottom: 1%;" value = '${child.child("School Phone").val()}'>
+                        </div>
+  
+                      </div>
+  
+                      <div class="row" style="margin-left: 3px;">
+  
+                        <div class="col">
+                          <h5>School Address</h5>
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress" style="margin-bottom: 1%;" value = '${child.child("School Address").val()}'>  
+                        </div>
+  
+                        <div class="col">
+                          <h5>Principal Email</h5>
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail" style="margin-bottom: 1%;" value = '${child.child("Principal Email").val()}'>  
+                        </div>
+  
+                      </div>
+  
+                      <div class="float-right" style="margin-left: 11px; margin-top: 10px;">
+                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="$('#multiCollapse${child.child("School Code").val()}').collapse('toggle')">
+                          <span class="text" >Save Changes</span>
+                        </a>
+                      </div>
+                    </div>
+  
+                  </div>
+
+
+               
+                  <div class="collapse multi-collapse" id="inviteInfoCollapse${child.child("School Code").val()}">
+                    <div class="card card-body">
+
+                      <h5 style="margin-left: 20px;">School ID</h5>
+
+                      <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                          <input type="text" class="form-control bg-light border-4 small" value = "${child.child("School Code").val()}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy" readonly>
+                          <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy" id = "copyButtonText" onclick="copyToClipboard()">
+                              Copy
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
+
+                    </div>
+                  </div>
+                </div>
+            `;
+
+            $(elementHTML).appendTo('#schoolsList');
+
         });
 
     });
