@@ -399,10 +399,10 @@ googleSignInDistrict = () => {
         });
 
         if (accountType != null) {
-            if (accountType == "Student") {
+            if (accountType == "District") {
                 console.log('Login Success');
                 localStorage.setItem("email", formattedEmail);
-                window.location = "studentDashboard.html";
+                window.location = "districtDashboard.html";
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
