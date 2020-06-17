@@ -86,7 +86,7 @@ function facebookLoginStudent() {
 
         // });
 
-        
+
         //NEW CODE
         var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
@@ -429,8 +429,10 @@ googleSignInTeacher = () => {
         if (accountType != null) {
             if (accountType == "Teacher") {
                 console.log('Login Success');
+                localStorage.setItem("photo", profilePic);
                 localStorage.setItem("email", formattedEmail);
-                window.location = "teacherDashboard.html";
+                localStorage.setItem("name", name3);
+                window.location = "/dashboard.html";
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1179,7 +1181,7 @@ function loginWithEmailTeacher() {
             //         }
             //     });
 
-            
+
 
 
             //NEW CODE
