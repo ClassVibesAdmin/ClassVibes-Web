@@ -638,7 +638,7 @@ googleSignInStudent = () => {
                 window.location = "/studentDashboard.html";
 
                 if (accountType != null) {
-                    if (accountType == "Teacher") {
+                    if (accountType == "Student") {
                         console.log('Login Success');
                         // localStorage.setItem("photo", profilePic);
                         //             localStorage.setItem("email", formattedEmail);
