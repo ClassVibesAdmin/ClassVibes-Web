@@ -807,7 +807,7 @@ function loginWithEmailStudent() {
             // CHANGE THE exists thing to account type - just check if account type is student or not
 
 
-
+            
             var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('Account Type');
 
             _ref.once('value').then(function (snapshot) {
