@@ -182,6 +182,15 @@
       
         _refWriteAnnouncement.child("Title").set(messageTitle);
         _refWriteAnnouncement.child("Message").set(messageText);
+
+        firebase.firestore().collection("Classes").doc(numberClass).collection("Announcements").doc().set({
+            "Title": messageTitle,
+            "Message": messageText,
+            
+          });
+
+
+
       }
   
       $('#exampleModal').on('show.bs.modal', function (event) {
