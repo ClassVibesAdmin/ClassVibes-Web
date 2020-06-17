@@ -375,7 +375,7 @@ googleSignInTeacher = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        var formattedEmail = email;
 
         // old code
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
