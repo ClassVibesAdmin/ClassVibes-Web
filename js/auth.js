@@ -1,3 +1,5 @@
+firebase.firestore().enablePersistence()
+
 function facebookLogin() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
