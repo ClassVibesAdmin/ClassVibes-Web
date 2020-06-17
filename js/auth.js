@@ -765,6 +765,8 @@ googleSignUp = (type) => {
     })
 }
 
+
+//Firestore Migrated
 function loginWithEmailStudent() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
@@ -870,6 +872,7 @@ function loginWithEmailStudent() {
 
 }
 
+//Firestore Migrated
 function loginWithEmailTeacher() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
@@ -985,6 +988,7 @@ function loginWithEmailTeacher() {
 
 }
 
+//Firestore Migrated
 function loginWithEmailDistrict() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
