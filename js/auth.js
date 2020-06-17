@@ -271,7 +271,10 @@ googleSignInTeacher = () => {
         var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
         _ref.once('value').then(function (snapshot) {
+
             var exists = snapshot.val();
+
+            console.log(exists);
 
             if(exists == null){
                 errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -342,7 +345,7 @@ googleSignInDistrict = () => {
                     localStorage.setItem("name", name3);
     
                     window.location = "/districtDashboard.html";
-                }else {
+                } else {
                     errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
@@ -422,28 +425,23 @@ const btnLogout = document.getElementById("btnLogout");
 
 
 function checkServerStatus(signInType){
-    var _ref = firebase.database().ref().child("Application Management").child("serversAreUp");
 
-    var serverMessage = document.getElementById("serverStatusMessage");
-
-    var errorMessage = `
-    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px">
-    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
-    style="margin-top: 20px; width: 600px; display: initial;">
-    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
-</div>`;
-
-    _ref.once('value').then(function (snapshot) {
-        var status = snapshot.val();
+    firebase.firestore().collection("Application Management").doc("ServerManagement").get().then((documentSnapshot) => {
+        var status = documentSnapshot.data().serversAreUp;
 
         console.log('Status: ' + status);
 
         if(status == null || status == undefined){
-            console.log("NULL");
-            $('#serverStatusMessage').replaceWith(errorMessage);
+
+           document.getElementById('serverErrorMessage').style.display = "initial";
+           document.getElementById('signup-section').style.display = "none";
+
+           
         } else {
             if(status == false){
-                serverMessage.parentNode.innerHTML = errorMessage;
+                document.getElementById('serverErrorMessage').style.display = "initial";
+                document.getElementById('signup-section').style.display = "none";
+                
             } else {
                 if(signInType == "GoogleSignIn"){
                     googleSignIn()
@@ -454,9 +452,23 @@ function checkServerStatus(signInType){
                 }
             }
         }
+
     });
+
+    var serverMessage = document.getElementById("serverStatusMessage");
+
+    var errorMessage = `
+    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px; width:100px">
+
+    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
+    style="margin-top: 20px; width: 600px; display: initial;">
+    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
+</div>
+
+    `;
 }
 
+//FIRESTORE MIGRATED
 function emailSignUp(type){
 
     document.getElementById('signup-btn-text').style.display = "none";
@@ -540,36 +552,33 @@ function emailSignUp(type){
 
                     if(type == "student"){
 
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('Student');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "Student",
+                            "Account Status": "Deactivated",
+                        });
                    }
                     
                     else if(type == 'teacher'){
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('Teacher');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "Teacher",
+                            "Account Status": "Deactivated",
+                        });
                     } 
                     
                     else if(type == 'district'){
-                        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-                        var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                        console.log(formattedEmail);
-                        _ref.child("display-name").set(displayName);
-                        _ref.child("email").set(email);
-                        _ref.child("username").set(formattedEmail);
-                        _ref.child("Account Type").set('District');
-                        _ref.child("Account Status").set('Deactivated');
+                        firebase.firestore().collection("UserData").doc(email).set({
+                            "display-name": displayName,
+                            "email": email,
+                            "username": email,
+                            "Account Type": "District",
+                            "Account Status": "Deactivated",
+                        });
                     }
 
 
@@ -587,6 +596,7 @@ function emailSignUp(type){
 }
 
 
+//FIRESTORE MIGRATED
 facebookSignUp = (type) => {
 
     base_provider = new firebase.auth.FacebookAuthProvider();
@@ -598,54 +608,55 @@ facebookSignUp = (type) => {
         var email = user.email;
         var displayName = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
+        firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
 
-        _ref.once('value').then(function (snapshot) {
-            var value = snapshot.val();
+            var value = documentSnapshot.data();
 
-            console.log("EXISTS:" + value);
+            console.log(value);
 
-            if(value != null || value != undefined){
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
-        </div>`;
-
+            if(value != undefined || value != null){
+                
+                console.log("EXISTS:" + value);
+    
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Error! </strong> An account with this email already exists
+            </div>`;
+    
                 document.getElementById('signupError').innerHTML = errorHTML;
+            
             } else {
-
                 if(type == "student"){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Student');
-                    _ref.child("Account Status").set('Deactivated');
+
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Student",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'teacher'){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Teacher');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Teacher",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'district'){
 
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('District');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "District",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 console.log('signup success google');
@@ -659,26 +670,30 @@ facebookSignUp = (type) => {
     
                     successPage.style.display = "initial";
                  }, 200)
-                       
+
             }
+        }).catch((e) => {
+            console.log(e);
         });
 
 
     }).catch(function (err) {
         console.log(err)
-        console.log("Facebppl Sign In Failed")
+        console.log("Facebook Sign In Failed")
         errorHTML = `<div class="alert alert-danger" role="alert"
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
+            <strong>Error! </strong> Facebook Login Failed
         </div>`;
 
-                document.getElementById('signupError').innerHTML = errorHTML;
+        document.getElementById('signupError').innerHTML = errorHTML;
     })
 }
 
+
+//FIRESTORE MIGRATED
 googleSignUp = (type) => {
 
-    console.log("TYPE:" + type);
+    console.log("TYPE Signup:" + type);
 
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -689,54 +704,55 @@ googleSignUp = (type) => {
         var email = user.email;
         var displayName = user.displayName;
         var profilePic = user.photoURL;
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('email');
+        firebase.firestore().collection("UserData").doc(email).get().then((documentSnapshot) => {
 
-        _ref.once('value').then(function (snapshot) {
-            var value = snapshot.val();
+            var value = documentSnapshot.data();
 
-            console.log("EXISTS:" + value);
+            console.log(value);
 
-            if(value != null || value != undefined){
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An account with this email already exists
-        </div>`;
-
+            if(value != undefined || value != null){
+                
+                console.log("EXISTS:" + value);
+    
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Error! </strong> An account with this email already exists
+            </div>`;
+    
                 document.getElementById('signupError').innerHTML = errorHTML;
+            
             } else {
-
                 if(type == "student"){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Student');
-                    _ref.child("Account Status").set('Deactivated');
+
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Student",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'teacher'){
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('Teacher');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "Teacher",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 else if(type == 'district'){
 
-                    var _ref = firebase.database().ref().child("UserData").child(formattedEmail);
-                    console.log(formattedEmail);
-                    _ref.child("display-name").set(displayName);
-                    _ref.child("email").set(email);
-                    _ref.child("username").set(formattedEmail);
-                    _ref.child("Account Type").set('District');
-                    _ref.child("Account Status").set('Deactivated');
+                    firebase.firestore().collection("UserData").doc(email).set({
+                        "display-name": displayName,
+                        "email": email,
+                        "username": email,
+                        "Account Type": "District",
+                        "Account Status": "Deactivated",
+                    });
                 }
 
                 console.log('signup success google');
@@ -750,10 +766,11 @@ googleSignUp = (type) => {
     
                     successPage.style.display = "initial";
                  }, 200)
-                       
-            }
-        });
 
+            }
+        }).catch((e) => {
+            console.log(e);
+        });
 
     }).catch(function (err) {
         console.log(err)
