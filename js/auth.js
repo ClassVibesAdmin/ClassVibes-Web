@@ -310,9 +310,9 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        console.log('format email ',formattedEmail);
+        console.log('format email ', formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            console.log("data from doc : ",doc.data());
+            console.log("data from doc : ", doc.data());
             var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
@@ -428,9 +428,9 @@ googleSignInTeacher = () => {
         // });
 
         //NEW CODE
-        console.log('format email ',formattedEmail);
+        console.log('format email ', formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            console.log("data from doc : ",doc.data());
+            console.log("data from doc : ", doc.data());
             var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
@@ -629,9 +629,9 @@ googleSignInStudent = () => {
         // });
 
         //NEW CODE
-        console.log('format email ',formattedEmail);
+        console.log('format email ', formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            console.log("data from doc : ",doc.data());
+            console.log("data from doc : ", doc.data());
             var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
@@ -675,13 +675,11 @@ googleSignInStudent = () => {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
+        
+    });
 
 
-
-    }).catch(function (err) {
-        console.log(err)
-        console.log("Google Sign In Failed");
-    })
+    
 }
 
 const btnLogout = document.getElementById("btnLogout");
