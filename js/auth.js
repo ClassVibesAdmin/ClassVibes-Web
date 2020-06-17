@@ -418,6 +418,7 @@ googleSignInTeacher = () => {
         var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
+                window.location = "/dashboard.html";
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -429,6 +430,11 @@ googleSignInTeacher = () => {
         if (accountType != null) {
             if (accountType == "Teacher") {
                 console.log('Login Success');
+                // localStorage.setItem("photo", profilePic);
+                //             localStorage.setItem("email", formattedEmail);
+                //             localStorage.setItem("name", name3);
+        
+                //             window.location = "/dashboard.html";
                 localStorage.setItem("photo", profilePic);
                 localStorage.setItem("email", formattedEmail);
                 localStorage.setItem("name", name3);
