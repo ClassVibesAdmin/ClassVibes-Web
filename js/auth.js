@@ -366,7 +366,7 @@ function facebookLoginTeacher() {
     })
 }
 
-//FIRESTORE MIGRATED
+//FIRESTORE MIGRATED WORKS
 googleSignInTeacher = () => {
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
