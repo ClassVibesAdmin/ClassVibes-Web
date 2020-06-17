@@ -37,7 +37,7 @@ function validateAccountState(page) {
     // });
 
     //NEW CODE
-    var accountStatus = firebase.firestore().collection("UserData").document(email).get().then((docSnap) => {
+    var accountStatus = firebase.firestore().collection("UserData").doc(email).get().then((docSnap) => {
         docSnap.data()['Account Status'];
     });
 
@@ -156,7 +156,7 @@ function getSchoolStatusManageSchoolsScreen() {
 
     console.log('TESTING...');
 
-    var schools = firebase.firestore().collection("Districts").document(districtID).collection('Schools')
+    var schools = firebase.firestore().collection("Districts").doc(districtID).collection('Schools')
         .get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
