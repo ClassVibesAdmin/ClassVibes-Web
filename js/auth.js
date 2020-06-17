@@ -258,7 +258,7 @@ function facebookLoginDistrict() {
 }
 
 
-//FIRESTORE MIGRATED
+//FIRESTORE MIGRATED WORKING
 function facebookLoginTeacher() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -377,7 +377,7 @@ function facebookLoginTeacher() {
     })
 }
 
-//FIRESTORE MIGRATED WORKS
+//FIRESTORE MIGRATED WORKING
 googleSignInTeacher = () => {
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -591,7 +591,7 @@ googleSignInStudent = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        var formattedEmail = user.email;
 
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
@@ -629,9 +629,45 @@ googleSignInStudent = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+        console.log('format email ',formattedEmail);
+        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+            console.log("data from doc : ",doc.data());
+            var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
+                window.location = "/dashboard.html";
+
+                if (accountType != null) {
+                    if (accountType == "Teacher") {
+                        console.log('Login Success');
+                        // localStorage.setItem("photo", profilePic);
+                        //             localStorage.setItem("email", formattedEmail);
+                        //             localStorage.setItem("name", name3);
+
+                        //             window.location = "/dashboard.html";
+                        localStorage.setItem("photo", profilePic);
+                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("name", name3);
+                        window.location = "/studentDashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+
+                        document.getElementById('signupError').innerHTML = errorHTML;
+
+                    }
+                } else {
+
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -639,31 +675,6 @@ googleSignInStudent = () => {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
-
-        if (accountType != null) {
-            if (accountType == "Student") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "studentDashboard.html";
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-
-            }
-        } else {
-
-            errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
 
 
 
