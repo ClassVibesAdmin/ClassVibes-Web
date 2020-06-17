@@ -417,7 +417,9 @@ googleSignInTeacher = () => {
         // });
 
         //NEW CODE
+        console.log('sadfsssssss ',formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+            console.log("sfsdf : ",doc.data());
             var accountType = documentSnapshot.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
