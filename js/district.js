@@ -39,61 +39,89 @@ function validateAccountState(page) {
     //NEW CODE
     var accountStatus = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
         docSnap.data()['Account Status'];
-
-        if (accountStatus == "Deactivated") {
-            document.getElementById('deactivatedAccountSection').style.display = "initial";
-            document.getElementById('createDistrictOptions').style.display = "none";
-
-            return "Deactivated";
-
-        } else if (accountStatus == "Activated") {
-
-            if (page == 'dashboard') {
-                getDistrictID();
-
-                getDistrictStatus();
-            }
-
-            if (page == 'createPage') {
-                getDistrictStatusCreatePage();
-
-                getDistrictID();
-            }
-
-            if (page == "schoolsPage") {
-                getDistrictID();
-
-                getSchoolStatusManageSchoolsScreen();
-            }
-
-            return "Activated";
-        }
     });
+
+    if (accountStatus == "Deactivated") {
+        document.getElementById('deactivatedAccountSection').style.display = "initial";
+        document.getElementById('createDistrictOptions').style.display = "none";
+
+        return "Deactivated";
+
+    } else if (accountStatus == "Activated") {
+
+        if (page == 'dashboard') {
+            getDistrictID();
+
+            getDistrictStatus();
+        }
+
+        if (page == 'createPage') {
+            getDistrictStatusCreatePage();
+
+            getDistrictID();
+        }
+
+        if (page == "schoolsPage") {
+            getDistrictID();
+
+            getSchoolStatusManageSchoolsScreen();
+        }
+
+        return "Activated";
+    }
+
 }
 
+//FIResTORE mIGRATED
+//                                                 CHECK THIS CODE FOR ERRORS !!
 function getDistrictStatus() {
     var email = localStorage.getItem('email');
 
-    var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
+    // var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
-    _ref.once('value').then(function (snapshot) {
+    // _ref.once('value').then(function (snapshot) {
 
-        if (snapshot.val() == null) {
-            document.getElementById('createDistrictOptions').style.display = "initial";
-            document.getElementById('districtInfo-stats').style.display = "none";
-        } else {
-            document.getElementById('districtInfo-stats').style.display = "initial";
-            document.getElementById('createDistrictOptions').style.display = "none";
+    //     if (snapshot.val() == null) {
+    //         document.getElementById('createDistrictOptions').style.display = "initial";
+    //         document.getElementById('districtInfo-stats').style.display = "none";
+    //     } else {
+    //         document.getElementById('districtInfo-stats').style.display = "initial";
+    //         document.getElementById('createDistrictOptions').style.display = "none";
 
-            var key = 0;
+    //         var key = 0;
 
-            snapshot.forEach((child) => {
-                key = child.child('Code').val();
-            });
+    //         snapshot.forEach((child) => {
+    //             key = child.child('Code').val();
+    //         });
 
-            getDistrictData(key);
-        }
+    //         getDistrictData(key);
+    //     }
+    // });
+
+    //NEW CODE
+    var districtStatus = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
+        docSnap.data()['Account Status'];
     });
+
+    if (districtStatus == null) {
+        document.getElementById('createDistrictOptions').style.display = "initial";
+        document.getElementById('districtInfo-stats').style.display = "none";
+    } else {
+        document.getElementById('districtInfo-stats').style.display = "initial";
+        document.getElementById('createDistrictOptions').style.display = "none";
+
+        var key = 0;
+
+        // snapshot.forEach((child) => {
+        //     key = child.child('Code').val();
+        // });
+
+        var key = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
+            docSnap.data()['Code'];
+        });
+
+        getDistrictData(key);
+    }
 }
 
 function getSchoolStatusManageSchoolsScreen() {
