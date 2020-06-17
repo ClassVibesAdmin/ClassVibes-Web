@@ -420,7 +420,7 @@ googleSignInTeacher = () => {
         console.log('sadfsssssss ',formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             console.log("sfsdf : ",doc.data());
-            var accountType = documentSnapshot.data()['Account Type'];
+            var accountType = documentSnapshot.data().AccountType;
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
                 window.location = "/dashboard.html";
