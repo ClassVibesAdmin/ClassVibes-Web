@@ -88,7 +88,7 @@ function facebookLoginStudent() {
 
         
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {

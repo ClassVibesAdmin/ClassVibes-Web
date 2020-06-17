@@ -37,7 +37,7 @@ function validateAccountState(page) {
     // });
 
     //NEW CODE
-    var accountStatus = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
+    var accountStatus = firebase.firestore().collection("UserData").document(email).get().then((docSnap) => {
         docSnap.data()['Account Status'];
     });
 
@@ -99,49 +99,88 @@ function getDistrictStatus() {
     // });
 
     //NEW CODE
-    var districtStatus = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
-        docSnap.data()['Account Status'];
-    });
+    var districts = firebase.firestore().collection("UserData").document(email).collection("Districts").get().then((querySnap) => {
+        querySnap.data()['Account Status'];
 
-    if (districtStatus == null) {
-        document.getElementById('createDistrictOptions').style.display = "initial";
-        document.getElementById('districtInfo-stats').style.display = "none";
-    } else {
-        document.getElementById('districtInfo-stats').style.display = "initial";
-        document.getElementById('createDistrictOptions').style.display = "none";
 
-        var key = 0;
-
-        // snapshot.forEach((child) => {
-        //     key = child.child('Code').val();
-        // });
-
-        var key = firebase.firestore().collection("user data").document(email).get().then((docSnap) => {
-            docSnap.data()['Code'];
-        });
-
-        getDistrictData(key);
-    }
-}
-
-function getSchoolStatusManageSchoolsScreen() {
-    var districtID = localStorage.getItem('district id');
-
-    console.log("TESTING...");
-
-    var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools');
-
-    _ref.once('value').then(function (snapshot) {
-        if (snapshot.exists()) {
-            document.getElementById('createSchoolMessage').style.display = "none";
-            document.getElementById('schoolsInfoSection').style.display = "initial";
-
-            getSchoolsData();
+        if (districts == null) {
+            document.getElementById('createDistrictOptions').style.display = "initial";
+            document.getElementById('districtInfo-stats').style.display = "none";
         } else {
-            document.getElementById('createSchoolMessage').style.display = "initial";
-            document.getElementById('schoolsInfoSection').style.display = "none";
+            document.getElementById('districtInfo-stats').style.display = "initial";
+            document.getElementById('createDistrictOptions').style.display = "none";
+
+            var key = 0;
+
+            // snapshot.forEach((child) => {
+            //     key = child.child('Code').val();
+            // });
+
+            querySnap.forEach(function (doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                key = doc.data()['Code'];
+            });
+
+            getDistrictData(key);
+
         }
     });
+}
+
+
+//FIRESTORE NOT FINISHED
+//                                             CHECK THIS CODE FOR ERRORS !!
+function getSchoolStatusManageSchoolsScreen() {
+    //OLD CODE
+    // var districtID = localStorage.getItem('district id');
+
+    // console.log("TESTING...");
+
+    // var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools');
+
+    // _ref.once('value').then(function (snapshot) {
+    //     if (snapshot.exists()) {
+    //         document.getElementById('createSchoolMessage').style.display = "none";
+    //         document.getElementById('schoolsInfoSection').style.display = "initial";
+
+    //         getSchoolsData();
+    //     } else {
+    //         document.getElementById('createSchoolMessage').style.display = "initial";
+    //         document.getElementById('schoolsInfoSection').style.display = "none";
+    //     }
+    // });
+
+    //NEW CODE
+    var districtID = localStorage.getItem('district id');
+
+    console.log('TESTING...');
+
+    var schools = firebase.firestore().collection("Districts").document(districtID).collection('Schools')
+        .get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+
+                if (doc.exists()) {
+                    document.getElementById('createSchoolMessage').style.display = "none";
+                    document.getElementById('schoolsInfoSection').style.display = "initial";
+        
+                    getSchoolsData();
+                } else {
+                    document.getElementById('createSchoolMessage').style.display = "initial";
+                    document.getElementById('schoolsInfoSection').style.display = "none";
+                }
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+
+      
+       
+
+
 }
 
 function getDistrictID() {
