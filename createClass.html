@@ -86,6 +86,30 @@
         window.location = "dashboard.html";
       });
 
+      firebase.firestore().collection("UserData").doc(classCreator).collection("Classes").doc(code).set({
+              "Code": code,
+              "class-name": className,
+              "Course": course,
+              "teacher": teacher,
+              "classImg": classImg,
+              "courseDescription": courseDescription,
+              "courseVideo": courseVideo,
+              "teachersNote": teachersNote,
+
+       });
+
+       firebase.firestore().collection("Classes").doc(code).set({
+              "Code": code,
+              "class-name": className,
+              "Course": course,
+              "teacher": teacher,
+              "classImg": classImg,
+              "courseDescription": courseDescription,
+              "courseVideo": courseVideo,
+              "teachersNote": teachersNote,
+
+       });
+
 
 
 
