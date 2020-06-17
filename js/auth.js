@@ -629,16 +629,17 @@ googleSignInStudent = () => {
         // });
 
         //NEW CODE
+        //NEW CODE
         console.log('format email ', formattedEmail);
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             console.log("data from doc : ", doc.data());
             var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
-                window.location = "/studentDashboard.html";
+                window.location = "/dashboard.html";
 
                 if (accountType != null) {
-                    if (accountType == "Student") {
+                    if (accountType == "Teacher") {
                         console.log('Login Success');
                         // localStorage.setItem("photo", profilePic);
                         //             localStorage.setItem("email", formattedEmail);
@@ -648,7 +649,7 @@ googleSignInStudent = () => {
                         localStorage.setItem("photo", profilePic);
                         localStorage.setItem("email", formattedEmail);
                         localStorage.setItem("name", name3);
-                        window.location = "/studentDashboard.html";
+                        window.location = "/dashboard.html";
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -676,7 +677,10 @@ googleSignInStudent = () => {
             console.log("Error getting document:", error);
         });
         
-    });
+    }).catch(function (err) {
+        console.log(err)
+        console.log("Google Sign In Failed");
+    })
 
 
     
