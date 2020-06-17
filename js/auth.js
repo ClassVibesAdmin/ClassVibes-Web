@@ -88,7 +88,7 @@ function facebookLoginStudent() {
 
         
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -199,7 +199,7 @@ function facebookLoginDistrict() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -308,7 +308,7 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -415,7 +415,7 @@ googleSignInTeacher = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -508,7 +508,7 @@ googleSignInDistrict = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -603,7 +603,7 @@ googleSignInStudent = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -1069,7 +1069,7 @@ function loginWithEmailStudent() {
             // });
 
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().then(function (doc) {
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
                 } else {
@@ -1183,7 +1183,7 @@ function loginWithEmailTeacher() {
 
 
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().then(function (doc) {
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
                 } else {
@@ -1294,7 +1294,7 @@ function loginWithEmailDistrict() {
 
             //NEW CODE
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            var accountType = firebase.firestore().collection('UserData').document(formattedEmail).get().then(function (doc) {
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
                 } else {
