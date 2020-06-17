@@ -21,19 +21,6 @@ function facebookLogin() {
         localStorage.setItem("email", formattedEmail1);
         window.location = "/dashboard.html";
 
-        db.collection("UserData").doc(formattedEmail1).set({
-            display-name: name3,
-            email: email,
-            username: formattedEmail1
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
-        
-
     }).catch(function (err) {
         console.log(err)
         console.log("Facebook Sign In Failed")
