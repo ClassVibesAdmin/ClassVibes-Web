@@ -199,7 +199,7 @@ function facebookLoginDistrict() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -308,7 +308,7 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -508,7 +508,7 @@ googleSignInDistrict = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -603,7 +603,7 @@ googleSignInStudent = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
