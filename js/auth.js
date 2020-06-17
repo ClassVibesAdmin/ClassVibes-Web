@@ -635,7 +635,7 @@ googleSignInStudent = () => {
             var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
-                window.location = "/dashboard.html";
+                window.location = "/studentDashboard.html";
 
                 if (accountType != null) {
                     if (accountType == "Teacher") {
