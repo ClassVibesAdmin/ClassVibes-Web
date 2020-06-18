@@ -1050,7 +1050,7 @@ function loginWithEmailStudent() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
 
-    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+    var formattedEmail = document.getElementById('inputEmail').value;
 
     var authValid = true;
 
@@ -1115,7 +1115,7 @@ function loginWithEmailStudent() {
                 var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "/dashboard.html";
+                    window.location = "/studentDashboard.html";
 
                     if (accountType != null) {
                         if (accountType == "Student") {
