@@ -1242,12 +1242,13 @@ function loginWithEmailTeacher() {
                 var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "/studentDashboard.html";
+                    window.location = "/dashboard.html";
 
                     if (accountType != null) {
-                        if (accountType == "Student") {
+                        if (accountType == "Teacher") {
                             localStorage.setItem("email", formattedEmail);
-                            window.location = "studentDashboard.html";
+
+                            window.location = "dashboard.html";
                             console.log('Login Success');
                             // localStorage.setItem("photo", profilePic);
                             //             localStorage.setItem("email", formattedEmail);
