@@ -1,4 +1,4 @@
-firebase.firestore().enablePersistence()
+firebase.firestore().enablePersistence();
 
 function facebookLogin() {
     base_provider = new firebase.auth.FacebookAuthProvider();
