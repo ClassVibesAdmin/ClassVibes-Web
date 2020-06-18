@@ -273,7 +273,7 @@
             var meetingDate = document.getElementById("date").value;
             // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
 
-            firebase.firestore().collection('UserData').doc(emailStudent).collection("Meetings").doc().set({
+            firebase.firestore().collection('UserData').doc('emailStudent').collection("Meetings").doc().set({
                 "Title":meetingTitle,
                 "Date":meetingDate,
                 "Course":course,
@@ -287,7 +287,7 @@
 
             // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
 
-            firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
+            firebase.firestore().collection('UserData').doc('nameLocal').collection("Meetings").doc().set({
                 "Title":meetingTitle,
                 "Date":meetingDate,
                 "Course":course,
