@@ -380,6 +380,7 @@ function facebookLoginTeacher() {
 
 //FIRESTORE MIGRATED SHOULD WORK?
 googleSignInStudent = () => {
+    console.log('this is executing');
 
     // // base_provider = new firebase.auth.GoogleAuthProvider();
     // // firebase.auth().signInWithPopup(base_provider).then(function (result) {
