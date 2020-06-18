@@ -314,45 +314,45 @@ function facebookLoginTeacher() {
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             console.log("data from doc : ", doc.data());
             var accountType = doc.data()['Account Type'];
-            if (doc.exists) {
-                console.log("Document data:", doc.data()["Account Type"]);
-                window.location = "/dashboard.html";
+            // if (doc.exists) {
+            //     console.log("Document data:", doc.data()["Account Type"]);
+            //     window.location = "/dashboard.html";
 
-                if (accountType != null) {
-                    if (accountType == "Teacher") {
-                        console.log('Login Success');
-                        // localStorage.setItem("photo", profilePic);
-                        //             localStorage.setItem("email", formattedEmail);
-                        //             localStorage.setItem("name", name3);
+            //     if (accountType != null) {
+            //         if (accountType == "Teacher") {
+            //             console.log('Login Success');
+            //             // localStorage.setItem("photo", profilePic);
+            //             //             localStorage.setItem("email", formattedEmail);
+            //             //             localStorage.setItem("name", name3);
 
-                        //             window.location = "/dashboard.html";
-                        localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", formattedEmail);
-                        localStorage.setItem("name", name3);
-                        window.location = "/dashboard.html";
-                    } else {
+            //             //             window.location = "/dashboard.html";
+            //             localStorage.setItem("photo", profilePic);
+            //             localStorage.setItem("email", formattedEmail);
+            //             localStorage.setItem("name", name3);
+            //             window.location = "/dashboard.html";
+            //         } else {
 
-                        errorHTML = `<div class="alert alert-danger" role="alert" 
-                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
-                    </div>`;
+            //             errorHTML = `<div class="alert alert-danger" role="alert" 
+            //             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            //             <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+            //         </div>`;
 
-                        document.getElementById('signupError').innerHTML = errorHTML;
+            //             document.getElementById('signupError').innerHTML = errorHTML;
 
-                    }
-                } else {
+            //         }
+            //     } else {
 
-                    errorHTML = `<div class="alert alert-danger" role="alert"
-                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-                </div>`;
+            //         errorHTML = `<div class="alert alert-danger" role="alert"
+            //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
+            //         <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+            //     </div>`;
 
-                    document.getElementById('signupError').innerHTML = errorHTML;
-                }
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
+            //         document.getElementById('signupError').innerHTML = errorHTML;
+            //     }
+            // } else {
+            //     // doc.data() will be undefined in this case
+            //     console.log("No such document!");
+            // }
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
