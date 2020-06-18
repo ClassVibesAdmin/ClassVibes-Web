@@ -1130,7 +1130,7 @@ function loginWithEmailStudent() {
                             localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", formattedEmail);
                             localStorage.setItem("name", name3);
-                            window.location = "/dashboard.html";
+                            window.location = "/studentDashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
