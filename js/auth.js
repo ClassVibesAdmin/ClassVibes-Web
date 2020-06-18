@@ -260,16 +260,16 @@ function facebookLoginDistrict() {
 
 //FIRESTORE MIGRATED WORKING
 function facebookLoginTeacher() {
-    base_provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(base_provider).then(function (result) {
-        var user = result.user;
-        var email = user.email;
-        var name3 = user.displayName;
-        var profilePic = user.photoURL;
+    // base_provider = new firebase.auth.FacebookAuthProvider();
+    // firebase.auth().signInWithPopup(base_provider).then(function (result) {
+    //     var user = result.user;
+    //     var email = user.email;
+    //     var name3 = user.displayName;
+    //     var profilePic = user.photoURL;
 
-        var errorMessage = document.getElementById('signupError');
+    //     var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = user.email;
+    //     var formattedEmail = user.email;
 
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -310,72 +310,72 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        console.log('format email ', formattedEmail);
-        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            console.log("data from doc : ", doc.data());
-            var accountType = doc.data()['Account Type'];
-            // if (doc.exists) {
-            //     console.log("Document data:", doc.data()["Account Type"]);
-            //     window.location = "/dashboard.html";
+//         console.log('format email ', formattedEmail);
+//         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+//             console.log("data from doc : ", doc.data());
+//             var accountType = doc.data()['Account Type'];
+//             // if (doc.exists) {
+//             //     console.log("Document data:", doc.data()["Account Type"]);
+//             //     window.location = "/dashboard.html";
 
-            //     if (accountType != null) {
-            //         if (accountType == "Teacher") {
-            //             console.log('Login Success');
-            //             // localStorage.setItem("photo", profilePic);
-            //             //             localStorage.setItem("email", formattedEmail);
-            //             //             localStorage.setItem("name", name3);
+//             //     if (accountType != null) {
+//             //         if (accountType == "Teacher") {
+//             //             console.log('Login Success');
+//             //             // localStorage.setItem("photo", profilePic);
+//             //             //             localStorage.setItem("email", formattedEmail);
+//             //             //             localStorage.setItem("name", name3);
 
-            //             //             window.location = "/dashboard.html";
-            //             localStorage.setItem("photo", profilePic);
-            //             localStorage.setItem("email", formattedEmail);
-            //             localStorage.setItem("name", name3);
-            //             window.location = "/dashboard.html";
-            //         } else {
+//             //             //             window.location = "/dashboard.html";
+//             //             localStorage.setItem("photo", profilePic);
+//             //             localStorage.setItem("email", formattedEmail);
+//             //             localStorage.setItem("name", name3);
+//             //             window.location = "/dashboard.html";
+//             //         } else {
 
-            //             errorHTML = `<div class="alert alert-danger" role="alert" 
-            //             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            //             <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
-            //         </div>`;
+//             //             errorHTML = `<div class="alert alert-danger" role="alert" 
+//             //             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+//             //             <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+//             //         </div>`;
 
-            //             document.getElementById('signupError').innerHTML = errorHTML;
+//             //             document.getElementById('signupError').innerHTML = errorHTML;
 
-            //         }
-            //     } else {
+//             //         }
+//             //     } else {
 
-            //         errorHTML = `<div class="alert alert-danger" role="alert"
-            //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            //         <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-            //     </div>`;
+//             //         errorHTML = `<div class="alert alert-danger" role="alert"
+//             //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
+//             //         <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+//             //     </div>`;
 
-            //         document.getElementById('signupError').innerHTML = errorHTML;
-            //     }
-            // } else {
-            //     // doc.data() will be undefined in this case
-            //     console.log("No such document!");
-            // }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
+//             //         document.getElementById('signupError').innerHTML = errorHTML;
+//             //     }
+//             // } else {
+//             //     // doc.data() will be undefined in this case
+//             //     console.log("No such document!");
+//             // }
+//         }).catch(function (error) {
+//             console.log("Error getting document:", error);
+//         });
 
 
 
-    }).catch(function (err) {
+//     }).catch(function (err) {
 
-        var errorMessage = document.getElementById('signupError');
+//         var errorMessage = document.getElementById('signupError');
 
-        console.log(err)
-        console.log("Facebook Sign In Failed");
+//         console.log(err)
+//         console.log("Facebook Sign In Failed");
 
-        if (err.code == "auth/account-exists-with-different-credential") {
-            errorHTML = `<div class="alert alert-danger" role="alert" 
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Oops! </strong> An account with this email is already registered.
-        </div>`;
+//         if (err.code == "auth/account-exists-with-different-credential") {
+//             errorHTML = `<div class="alert alert-danger" role="alert" 
+//             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+//             <strong>Oops! </strong> An account with this email is already registered.
+//         </div>`;
 
-            errorMessage.innerHTML = errorHTML;
-        }
-    })
-}
+//             errorMessage.innerHTML = errorHTML;
+//         }
+//     })
+ }
 
 
 //FIRESTORE MIGRATED SHOULD WORK?
