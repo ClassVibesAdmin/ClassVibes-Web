@@ -380,6 +380,7 @@ function facebookLoginTeacher() {
 
 //FIRESTORE MIGRATED
 googleSignInStudent = () => {
+
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
         var user = result.user;
@@ -474,12 +475,9 @@ googleSignInStudent = () => {
             console.log("Error getting document:", error);
         });
 
+    });
 
 
-    }).catch(function (err) {
-        console.log(err)
-        console.log("Google Sign In Failed");
-    })
 }
 
 
