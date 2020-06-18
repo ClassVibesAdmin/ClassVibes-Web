@@ -378,7 +378,7 @@ function facebookLoginTeacher() {
 }
 
 
-//FIRESTORE MIGRATED
+//FIRESTORE MIGRATED SHOULD WORK?
 googleSignInStudent = () => {
 
     base_provider = new firebase.auth.GoogleAuthProvider();
