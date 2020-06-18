@@ -712,7 +712,7 @@ function checkServerStatus(signInType) {
                 if (signInType == "GoogleSignIn") {
                     googleSignIn()
                 } else if (signInType == "FacebookLogin") {
-                    googleSignInStudent();
+                    facebookLogin();
                 } else if (signInType == "GoogleSignInStudent") {
                     googleSignInStudent();
                 }
