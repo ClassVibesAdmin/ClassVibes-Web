@@ -1169,7 +1169,7 @@ function loginWithEmailTeacher() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
 
-    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+    var formattedEmail = document.getElementById('inputEmail').value;
 
     var authValid = true;
 
