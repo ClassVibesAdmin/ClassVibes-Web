@@ -80,6 +80,9 @@
         function getClassData() {
             var emailRef = localStorage.getItem("email")
             var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+            // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
+
+            // });
             var classesList = [];
             console.log(classesList);
 
@@ -271,20 +274,30 @@
             var nameLocal = localStorage.getItem("email");
             var meetingTitle = document.getElementById("title").value;
             var meetingDate = document.getElementById("date").value;
-            var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
+            // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
+
+            firebase.firestore().collection('UserData').doc('emailStudent').collection("Meetings").doc().set({
+                "Title":meetingTitle,
+                "Date":meetingDate,
+                "Course":course,
+            });
 
 
-            _refSchedualMeeting.child("Title").set(meetingTitle);
-            _refSchedualMeeting.child("Date").set(meetingDate);
-            _refSchedualMeeting.child("Course").set(course);
+            // _refSchedualMeeting.child("Title").set(meetingTitle);
+            // _refSchedualMeeting.child("Date").set(meetingDate);
+            // _refSchedualMeeting.child("Course").set(course);
 
 
-            var _refSchedualMeeting = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
+            // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
 
-
-            _refSchedualMeeting.child("Title").set(meetingTitle);
-            _refSchedualMeeting.child("Date").set(meetingDate);
-            _refSchedualMeeting.child("Course").set(course);
+            firebase.firestore().collection('UserData').doc('nameLocal').collection("Meetings").doc().set({
+                "Title":meetingTitle,
+                "Date":meetingDate,
+                "Course":course,
+            });
+            // _refSchedualMeeting.child("Title").set(meetingTitle);
+            // _refSchedualMeeting.child("Date").set(meetingDate);
+            // _refSchedualMeeting.child("Course").set(course);
 
         }
 

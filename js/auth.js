@@ -1,3 +1,5 @@
+firebase.firestore().enablePersistence();
+
 function facebookLogin() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -20,19 +22,6 @@ function facebookLogin() {
         _ref.child("username").set(formattedEmail1);
         localStorage.setItem("email", formattedEmail1);
         window.location = "/dashboard.html";
-
-        db.collection("UserData").doc(formattedEmail1).set({
-            display-name: name3,
-            email: email,
-            username: formattedEmail1
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
-        
 
     }).catch(function (err) {
         console.log(err)
@@ -99,9 +88,9 @@ function facebookLoginStudent() {
 
         // });
 
-        
+
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -212,7 +201,7 @@ function facebookLoginDistrict() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -269,7 +258,7 @@ function facebookLoginDistrict() {
 }
 
 
-//FIRESTORE MIGRATED
+//FIRESTORE MIGRATED WORKING
 function facebookLoginTeacher() {
     base_provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -280,7 +269,7 @@ function facebookLoginTeacher() {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        var formattedEmail = user.email;
 
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -321,9 +310,45 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        console.log('format email ', formattedEmail);
+        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+            console.log("data from doc : ", doc.data());
+            var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
+                window.location = "/dashboard.html";
+
+                if (accountType != null) {
+                    if (accountType == "Teacher") {
+                        console.log('Login Success');
+                        // localStorage.setItem("photo", profilePic);
+                        //             localStorage.setItem("email", formattedEmail);
+                        //             localStorage.setItem("name", name3);
+
+                        //             window.location = "/dashboard.html";
+                        localStorage.setItem("photo", profilePic);
+                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("name", name3);
+                        window.location = "/dashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+
+                        document.getElementById('signupError').innerHTML = errorHTML;
+
+                    }
+                } else {
+
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -331,31 +356,6 @@ function facebookLoginTeacher() {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
-
-        if (accountType != null) {
-            if (accountType == "Teacher") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "teacherDashboard.html";
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-
-            }
-        } else {
-
-            errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
 
 
 
@@ -377,7 +377,112 @@ function facebookLoginTeacher() {
     })
 }
 
-//FIRESTORE MIGRATED
+
+//FIRESTORE MIGRATED SHOULD WORK?
+googleSignInStudent = () => {
+    console.log('this is executing');
+
+    // // base_provider = new firebase.auth.GoogleAuthProvider();
+    // // firebase.auth().signInWithPopup(base_provider).then(function (result) {
+    // //     var user = result.user;
+    // //     var email = user.email;
+    // //     var name3 = user.displayName;
+    // //     var profilePic = user.photoURL;
+
+    // //     var errorMessage = document.getElementById('signupError');
+
+    // //     var formattedEmail = user.email;
+
+    // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
+
+    // _ref.once('value').then(function (snapshot) {
+    //     var exists = snapshot.val();
+
+    //     if (exists == null) {
+    //         errorHTML = `<div class="alert alert-danger" role="alert" 
+    //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+    //     </div>`;
+
+    //         errorMessage.innerHTML = errorHTML;
+
+
+    //     } else {
+    //         if (exists == "Student") {
+    //             localStorage.setItem("photo", profilePic);
+    //             localStorage.setItem("email", formattedEmail);
+    //             localStorage.setItem("name", name3);
+
+
+
+    //             window.location = "/studentDashboard.html";
+    //         } else {
+    //             errorHTML = `<div class="alert alert-danger" role="alert" 
+    //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+    //     </div>`;
+
+    //             errorMessage.innerHTML = errorHTML;
+    //         }
+    //     }
+
+    // });
+
+    //NEW CODE
+    // //     console.log('format email ', formattedEmail);
+    // //     firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+    // //         console.log("data from doc : ", doc.data());
+    // //         var accountType = doc.data()['Account Type'];
+    // //         if (doc.exists) {
+    // //             console.log("Document data:", doc.data()["Account Type"]);
+    // //             window.location = "/studentDashboard.html";
+
+    // //             if (accountType != null) {
+    // //                 if (accountType == "Student") {
+    // //                     console.log('Login Success');
+    // //                     // localStorage.setItem("photo", profilePic);
+    // //                     //             localStorage.setItem("email", formattedEmail);
+    // //                     //             localStorage.setItem("name", name3);
+
+    // //                     //             window.location = "/dashboard.html";
+    // //                     localStorage.setItem("photo", profilePic);
+    // //                     localStorage.setItem("email", formattedEmail);
+    // //                     localStorage.setItem("name", name3);
+    // //                     window.location = "/studentDashboard.html";
+    // //                 } else {
+
+    // //                     errorHTML = `<div class="alert alert-danger" role="alert" 
+    // //                     style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    // //                     <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+    // //                 </div>`;
+
+    // //                     document.getElementById('signupError').innerHTML = errorHTML;
+
+    // //                 }
+    // //             } else {
+
+    // //                 errorHTML = `<div class="alert alert-danger" role="alert"
+    // //                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
+    // //                 <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+    // //             </div>`;
+
+    // //                 document.getElementById('signupError').innerHTML = errorHTML;
+    // //             }
+    // //         } else {
+    // //             // doc.data() will be undefined in this case
+    // //             console.log("No such document!");
+    // //         }
+    // //     }).catch(function (error) {
+    // //         console.log("Error getting document:", error);
+    // //     });
+
+    // // });
+
+
+}
+
+
+//FIRESTORE MIGRATED WORKING
 googleSignInTeacher = () => {
     base_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(base_provider).then(function (result) {
@@ -388,7 +493,7 @@ googleSignInTeacher = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+        var formattedEmail = user.email;
 
         // old code
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -428,9 +533,45 @@ googleSignInTeacher = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+        console.log('format email ', formattedEmail);
+        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+            console.log("data from doc : ", doc.data());
+            var accountType = doc.data()['Account Type'];
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
+                window.location = "/dashboard.html";
+
+                if (accountType != null) {
+                    if (accountType == "Teacher") {
+                        console.log('Login Success');
+                        // localStorage.setItem("photo", profilePic);
+                        //             localStorage.setItem("email", formattedEmail);
+                        //             localStorage.setItem("name", name3);
+
+                        //             window.location = "/dashboard.html";
+                        localStorage.setItem("photo", profilePic);
+                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("name", name3);
+                        window.location = "/dashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+
+                        document.getElementById('signupError').innerHTML = errorHTML;
+
+                    }
+                } else {
+
+                    errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -439,30 +580,7 @@ googleSignInTeacher = () => {
             console.log("Error getting document:", error);
         });
 
-        if (accountType != null) {
-            if (accountType == "Teacher") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "teacherDashboard.html";
-            } else {
 
-                errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-
-            }
-        } else {
-
-            errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
 
 
 
@@ -521,7 +639,7 @@ googleSignInDistrict = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
+        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
@@ -567,98 +685,7 @@ googleSignInDistrict = () => {
 
 
 
-//FIRESTORE MIGRATED
-googleSignInStudent = () => {
-    base_provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(base_provider).then(function (result) {
-        var user = result.user;
-        var email = user.email;
-        var name3 = user.displayName;
-        var profilePic = user.photoURL;
 
-        var errorMessage = document.getElementById('signupError');
-
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
-
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-        //         if (exists == "Student") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-
-
-        //             window.location = "/studentDashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-        //     }
-
-        // });
-
-        //NEW CODE
-        var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().get().then(function (doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data()["Account Type"]);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
-
-        if (accountType != null) {
-            if (accountType == "Student") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "studentDashboard.html";
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-
-            }
-        } else {
-
-            errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
-
-
-
-    }).catch(function (err) {
-        console.log(err)
-        console.log("Google Sign In Failed");
-    })
-}
 
 const btnLogout = document.getElementById("btnLogout");
 
@@ -1023,7 +1050,7 @@ function loginWithEmailStudent() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
 
-    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+    var formattedEmail = document.getElementById('inputEmail').value;
 
     var authValid = true;
 
@@ -1082,9 +1109,47 @@ function loginWithEmailStudent() {
             // });
 
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            console.log('format email ', formattedEmail);
+            firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+                console.log("data from doc : ", doc.data());
+                var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
+                    window.location = "/studentDashboard.html";
+
+                    if (accountType != null) {
+                        if (accountType == "Student") {
+                            localStorage.setItem("email", formattedEmail);
+                            window.location = "studentDashboard.html";
+                            console.log('Login Success');
+                            // localStorage.setItem("photo", profilePic);
+                            //             localStorage.setItem("email", formattedEmail);
+                            //             localStorage.setItem("name", name3);
+
+                            //             window.location = "/dashboard.html";
+                            localStorage.setItem("photo", profilePic);
+                            localStorage.setItem("email", formattedEmail);
+                            localStorage.setItem("name", name3);
+                            window.location = "/studentDashboard.html";
+                        } else {
+
+                            errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+
+                            document.getElementById('signupError').innerHTML = errorHTML;
+
+                        }
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+
+                        document.getElementById('signupError').innerHTML = errorHTML;
+                    }
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -1092,31 +1157,6 @@ function loginWithEmailStudent() {
             }).catch(function (error) {
                 console.log("Error getting document:", error);
             });
-
-            if (accountType != null) {
-                if (accountType == "Student") {
-                    console.log('Login Success');
-                    localStorage.setItem("email", formattedEmail);
-                    window.location = "studentDashboard.html";
-                } else {
-
-                    errorHTML = `<div class="alert alert-danger" role="alert" 
-                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                    <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-                </div>`;
-
-                    document.getElementById('signupError').innerHTML = errorHTML;
-
-                }
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-            }
 
 
         }
@@ -1129,7 +1169,7 @@ function loginWithEmailTeacher() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
 
-    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+    var formattedEmail = document.getElementById('inputEmail').value;
 
     var authValid = true;
 
@@ -1192,13 +1232,52 @@ function loginWithEmailTeacher() {
             //         }
             //     });
 
-            
+
 
 
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            console.log('format email ', formattedEmail);
+            firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+                console.log("data from doc : ", doc.data());
+                var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
+                    window.location = "/dashboard.html";
+
+                    if (accountType != null) {
+                        if (accountType == "Teacher") {
+                            localStorage.setItem("email", formattedEmail);
+
+                            window.location = "dashboard.html";
+                            console.log('Login Success');
+                            // localStorage.setItem("photo", profilePic);
+                            //             localStorage.setItem("email", formattedEmail);
+                            //             localStorage.setItem("name", name3);
+
+                            //             window.location = "/dashboard.html";
+                            localStorage.setItem("photo", profilePic);
+                            localStorage.setItem("email", formattedEmail);
+                            localStorage.setItem("name", name3);
+                            window.location = "/studentDashboard.html";
+                        } else {
+
+                            errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+
+                            document.getElementById('signupError').innerHTML = errorHTML;
+
+                        }
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert"
+                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
+                </div>`;
+
+                        document.getElementById('signupError').innerHTML = errorHTML;
+                    }
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -1206,31 +1285,6 @@ function loginWithEmailTeacher() {
             }).catch(function (error) {
                 console.log("Error getting document:", error);
             });
-
-            if (accountType != null) {
-                if (accountType == "Teacher") {
-                    console.log('Login Success');
-                    localStorage.setItem("email", formattedEmail);
-                    window.location = "teacherDashboard.html";
-                } else {
-
-                    errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                    document.getElementById('signupError').innerHTML = errorHTML;
-
-                }
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-            }
         }
     });
 
@@ -1307,7 +1361,7 @@ function loginWithEmailDistrict() {
 
             //NEW CODE
             //NEW CODE
-            var accountType = firebase.firestore().collection('user data').document(formattedEmail).get().then(function (doc) {
+            var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
                 } else {
