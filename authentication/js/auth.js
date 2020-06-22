@@ -662,7 +662,6 @@ googleSignInDistrict = () => {
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
                 console.log("Document data:", doc.data()["Account Type"]);
-                exists = doc.data()["Account Type"]
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
