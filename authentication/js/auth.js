@@ -620,8 +620,6 @@ googleSignInDistrict = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
@@ -662,7 +660,7 @@ googleSignInDistrict = () => {
 
         var exists = "";
 
-        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+        firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
                 console.log("Document data:", doc.data()["Account Type"]);
@@ -678,7 +676,7 @@ googleSignInDistrict = () => {
         if (accountType != null) {
             if (accountType == "District") {
                 console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
+                localStorage.setItem("email", email);
                 window.location = "districtDashboard.html";
             } else {
 
