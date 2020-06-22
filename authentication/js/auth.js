@@ -1,7 +1,7 @@
 function initializeFirebase(){
     var firebaseConfig = {
         apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-        authDomain: "cyberdojo-a2a3e.firebaseapp.com",
+        authDomain: "googleauth.classvibes.net",
         databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
         projectId: "cyberdojo-a2a3e",
         storageBucket: "cyberdojo-a2a3e.appspot.com",
