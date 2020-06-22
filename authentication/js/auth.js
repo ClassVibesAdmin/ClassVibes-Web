@@ -656,9 +656,10 @@ googleSignInDistrict = () => {
 
         //NEW CODE
 
-        var accountType = "";
-
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+
+            var accountType = "";
+
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
                 console.log("Document data:", doc.data()["Account Type"]);
@@ -666,10 +667,8 @@ googleSignInDistrict = () => {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
 
+            
         if (accountType != null) {
             if (accountType == "District") {
                 console.log('Login Success');
@@ -695,7 +694,9 @@ googleSignInDistrict = () => {
             document.getElementById('signupError').innerHTML = errorHTML;
         }
 
-
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
 
     }).catch(function (err) {
         console.log(err)
