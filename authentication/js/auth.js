@@ -658,8 +658,6 @@ googleSignInDistrict = () => {
 
         var accountType = "";
 
-        var exists = "";
-
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
@@ -682,7 +680,7 @@ googleSignInDistrict = () => {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
             </div>`;
 
                 document.getElementById('signupError').innerHTML = errorHTML;
