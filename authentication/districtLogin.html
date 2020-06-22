@@ -8,11 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable = no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="stylesheet" href="/css/index.css">
-  <script src="js/auth.js"></script>
+  <link rel="stylesheet" href="../css/index.css">
+  <script src="../js/auth.js"></script>
 
 
-  <title>ClassVibes Signup</title>
+  <title>District Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,24 +21,22 @@
     rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
 
   <!--BOOTSTRAP-->
-  <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
-  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
 
+  <script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.js"></script>
 
-  <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
-  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -47,11 +45,11 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+  <link href="..\css\signup.css" rel="stylesheet">
 
 </head>
 
-<body style="background-image: url('img/background_signup.png'); width: 100%; height: 100%; position: absolute;
+<body style="background-image: url('../img/background_signup.png'); width: 100%; height: 100%; position: absolute;
 background-position: center;
 background-repeat: no-repeat; margin: 0px; padding: 0px;">
   <script>
@@ -64,7 +62,7 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
   <div class="container-fluid" style="background-color: royalblue;">
     <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-      <a class="navbar-brand" href="index.html" style="color: white; font-size: 25px; font-weight: 700;">Class Vibe</a>
+      <a class="navbar-brand" href="../index.html" style="color: white; font-size: 25px; font-weight: 700;">Class Vibe</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -75,7 +73,7 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
         </ul>
 
-        <a href="loginOptions.html">
+        <a href="../authentication/loginOptions.html">
           <p class="login-signup-btn">Login/Sign Up</p>
         </a>
       </div>
@@ -84,17 +82,13 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
   <!--MAIN CONTENT-->
 
-
   <section class="card-center">
 
     <div class="row">
       <div class="side-descript">
-        <h1 style="color: white; padding-top: 15%; padding-left: 15%; padding-right: 15%; padding-bottom: 5%;">Managing
-          your <br> class, just <br> got easier!</h1>
+        <h1 style="color: white; padding-top: 15%; padding-left: 15%; padding-right: 15%; padding-bottom: 5%;">Welcome Back
 
-        <h5 style="color: white; padding-left: 15%; padding-right: 15%; font-size: 18px;">With ClassVibe, managing
-          classes during distance learning, and just in general, is much easier as you get to communicate with your
-          students in an efficient way.</h5>
+        <h5 style="color: white; padding-left: 15%; padding-right: 15%; font-size: 18px;">Welcome back to ClassVibes, login to continue. If you have trouble logging in, contact your teacher or district administrator.</h5>
 
         <p style="color: white; padding-left: 15%; padding-right: 15%; padding-top: 4%;">By signing up for ClassVibes,
           you agree with our <a href="#" style="text-decoration: underline; color: white;">Privacy Policy</a> and <a
@@ -103,41 +97,26 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
       <div class="signup-fourm" id = "signup-page-full">
 
-        <div style="margin-left: 45%; margin-top: 4%;">
-          <h1>Sign Up</h1>
+        <div style="margin-left: 34%; margin-top: 4%;">
+          <h1>District Login</h1>
         </div>
 
-
-        <h3 style="padding-top: 30px; padding-left: 30px;">I am a..</h3>
-
-        <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-left:5%; padding-top: 1%;">
-          <label class="btn btn-primary active" onclick='showInfoSelected("student")'>
-            <input type="radio" name="options" id="student" autocomplete="off" checked> Student
-          </label>
-          <label class="btn btn-primary" onclick='showInfoSelected("teacher")'>
-            <input type="radio" name="options" id="teacher" autocomplete="off"> Teacher
-          </label>
-          <label class="btn btn-primary" onclick='showInfoSelected("district")'>
-            <input type="radio" name="options" id="district" autocomplete="off"> District
-          </label>
-        </div>
-
-        <section id="signupError">
-
+        <section id="signupError" style="margin-top: 5%;">
+            
         </section>
 
-        <section id="studentsInfo-mediaLogin">
-          <div style="margin-left: 4%;">
+
+          <div style="margin-left: 4%; margin-top: 5%;">
           <div class="container" style="margin-top: 5%;">
 
             <div class="row">
 
-              <button class="fb-btn" onclick="facebookSignUp('student')">
+              <button class="fb-btn" onclick="facebookLoginDistrict()">
                 <i class="fa fa-facebook fa-fw"></i> Login with Facebook
               </button>
 
 
-              <button class="google-btn" onclick="googleSignUp('student')">
+              <button class="google-btn" onclick="googleSignInDistrict()">
                 <i class="fa fa-google fa-fw"></i> Login with Google
               </button>
 
@@ -145,128 +124,25 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
 
           </div>
         </div>
-      </section>
 
-      <section id="teacherInfo-mediaLogin" style="display: none;">
-        <div style="margin-left: 4%;">
-        <div class="container" style="margin-top: 5%;">
-
-          <div class="row">
-
-            <button class="fb-btn" onclick="facebookSignUp('teacher')">
-              <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-            </button>
-
-
-            <button class="google-btn" onclick="googleSignUp('teacher')">
-              <i class="fa fa-google fa-fw"></i> Login with Google
-            </button>
-
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section id="districtInfo-mediaLogin" style="display: none;">
-      <div style="margin-left: 4%;">
-      <div class="container" style="margin-top: 5%;">
-
-        <div class="row">
-
-          <button class="fb-btn" onclick="facebookSignUp('district')">
-            <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-          </button>
-
-
-          <button class="google-btn" onclick="googleSignUp('district')">
-            <i class="fa fa-google fa-fw"></i> Login with Google
-          </button>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-        <div style="margin-left: 4%;">
+        <div style="margin-left: 4%; margin-top: 5%;">
 
           <div class="form-label-group" style="margin-top: 5%; margin-left: 2%;">
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 
-            <div class="invalid-form" id = "email-error">
-              
-            </div>
-
-          </div>
-
-          <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-            <input type="name" id="inputDisplayName" class="form-control" placeholder="Full Name" required>
           </div>
 
           <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-            <div class="invalid-form" id = "password-error">
-              
-            </div>
-          </div>
-
-          
-
-          <div class="form-label-group" style="margin-top: 3%; margin-left: 2%;">
-            <input type="password" id="inputRepeatPassword" class="form-control" placeholder="Confirm Password"
-              required>
           </div>
 
         </div>
 
-        <section id="studentsInfo">
-          <div style="margin-left: 4%;">
+          <div style="margin-left: 4%; margin-top: 5%;">
 
-            <button class="sign-up-btn" style="margin-bottom: 25%;" onclick="emailSignUp('student')" id = "signup-btn-main-button">
+            <button class="sign-up-btn" style="margin-bottom: 5%;" onclick="loginWithEmailDistrict()" id = "signup-btn-main-button">
 
-              <p style="margin-top: 12px;" id = "signup-btn-text">Sign Up As a Student</p>
-
-              <section id = "btn-loading" style="display: none;">
-                <center>
-                  <div class="loader"></div>
-                </center>
-              </section>
-              
-              
-            </button>
-          </div>
-        </section>
-
-        <section id="teacherInfo" style="display: none;">
-
-          <div style="margin-left: 4%;">
-
-            <button class="sign-up-btn" style="margin-bottom: 25%;" onclick="emailSignUp('teacher')" id = "signup-btn-main-button">
-
-              <p style="margin-top: 12px;" id = "signup-btn-text">Sign Up As a Teacher</p>
-
-              <section id = "btn-loading" style="display: none;">
-                <center>
-                  <div class="loader"></div>
-                </center>
-              </section>
-              
-              
-            </button>
-
-          </div>
-
-        </section>
-
-        <div id="districtInfo" style="display: none;">
-          <div style="margin-left: 4%;">
-
-
-            <button class="sign-up-btn" style="margin-bottom: 25%;" onclick="emailSignUp('district')" id = "signup-btn-main-button">
-
-              <p style="margin-top: 12px;" id = "signup-btn-text">Sign Up As a District Admin</p>
+              <p style="margin-top: 12px;" id = "signup-btn-text">Sign in As a District</p>
 
               <section id = "btn-loading" style="display: none;">
                 <center>
@@ -277,65 +153,13 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
               
             </button>
           </div>
-        </div>
-
 
 
 
       </div>
 
-
-        <div class="signup-fourm" style="display: none;" id = "signup-success-form">
-          <section style="margin-top: 50%;">
-  
-            <div align = "center" style="margin-left: 10%; margin-bottom: 50%;">
-              <i class="far fa-check-circle fa-5x" style="color: green;"></i>
-  
-              <h3>Account Created</h3>
-  
-              <p style="color: grey;">Your account has been created. <a href="loginOptions.html">Login</a> to continue.</p>
-            </div>
-            
-          </section>
-        </div>
-
-      
-
     </div>
 
-    <script>
-      function showInfoSelected(selected) {
-
-        if (selected == 'student') {
-          document.getElementById("studentsInfo").style.display = "initial";
-          document.getElementById("studentsInfo-mediaLogin").style.display = "initial";
-          document.getElementById("teacherInfo").style.display = "none";
-          document.getElementById("teacherInfo-mediaLogin").style.display = "none";
-          document.getElementById("districtInfo").style.display = "none";
-          document.getElementById("districtInfo-mediaLogin").style.display = "none";
-        }
-
-
-        if (selected == 'teacher') {
-          document.getElementById("studentsInfo").style.display = "none";
-          document.getElementById("studentsInfo-mediaLogin").style.display = "none";
-          document.getElementById("teacherInfo").style.display = "initial";
-          document.getElementById("teacherInfo-mediaLogin").style.display = "initial";
-          document.getElementById("districtInfo").style.display = "none";
-          document.getElementById("districtInfo-mediaLogin").style.display = "none";
-        }
-
-        if (selected == 'district') {
-          document.getElementById("studentsInfo").style.display = "none";
-          document.getElementById("studentsInfo-mediaLogin").style.display = "none";
-          document.getElementById("teacherInfo").style.display = "none";
-          document.getElementById("teacherInfo-mediaLogin").style.display = "none";
-          document.getElementById("districtInfo").style.display = "initial";
-          document.getElementById("districtInfo-mediaLogin").style.display = "initial";
-        }
-
-      }
-    </script>
 
   </section>
 
@@ -457,9 +281,6 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-
-  <link href="css/signup.css" rel="stylesheet">
-
 
 
 </body>
