@@ -662,7 +662,7 @@ googleSignInDistrict = () => {
 
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
-                console.log("Document data:", doc.data()["Account Type"]);
+                // console.log("Document data:", doc.data()["Account Type"]);
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -673,7 +673,7 @@ googleSignInDistrict = () => {
             if (accountType == "District") {
                 console.log('Login Success');
                 localStorage.setItem("email", email);
-                window.location = "districtDashboard.html";
+                window.location = "../districtDashboard.html";
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
