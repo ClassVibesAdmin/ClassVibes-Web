@@ -639,8 +639,12 @@ googleSignInDistrict = () => {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+
+        var accountType = "";
+
+        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
+                accountType = doc.data()["Account Type"];
                 console.log("Document data:", doc.data()["Account Type"]);
             } else {
                 // doc.data() will be undefined in this case
