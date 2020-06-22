@@ -660,10 +660,13 @@ googleSignInDistrict = () => {
 
         var accountType = "";
 
+        var exists = "";
+
         firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
             if (doc.exists) {
                 accountType = doc.data()["Account Type"];
                 console.log("Document data:", doc.data()["Account Type"]);
+                exists = doc.data()["Account Type"]
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -673,9 +676,6 @@ googleSignInDistrict = () => {
         });
 
         if (accountType != null) {
-
-            var exists = doc.data()["Account Type"]
-
             if (accountType == "District") {
                 console.log('Login Success');
                 localStorage.setItem("email", formattedEmail);
