@@ -267,7 +267,7 @@ function updateReaction(reaction) {
     date: currentDate.toString()
   });
 
-  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
+  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).update({
     reaction: reaction
   });
 
