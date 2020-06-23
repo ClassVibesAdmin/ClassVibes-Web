@@ -253,7 +253,7 @@ function updateReaction(reaction) {
 
 // FIRESTORE MIGRATED FULLY
 function updateReaction(reaction) {
-  var box = doc.getElementById("moodBox");
+  var box = document.getElementById("moodBox");
 
   box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
 
@@ -267,6 +267,10 @@ function updateReaction(reaction) {
     studentEmail: studentEmail,
     reaction: reaction,
     date: currentDate.toString()
+  });
+
+  firebase.firestore.collection("UserData").doc(studentEmail).update({
+    reaction: reaction,
   });
 
 
