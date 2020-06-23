@@ -261,15 +261,13 @@ function updateReaction(reaction) {
 
   var studentEmail = localStorage.getItem("email");
 
-  var _ref = db.collection("Classes");
-
-  _ref.doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
+  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
     studentEmail: studentEmail,
     reaction: reaction,
     date: currentDate.toString()
   });
 
-  firebase.firestore.collection("UserData").doc(studentEmail).update({
+  firebase.firestore().collection("UserData").doc(studentEmail).update({
     reaction: reaction,
   });
 
