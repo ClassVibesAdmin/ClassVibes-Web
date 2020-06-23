@@ -21,7 +21,25 @@ var selectedClass = "";
 
 var dropDownMenuItems = ``;
 
+function getProfileInfo() {
+  var name = localStorage.getItem("name");
+var pic = localStorage.getItem("photo");
 
+let outputPic = "";
+outputPic += `
+<img class="img-profile rounded-circle" src="${pic}">
+
+`
+
+if (outputPic !== "") {
+  $(outputPic).appendTo("#profilePic")
+}
+
+document.getElementById("displayName").innerHTML = name
+
+}
+
+// FIRESTORE MIGRATED FULLY
 function getStudentClasses(studentUsername) {
 
   if (document.getElementById("classesRowDisplay") != null) {
@@ -34,85 +52,100 @@ function getStudentClasses(studentUsername) {
 
   classesList = [];
 
+
+
   firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes").get().then(function (doc) {
 
-    var classes = doc.data();
+    doc.forEach(snapshot => {
+      var classData = snapshot.data();
 
-    console.log(classes);
-
-    if(classes != null){
-
-      document.getElementById('dashboardSection-content').style.display = "initial";
-
-      document.getElementById('noClassesSection').style.display = "none";
-      
-
-      classes.forEach((child) => {
-        var classCode = child["Code"];
-        var className = child["class-name"];
+        var classCode = classData["Code"];
+        var className = classData["class-name"];
 
         classesList.push(className);
         classCodes[className] = classCode;
-      }).then(() => {
-        onsole.log(classesList.length);
 
-    console.log(classesList);
+        console.log(classesList.length);
+    });
 
-    inital = `
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-                  ${classesList[0]}
-                </button>
-        `;
+    console.log(classesList.length + ": LENGTH");
 
-    selectedClass = classesList[0];
+    
+    if(classesList.length != 0){
 
-    $(inital).appendTo("#selectedClassForDropdown");
+      console.log(classesList);
 
-
-    classesList.forEach(function (item, index) {
-      console.log(item, index);
-      output = `
-          <div class="col-xl-3 col-md-6 mb-4">
-                  <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">CLASS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">${item}</div>
-                        </div>
-                        <div class="col-auto">
-                          <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+      inital = `
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
+                    ${classesList[0]}
+                  </button>
+          `;
+  
+      selectedClass = classesList[0];
+  
+      $(inital).appendTo("#selectedClassForDropdown");
+  
+  
+      classesList.forEach(function (item, index) {
+        console.log(item, index);
+        output = `
+            <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">CLASS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">${item}</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-          `;
+            `;
+  
+        output2 = `
+            <a class="collapse-item">${item}</a>
+            `;
+  
+        output3 = `
+        <option selected value="base">${item}</option>
+            `;
+  
+        dropDownMenuItems += output3;
+  
+        $(output3).appendTo("#dropDownMoodPicker");
+  
+        $(output2).appendTo("#classesListSideBar");
+  
+        $(output).appendTo("#classesRowDisplay");
 
-      output2 = `
-          <a class="collapse-item">${item}</a>
-          `;
+        document.getElementById('loadingIndicator').style.display = "none";
+        
+      document.getElementById('dashboardSection-content').style.display = "initial";
 
-      output3 = `
-          <div class="dropdown-item" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</div>
-          `;
+      document.getElementById('noClassesSection').style.display = "none";
 
-      dropDownMenuItems += output3;
-
-      $(output3).appendTo("#dropDownMoodPicker");
-
-      $(output2).appendTo("#classesListSideBar");
-
-      $(output).appendTo("#classesRowDisplay");
-    });
-      });
+  
+      }); 
+      
     } else {
+
+      document.getElementById('loadingIndicator').style.display = "none";
+
       document.getElementById('dashboardSection-content').style.display = "none";
 
       document.getElementById('noClassesSection').style.display = "initial";
+
+     
     }
 
   });
+
+
+
 
   /*
 
@@ -218,38 +251,35 @@ function updateReaction(reaction) {
 }
 */
 
-// firestore
+// FIRESTORE MIGRATED FULLY
 function updateReaction(reaction) {
-  var box = doc.getElementById("moodBox");
+  var box = document.getElementById("moodBox");
 
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
+  box.innerHTML = '<center><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></center>';
 
   var currentDate = new Date();
 
   var studentEmail = localStorage.getItem("email");
 
-  var _ref = db.collection("Classes");
+  
+  var classSelected = localStorage.getItem("selectedClassDropdown");
 
-  _ref.doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
+  console.log("TESET:" + classSelected);
+
+  console.log(classCodes);
+
+
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
     studentEmail: studentEmail,
     reaction: reaction,
     date: currentDate.toString()
   });
 
-
-  /*
-  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
-
-  _ref.child("Student Email").set(studentEmail);
-  _ref.child("Reaction").set(reaction);
-  _ref.child("Date").set(currentDate.toString());
-  */
-
-  _reactionRef = db.collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Students").doc(studentEmail).update({
     reaction: reaction
   });
 
-  _reactionRefStudent = db.collection("UserData").doc(studentEmail).set({
+ firebase.firestore().collection("UserData").doc(studentEmail).update({
     reaction: reaction
   });
 
@@ -260,31 +290,20 @@ function updateReaction(reaction) {
 
 function reloadPage() {
   window.location.reload();
-
 }
 
 
-function setMainClassForMood(selectedClassName) {
+function setMainClassForMood(index) {
 
-  var dropDownButton = document.getElementById("selectedClassForDropdown");
-  var dropDownButton1 = document.getElementById("selectedClassForDropdown1");
+  className = classesList[index];
 
-  var dropDownMenu = document.getElementById("dropDownMoodPicker");
+  selectedClass = classCodes[className];
 
-  outputButton = `<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-  ${selectedClassName}
-</button>
-`;
+  console.log(selectedClass + ":" + index + ":" + className);
 
-  dropDownButton.innerHTML = outputButton;
-  dropDownButton1.innerHTML = outputButton;
-
-  dropDownMenu.innerHTML = dropDownMenuItems;
-
-  selectedClass = selectedClassName;
+  localStorage.setItem("selectedClassDropdown", selectedClass);
 
 }
-
 
 
 function checkIfClassCodeExists() {
@@ -544,19 +563,20 @@ function getStudentContactsList(studentUsername) {
 
 }
 
-function getStudentStatus() {
-  var studentEmail = localStorage.getItem("email");
 
-  var _reactionRefStudent = firebase.database().ref().child("UserData").child(studentEmail).child("Reaction");
+//FIRESTORE FULLY MIGRATED
+function getStudentStatus() {
+
+  var studentEmail = localStorage.getItem("email");
 
   var page = document.getElementById('currentStatusSection');
 
-  _reactionRefStudent.once('value').then(function (snapshot) {
-    var value = snapshot.val();
+  firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
+    var value = doc.data()["Reaction"];
 
-    console.log(value);
+    console.log("REACTION:" + value);
 
-    if (value != null) {
+    if (value != undefined) {
       if (value == "needs help") {
         page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" >&#128545;</h1>`;
       }
@@ -569,14 +589,79 @@ function getStudentStatus() {
         page.innerHTML = `<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;" style="color: green;">&#128513;</h1>`;
       }
     } else {
-      page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
+      page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" >&#128513;</h1>`;
     }
+
   });
 
 }
 
+//FIRESTORE MIGRATED FULLY
 function getMeetings() {
-  var name = localStorage.getItem("email");
+  var email = localStorage.getItem("email");
+
+  firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
+
+    console.log("GETTING MEETINGS");
+
+    var meetingsCount = 0;
+
+    doc.forEach(snapshot => {
+
+      meetingsCount += 1;
+
+      var meetingsData = snapshot.data();
+
+      var classForMeeting = meetingsData["Course"];
+      var date = meetingsData["Date"];
+      var title = meetingsData["Title"];
+
+      console.log(date);
+
+        output = `
+        <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+              </div>
+              <div class="col-auto">
+
+                <i class="fas fa-microphone-alt fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        `;
+
+        $(output).appendTo("#meetingsList");
+    });
+
+    //console.log("MEETINGS LIST: " + meetingsCount);
+
+
+    if(meetingsCount == 0){
+      outputError = `
+      <center>
+      <img src = "img/undraw_Booked_j7rj.svg" width="70%">
+
+      <h2 style="margin-top: 2%;">No Scheduled Meetings</h2>
+      <p>You're all caught up</p>
+    </center>
+        `;
+
+      $(outputError).appendTo("#meetingsList");
+    } else {
+
+    }
+
+  });
+
+  /*
 
   var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
 
@@ -627,6 +712,8 @@ function getMeetings() {
     }
 
   });
+
+  */
 }
 
 function getAnnouncements() {
