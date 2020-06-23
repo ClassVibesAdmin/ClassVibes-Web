@@ -111,7 +111,7 @@ function getStudentClasses(studentUsername) {
             `;
   
         output3 = `
-        <option selected value="base"><a onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</a></option>
+        <option selected value="base">${item}</option>
             `;
   
         dropDownMenuItems += output3;
