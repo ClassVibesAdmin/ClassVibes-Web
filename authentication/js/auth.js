@@ -1081,7 +1081,7 @@ function loginWithEmailStudent() {
                             console.log(email);
 
 
-                            window.location = "../studentPortal/studentDashboard.html";
+                            //window.location = "../studentPortal/studentDashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
