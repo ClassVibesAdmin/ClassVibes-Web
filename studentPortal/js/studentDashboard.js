@@ -13,7 +13,7 @@ function initializeFirebase() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  firebase.firestore().enablePersistence();
+  //firebase.firestore().enablePersistence();
 }
 
 var classCodes = {};
