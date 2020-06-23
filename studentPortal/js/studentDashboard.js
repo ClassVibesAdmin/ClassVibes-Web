@@ -576,14 +576,18 @@ function getStudentContactsList(studentUsername) {
 
 }
 
+
+//FIRESTORE FULLY MIGRATED
 function getStudentStatus() {
 
   var studentEmail = localStorage.getItem("email");
 
+  var page = document.getElementById('currentStatusSection');
+
   firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
     var value = doc.data()["Reaction"];
 
-    console.log(value);
+    console.log("REACTION:" + value);
 
     if (value != undefined) {
       if (value == "needs help") {
@@ -598,7 +602,7 @@ function getStudentStatus() {
         page.innerHTML = `<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;" style="color: green;">&#128513;</h1>`;
       }
     } else {
-      page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
+      page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" >&#128513;</h1>`;
     }
 
   });
