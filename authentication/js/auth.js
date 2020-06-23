@@ -1140,7 +1140,7 @@ function loginWithEmailStudent() {
                 var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "/studentDashboard.html";
+                    window.location = "../studentDashboard.html";
 
                     if (accountType != null) {
                         if (accountType == "Student") {
@@ -1155,7 +1155,7 @@ function loginWithEmailStudent() {
                             localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", formattedEmail);
                             localStorage.setItem("name", name3);
-                            window.location = "/studentDashboard.html";
+                            window.location = "../studentDashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
