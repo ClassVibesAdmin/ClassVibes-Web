@@ -594,7 +594,7 @@ googleSignInTeacher = () => {
                     document.getElementById('signupError').innerHTML = errorHTML;
                 }
             } else {
-                
+
                 errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
@@ -1266,29 +1266,21 @@ function loginWithEmailTeacher() {
 
 
             //NEW CODE
-            console.log('format email ', formattedEmail);
-            firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+
+            firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
                 console.log("data from doc : ", doc.data());
+
                 var accountType = doc.data()['Account Type'];
+
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "/dashboard.html";
 
                     if (accountType != null) {
                         if (accountType == "Teacher") {
-                            localStorage.setItem("email", formattedEmail);
-
-                            window.location = "dashboard.html";
-                            console.log('Login Success');
-                            // localStorage.setItem("photo", profilePic);
-                            //             localStorage.setItem("email", formattedEmail);
-                            //             localStorage.setItem("name", name3);
-
-                            //             window.location = "/dashboard.html";
                             localStorage.setItem("photo", profilePic);
-                            localStorage.setItem("email", formattedEmail);
+                            localStorage.setItem("email", email);
                             localStorage.setItem("name", name3);
-                            window.location = "/studentDashboard.html";
+                            window.location = "../teacherPortal/dashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1309,8 +1301,12 @@ function loginWithEmailTeacher() {
                         document.getElementById('signupError').innerHTML = errorHTML;
                     }
                 } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+               <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+             </div>`;
+
+                    errorMessage.innerHTML = errorHTML;
                 }
             }).catch(function (error) {
                 console.log("Error getting document:", error);
