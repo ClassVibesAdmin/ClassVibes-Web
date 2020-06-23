@@ -1198,9 +1198,6 @@ function loginWithEmailStudent() {
 function loginWithEmailTeacher() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
-
-    var formattedEmail = document.getElementById('inputEmail').value;
-
     var authValid = true;
 
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -1277,9 +1274,9 @@ function loginWithEmailTeacher() {
 
                     if (accountType != null) {
                         if (accountType == "Teacher") {
-                            localStorage.setItem("photo", profilePic);
+                            //localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", email);
-                            localStorage.setItem("name", name3);
+                            //localStorage.setItem("name", name3);
                             window.location = "../teacherPortal/dashboard.html";
                         } else {
 
