@@ -127,12 +127,19 @@ function getStudentClasses(studentUsername) {
 
   classesList = [];
 
-  firebase.firestore().collection('UserData').doc(studentUsername).Collection("Classes").get().then(function (doc) {
-    var classes = doc.data();
+  firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes").get().then(function (doc) {
+
+    var classes = doc.data;
 
     console.log(classes);
 
     if(classes != null){
+
+      document.getElementById('dashboardSection-content').style.display = "initial";
+
+      document.getElementById('noClassesSection').style.display = "none";
+      
+
       classes.forEach((child) => {
         var classCode = child["Code"];
         var className = child["class-name"];
@@ -193,7 +200,9 @@ function getStudentClasses(studentUsername) {
     });
       });
     } else {
+      document.getElementById('dashboardSection-content').style.display = "none";
 
+      document.getElementById('noClassesSection').style.display = "initial";
     }
 
   });
