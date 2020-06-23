@@ -39,7 +39,7 @@ document.getElementById("displayName").innerHTML = name
 
 }
 
-
+// FIRESTORE MIGRATED FULLY
 function getStudentClasses(studentUsername) {
 
   if (document.getElementById("classesRowDisplay") != null) {
@@ -111,7 +111,7 @@ function getStudentClasses(studentUsername) {
             `;
   
         output3 = `
-            <div class="dropdown-item" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</div>
+        <option selected value="base" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</option>
             `;
   
         dropDownMenuItems += output3;
@@ -122,6 +122,7 @@ function getStudentClasses(studentUsername) {
   
         $(output).appendTo("#classesRowDisplay");
 
+        document.getElementById('loadingIndicator').style.display = "none";
         
       document.getElementById('dashboardSection-content').style.display = "initial";
 
@@ -131,6 +132,9 @@ function getStudentClasses(studentUsername) {
       }); 
       
     } else {
+
+      document.getElementById('loadingIndicator').style.display = "none";
+
       document.getElementById('dashboardSection-content').style.display = "none";
 
       document.getElementById('noClassesSection').style.display = "initial";
@@ -247,7 +251,7 @@ function updateReaction(reaction) {
 }
 */
 
-// firestore
+// FIRESTORE MIGRATED FULLY
 function updateReaction(reaction) {
   var box = doc.getElementById("moodBox");
 
@@ -313,7 +317,6 @@ function setMainClassForMood(selectedClassName) {
   selectedClass = selectedClassName;
 
 }
-
 
 
 function checkIfClassCodeExists() {
@@ -574,18 +577,15 @@ function getStudentContactsList(studentUsername) {
 }
 
 function getStudentStatus() {
+
   var studentEmail = localStorage.getItem("email");
 
-  var _reactionRefStudent = firebase.database().ref().child("UserData").child(studentEmail).child("Reaction");
-
-  var page = document.getElementById('currentStatusSection');
-
-  _reactionRefStudent.once('value').then(function (snapshot) {
-    var value = snapshot.val();
+  firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
+    var value = doc.data()["Reaction"];
 
     console.log(value);
 
-    if (value != null) {
+    if (value != undefined) {
       if (value == "needs help") {
         page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" >&#128545;</h1>`;
       }
@@ -600,12 +600,77 @@ function getStudentStatus() {
     } else {
       page.innerHTML = `<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>`;
     }
+
   });
 
 }
 
+//FIRESTORE MIGRATED FULLY
 function getMeetings() {
-  var name = localStorage.getItem("email");
+  var email = localStorage.getItem("email");
+
+  firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
+
+    console.log("GETTING MEETINGS");
+
+    var meetingsCount = 0;
+
+    doc.forEach(snapshot => {
+
+      meetingsCount += 1;
+
+      var meetingsData = snapshot.data();
+
+      var classForMeeting = meetingsData["Course"];
+      var date = meetingsData["Date"];
+      var title = meetingsData["Title"];
+
+      console.log(date);
+
+        output = `
+        <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+              </div>
+              <div class="col-auto">
+
+                <i class="fas fa-microphone-alt fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        `;
+
+        $(output).appendTo("#meetingsList");
+    });
+
+    //console.log("MEETINGS LIST: " + meetingsCount);
+
+
+    if(meetingsCount == 0){
+      outputError = `
+      <center>
+      <img src = "img/undraw_Booked_j7rj.svg" width="70%">
+
+      <h2 style="margin-top: 2%;">No Scheduled Meetings</h2>
+      <p>You're all caught up</p>
+    </center>
+        `;
+
+      $(outputError).appendTo("#meetingsList");
+    } else {
+
+    }
+
+  });
+
+  /*
 
   var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
 
@@ -656,6 +721,8 @@ function getMeetings() {
     }
 
   });
+
+  */
 }
 
 function getAnnouncements() {
