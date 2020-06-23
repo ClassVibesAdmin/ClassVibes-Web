@@ -267,24 +267,11 @@ function updateReaction(reaction) {
     date: currentDate.toString()
   });
 
-  firebase.firestore().collection("UserData").doc(studentEmail).update({
-    reaction: reaction,
-  });
-
-
-  /*
-  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
-
-  _ref.child("Student Email").set(studentEmail);
-  _ref.child("Reaction").set(reaction);
-  _ref.child("Date").set(currentDate.toString());
-  */
-
-  _reactionRef = db.collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
+  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
     reaction: reaction
   });
 
-  _reactionRefStudent = db.collection("UserData").doc(studentEmail).set({
+ firebase.firestore().collection("UserData").doc(studentEmail).update({
     reaction: reaction
   });
 
