@@ -178,10 +178,13 @@
         console.log("NUMBER CLASS" + numberClass);
         var messageTitle = document.getElementById("messageTitle").value;
         var messageText = document.getElementById("messageText").value;
+        /*
         var _refWriteAnnouncement = firebase.database().ref().child("Classes").child(numberClass).child("Announcements").push();
       
         _refWriteAnnouncement.child("Title").set(messageTitle);
         _refWriteAnnouncement.child("Message").set(messageText);
+        
+        */
 
         firebase.firestore().collection("Classes").doc(numberClass).collection("Announcements").doc().set({
             "Title": messageTitle,
