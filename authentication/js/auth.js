@@ -1265,12 +1265,11 @@ function loginWithEmailTeacher() {
             //NEW CODE
 
             firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
-                console.log("data from doc : ", doc.data());
 
                 var accountType = doc.data()['Account Type'];
 
                 if (doc.exists) {
-                    console.log("Document data:", doc.data()["Account Type"]);
+
 
                     if (accountType != null) {
                         if (accountType == "Teacher") {
@@ -1321,9 +1320,6 @@ function loginWithEmailTeacher() {
 function loginWithEmailDistrict() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
-
-    var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-
     var authValid = true;
 
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -1384,21 +1380,16 @@ function loginWithEmailDistrict() {
 
             //NEW CODE
             //NEW CODE
-            var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data()["Account Type"]);
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch(function (error) {
-                console.log("Error getting document:", error);
-            });
 
+            firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+
+                var accountType = doc.data()["Account Type"];
+                    
             if (accountType != null) {
                 if (accountType == "District") {
-                    console.log('Login Success');
-                    localStorage.setItem("email", formattedEmail);
+
+                    localStorage.setItem("email", email);
+
                     window.location = "districtDashboard.html";
                 } else {
 
@@ -1412,13 +1403,18 @@ function loginWithEmailDistrict() {
                 }
             } else {
 
-                errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-            </div>`;
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+               <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+             </div>`;
 
-                document.getElementById('signupError').innerHTML = errorHTML;
+             document.getElementById('signupError').innerHTML = errorHTML;
             }
+
+
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
 
         }
     });
