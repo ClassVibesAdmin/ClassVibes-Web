@@ -406,7 +406,7 @@ googleSignInStudent = () => {
         var email = user.email;
         var name3 = user.displayName;
         var profilePic = user.photoURL;
-        
+
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
             console.log("data from doc : ", doc.data());
@@ -454,7 +454,7 @@ googleSignInStudent = () => {
                         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
                   </div>`;
 
-                  document.getElementById('signupError').innerHTML = errorHTML;
+                document.getElementById('signupError').innerHTML = errorHTML;
 
             }
         }).catch(function (error) {
@@ -555,25 +555,24 @@ googleSignInTeacher = () => {
         // });
 
         //NEW CODE
-        console.log('format email ', formattedEmail);
-        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+
+        firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+
             console.log("data from doc : ", doc.data());
+
             var accountType = doc.data()['Account Type'];
+
             if (doc.exists) {
                 console.log("Document data:", doc.data()["Account Type"]);
-                window.location = "/dashboard.html";
 
                 if (accountType != null) {
                     if (accountType == "Teacher") {
                         console.log('Login Success');
-                        // localStorage.setItem("photo", profilePic);
-                        //             localStorage.setItem("email", formattedEmail);
-                        //             localStorage.setItem("name", name3);
 
-                        //             window.location = "/dashboard.html";
                         localStorage.setItem("photo", profilePic);
                         localStorage.setItem("email", formattedEmail);
                         localStorage.setItem("name", name3);
+
                         window.location = "/dashboard.html";
                     } else {
 
@@ -595,8 +594,14 @@ googleSignInTeacher = () => {
                     document.getElementById('signupError').innerHTML = errorHTML;
                 }
             } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                
+                errorHTML = `<div class="alert alert-danger" role="alert" 
+                style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+           </div>`;
+
+                errorMessage.innerHTML = errorHTML;
+
             }
         }).catch(function (error) {
             console.log("Error getting document:", error);
