@@ -261,13 +261,21 @@ function updateReaction(reaction) {
 
   var studentEmail = localStorage.getItem("email");
 
-  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
+  
+  var classSelected = localStorage.getItem("selectedClassDropdown");
+
+  console.log("TESET:" + classSelected);
+
+  console.log(classCodes);
+
+
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
     studentEmail: studentEmail,
     reaction: reaction,
     date: currentDate.toString()
   });
 
-  firebase.firestore().collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).update({
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Students").doc(studentEmail).update({
     reaction: reaction
   });
 
@@ -282,7 +290,6 @@ function updateReaction(reaction) {
 
 function reloadPage() {
   window.location.reload();
-
 }
 
 
@@ -293,6 +300,8 @@ function setMainClassForMood(index) {
   selectedClass = classCodes[className];
 
   console.log(selectedClass + ":" + index + ":" + className);
+
+  localStorage.setItem("selectedClassDropdown", selectedClass);
 
 }
 
