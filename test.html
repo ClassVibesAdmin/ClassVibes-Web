@@ -66,9 +66,11 @@
 
       firebase.firestore().collection("UserData").doc("test1@gmail.com").get().then((documentSnapshot) => {
             
-            var data = documentSnapshot.data();
+            var data = documentSnapshot.data()["reaction"];
 
-            console.log(data.test);
+            console.log(data);
+
+            
         });
 
     }

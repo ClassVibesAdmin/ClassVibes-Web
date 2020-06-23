@@ -146,6 +146,21 @@
 
 
             var classInfoRef = firebase.database().ref().child("Classes").child(code).child("Students");
+
+            firebase.firestore().collection('Classes').doc(code).collection("Students").get().then(function (doc) {
+
+                doc.forEach(snapshot => {
+
+                    var data = snapshot.data();
+
+                    var reaction = data["reaction"];
+                    
+                    var studentName = data["name"];
+
+                });
+
+            });
+
             var classInfoList = [];
             console.log(classInfoList);
 
