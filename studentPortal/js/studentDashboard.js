@@ -21,101 +21,6 @@ var selectedClass = "";
 
 var dropDownMenuItems = ``;
 
-//realtime db
-/*
-function updateReaction(reaction) {
-  var box = document.getElementById("moodBox");
-
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
-
-  var currentDate = new Date();
-
-  var studentEmail = localStorage.getItem("email");
-
-  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
-
-  _ref.child("Student Email").set(studentEmail);
-  _ref.child("Reaction").set(reaction);
-  _ref.child("Date").set(currentDate.toString());
-
-  var _reactionRef = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Students").child(studentEmail);
-  _reactionRef.child("Reaction").set(reaction);
-
-  var _reactionRefStudent = firebase.database().ref().child("UserData").child(studentEmail);
-  _reactionRefStudent.child("Reaction").set(reaction);
-
-  getStudentStatus();
-
-
-}
-*/
-
-// firestore
-function updateReaction(reaction) {
-  var box = doc.getElementById("moodBox");
-
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
-
-  var currentDate = new Date();
-
-  var studentEmail = localStorage.getItem("email");
-
-  var _ref = db.collection("Classes");
-
-  _ref.doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
-    studentEmail: studentEmail,
-    reaction: reaction,
-    date: currentDate.toString()
-  });
-
-
-  /*
-  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
-
-  _ref.child("Student Email").set(studentEmail);
-  _ref.child("Reaction").set(reaction);
-  _ref.child("Date").set(currentDate.toString());
-  */
-
-  _reactionRef = db.collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
-    reaction: reaction
-  });
-
-  _reactionRefStudent = db.collection("UserData").doc(studentEmail).set({
-    reaction: reaction
-  });
-
-  getStudentStatus();
-
-
-}
-
-function reloadPage() {
-  window.location.reload();
-
-}
-
-
-function setMainClassForMood(selectedClassName) {
-
-  var dropDownButton = document.getElementById("selectedClassForDropdown");
-  var dropDownButton1 = document.getElementById("selectedClassForDropdown1");
-
-  var dropDownMenu = document.getElementById("dropDownMoodPicker");
-
-  outputButton = `<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-  ${selectedClassName}
-</button>
-`;
-
-  dropDownButton.innerHTML = outputButton;
-  dropDownButton1.innerHTML = outputButton;
-
-  dropDownMenu.innerHTML = dropDownMenuItems;
-
-  selectedClass = selectedClassName;
-
-}
 
 function getStudentClasses(studentUsername) {
 
@@ -123,13 +28,15 @@ function getStudentClasses(studentUsername) {
     document.getElementById("classesRowDisplay").innerHTML = "";
   }
 
+  console.log(studentUsername);
+
   let output = "";
 
   classesList = [];
 
   firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes").get().then(function (doc) {
 
-    var classes = doc.data;
+    var classes = doc.data();
 
     console.log(classes);
 
@@ -281,6 +188,104 @@ function getStudentClasses(studentUsername) {
   */
 
 }
+
+//realtime db
+/*
+function updateReaction(reaction) {
+  var box = document.getElementById("moodBox");
+
+  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
+
+  var currentDate = new Date();
+
+  var studentEmail = localStorage.getItem("email");
+
+  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
+
+  _ref.child("Student Email").set(studentEmail);
+  _ref.child("Reaction").set(reaction);
+  _ref.child("Date").set(currentDate.toString());
+
+  var _reactionRef = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Students").child(studentEmail);
+  _reactionRef.child("Reaction").set(reaction);
+
+  var _reactionRefStudent = firebase.database().ref().child("UserData").child(studentEmail);
+  _reactionRefStudent.child("Reaction").set(reaction);
+
+  getStudentStatus();
+
+
+}
+*/
+
+// firestore
+function updateReaction(reaction) {
+  var box = doc.getElementById("moodBox");
+
+  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
+
+  var currentDate = new Date();
+
+  var studentEmail = localStorage.getItem("email");
+
+  var _ref = db.collection("Classes");
+
+  _ref.doc(classCodes[selectedClass]).collection("Student Reactions").doc().set({
+    studentEmail: studentEmail,
+    reaction: reaction,
+    date: currentDate.toString()
+  });
+
+
+  /*
+  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
+
+  _ref.child("Student Email").set(studentEmail);
+  _ref.child("Reaction").set(reaction);
+  _ref.child("Date").set(currentDate.toString());
+  */
+
+  _reactionRef = db.collection("Classes").doc(classCodes[selectedClass]).collection("Students").doc(studentEmail).set({
+    reaction: reaction
+  });
+
+  _reactionRefStudent = db.collection("UserData").doc(studentEmail).set({
+    reaction: reaction
+  });
+
+  getStudentStatus();
+
+
+}
+
+function reloadPage() {
+  window.location.reload();
+
+}
+
+
+function setMainClassForMood(selectedClassName) {
+
+  var dropDownButton = document.getElementById("selectedClassForDropdown");
+  var dropDownButton1 = document.getElementById("selectedClassForDropdown1");
+
+  var dropDownMenu = document.getElementById("dropDownMoodPicker");
+
+  outputButton = `<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
+  ${selectedClassName}
+</button>
+`;
+
+  dropDownButton.innerHTML = outputButton;
+  dropDownButton1.innerHTML = outputButton;
+
+  dropDownMenu.innerHTML = dropDownMenuItems;
+
+  selectedClass = selectedClassName;
+
+}
+
+
 
 function checkIfClassCodeExists() {
 
