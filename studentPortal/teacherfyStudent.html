@@ -12,144 +12,142 @@
   <title>TeacherFY - Class Vibes</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <script src="js/studentDashboard.js"></script>
 
-   <!-- Bootstrap core JavaScript-->
-   <script src="vendor/jquery/jquery.min.js"></script>
-   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
- 
-   <!-- Core plugin JavaScript-->
-   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
- 
-   <!-- Custom scripts for all pages-->
-   <script src="js/sb-admin-2.min.js"></script>
+  <!--BOOTSTRAP-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+    integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+    crossorigin="anonymous"></script>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+
+
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
+
 
 
 </head>
 
 <body id="page-top">
 
-   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-  
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
-  
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
-  
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
-    <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-        authDomain: "cyberdojo-a2a3e.firebaseapp.com",
-        databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
-        projectId: "cyberdojo-a2a3e",
-        storageBucket: "cyberdojo-a2a3e.appspot.com",
-        messagingSenderId: "938057332518",
-        appId: "1:938057332518:web:99c34da5abf1b1548533e7",
-        measurementId: "G-0EWJ1V40VX"
-      };
-      firebase.initializeApp(firebaseConfig);
-
-    </script>
-
   <script>
     $(document).ready(function () {
+      initializeFirebase();
       getClassData()
       function getProfileInfo() {
         var name = localStorage.getItem("name");
-    var pic = localStorage.getItem("photo");
+        var pic = localStorage.getItem("photo");
 
-      let outputPic = "";
-      outputPic += `
+        let outputPic = "";
+        outputPic += `
    <img class="img-profile rounded-circle" src="${pic}">
 
    `
 
-      if (outputPic !== "") {
-        $(outputPic).appendTo("#profilePic")
+        if (outputPic !== "") {
+          $(outputPic).appendTo("#profilePic")
+        }
+
+        document.getElementById("displayName").innerHTML = name
+
       }
 
-      document.getElementById("displayName").innerHTML = name
-
-    }
-
-    getProfileInfo();
-    var email = localStorage.getItem("email");
+      getProfileInfo();
+      var email = localStorage.getItem("email");
 
 
 
-    
-      })
 
-      function getClassData() {
-        var emailRef = localStorage.getItem("email")
-        var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
-        var classesList = [];
-        console.log(classesList);
-  
-        classesRef.once("value", (snap) => {
-          console.log(snap.val());
-          rawData = snap.val();
-  
-          if (rawData != null) {
-            snap.forEach((child) => {
-              classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
-              storeClassforChart(child.child.code);
-            })
-          }
-        }).then(function () {
-  
-          for (var i = 0; i <= classesList.length; i++) {
-            let output3 = "";
-            var classData = classesList[i];
-            console.log(classData);
-  
-            if (classData != null || classData != undefined) {
-  
-              console.log("works");
-              var className = classData[1];
-              var classCode = classData[0];
-  
-              output3 = `
+    })
+
+    function getClassData() {
+      var emailRef = localStorage.getItem("email")
+      var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+      var classesList = [];
+      console.log(classesList);
+
+      classesRef.once("value", (snap) => {
+        console.log(snap.val());
+        rawData = snap.val();
+
+        if (rawData != null) {
+          snap.forEach((child) => {
+            classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
+            storeClassforChart(child.child.code);
+          })
+        }
+      }).then(function () {
+
+        for (var i = 0; i <= classesList.length; i++) {
+          let output3 = "";
+          var classData = classesList[i];
+          console.log(classData);
+
+          if (classData != null || classData != undefined) {
+
+            console.log("works");
+            var className = classData[1];
+            var classCode = classData[0];
+
+            output3 = `
               <option value="${className}" onclick = "setClassCode(${classCode})">${className}</option>
 
             
             `
 
-            
-  
-           
-  
-  
-              $(output3).appendTo("#classesTeacherfy");
-            }
-  
+
+
+
+
+
+            $(output3).appendTo("#classesTeacherfy");
           }
 
-          function setClassCode(classCode) {
-              localStorage.setItem("code", classCode);
-            }
-  
-  
-  
-  
-  
-  
-  
-  
-        }).then(() => {
-        });
-  
-};
+        }
+
+        function setClassCode(classCode) {
+          localStorage.setItem("code", classCode);
+        }
+
+
+
+
+
+
+
+
+      }).then(() => {
+      });
+
+    };
   </script>
 
   <!-- Page Wrapper -->
@@ -192,7 +190,7 @@
           <span>Classes</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded" id = "classesListSideBar">
+          <div class="bg-white py-2 collapse-inner rounded" id="classesListSideBar">
             <h6 class="collapse-header">MY CLASSES</h6>
           </div>
         </div>
@@ -272,7 +270,8 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
@@ -286,14 +285,17 @@
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
               <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                      aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
@@ -306,13 +308,15 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter">3+</span>
               </a>
               <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Alerts Center
                 </h6>
@@ -355,13 +359,15 @@
 
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
                 <span class="badge badge-danger badge-counter">7</span>
               </a>
               <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Message Center
                 </h6>
@@ -371,7 +377,8 @@
                     <div class="status-indicator bg-success"></div>
                   </div>
                   <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
+                      having.</div>
                     <div class="small text-gray-500">Emily Fowler · 58m</div>
                   </div>
                 </a>
@@ -381,7 +388,8 @@
                     <div class="status-indicator"></div>
                   </div>
                   <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them
+                      sent to you?</div>
                     <div class="small text-gray-500">Jae Chun · 1d</div>
                   </div>
                 </a>
@@ -391,7 +399,8 @@
                     <div class="status-indicator bg-warning"></div>
                   </div>
                   <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so
+                      far, keep up the good work!</div>
                     <div class="small text-gray-500">Morgan Alvarez · 2d</div>
                   </div>
                 </a>
@@ -401,7 +410,8 @@
                     <div class="status-indicator bg-success"></div>
                   </div>
                   <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
+                      say this to all dogs, even if they aren't good...</div>
                     <div class="small text-gray-500">Chicken the Dog · 2w</div>
                   </div>
                 </a>
@@ -413,9 +423,10 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id = "displayName"></span>
-                <img class="img-profile rounded-circle"  id = "profilePic">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="displayName"></span>
+                <img class="img-profile rounded-circle" id="profilePic">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -450,205 +461,208 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Teacherfy</h1>
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
-              <strong>Introducing Teacherfy!</strong> Teacherfy allows you to contact your teachers with a more visual experience.  Just record yourself or just you audio and upload it to your desired Class!
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <strong>Introducing Teacherfy!</strong> Teacherfy allows you to contact your teachers with a more visual
+            experience. Just record yourself or just you audio and upload it to your desired Class!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
-  Record Now!
-</button>
-
-  <!-- Modal -->
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Choose Recording Type!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+            Record Now!
           </button>
-        </div>
-        <div class="modal-body" style = "width: 900px">
 
-          <main>
+          <!-- Modal -->
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Choose Recording Type!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="width: 900px">
 
-
-
-              <center style = "margin-left: -60px">
-                <div class="col">
-                  <video controls id = "vidPreview"></video>
-
-                  <video id="vid2" controls style = " display: none"></video>
-                  <div style = "width: 200px">
-
-                  </div>
-                  <button type="button" name="button" class="btn btn-primary" id="btnStart">Start Recording</button>
-                  <button type="button" name="button" class="btn btn-primary" id="btnStop" style = "display: none">End Recording</button>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded" id = "classesListSideBar">
-                      <h6 class="collapse-header">MY CLASSES</h6>
-                    </div>
-                  </div>
-                  <select id="classesTeacherfy">
-                    
-                  </select>
-                  <progress value="0" max="100" id="uploader">0%</progress>
-                  <input type="file" value="upload" id="">
+                  <main>
 
 
 
-                </center>
+                    <center style="margin-left: -60px">
+                      <div class="col">
+                        <video controls id="vidPreview"></video>
 
-              <!-- could save to canvas and do image manipulation and saving too -->
-          </main>
-          <script>
+                        <video id="vid2" controls style=" display: none"></video>
+                        <div style="width: 200px">
 
-              let constraintObj = {
-                  audio: false,
-                  video: {
-                      facingMode: "user",
-                      width: { min: 640, ideal: 1280, max: 1000 },
-                      height: { min: 480, ideal: 720, max: 1080 }
-                  }
-              };
-              // width: 1280, height: 720  -- preference only
-              // facingMode: {exact: "user"}
-              // facingMode: "environment"
+                        </div>
+                        <button type="button" name="button" class="btn btn-primary" id="btnStart">Start
+                          Recording</button>
+                        <button type="button" name="button" class="btn btn-primary" id="btnStop"
+                          style="display: none">End Recording</button>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                          data-parent="#accordionSidebar">
+                          <div class="bg-white py-2 collapse-inner rounded" id="classesListSideBar">
+                            <h6 class="collapse-header">MY CLASSES</h6>
+                          </div>
+                        </div>
+                        <select id="classesTeacherfy">
 
-              //handle older browsers that might implement getUserMedia in some way
-              if (navigator.mediaDevices === undefined) {
-                  navigator.mediaDevices = {};
-                  navigator.mediaDevices.getUserMedia = function(constraintObj) {
-                      let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-                      if (!getUserMedia) {
-                          return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+                        </select>
+                        <progress value="0" max="100" id="uploader">0%</progress>
+                        <input type="file" value="upload" id="">
+
+
+
+                    </center>
+
+                    <!-- could save to canvas and do image manipulation and saving too -->
+                  </main>
+                  <script>
+
+                    let constraintObj = {
+                      audio: false,
+                      video: {
+                        facingMode: "user",
+                        width: { min: 640, ideal: 1280, max: 1000 },
+                        height: { min: 480, ideal: 720, max: 1080 }
                       }
-                      return new Promise(function(resolve, reject) {
+                    };
+                    // width: 1280, height: 720  -- preference only
+                    // facingMode: {exact: "user"}
+                    // facingMode: "environment"
+
+                    //handle older browsers that might implement getUserMedia in some way
+                    if (navigator.mediaDevices === undefined) {
+                      navigator.mediaDevices = {};
+                      navigator.mediaDevices.getUserMedia = function (constraintObj) {
+                        let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                        if (!getUserMedia) {
+                          return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+                        }
+                        return new Promise(function (resolve, reject) {
                           getUserMedia.call(navigator, constraintObj, resolve, reject);
-                      });
-                  }
-              }else{
-                  navigator.mediaDevices.enumerateDevices()
-                  .then(devices => {
-                      devices.forEach(device=>{
-                          console.log(device.kind.toUpperCase(), device.label);
-                          //, device.deviceId
+                        });
+                      }
+                    } else {
+                      navigator.mediaDevices.enumerateDevices()
+                        .then(devices => {
+                          devices.forEach(device => {
+                            console.log(device.kind.toUpperCase(), device.label);
+                            //, device.deviceId
+                          })
+                        })
+                        .catch(err => {
+                          console.log(err.name, err.message);
+                        })
+                    }
+
+                    navigator.mediaDevices.getUserMedia(constraintObj)
+                      .then(function (mediaStreamObj) {
+                        //connect the media stream to the first video element
+                        let video = document.querySelector('video');
+                        if ("srcObject" in video) {
+                          video.srcObject = mediaStreamObj;
+                        } else {
+                          //old version
+                          video.src = window.URL.createObjectURL(mediaStreamObj);
+                        }
+
+                        video.onloadedmetadata = function (ev) {
+                          //show in the video element what is being captured by the webcam
+                          video.play();
+                        };
+
+                        //add listeners for saving video/audio
+                        let start = document.getElementById('btnStart');
+                        let stop = document.getElementById('btnStop');
+                        let vidSave = document.getElementById('vid2');
+                        let mediaRecorder = new MediaRecorder(mediaStreamObj);
+                        let chunks = [];
+
+                        start.addEventListener('click', (ev) => {
+                          mediaRecorder.start();
+                          console.log(mediaRecorder.state);
+                          document.getElementById('btnStart').style.display = "none";
+                          document.getElementById('btnStop').style.display = "initial";
+                        })
+                        stop.addEventListener('click', (ev) => {
+                          mediaRecorder.stop();
+                          console.log(mediaRecorder.state);
+                          document.getElementById('vid2').style.display = "initial"
+                          document.getElementById('vidPreview').style.display = "none"
+                        });
+                        mediaRecorder.ondataavailable = function (ev) {
+                          chunks.push(ev.data);
+                        }
+                        mediaRecorder.onstop = (ev) => {
+                          let blob = new Blob(chunks, { 'type': 'video/mp4;' });
+                          chunks = [];
+                          let videoURL = window.URL.createObjectURL(blob);
+                          vidSave.src = videoURL;
+                        }
                       })
-                  })
-                  .catch(err=>{
-                      console.log(err.name, err.message);
-                  })
-              }
+                      .catch(function (err) {
+                        console.log(err.name, err.message);
+                      });
 
-              navigator.mediaDevices.getUserMedia(constraintObj)
-              .then(function(mediaStreamObj) {
-                  //connect the media stream to the first video element
-                  let video = document.querySelector('video');
-                  if ("srcObject" in video) {
-                      video.srcObject = mediaStreamObj;
-                  } else {
-                      //old version
-                      video.src = window.URL.createObjectURL(mediaStreamObj);
-                  }
+                    /*********************************
+                    getUserMedia returns a Promise
+                    resolve - returns a MediaStream Object
+                    reject returns one of the following errors
+                    AbortError - generic unknown cause
+                    NotAllowedError (SecurityError) - user rejected permissions
+                    NotFoundError - missing media track
+                    NotReadableError - user permissions given but hardware/OS error
+                    OverconstrainedError - constraint video settings preventing
+                    TypeError - audio: false, video: false
+                    *********************************/
 
-                  video.onloadedmetadata = function(ev) {
-                      //show in the video element what is being captured by the webcam
-                      video.play();
-                  };
+                    var uploader = document.getElementById('uploader');
+                    var fileButton = document.getElementById('fileButton');
 
-                  //add listeners for saving video/audio
-                  let start = document.getElementById('btnStart');
-                  let stop = document.getElementById('btnStop');
-                  let vidSave = document.getElementById('vid2');
-                  let mediaRecorder = new MediaRecorder(mediaStreamObj);
-                  let chunks = [];
+                    fileButton.addEventListener('change', function (e) {
+                      var file = vidSave
 
-                  start.addEventListener('click', (ev)=>{
-                      mediaRecorder.start();
-                      console.log(mediaRecorder.state);
-                      document.getElementById('btnStart').style.display = "none";
-                      document.getElementById('btnStop').style.display = "initial";
-                  })
-                  stop.addEventListener('click', (ev)=>{
-                      mediaRecorder.stop();
-                      console.log(mediaRecorder.state);
-                      document.getElementById('vid2').style.display = "initial"
-                      document.getElementById('vidPreview').style.display = "none"
-                  });
-                  mediaRecorder.ondataavailable = function(ev) {
-                      chunks.push(ev.data);
-                  }
-                  mediaRecorder.onstop = (ev)=>{
-                      let blob = new Blob(chunks, { 'type' : 'video/mp4;' });
-                      chunks = [];
-                      let videoURL = window.URL.createObjectURL(blob);
-                      vidSave.src = videoURL;
-                  }
-              })
-              .catch(function(err) {
-                  console.log(err.name, err.message);
-              });
+                      var storageRef = firebase.storage().ref('class_images/' + file.name)
 
-              /*********************************
-              getUserMedia returns a Promise
-              resolve - returns a MediaStream Object
-              reject returns one of the following errors
-              AbortError - generic unknown cause
-              NotAllowedError (SecurityError) - user rejected permissions
-              NotFoundError - missing media track
-              NotReadableError - user permissions given but hardware/OS error
-              OverconstrainedError - constraint video settings preventing
-              TypeError - audio: false, video: false
-              *********************************/
+                      var task = storageRef.put(file);
 
-              var uploader = document.getElementById('uploader');
-              var fileButton = document.getElementById('fileButton');
+                      task.on('state_change',
+                        function progress(snapshot) {
+                          var percentage = (snapshot.bytesTransferres / snapshot.totalBytes) * 100;
+                          uploader.value = percentage;
 
-              fileButton.addEventListener('change', function(e) {
-                var file = vidSave
+                        },
 
-                var storageRef = firebase.storage().ref('class_images/' + file.name)
+                        function error(err) {
 
-                var task = storageRef.put(file);
+                        },
 
-                task.on('state_change',
-                  function progress(snapshot) {
-                    var percentage = (snapshot.bytesTransferres/snapshot.totalBytes) * 100;
-                    uploader.value = percentage;
+                        function complete() {
 
-                  },
+                        }
+                      )
+                    })
+                  </script>
+                  <style>
+                    #uploader {
+                      -webkit-appearance: none;
+                      appearance: none;
+                      width: 50%;
 
-                  function error(err) {
-
-                  },
-
-                  function complete() {
-
-                  }
-                )
-              })
-          </script>
-          <style>
-
-            #uploader {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 50%;
-
-            }
-            
-          </style>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id = "fileButton">Upload!</button>
-        </div>
-      </div>
-    </div>
-  </div>
+                    }
+                  </style>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="fileButton">Upload!</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
         <!-- /.container-fluid -->
@@ -678,7 +692,8 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -696,7 +711,7 @@
     </div>
   </div>
 
- 
+
 
 </body>
 
