@@ -1140,7 +1140,7 @@ function loginWithEmailStudent() {
                 var accountType = doc.data()['Account Type'];
                 if (doc.exists) {
                     console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "../studentDashboard.html";
+                    window.location = "../studentPortal/studentDashboard.html";
 
                     if (accountType != null) {
                         if (accountType == "Student") {
