@@ -16,43 +16,6 @@ function initializeFirebase() {
     firebase.firestore().enablePersistence();
 }
 
-
-
-function facebookLogin() {
-    base_provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(base_provider).then(function (result) {
-        console.log(result);
-        console.log("Success, Facebook Account Linked");
-        var user = result.user;
-        var email = user.email;
-        var name3 = user.displayName;
-        var profilePic = user.photoURL;
-        var formattedEmail1 = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
-        console.log(formattedEmail1);
-        localStorage.setItem("photo", profilePic);
-        localStorage.setItem("email", formattedEmail1);
-        localStorage.setItem("name", name3);
-        var _ref = firebase.database().ref().child("UserData").child(formattedEmail1);
-        console.log(formattedEmail1);
-        console.log(name);
-        _ref.child("display-name").set(name3);
-        _ref.child("email").set(email);
-        _ref.child("username").set(formattedEmail1);
-        localStorage.setItem("email", formattedEmail1);
-        window.location = "/dashboard.html";
-
-    }).catch(function (err) {
-        console.log(err)
-        console.log("Facebook Sign In Failed")
-        if (err.code == "auth/account-exists-with-different-credential") {
-            console.log("credentials exist");
-            document.getElementById("alert4").innerHTML = `<strong>Oops!</strong> There is already an account with this email</div>`;
-        }
-        document.getElementById("alert4").style.display = "initial";
-    })
-}
-
-
 //FIRESTORE MIGRATED
 function facebookLoginStudent() {
     base_provider = new firebase.auth.FacebookAuthProvider();
@@ -64,7 +27,6 @@ function facebookLoginStudent() {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
 
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -108,27 +70,22 @@ function facebookLoginStudent() {
 
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
+        firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
             if (doc.exists) {
-                console.log("Document data:", doc.data()["Account Type"]);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
+                var accountType = doc.data()["Account Type"];
 
+                
         if (accountType != null) {
             if (accountType == "Student") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "studentDashboard.html";
+
+                localStorage.setItem("email", email);
+
+                window.location = "../studentPortal/studentDashboard.html";
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
+                <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
             </div>`;
 
                 document.getElementById('signupError').innerHTML = errorHTML;
@@ -136,15 +93,22 @@ function facebookLoginStudent() {
             }
         } else {
 
-            errorHTML = `<div class="alert alert-danger" role="alert"
+            errorHTML = `<div class="alert alert-danger" role="alert" 
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
+                 <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+           </div>`;
 
             document.getElementById('signupError').innerHTML = errorHTML;
         }
 
 
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
 
     }).catch(function (err) {
 
@@ -176,7 +140,7 @@ function facebookLoginDistrict() {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = email.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '-');
+
 
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -219,41 +183,39 @@ function facebookLoginDistrict() {
         // });
 
         //NEW CODE
-        var accountType = firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data()["Account Type"]);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
+        firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+
+            var accountType = doc.data()["Account Type"];
+
+                if (accountType != null) {
+                    if (accountType == "District") {
+                        console.log('Login Success');
+                        localStorage.setItem("email", email);
+                        window.location = "districtDashboard.html";
+                    } else {
+        
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                        style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                        <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
+                    </div>`;
+        
+                        document.getElementById('signupError').innerHTML = errorHTML;
+        
+                    }
+                } else {
+        
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                 <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+           </div>`;
+        
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
+    
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
 
-        if (accountType != null) {
-            if (accountType == "District") {
-                console.log('Login Success');
-                localStorage.setItem("email", formattedEmail);
-                window.location = "districtDashboard.html";
-            } else {
-
-                errorHTML = `<div class="alert alert-danger" role="alert" 
-                style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            </div>`;
-
-                document.getElementById('signupError').innerHTML = errorHTML;
-
-            }
-        } else {
-
-            errorHTML = `<div class="alert alert-danger" role="alert"
-            style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-        </div>`;
-
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
 
 
 
@@ -284,10 +246,6 @@ function facebookLoginTeacher() {
         var email = user.email;
         var name3 = user.displayName;
         var profilePic = user.photoURL;
-
-        var errorMessage = document.getElementById('signupError');
-
-        var formattedEmail = user.email;
 
         //OLD CODE
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
@@ -328,25 +286,19 @@ function facebookLoginTeacher() {
         // });
 
         //NEW CODE
-        console.log('format email ', formattedEmail);
-        firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-            console.log("data from doc : ", doc.data());
+
+        firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+
             var accountType = doc.data()['Account Type'];
-            if (doc.exists) {
-                console.log("Document data:", doc.data()["Account Type"]);
-                window.location = "/dashboard.html";
+
 
                 if (accountType != null) {
                     if (accountType == "Teacher") {
                         console.log('Login Success');
-                        // localStorage.setItem("photo", profilePic);
-                        //             localStorage.setItem("email", formattedEmail);
-                        //             localStorage.setItem("name", name3);
-
-                        //             window.location = "/dashboard.html";
                         localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("email", email);
                         localStorage.setItem("name", name3);
+
                         window.location = "/dashboard.html";
                     } else {
 
@@ -360,17 +312,14 @@ function facebookLoginTeacher() {
                     }
                 } else {
 
-                    errorHTML = `<div class="alert alert-danger" role="alert"
-                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-                </div>`;
-
+                     errorHTML = `<div class="alert alert-danger" role="alert" 
+            style="margin-top: 20px; width: 94%; margin-left: 6%;">
+                 <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+           </div>`;
+        
                     document.getElementById('signupError').innerHTML = errorHTML;
                 }
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
+
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
@@ -415,19 +364,16 @@ googleSignInStudent = () => {
 
             console.log("Document data:", doc.data()["Account Type"]);
 
-            if (accountType != null) {
                 if (accountType != null) {
                     if (accountType == "Student") {
                         console.log('Login Success');
+
                         localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("email", email);
                         localStorage.setItem("name", name3);
 
-                        window.location = "/dashboard.html";
-                        localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", formattedEmail);
-                        localStorage.setItem("name", name3);
-                        window.location = "/studentDashboard.html";
+                        window.location = "../studentPortal/studentDashboard.html";
+
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -438,15 +384,6 @@ googleSignInStudent = () => {
                         document.getElementById('signupError').innerHTML = errorHTML;
 
                     }
-                } else {
-
-                    errorHTML = `<div class="alert alert-danger" role="alert"
-                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                  <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-                </div>`;
-
-                    document.getElementById('signupError').innerHTML = errorHTML;
-                }
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -515,8 +452,6 @@ googleSignInTeacher = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        var formattedEmail = user.email;
-
         // old code
         // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
@@ -570,7 +505,7 @@ googleSignInTeacher = () => {
                         console.log('Login Success');
 
                         localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", formattedEmail);
+                        localStorage.setItem("email", email);
                         localStorage.setItem("name", name3);
 
                         window.location = "/dashboard.html";
@@ -913,8 +848,6 @@ facebookSignUp = (type) => {
 
             if (value != undefined || value != null) {
 
-                console.log("EXISTS:" + value);
-
                 errorHTML = `<div class="alert alert-danger" role="alert"
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Error! </strong> An account with this email already exists
@@ -1080,8 +1013,6 @@ function loginWithEmailStudent() {
     var email = document.getElementById('inputEmail').value;
     var password = document.getElementById('inputPassword').value;
 
-    var formattedEmail = document.getElementById('inputEmail').value;
-
     var authValid = true;
 
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -1139,27 +1070,16 @@ function loginWithEmailStudent() {
             // });
 
             //NEW CODE
-            console.log('format email ', formattedEmail);
-            firebase.firestore().collection('UserData').doc(formattedEmail).get().then(function (doc) {
-                console.log("data from doc : ", doc.data());
+            firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
                 var accountType = doc.data()['Account Type'];
-                if (doc.exists) {
-                    console.log("Document data:", doc.data()["Account Type"]);
-                    window.location = "../studentPortal/studentDashboard.html";
 
                     if (accountType != null) {
                         if (accountType == "Student") {
-                            localStorage.setItem("email", formattedEmail);
-                            window.location = "studentDashboard.html";
-                            console.log('Login Success');
-                            // localStorage.setItem("photo", profilePic);
-                            //             localStorage.setItem("email", formattedEmail);
-                            //             localStorage.setItem("name", name3);
 
-                            //             window.location = "/dashboard.html";
                             localStorage.setItem("photo", profilePic);
-                            localStorage.setItem("email", formattedEmail);
+                            localStorage.setItem("email", email);
                             localStorage.setItem("name", name3);
+
                             window.location = "../studentDashboard.html";
                         } else {
 
@@ -1173,17 +1093,14 @@ function loginWithEmailStudent() {
                         }
                     } else {
 
-                        errorHTML = `<div class="alert alert-danger" role="alert"
-                    style="margin-top: 20px; width: 94%; margin-left: 6%;">
-                    <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-                </div>`;
+                         errorHTML = `<div class="alert alert-danger" role="alert" 
+             style="margin-top: 20px; width: 94%; margin-left: 6%;">
+               <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
+             </div>`;
 
                         document.getElementById('signupError').innerHTML = errorHTML;
                     }
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
+
             }).catch(function (error) {
                 console.log("Error getting document:", error);
             });
