@@ -286,11 +286,13 @@ function reloadPage() {
 }
 
 
-function setMainClassForMood(selectedClassName) {
+function setMainClassForMood(index) {
 
-  selectedClass = selectedClassName;
+  className = classesList[index];
 
-  console.log(selectedClassName);
+  selectedClass = classCodes[className];
+
+  console.log(selectedClass + ":" + index + ":" + className);
 
 }
 
