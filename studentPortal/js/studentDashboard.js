@@ -111,7 +111,7 @@ function getStudentClasses(studentUsername) {
             `;
   
         output3 = `
-        <option selected value="base" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</option>
+        <option selected value="base"><a onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</a></option>
             `;
   
         dropDownMenuItems += output3;
@@ -255,7 +255,7 @@ function updateReaction(reaction) {
 function updateReaction(reaction) {
   var box = document.getElementById("moodBox");
 
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
+  box.innerHTML = '<center><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></center>';
 
   var currentDate = new Date();
 
@@ -288,22 +288,9 @@ function reloadPage() {
 
 function setMainClassForMood(selectedClassName) {
 
-  var dropDownButton = document.getElementById("selectedClassForDropdown");
-  var dropDownButton1 = document.getElementById("selectedClassForDropdown1");
-
-  var dropDownMenu = document.getElementById("dropDownMoodPicker");
-
-  outputButton = `<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-  ${selectedClassName}
-</button>
-`;
-
-  dropDownButton.innerHTML = outputButton;
-  dropDownButton1.innerHTML = outputButton;
-
-  dropDownMenu.innerHTML = dropDownMenuItems;
-
   selectedClass = selectedClassName;
+
+  console.log(selectedClassName);
 
 }
 

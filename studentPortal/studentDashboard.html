@@ -267,19 +267,19 @@
             <!-- YOUR REACTION SECTION-->
 
             <div class="col">
-              <div class="card shadow mb-4" id = "moodBox">
+              <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <div class="row justify-content-between">
 
                   <h6 style = "margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Mood</h6>
 
 
-                  <select id="dropDownMoodPicker">
+                  <select id="dropDownMoodPicker" onchange="console.log(this.selectedIndex);">
                   </select>
 
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id = moodBox>
 
                   <div class="d-flex justify-content-center">
                     <div class="row">
