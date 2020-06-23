@@ -1078,6 +1078,8 @@ function loginWithEmailStudent() {
 
                             localStorage.setItem("email", email);
 
+                            console.log(email);
+
 
                             window.location = "../studentPortal/studentDashboard.html";
                         } else {
