@@ -1076,11 +1076,10 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", email);
-                            localStorage.setItem("name", name3);
 
-                            window.location = "../studentDashboard.html";
+
+                            window.location = "../studentPortal/studentDashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
