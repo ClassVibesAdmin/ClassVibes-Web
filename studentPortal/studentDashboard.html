@@ -20,18 +20,18 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  
+
   <link href="css/studentDashboard.css" rel="stylesheet">
 
   <script src="js/studentDashboard.js"></script>
 
   <!--BOOTSTRAP-->
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
     integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="vendor/jquery.easing.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery.easing.min.js"></script>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
@@ -41,8 +41,8 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
@@ -54,7 +54,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
 
-      <link href='css/loader.css' rel="stylesheet">
+  <link href='css/loader.css' rel="stylesheet">
 
 </head>
 
@@ -65,17 +65,21 @@
       initializeFirebase();
       getProfileInfo();
 
-      var email = document.cookie;
+      var email = "email";
+      setTimeout(() => {
+        email = document.cookie;
+      }, 500)
 
-    //var email = window.localStorage.getItem("email");
 
-    console.log("EMIAL:" + email);
+      //var email = window.localStorage.getItem("email");
 
-    getStudentClasses(email);
-    getStudentStatus();
-    getMeetings();
-    //getAnnouncements();
-});
+      console.log("EMIAL:" + email);
+
+      getStudentClasses(email);
+      getStudentStatus();
+      getMeetings();
+      //getAnnouncements();
+    });
   </script>
 
   <!-- Page Wrapper -->
@@ -117,7 +121,7 @@
           <span>Classes</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded" id = "classesListSideBar">
+          <div class="bg-white py-2 collapse-inner rounded" id="classesListSideBar">
             <h6 class="collapse-header">MY CLASSES</h6>
           </div>
         </div>
@@ -261,127 +265,132 @@
             </center>
           </section>
 
-          <section id = "dashboardSection-content" style="display: none;">
-          <!--CLASSES SECTION-->
+          <section id="dashboardSection-content" style="display: none;">
+            <!--CLASSES SECTION-->
 
-          <div class="row" id = "classesRowDisplay">
-
-
-          </div>
+            <div class="row" id="classesRowDisplay">
 
 
-         <div class="row" >
-            <!-- YOUR REACTION SECTION-->
-
-            <div class="col">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <div class="row justify-content-between">
-
-                  <h6 style = "margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Mood</h6>
+            </div>
 
 
-                  <select id="dropDownMoodPicker" onchange="setMainClassForMood(this.selectedIndex);">
-                  </select>
+            <div class="row">
+              <!-- YOUR REACTION SECTION-->
 
+              <div class="col">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <div class="row justify-content-between">
+
+                      <h6 style="margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Mood
+                      </h6>
+
+
+                      <select id="dropDownMoodPicker" onchange="setMainClassForMood(this.selectedIndex);">
+                      </select>
+
+                    </div>
                   </div>
-                </div>
-                <div class="card-body" id = moodBox>
+                  <div class="card-body" id=moodBox>
 
-                  <div class="d-flex justify-content-center">
-                    <div class="row">
-                      <!--KNOWS-->
-                      <h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;" onclick="updateReaction('good')" style="color: green;">&#128513;</h1>
-  
-                      <!--MEJH-->
-                      <h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;" onclick="updateReaction('meh')" style="color: yellow;">&#128533;</h1>
-  
-                      <!--NEEDS HELP-->
-                      <h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;" onclick="updateReaction('needs help')">&#128545;</h1>
-  
+                    <div class="d-flex justify-content-center">
+                      <div class="row">
+                        <!--KNOWS-->
+                        <h1 class="icon-hover" style="margin-left: 20px; font-size: 70px;"
+                          onclick="updateReaction('good')" style="color: green;">&#128513;</h1>
+
+                        <!--MEJH-->
+                        <h1 class="icon-hover" style="margin-right: 20px; margin-left: 20px; font-size: 70px;"
+                          onclick="updateReaction('meh')" style="color: yellow;">&#128533;</h1>
+
+                        <!--NEEDS HELP-->
+                        <h1 class="icon-hover" style="margin-right: 20px; font-size: 70px;"
+                          onclick="updateReaction('needs help')">&#128545;</h1>
+
+                      </div>
+
                     </div>
 
                   </div>
-               
                 </div>
-              </div>
 
-              <style>
-                .icon-hover:hover {
-                  cursor: pointer;
+                <style>
+                  .icon-hover:hover {
+                    cursor: pointer;
 
-                }
-              </style>
+                  }
+                </style>
 
-              <div class="card shadow mb-4" id = "moodBox">
-                <div class="card-header py-3">
-                  <div class="row justify-content-between">
+                <div class="card shadow mb-4" id="moodBox">
+                  <div class="card-header py-3">
+                    <div class="row justify-content-between">
 
-                  <h6 style = "margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your Current Status</h6>
+                      <h6 style="margin-top: 10px; margin-left: 5px; color: cornflowerblue; font-weight: 700;">Your
+                        Current Status</h6>
+
+                    </div>
+                  </div>
+                  <div class="card-body">
+
+                    <center id="currentStatusSection">
+
+                    </center>
 
                   </div>
                 </div>
-                <div class="card-body">
+              </div>
 
-                  <center  id = "currentStatusSection">
 
-                  </center>
+              <!--MEETINGS SECTION-->
+
+              <div class="col">
+                <div class="card shadow" style="height: 95%;">
+                  <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Meetings</h6>
+                  </div>
+                  <div class="card-body" id="meetingsList">
+
+
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!--ANNOUNCEMENTS-->
+
+              <div class="col">
+                <div class="card shadow mb-4" style="height: 95%;">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Announcements</h6>
+
+                  </div>
+                  <div class="card-body" id="AnnouncementsPageSection" style="min-width: 400px;">
+
+                    <center>
+                      <img src="img/undraw_work_chat_erdt.svg" width="73%">
+
+                      <h2 style="margin-top: 2%;">No Announcements</h2>
+                      <p>You're all caught up</p>
+                    </center>
+                  </div>
 
                 </div>
               </div>
+
+
             </div>
-
-
-          <!--MEETINGS SECTION-->
-
-          <div class="col">
-            <div class="card shadow" style="height: 95%;">
-              <div class="card-header">
-                <h6 class="m-0 font-weight-bold text-primary">Latest Meetings</h6>
-              </div>
-              <div class="card-body" id = "meetingsList" >
-                
-
-              </div>
-            </div>
-          </div>
-
-
-
-          <!--ANNOUNCEMENTS-->
-
-          <div class="col">
-            <div class="card shadow mb-4" style="height: 95%;">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Announcements</h6>
-  
-              </div>
-              <div class="card-body" id = "AnnouncementsPageSection" style="min-width: 400px;">
-  
-                <center>
-                  <img src = "img/undraw_work_chat_erdt.svg" width="73%">
-            
-                  <h2 style="margin-top: 2%;">No Announcements</h2>
-                  <p>You're all caught up</p>
-                </center>
-              </div>
-  
-            </div>
-          </div>
-
-
-         </div>
 
 
           </section>
 
-          <section id = "noClassesSection" style="display: none;">
+          <section id="noClassesSection" style="display: none;">
             <center>
-              <img src = "img/undraw_no_data_qbuo.svg" width="15%" style="margin-top: 8%;">
+              <img src="img/undraw_no_data_qbuo.svg" width="15%" style="margin-top: 8%;">
 
-              <h3 class = "h3 mb-4 text-gray-800">Nothing to see here</h3>
+              <h3 class="h3 mb-4 text-gray-800">Nothing to see here</h3>
 
-              <a class="btn btn-primary btn-icon-split btn-lg" href = "addClassStudentPortal.html">
+              <a class="btn btn-primary btn-icon-split btn-lg" href="addClassStudentPortal.html">
                 <span class="icon text-white-50">
                   <i class="fas fa-plus"></i>
                 </span>
