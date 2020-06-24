@@ -65,19 +65,18 @@
       initializeFirebase();
       getProfileInfo();
 
+      
+      var email = "email";
+      
       var user = firebase.auth().currentUser;
       var name, email, photoUrl, uid, emailVerified;
 
       if (user != null) {
         email = user.email;
+
       } else {
         window.location = "../loginOptions.html"
       }
-
-      var email = "email";
-      setTimeout(() => {
-        email = document.cookie;
-      }, 500)
 
 
       //var email = window.localStorage.getItem("email");
