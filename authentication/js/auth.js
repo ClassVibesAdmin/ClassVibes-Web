@@ -1089,13 +1089,13 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            document.cookie = email;
+                            document.cookie = email; 'path=/';
 
                             window.localStorage.setItem("email", email.toString());
 
                             console.log(email);
 
-                            console.log(document.cookie, 'path=/');
+                            console.log(document.cookie);
 
                             setTimeout(() => { window.location = "../studentPortal/studentDashboard.html"; }, 3000)
 
