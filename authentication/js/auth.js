@@ -1089,7 +1089,7 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            document.cookie = "email" +"="+ email; 'path=/';
+                            document.cookie = "email" +"="+ email; '/';
 
                             window.localStorage.setItem("email", email.toString());
 
