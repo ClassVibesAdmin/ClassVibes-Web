@@ -1093,8 +1093,6 @@ function loginWithEmailStudent() {
 
                         console.log(email);
 
-                        console.log(data);
-
                         window.location = "../studentPortal/studentDashboard.html";
 
                     } else {
