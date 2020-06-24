@@ -65,19 +65,28 @@
       initializeFirebase();
       getProfileInfo();
 
-
       var email = "email";
 
-      firebase.auth().onAuthStateChanged(function (user) {
+      // User signed out in previous session, show dialog immediately because there will be no auto-login
+      if (!localStorage.getItem('myPage.expectSignIn')) showDialog() // or redirect to sign-in page
+
+      firebase.auth().onAuthStateChanged(user => {
         if (user) {
+          // User just signed in, we should not display dialog next time because of firebase auto-login
+          localStorage.setItem('myPage.expectSignIn', '1')
           console.log(user.email);
 
           email = user.email;
-        } else {
-          console.log("user Signed out");
-        }
-      });
 
+        } else {
+          // User just signed-out or auto-login failed, we will show sign-in form immediately the next time he loads the page
+          localStorage.removeItem('myPage.expectSignIn')
+
+          console.log("user Signed out");
+          // Here implement logic to trigger the login dialog or redirect to sign-in page, if necessary. Don't redirect if dialog is already visible.
+          // e.g. showDialog()
+        }
+      })
 
       //var email = window.localStorage.getItem("email");
 
