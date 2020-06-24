@@ -1100,9 +1100,9 @@ function loginWithEmailStudent() {
 
                         console.log(data);
 
-                        window.location = "../studentPortal/studentDashboard.html";
+                        //window.location = "../studentPortal/studentDashboard.html";
 
-                        targetWindow.postMessage('Hello World!', 'http://students.classvibes.net');
+                        targetWindow.postMessage('Hello World!', 'http://students.classvibes.net/studentDashboard.html');
 
 
                     } else {
