@@ -43,8 +43,9 @@
         $(document).ready(function () {
 
             getProfileInfo();
-            getStudentData();
             getClassData();
+
+            getStudentData();
         });
 
         var firebaseConfig = {
@@ -79,6 +80,7 @@
 
         function getClassData() {
             var emailRef = localStorage.getItem("email")
+            console.log(emailRef)
             //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
             // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
 
@@ -218,7 +220,7 @@
                     var reaction = data["reaction"];
                     var studentName = data["name"];
                     var studentEmail = data["email"]
-                    classInfoList.push([reaction, studentName, studentEmail])
+                    classInfoList.push([studentName, reaction, studentEmail])
                     console.log(classInfoList)
 
                 });
