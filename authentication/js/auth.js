@@ -1089,7 +1089,7 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            document.cookie = "email" +"="+ email; '/';
+                            document.cookie = "email" +"="+ email; '/'; '.classvibes.net';
 
                             window.localStorage.setItem("email", email.toString());
 
