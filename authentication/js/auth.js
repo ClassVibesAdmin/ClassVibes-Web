@@ -449,6 +449,7 @@ googleSignInTeacher = () => {
         var email = user.email;
         var name3 = user.displayName;
         var profilePic = user.photoURL;
+        localStorage.setItem(email, "email")
 
         var errorMessage = document.getElementById('signupError');
 
