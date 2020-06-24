@@ -1102,8 +1102,6 @@ function loginWithEmailStudent() {
 
                         //window.location = "../studentPortal/studentDashboard.html";
 
-                        targetWindow.postMessage('Hello World!', 'http://students.classvibes.net/studentDashboard.html');
-
 
                     } else {
 
