@@ -1,13 +1,13 @@
 function initializeFirebase() {
   var firebaseConfig = {
-      apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-      authDomain: "cyberdojo-a2a3e.firebaseapp.com",
-      databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
-      projectId: "cyberdojo-a2a3e",
-      storageBucket: "cyberdojo-a2a3e.appspot.com",
-      messagingSenderId: "938057332518",
-      appId: "1:938057332518:web:99c34da5abf1b1548533e7",
-      measurementId: "G-0EWJ1V40VX"
+    apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
+    authDomain: "cyberdojo-a2a3e.firebaseapp.com",
+    databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
+    projectId: "cyberdojo-a2a3e",
+    storageBucket: "cyberdojo-a2a3e.appspot.com",
+    messagingSenderId: "938057332518",
+    appId: "1:938057332518:web:99c34da5abf1b1548533e7",
+    measurementId: "G-0EWJ1V40VX"
   };
 
   // Initialize Firebase
@@ -23,19 +23,19 @@ var dropDownMenuItems = ``;
 
 function getProfileInfo() {
   var name = localStorage.getItem("name");
-var pic = localStorage.getItem("photo");
+  var pic = localStorage.getItem("photo");
 
-let outputPic = "";
-outputPic += `
+  let outputPic = "";
+  outputPic += `
 <img class="img-profile rounded-circle" src="${pic}">
 
 `
 
-if (outputPic !== "") {
-  $(outputPic).appendTo("#profilePic")
-}
+  if (outputPic !== "") {
+    $(outputPic).appendTo("#profilePic")
+  }
 
-document.getElementById("displayName").innerHTML = name
+  document.getElementById("displayName").innerHTML = name
 
 }
 
@@ -59,19 +59,19 @@ function getStudentClasses(studentUsername, pageType) {
     doc.forEach(snapshot => {
       var classData = snapshot.data();
 
-        var classCode = classData["Code"];
-        var className = classData["class-name"];
+      var classCode = classData["Code"];
+      var className = classData["class-name"];
 
-        classesList.push(className);
-        classCodes[className] = classCode;
+      classesList.push(className);
+      classCodes[className] = classCode;
 
-        console.log(classesList.length);
+      console.log(classesList.length);
     });
 
     console.log(classesList.length + ": LENGTH");
 
-    
-    if(classesList.length != 0){
+
+    if (classesList.length != 0) {
 
       console.log(classesList);
 
@@ -80,12 +80,12 @@ function getStudentClasses(studentUsername, pageType) {
                     ${classesList[0]}
                   </button>
           `;
-  
+
       selectedClass = classesList[0];
-  
+
       $(inital).appendTo("#selectedClassForDropdown");
-  
-  
+
+
       classesList.forEach(function (item, index) {
         console.log(item, index);
         output = `
@@ -105,59 +105,59 @@ function getStudentClasses(studentUsername, pageType) {
                     </div>
                   </div>
             `;
-  
+
         output2 = `
             <a class="collapse-item">${item}</a>
             `;
-  
+
         output3 = `
         <option selected value="base">${item}</option>
             `;
-  
+
         dropDownMenuItems += output3;
-  
+
         $(output3).appendTo("#dropDownMoodPicker");
-  
+
         $(output2).appendTo("#classesListSideBar");
-  
+
         $(output).appendTo("#classesRowDisplay");
 
-        if(pageType == "student-joinClass"){
+        if (pageType == "student-joinClass") {
           document.getElementById('loadingIndicator').style.display = "none";
 
           document.getElementById('classesSection-description').style.display = "initial";
-    
+
           document.getElementById('noClasses-Section').style.display = "none";
-    
+
         } else {
           document.getElementById('loadingIndicator').style.display = "none";
 
           document.getElementById('dashboardSection-content').style.display = "initial";
-  
+
           document.getElementById('noClassesSection').style.display = "none";
         }
 
-      }); 
-      
+      });
+
     } else {
 
-      if(pageType == "student-joinClass"){
+      if (pageType == "student-joinClass") {
         document.getElementById('loadingIndicator').style.display = "none";
 
         document.getElementById('classesSection-description').style.display = "none";
-  
+
         document.getElementById('noClasses-Section').style.display = "initial";
-  
+
       } else {
         document.getElementById('loadingIndicator').style.display = "none";
 
         document.getElementById('dashboardSection-content').style.display = "none";
-  
+
         document.getElementById('noClassesSection').style.display = "initial";
-  
+
       }
 
-     
+
     }
 
   });
@@ -278,7 +278,7 @@ function updateReaction(reaction) {
 
   var studentEmail = localStorage.getItem("email");
 
-  
+
   var classSelected = localStorage.getItem("selectedClassDropdown");
 
   console.log("TESET:" + classSelected);
@@ -296,7 +296,7 @@ function updateReaction(reaction) {
     reaction: reaction
   });
 
- firebase.firestore().collection("UserData").doc(studentEmail).update({
+  firebase.firestore().collection("UserData").doc(studentEmail).update({
     reaction: reaction
   });
 
@@ -310,6 +310,7 @@ function reloadPage() {
 }
 
 
+//Firestore Migrated Fully
 function setMainClassForMood(index) {
 
   className = classesList[index];
@@ -322,10 +323,10 @@ function setMainClassForMood(index) {
 
 }
 
-
+//Firestore migrated fully
 function checkIfClassCodeExists(addType) {
 
-  if(addType == "no-classes"){
+  if (addType == "no-classes") {
 
     var code = document.getElementById("inputClassCode-noClasses").value;
 
@@ -333,53 +334,53 @@ function checkIfClassCodeExists(addType) {
 
     console.log(code);
 
-  var exists = false;
+    var exists = false;
 
-  // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
+    // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
 
-  firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
-    var classCode = doc.data();
+    firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
+      var classCode = doc.data();
 
-    var email = localStorage.getItem("email");
+      var email = localStorage.getItem("email");
 
-    if (classCode != null) {
+      if (classCode != null) {
         exists = true;
 
-    }  else {
-      exists = false;
-    }
+      } else {
+        exists = false;
+      }
 
-    if (exists == false) {
-      error.innerHTML = `
+      if (exists == false) {
+        error.innerHTML = `
       <div class="alert alert-danger" role="alert" style="width: 310px;">
       Class code doesn't exist
      </div>
      `;
-    }
+      }
 
-    if(exists == "enrolledInClass"){
-      error.innerHTML = `
+      if (exists == "enrolledInClass") {
+        error.innerHTML = `
      <div class="alert alert-danger" role="alert" style="width: 310px;">
      You are already enrolled in this class
     </div>
     `;
-   }
+      }
 
-    if (exists == true) {
-      error.innerHTML = `
+      if (exists == true) {
+        error.innerHTML = `
       <div class="alert alert-success" role="alert" style="width: 310px;">
       You have joined this class
      </div>
      `;
 
-      addClassToStudentData(code);
+        addClassToStudentData(code);
 
-      getStudentClasses(localStorage.getItem("email"));
-    }
+        getStudentClasses(localStorage.getItem("email"));
+      }
 
-    console.log(exists);
+      console.log(exists);
 
-  });
+    });
 
   } else {
 
@@ -389,62 +390,62 @@ function checkIfClassCodeExists(addType) {
 
     console.log(code);
 
-  //var exists = false;
+    //var exists = false;
 
-  // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
+    // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
 
-  firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
-    var classCode = doc.data();
-    var email = localStorage.getItem('email');
+    firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
+      var classCode = doc.data();
+      var email = localStorage.getItem('email');
 
-    var exist = false;
+      var exist = false;
 
-    if (classCode != null) {
-      exists = true;
-    } else {
-      exists = false;
-    }
+      if (classCode != null) {
+        exists = true;
+      } else {
+        exists = false;
+      }
 
-    console.log("EXISTS:" + exists);
+      console.log("EXISTS:" + exists);
 
-    if (exists == false) {
-      error.innerHTML = `
+      if (exists == false) {
+        error.innerHTML = `
       <div class="alert alert-danger" role="alert" style="width: 310px;">
       Class code doesn't exist
      </div>
      `;
-    }
-  
-    if(exists == "enrolledInClass"){
-       error.innerHTML = `
+      }
+
+      if (exists == "enrolledInClass") {
+        error.innerHTML = `
       <div class="alert alert-danger" role="alert" style="width: 310px;">
       You are already enrolled in this class
      </div>
      `;
-    }
-  
-    if (exists == true) {
-      error.innerHTML = `
+      }
+
+      if (exists == true) {
+        error.innerHTML = `
       <div class="alert alert-success" role="alert" style="width: 310px;">
       You have joined this class
      </div>
      `;
-  
-      addClassToStudentData(code);
-  
-      getStudentClasses(email);
-    }
-  
-    console.log(exists);
+
+        addClassToStudentData(code);
+
+        getStudentClasses(email);
+      }
+
+      console.log(exists);
 
 
-  });
+    });
 
 
   }
 
 
-  
+
   // _ref.once('value').then(function (snapshot) {
 
   // if (snapshot.val() != null) {
@@ -481,22 +482,23 @@ function checkIfClassCodeExists(addType) {
 
 }
 
+//Firestore migrated fully
 function addClassToStudentData(classCode) {
 
   var email = localStorage.getItem("email");
 
 
-  firebase.firestore().collection("Classes").doc(classCode).get().then(function (doc) { 
+  firebase.firestore().collection("Classes").doc(classCode).get().then(function (doc) {
     var classNamE = doc.data()['class-name'];
 
     firebase.firestore().collection("UserData").doc(email).collection("Classes").doc(classCode).set({
-      'Code':classCode.toString(),
-      'class-name':classNamE,
+      'Code': classCode.toString(),
+      'class-name': classNamE,
     });
 
     firebase.firestore().collection("Classes").doc(classCode).collection("Students").doc(email).set({
       'Name': "ADD NAME PROPERLY",
-      'Email':email,
+      'Email': email,
     });
 
   });
@@ -719,7 +721,7 @@ function getMeetings() {
 
       console.log(date);
 
-        output = `
+      output = `
         <div class="col-xl-12 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
@@ -739,13 +741,13 @@ function getMeetings() {
     </div>
         `;
 
-        $(output).appendTo("#meetingsList");
+      $(output).appendTo("#meetingsList");
     });
 
     //console.log("MEETINGS LIST: " + meetingsCount);
 
 
-    if(meetingsCount == 0){
+    if (meetingsCount == 0) {
       outputError = `
       <center>
       <img src = "img/undraw_Booked_j7rj.svg" width="70%">
@@ -819,44 +821,59 @@ function getMeetings() {
 
 function getAnnouncements() {
 
+  document.getElementById("loadingIndicator").style.display = "initial";
+
   var email = localStorage.getItem("email");
 
   var classesListCodes = [];
 
   var classnamesList = [];
 
-  var _ref = firebase.database().ref().child("UserData").child(email).child("Classes");
+  firebase.firestore().collection('UserData').doc(email).collection("Classes").get().then(function (doc) {
 
-  _ref.once('value').then(function (snapshot) {
+    doc.forEach(snapshot => {
+      var classData = snapshot.data();
 
-    if (snapshot.val() != null) {
-      snapshot.forEach((child) => {
-        var classCode = child.child("Code").val();
+      if (classData != undefined && classData != null) {
+
+        var classCode = classData["Code"];
+        var className = classData["class-name"];
+
 
         classesListCodes.push(classCode);
 
-        classnamesList.push(child.child("class-name").val());
-      });
-
-    }
+        classnamesList.push(className);
+      }
+    });
 
   }).then(() => {
+
+
+    var announcementsCount = 0;
+
     for (let i = 0; i <= classesListCodes.length; i++) {
       var classcode = classesListCodes[i];
-      console.log("CLASS CODE" + classcode);
+      console.log("CLASS CODE: " + classcode);
 
-      if (classcode != undefined || classcode != null) {
-        var _classRef = firebase.database().ref().child("Classes").child(classcode).child("Announcements");
+      if (classcode != undefined && classcode != null) {
 
-        _classRef.once('value').then(function (snapshot) {
+        firebase.firestore().collection('Classes').doc(classcode).collection("Announcements").get().then(function (doc) {
 
-          if (snapshot.val() != null) {
-            snapshot.forEach((child) => {
 
+          doc.forEach(snapshot => {
+
+            var annoucementData = snapshot.data();
+
+            if (annoucementData != undefined && annoucementData != null) {
               outputAnnouncements = "";
 
-              var title = child.child("Title").val();
-              var message = child.child("Message").val();
+              announcementsCount += 1;
+
+              console.log(announcementsCount);
+
+              var title = annoucementData["Title"];
+              var message = annoucementData["Message"];
+              var date = annoucementData['Date'];
 
               console.log(title);
               console.log(message);
@@ -864,13 +881,15 @@ function getAnnouncements() {
               var nameClass = classnamesList[i];
 
               outputAnnouncements = `
-              <div class="col-xl-5 col-md-6 mb-4">
+              <div class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${nameClass}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${message}</div>
+
+                      <div class="h6 mb-0" style = "color: #a2a39b">${date}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -892,20 +911,37 @@ function getAnnouncements() {
               `;
 
               $(outputAnnouncements).appendTo("#annoucementsSection");
-              $(outputDashboard).appendTo("#AnnouncementsPageSection");
 
+              //$(outputDashboard).appendTo("#AnnouncementsPageSection");
 
-
-              //DYNAMIC CODE HERE
-            });
-
-          }
-
+            }
+          });
         });
       }
 
     }
+
+    console.log("NEW COUNT:" + announcementsCount);
+
+    setTimeout(() => {
+//IF there is no annonucements
+
+if (announcementsCount == 0) {
+
+  document.getElementById("loadingIndicator").style.display = "none";
+
+  document.getElementById("announcementsSection-section").style.display = "none";
+  
+  document.getElementById("no-Announcements-section").style.display = "initial";
+
+} else {
+  document.getElementById("loadingIndicator").style.display = "none";
+
+  document.getElementById("announcementsSection-section").style.display = "initial";
+  
+  document.getElementById("no-Announcements-section").style.display = "none";
+}
+     }, 1000)
+
   });
-
-
 }

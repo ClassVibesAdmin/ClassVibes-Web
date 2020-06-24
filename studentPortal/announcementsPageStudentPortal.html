@@ -33,22 +33,22 @@
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
 
 
   <!--BOOTSTRAP-->
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
-integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
-crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+    integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+    crossorigin="anonymous"></script>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <link href='css/loader.css' rel="stylesheet">
+
 
 </head>
 
@@ -57,30 +57,11 @@ crossorigin="anonymous"></script>
   <script>
     $(document).ready(function () {
       initializeFirebase();
-
-      function getProfileInfo() {
-        var name = localStorage.getItem("name");
-    var pic = localStorage.getItem("photo");
-
-      let outputPic = "";
-      outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
-
-   `
-
-      if (outputPic !== "") {
-        $(outputPic).appendTo("#profilePic")
-      }
-
-      document.getElementById("displayName").innerHTML = name
-
-    }
-
-    getProfileInfo();
+      getProfileInfo();
       var email = localStorage.getItem("email");
-      updateAddClasesDropdown(email);
+      //updateAddClasesDropdown(email);
       getAnnouncements();
-});
+    });
   </script>
 
   <!-- Page Wrapper -->
@@ -123,7 +104,7 @@ crossorigin="anonymous"></script>
           <span>Classes</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded" id = "classesListSideBar">
+          <div class="bg-white py-2 collapse-inner rounded" id="classesListSideBar">
             <h6 class="collapse-header">MY CLASSES</h6>
           </div>
         </div>
@@ -166,8 +147,8 @@ crossorigin="anonymous"></script>
         <a class="nav-link" href="chatPageStudentPortal.html">
           <i class="fas fa-fw far far fa-comments"></i>
           <span>Chat</span></a>
-        </li>
-        
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -203,7 +184,7 @@ crossorigin="anonymous"></script>
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
-              
+
             </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -247,11 +228,40 @@ crossorigin="anonymous"></script>
 
           <!-- Page Heading -->
 
-            <h1 class="h3 mb-4 text-gray-800">Announcements</h1>
+          <h1 class="h3 mb-4 text-gray-800">Announcements</h1>
 
-            <div class="row" id = "annoucementsSection">
+          <!--No Announcements-->
+          <section id="no-Announcements-section" style="display: none;">
+            <center style="margin-top: 12%;">
+              <img src="img/undraw_complete_task_u2c3.svg" width="20%">
 
+              <h1 style="margin-top: 2%;">No Announcements</h2>
+
+                <p>You're all caught up, nothing to see here.</p>
+            </center>
+          </section>
+
+          <!--LOADING PAGE-->
+          <section id="loadingIndicator">
+            <center style="margin-top: 25%;">
+              <div class="sk-folding-cube">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
               </div>
+            </center>
+          </section>
+
+          <!--Annoucements Page-->
+
+          <section id = "announcementsSection-section" style="display: none;">
+            <div class="row" id="annoucementsSection">
+
+            </div>
+          </section>
+
+
         </div>
         <!-- /.container-fluid -->
 
