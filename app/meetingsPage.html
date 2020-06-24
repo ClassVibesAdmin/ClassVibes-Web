@@ -132,22 +132,33 @@
 
         function getClassData() {
             var emailRef = localStorage.getItem("email")
-            var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+            console.log(emailRef)
+            //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+            // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
+
+            // });
             var classesList = [];
             console.log(classesList);
 
-            classesRef.once("value", (snap) => {
-                console.log(snap.val());
-                rawData = snap.val();
+            firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
 
-                if (rawData != null) {
-                    snap.forEach((child) => {
-                        classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
-                    })
-                }
-            }).then(function () {
+                doc.forEach(snapshot => {
 
-                for (var i = 0; i <= classesList.length; i++) {
+                    var data1 = snapshot.data();
+
+                    var classCode = data1["Code"];
+                    var className = data1["class-name"];
+
+                    classesList.push([classCode, className])
+
+                    console.log(classesList)
+                });
+
+                }).then(function() {
+                    console.log(classesList)
+
+
+                    for (var i = 0; i <= classesList.length; i++) {
                     let output = "";
                     let output2 = "";
                     let output3 = "";
@@ -161,7 +172,7 @@
                         var classCode = classData[0];
 
                         output2 = `
-          <a class="collapse-item" href="classPage.html" onclick = "setClassCode('${classCode}')">${className}</a>
+          <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
           `;
 
                         output3 = `
@@ -170,10 +181,6 @@
           
           `
 
-          function setClassCode(classCode) {
-              localStorage.setItem("code", classCode);
-            }
-
                         $(output).appendTo("#topClassesSection");
                         $(output2).appendTo("#classesOp");
                         $(output3).appendTo("#classesOp1");
@@ -181,13 +188,11 @@
                     }
 
                 }
-
-            })
+                })
         }
 
-    getProfileInfo();
-      getClassData();
-      getMeetings();
+
+
 
 
     </script>
