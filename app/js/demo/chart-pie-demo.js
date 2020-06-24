@@ -3,8 +3,8 @@ function getChartData() {
 
   var code = localStorage.getItem("codeForChart");
 
-  var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
-  _chartDataRef.on('value', get);
+  //var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
+ // _chartDataRef.on('value', get);
 
   function get(snapshot){
     
