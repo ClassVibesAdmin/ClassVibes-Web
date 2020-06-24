@@ -39,25 +39,62 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
     <script>
-        function getMeetings(){
-  var name = localStorage.getItem("email");
+        function getMeetings() {
+            var name = localStorage.getItem("email");
 
-  var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
+            var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
+
+            firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+
+                doc.forEach(snapshot => {
+
+                    var data1 = snapshot.data();
+                    var classForMeeting = data1["Course"]
+
+                    var date = data1["Date"];
+                    var title = data1["Title"];
+
+                    output = `
+                    <div class="col-xl-5 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+                            <div class="h6 mb-0 font-weight-bold text-blue-800">${date}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas ffas fa-headset fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                `;
+
+                    $(output).appendTo("#meetingsList");
 
 
-  _ref.once('value').then(function (snapshot) {
 
-    console.log("MEETINGS:" + snapshot.val());
+                });
 
-    if (snapshot.val() != null) {
-      snapshot.forEach((child) => {
-        var classForMeeting = child.child("Course").val();
-        var date = child.child("Date").val();
-        var title = child.child("Title").val();
+            })
 
-        console.log(child.val());
+            /*
+            _ref.once('value').then(function (snapshot) {
 
-        output = `
+                    console.log("MEETINGS:" + snapshot.val());
+
+                    if (snapshot.val() != null) {
+                        snapshot.forEach((child) => {
+                            var classForMeeting = child.child("Course").val();
+                            var date = child.child("Date").val();
+                            var title = child.child("Title").val();
+
+                            console.log(child.val());
+
+                            output = `
         <div class="col-xl-5 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
@@ -76,120 +113,124 @@
       </div>
         `;
 
-        $(output).appendTo("#meetingsList");
+                            $(output).appendTo("#meetingsList");
 
 
-      });
+                        });
 
-    } else {
-      console.log("NONE");
-      outputError = `
+                    } else {
+                        console.log("NONE");
+                        outputError = `
         <h1>No Scheduled Meetings</h1>
         `;
 
-        $(outputError).appendTo("#meetingsList");
-    }
+                        $(outputError).appendTo("#meetingsList");
+                    }
 
-  });
-}
+                });
+            */
+
+
+                
+            }
 
         $(document).ready(function () {
-            getClassData();
-            getProfileInfo();
-            getMeetings();
-        });
+                getClassData();
+                getProfileInfo();
+                getMeetings();
+            });
     </script>
     <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-            authDomain: "cyberdojo-a2a3e.firebaseapp.com",
-            databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
-            projectId: "cyberdojo-a2a3e",
-            storageBucket: "cyberdojo-a2a3e.appspot.com",
-            messagingSenderId: "938057332518",
-            appId: "1:938057332518:web:99c34da5abf1b1548533e7",
-            measurementId: "G-0EWJ1V40VX"
-        };
-        firebase.initializeApp(firebaseConfig);
+            var firebaseConfig = {
+                apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
+                authDomain: "cyberdojo-a2a3e.firebaseapp.com",
+                databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
+                projectId: "cyberdojo-a2a3e",
+                storageBucket: "cyberdojo-a2a3e.appspot.com",
+                messagingSenderId: "938057332518",
+                appId: "1:938057332518:web:99c34da5abf1b1548533e7",
+                measurementId: "G-0EWJ1V40VX"
+            };
+            firebase.initializeApp(firebaseConfig);
 
-        var name = localStorage.getItem("name");
-        var pic = localStorage.getItem("photo");
+            var name = localStorage.getItem("name");
+            var pic = localStorage.getItem("photo");
 
-        function getProfileInfo() {
-            let outputPic = "";
-            outputPic += `
+            function getProfileInfo() {
+                let outputPic = "";
+                outputPic += `
    <img class="img-profile rounded-circle" src="${pic}">
 
    `
 
-            if (outputPic !== "") {
-                $(outputPic).appendTo("#profilePic");
+                if (outputPic !== "") {
+                    $(outputPic).appendTo("#profilePic");
+                }
+
+                document.getElementById("displayName").innerHTML = name;
+
             }
 
-            document.getElementById("displayName").innerHTML = name;
+            function getClassData() {
+                var emailRef = localStorage.getItem("email")
+                console.log(emailRef)
+                //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+                // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
 
-        }
+                // });
+                var classesList = [];
+                console.log(classesList);
 
-        function getClassData() {
-            var emailRef = localStorage.getItem("email")
-            console.log(emailRef)
-            //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
-            // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
+                firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
 
-            // });
-            var classesList = [];
-            console.log(classesList);
+                    doc.forEach(snapshot => {
 
-            firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+                        var data1 = snapshot.data();
 
-                doc.forEach(snapshot => {
+                        var classCode = data1["Code"];
+                        var className = data1["class-name"];
 
-                    var data1 = snapshot.data();
+                        classesList.push([classCode, className])
 
-                    var classCode = data1["Code"];
-                    var className = data1["class-name"];
+                        console.log(classesList)
+                    });
 
-                    classesList.push([classCode, className])
-
-                    console.log(classesList)
-                });
-
-                }).then(function() {
+                }).then(function () {
                     console.log(classesList)
 
 
                     for (var i = 0; i <= classesList.length; i++) {
-                    let output = "";
-                    let output2 = "";
-                    let output3 = "";
-                    var classData = classesList[i];
-                    console.log(classData);
+                        let output = "";
+                        let output2 = "";
+                        let output3 = "";
+                        var classData = classesList[i];
+                        console.log(classData);
 
-                    if (classData != null || classData != undefined) {
+                        if (classData != null || classData != undefined) {
 
-                        console.log("works");
-                        var className = classData[1];
-                        var classCode = classData[0];
+                            console.log("works");
+                            var className = classData[1];
+                            var classCode = classData[0];
 
-                        output2 = `
+                            output2 = `
           <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
           `;
 
-                        output3 = `
+                            output3 = `
           <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
         <div class="dropdown-divider"></div>
           
           `
 
-                        $(output).appendTo("#topClassesSection");
-                        $(output2).appendTo("#classesOp");
-                        $(output3).appendTo("#classesOp1");
-                        $(output3).appendTo("#classesOp2")
-                    }
+                            $(output).appendTo("#topClassesSection");
+                            $(output2).appendTo("#classesOp");
+                            $(output3).appendTo("#classesOp1");
+                            $(output3).appendTo("#classesOp2")
+                        }
 
-                }
+                    }
                 })
-        }
+            }
 
 
 
@@ -204,12 +245,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon">
-            <img src="/img/classvibelogo.png" alt="" style="width: 50px;">
-          </div>
-        <div class="sidebar-brand-text mx-3">Class Vibe</div>
-      </a>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="/img/classvibelogo.png" alt="" style="width: 50px;">
+                </div>
+                <div class="sidebar-brand-text mx-3">Class Vibe</div>
+            </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -286,11 +327,11 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-                            
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -335,7 +376,7 @@
                 </div>
 
 
-                <div class="row" id = "meetingsList" style="margin-left: 20px;">
+                <div class="row" id="meetingsList" style="margin-left: 20px;">
 
                 </div>
                 <!-- /.container-fluid -->
