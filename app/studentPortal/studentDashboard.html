@@ -71,7 +71,7 @@
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           // User just signed in, we should not display dialog next time because of firebase auto-login
-          console.log(user.email);
+          console.log("Firebase" + user.email);
 
           email = user.email;
 
