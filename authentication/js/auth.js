@@ -1089,7 +1089,7 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            localStorage.setItem("email", email);
+                            window.localStorage.setItem("email", email);
 
                             console.log(email);
 

@@ -64,9 +64,10 @@
     $(document).ready(function () {
       initializeFirebase();
       getProfileInfo();
-    var email = localStorage.getItem("email");
+    var email = window.localStorage.getItem("email");
 
     console.log("EMIAL:" + email);
+
     getStudentClasses(email);
     getStudentStatus();
     getMeetings();
