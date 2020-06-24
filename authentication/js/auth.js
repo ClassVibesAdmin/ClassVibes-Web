@@ -1095,7 +1095,7 @@ function loginWithEmailStudent() {
 
                             console.log(email);
 
-                            console.log(document.cookie);
+                            console.log(document.cookie, 'path=/');
 
                             setTimeout(() => { window.location = "../studentPortal/studentDashboard.html"; }, 3000)
 
