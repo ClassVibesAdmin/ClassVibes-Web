@@ -1093,8 +1093,10 @@ function loginWithEmailStudent() {
 
                             console.log(email);
 
+                            setTimeout(() => { window.location = "../studentPortal/studentDashboard.html"; }, 300)
 
-                            window.location = "../studentPortal/studentDashboard.html";
+
+                           
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
