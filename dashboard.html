@@ -80,6 +80,7 @@
   
       function getClassData() {
         var emailRef = localStorage.getItem("email")
+        console.log(emailRef)
         var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
         var classesList = [];
         console.log(classesList);
