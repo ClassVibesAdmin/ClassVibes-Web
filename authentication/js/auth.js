@@ -13,7 +13,7 @@ function initializeFirebase() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-   //firebase.firestore().enablePersistence();
+   firebase.firestore().enablePersistence();
 }
 
 //FIRESTORE MIGRATED
@@ -658,7 +658,9 @@ const btnLogout = document.getElementById("btnLogout");
 function checkServerStatus(signInType) {
 
     firebase.firestore().collection("Application Management").doc("ServerManagement").get().then((documentSnapshot) => {
+
         var status = documentSnapshot.data().serversAreUp;
+        console.log(documentSnapshot.data());
 
         console.log('Status: ' + status);
 
@@ -1072,6 +1074,8 @@ function loginWithEmailStudent() {
             //NEW CODE
             firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
                 var accountType = doc.data()['Account Type'];
+
+                console.log(accountType);
 
                     if (accountType != null) {
                         if (accountType == "Student") {
