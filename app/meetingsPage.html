@@ -42,9 +42,9 @@
         function getMeetings() {
             var name = localStorage.getItem("email");
 
-            var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
+            //var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
 
-            firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+            firebase.firestore().collection('UserData').doc(name).collection("Meetings").get().then(function (doc) {
 
                 doc.forEach(snapshot => {
 
