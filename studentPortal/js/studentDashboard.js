@@ -40,7 +40,7 @@ document.getElementById("displayName").innerHTML = name
 }
 
 // FIRESTORE MIGRATED FULLY
-function getStudentClasses(studentUsername) {
+function getStudentClasses(studentUsername, pageType) {
 
   if (document.getElementById("classesRowDisplay") != null) {
     document.getElementById("classesRowDisplay").innerHTML = "";
@@ -122,28 +122,45 @@ function getStudentClasses(studentUsername) {
   
         $(output).appendTo("#classesRowDisplay");
 
-        document.getElementById('loadingIndicator').style.display = "none";
-        
-      document.getElementById('dashboardSection-content').style.display = "initial";
+        if(pageType == "student-joinClass"){
+          document.getElementById('loadingIndicator').style.display = "none";
 
-      document.getElementById('noClassesSection').style.display = "none";
+          document.getElementById('classesSection-description').style.display = "initial";
+    
+          document.getElementById('noClasses-Section').style.display = "none";
+    
+        } else {
+          document.getElementById('loadingIndicator').style.display = "none";
 
+          document.getElementById('dashboardSection-content').style.display = "initial";
   
+          document.getElementById('noClassesSection').style.display = "none";
+        }
+
       }); 
       
     } else {
 
-      document.getElementById('loadingIndicator').style.display = "none";
+      if(pageType == "student-joinClass"){
+        document.getElementById('loadingIndicator').style.display = "none";
 
-      document.getElementById('dashboardSection-content').style.display = "none";
+        document.getElementById('classesSection-description').style.display = "none";
+  
+        document.getElementById('noClasses-Section').style.display = "initial";
+  
+      } else {
+        document.getElementById('loadingIndicator').style.display = "none";
 
-      document.getElementById('noClassesSection').style.display = "initial";
+        document.getElementById('dashboardSection-content').style.display = "none";
+  
+        document.getElementById('noClassesSection').style.display = "initial";
+  
+      }
 
      
     }
 
   });
-
 
 
 
@@ -306,24 +323,29 @@ function setMainClassForMood(index) {
 }
 
 
-function checkIfClassCodeExists() {
+function checkIfClassCodeExists(addType) {
 
-  var code = document.getElementById("inputClassCode").value;
+  if(addType == "no-classes"){
 
-  var error = document.getElementById("errorMessage");
+    var code = document.getElementById("inputClassCode-noClasses").value;
 
-  console.log(code);
+    var error = document.getElementById("errorMessage-noClasses");
+
+    console.log(code);
 
   var exists = false;
 
   // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
 
   firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
-    var classCode = doc.data()['Code'];
+    var classCode = doc.data();
+
+    var email = localStorage.getItem("email");
 
     if (classCode != null) {
-      exists = true;
-    } else {
+        exists = true;
+
+    }  else {
       exists = false;
     }
 
@@ -334,6 +356,14 @@ function checkIfClassCodeExists() {
      </div>
      `;
     }
+
+    if(exists == "enrolledInClass"){
+      error.innerHTML = `
+     <div class="alert alert-danger" role="alert" style="width: 310px;">
+     You are already enrolled in this class
+    </div>
+    `;
+   }
 
     if (exists == true) {
       error.innerHTML = `
@@ -350,6 +380,71 @@ function checkIfClassCodeExists() {
     console.log(exists);
 
   });
+
+  } else {
+
+    var code = document.getElementById("inputClassCode").value;
+
+    var error = document.getElementById("errorMessage");
+
+    console.log(code);
+
+  //var exists = false;
+
+  // var _ref = firebase.database().ref().child("Classes").child(code).child("Code");
+
+  firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
+    var classCode = doc.data();
+    var email = localStorage.getItem('email');
+
+    var exist = false;
+
+    if (classCode != null) {
+      exists = true;
+    } else {
+      exists = false;
+    }
+
+    console.log("EXISTS:" + exists);
+
+    if (exists == false) {
+      error.innerHTML = `
+      <div class="alert alert-danger" role="alert" style="width: 310px;">
+      Class code doesn't exist
+     </div>
+     `;
+    }
+  
+    if(exists == "enrolledInClass"){
+       error.innerHTML = `
+      <div class="alert alert-danger" role="alert" style="width: 310px;">
+      You are already enrolled in this class
+     </div>
+     `;
+    }
+  
+    if (exists == true) {
+      error.innerHTML = `
+      <div class="alert alert-success" role="alert" style="width: 310px;">
+      You have joined this class
+     </div>
+     `;
+  
+      addClassToStudentData(code);
+  
+      getStudentClasses(email);
+    }
+  
+    console.log(exists);
+
+
+  });
+
+
+  }
+
+
+  
   // _ref.once('value').then(function (snapshot) {
 
   // if (snapshot.val() != null) {
@@ -388,19 +483,25 @@ function checkIfClassCodeExists() {
 
 function addClassToStudentData(classCode) {
 
+  var email = localStorage.getItem("email");
+
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(function (doc) { 
     var classNamE = doc.data()['class-name'];
 
-    firebase.firestore().collection("UserData").doc(localStorage.getItem("email")).collection("Classes").doc(classCode).set({
+    firebase.firestore().collection("UserData").doc(email).collection("Classes").doc(classCode).set({
       'Code':classCode.toString(),
       'class-name':classNamE,
     });
-    firebase.firestore().collection("Classes").doc(classCode).collection("Students").doc(studentEmail).set({
-      'Name':classNamE,
-      'Email':studentEmail,
+
+    firebase.firestore().collection("Classes").doc(classCode).collection("Students").doc(email).set({
+      'Name': "ADD NAME PROPERLY",
+      'Email':email,
     });
+
   });
+
+  console.log("Success");
 
   // var _classInfoRef = firebase.database().ref().child("Classes").child(classCode).child("class-name");
 

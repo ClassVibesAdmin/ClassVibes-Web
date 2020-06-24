@@ -8,38 +8,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable = no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="stylesheet" href="../css/index.css">
-  <script src="../js/auth.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/auth.js"></script>
 
 
   <title>ClassVibes Signup</title>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+
+  <link href="/css/signup.css" rel="stylesheet">
+
 
 
   <!--BOOTSTRAP-->
-  <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
 
-  <script type="text/javascript" src="../vendor/jquery/jquery.js"></script>
-  <script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -51,9 +61,10 @@
 
 <body style="background-image: url('img/background_signup.png'); width: 100%; height: 100%; position: absolute;
 background-position: center;
-background-repeat: no-repeat; margin: 0px; padding: 0px;"  onload="initializeFirebase()">
+background-repeat: no-repeat; margin: 0px; padding: 0px;">
   <script>
     AOS.init();
+    initializeFirebase();
   </script>
 
 
@@ -73,7 +84,7 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;"  onload="initializeFir
 
         </ul>
 
-        <a href="../authentication/loginOptions.html">
+        <a href="authentication/loginOptions.html">
           <p class="login-signup-btn">Login/Sign Up</p>
         </a>
       </div>
@@ -426,39 +437,6 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;"  onload="initializeFir
 
   </footer>
   <!-- Footer -->
-
-  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
-
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
-
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
-
-  <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-      authDomain: "cyberdojo-a2a3e.firebaseapp.com",
-      databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
-      projectId: "cyberdojo-a2a3e",
-      storageBucket: "cyberdojo-a2a3e.appspot.com",
-      messagingSenderId: "938057332518",
-      appId: "1:938057332518:web:99c34da5abf1b1548533e7",
-      measurementId: "G-0EWJ1V40VX"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  </script>
-
-  <link href="../css/signup.css" rel="stylesheet">
-
-
 
 </body>
 

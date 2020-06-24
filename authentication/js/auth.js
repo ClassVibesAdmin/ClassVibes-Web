@@ -1,5 +1,6 @@
 function initializeFirebase() {
     var firebaseConfig = {
+        production: true,
         apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
         authDomain: "cyberdojo-a2a3e.firebaseapp.com",
         databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
