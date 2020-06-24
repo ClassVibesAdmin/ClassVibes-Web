@@ -517,7 +517,7 @@ googleSignInTeacher = () => {
 
                         console.log("Email:" + email + ":" + emailDisplay);
 
-                        //window.location = "/dashboard.html";
+                        window.location = "../../dashboard.html";
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
