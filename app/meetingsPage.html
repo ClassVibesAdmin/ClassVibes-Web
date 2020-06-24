@@ -232,11 +232,23 @@
                 })
             }
 
+            function storeClassPref(code, name) {
+            localStorage.setItem("code", code);
+            localStorage.setItem("className", name);
+            console.log(code);
+            window.location = "classPage.html"
+
+
+
+        }
+
+
 
 
 
 
     </script>
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
