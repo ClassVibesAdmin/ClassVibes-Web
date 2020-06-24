@@ -1089,7 +1089,9 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            window.localStorage.setItem("email", email);
+                            document.cookie = email;
+
+                            window.localStorage.setItem("email", email.toString());
 
                             console.log(email);
 

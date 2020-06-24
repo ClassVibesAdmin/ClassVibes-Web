@@ -64,7 +64,10 @@
     $(document).ready(function () {
       initializeFirebase();
       getProfileInfo();
-    var email = window.localStorage.getItem("email");
+
+      var email = document.cookie;
+
+    //var email = window.localStorage.getItem("email");
 
     console.log("EMIAL:" + email);
 
