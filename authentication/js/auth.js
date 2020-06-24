@@ -451,6 +451,7 @@ googleSignInTeacher = () => {
         var profilePic = user.photoURL;
         localStorage.setItem("email", email);
 
+
         var errorMessage = document.getElementById('signupError');
 
         // old code
@@ -493,6 +494,8 @@ googleSignInTeacher = () => {
         //NEW CODE
 
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+            localStorage.setItem("email", email);
+
 
             console.log("data from doc : ", doc.data());
 
