@@ -67,6 +67,13 @@
 
       var email = "email";
 
+      // Get saved data from sessionStorage
+let data = sessionStorage.getItem('key');
+
+console.log("DATA:" + data);
+
+/*
+
       // User signed out in previous session, show dialog immediately because there will be no auto-login
       if (!localStorage.getItem('myPage.expectSignIn')) showDialog() // or redirect to sign-in page
 
@@ -89,6 +96,8 @@
       })
 
       //var email = window.localStorage.getItem("email");
+
+      */
 
       console.log("EMIAL:" + email);
 

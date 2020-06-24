@@ -1089,15 +1089,18 @@ function loginWithEmailStudent() {
                     if (accountType != null) {
                         if (accountType == "Student") {
 
-                            document.cookie = "email" +"="+ email; '/'; '.classvibes.net';
+                            sessionStorage.setItem("email", email.toString());
 
-                            window.localStorage.setItem("email", email.toString());
+
+                            //window.localStorage.setItem("email", email.toString());
+
+                            let data = sessionStorage.getItem('key');
 
                             console.log(email);
 
-                            console.log(document.cookie);
+                            console.log(data);
 
-                            setTimeout(() => { window.location = "../studentPortal/studentDashboard.html"; }, 3000)
+                            window.location = "../studentPortal/studentDashboard.html";
 
 
                            
