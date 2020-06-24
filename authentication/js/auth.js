@@ -14,7 +14,7 @@ function initializeFirebase() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-   firebase.firestore().enablePersistence();
+    firebase.firestore().enablePersistence();
 }
 
 //FIRESTORE MIGRATED
@@ -75,32 +75,32 @@ function facebookLoginStudent() {
             if (doc.exists) {
                 var accountType = doc.data()["Account Type"];
 
-                
-        if (accountType != null) {
-            if (accountType == "Student") {
 
-                localStorage.setItem("email", email);
+                if (accountType != null) {
+                    if (accountType == "Student") {
 
-                window.location = "../studentPortal/studentDashboard.html";
-            } else {
+                        localStorage.setItem("email", email);
 
-                errorHTML = `<div class="alert alert-danger" role="alert" 
+                        window.location = "../studentPortal/studentDashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
             </div>`;
 
-                document.getElementById('signupError').innerHTML = errorHTML;
+                        document.getElementById('signupError').innerHTML = errorHTML;
 
-            }
-        } else {
+                    }
+                } else {
 
-            errorHTML = `<div class="alert alert-danger" role="alert" 
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
                  <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
            </div>`;
 
-            document.getElementById('signupError').innerHTML = errorHTML;
-        }
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
 
 
             } else {
@@ -188,31 +188,31 @@ function facebookLoginDistrict() {
 
             var accountType = doc.data()["Account Type"];
 
-                if (accountType != null) {
-                    if (accountType == "District") {
-                        console.log('Login Success');
-                        localStorage.setItem("email", email);
-                        window.location = "districtDashboard.html";
-                    } else {
-        
-                        errorHTML = `<div class="alert alert-danger" role="alert" 
+            if (accountType != null) {
+                if (accountType == "District") {
+                    console.log('Login Success');
+                    localStorage.setItem("email", email);
+                    window.location = "districtDashboard.html";
+                } else {
+
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
                         style="margin-top: 20px; width: 94%; margin-left: 6%;">
                         <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
                     </div>`;
-        
-                        document.getElementById('signupError').innerHTML = errorHTML;
-        
-                    }
-                } else {
-        
-                    errorHTML = `<div class="alert alert-danger" role="alert" 
+
+                    document.getElementById('signupError').innerHTML = errorHTML;
+
+                }
+            } else {
+
+                errorHTML = `<div class="alert alert-danger" role="alert" 
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
                  <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
            </div>`;
-        
-                    document.getElementById('signupError').innerHTML = errorHTML;
-                }
-    
+
+                document.getElementById('signupError').innerHTML = errorHTML;
+            }
+
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
@@ -293,33 +293,33 @@ function facebookLoginTeacher() {
             var accountType = doc.data()['Account Type'];
 
 
-                if (accountType != null) {
-                    if (accountType == "Teacher") {
-                        console.log('Login Success');
-                        localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", email);
-                        localStorage.setItem("name", name3);
+            if (accountType != null) {
+                if (accountType == "Teacher") {
+                    console.log('Login Success');
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", email);
+                    localStorage.setItem("name", name3);
 
-                        window.location = "/dashboard.html";
-                    } else {
+                    window.location = "/dashboard.html";
+                } else {
 
-                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
                         style="margin-top: 20px; width: 94%; margin-left: 6%;">
                         <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
                     </div>`;
 
-                        document.getElementById('signupError').innerHTML = errorHTML;
+                    document.getElementById('signupError').innerHTML = errorHTML;
 
-                    }
-                } else {
+                }
+            } else {
 
-                     errorHTML = `<div class="alert alert-danger" role="alert" 
+                errorHTML = `<div class="alert alert-danger" role="alert" 
             style="margin-top: 20px; width: 94%; margin-left: 6%;">
                  <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
            </div>`;
-        
-                    document.getElementById('signupError').innerHTML = errorHTML;
-                }
+
+                document.getElementById('signupError').innerHTML = errorHTML;
+            }
 
         }).catch(function (error) {
             console.log("Error getting document:", error);
@@ -365,26 +365,26 @@ googleSignInStudent = () => {
 
             console.log("Document data:", doc.data()["Account Type"]);
 
-                if (accountType != null) {
-                    if (accountType == "Student") {
-                        console.log('Login Success');
+            if (accountType != null) {
+                if (accountType == "Student") {
+                    console.log('Login Success');
 
-                        localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", email);
-                        localStorage.setItem("name", name3);
+                    localStorage.setItem("photo", profilePic);
+                    localStorage.setItem("email", email);
+                    localStorage.setItem("name", name3);
 
-                        window.location = "../studentPortal/studentDashboard.html";
+                    window.location = "../studentPortal/studentDashboard.html";
 
-                    } else {
+                } else {
 
-                        errorHTML = `<div class="alert alert-danger" role="alert" 
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
                      style="margin-top: 20px; width: 94%; margin-left: 6%;">
                       <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
                 </div>`;
 
-                        document.getElementById('signupError').innerHTML = errorHTML;
+                    document.getElementById('signupError').innerHTML = errorHTML;
 
-                    }
+                }
             } else {
 
                 errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1086,43 +1086,44 @@ function loginWithEmailStudent() {
 
                 console.log(accountType);
 
-                    if (accountType != null) {
-                        if (accountType == "Student") {
+                if (accountType != null) {
+                    if (accountType == "Student") {
 
-                            sessionStorage.setItem("email", email.toString());
-
-
-                            //window.localStorage.setItem("email", email.toString());
-
-                            let data = sessionStorage.getItem('key');
-
-                            console.log(email);
-
-                            console.log(data);
-
-                            window.location = "../studentPortal/studentDashboard.html";
+                        sessionStorage.setItem("email", email.toString());
 
 
-                           
-                        } else {
+                        //window.localStorage.setItem("email", email.toString());
 
-                            errorHTML = `<div class="alert alert-danger" role="alert" 
+                        let data = sessionStorage.getItem('key');
+
+                        console.log(email);
+
+                        console.log(data);
+
+                        window.location = "../studentPortal/studentDashboard.html";
+
+                        targetWindow.postMessage('Hello World!', 'http://students.classvibes.net');
+
+
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
                         style="margin-top: 20px; width: 94%; margin-left: 6%;">
                         <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
                     </div>`;
 
-                            document.getElementById('signupError').innerHTML = errorHTML;
+                        document.getElementById('signupError').innerHTML = errorHTML;
 
-                        }
-                    } else {
+                    }
+                } else {
 
-                         errorHTML = `<div class="alert alert-danger" role="alert" 
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
              style="margin-top: 20px; width: 94%; margin-left: 6%;">
                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
              </div>`;
 
-                        document.getElementById('signupError').innerHTML = errorHTML;
-                    }
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
 
             }).catch(function (error) {
                 console.log("Error getting document:", error);
@@ -1324,32 +1325,32 @@ function loginWithEmailDistrict() {
             firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
                 var accountType = doc.data()["Account Type"];
-                    
-            if (accountType != null) {
-                if (accountType == "District") {
 
-                    localStorage.setItem("email", email);
+                if (accountType != null) {
+                    if (accountType == "District") {
 
-                    window.location = "districtDashboard.html";
-                } else {
+                        localStorage.setItem("email", email);
 
-                    errorHTML = `<div class="alert alert-danger" role="alert" 
+                        window.location = "districtDashboard.html";
+                    } else {
+
+                        errorHTML = `<div class="alert alert-danger" role="alert" 
                 style="margin-top: 20px; width: 94%; margin-left: 6%;">
                 <strong>Oops! </strong> This account was signed up as a ${accountType} account. You do not have sufficient permissions.
             </div>`;
 
-                    document.getElementById('signupError').innerHTML = errorHTML;
+                        document.getElementById('signupError').innerHTML = errorHTML;
 
-                }
-            } else {
+                    }
+                } else {
 
-                errorHTML = `<div class="alert alert-danger" role="alert" 
+                    errorHTML = `<div class="alert alert-danger" role="alert" 
              style="margin-top: 20px; width: 94%; margin-left: 6%;">
                <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
              </div>`;
 
-             document.getElementById('signupError').innerHTML = errorHTML;
-            }
+                    document.getElementById('signupError').innerHTML = errorHTML;
+                }
 
 
             }).catch(function (error) {
