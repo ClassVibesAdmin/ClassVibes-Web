@@ -513,6 +513,10 @@ googleSignInTeacher = () => {
                         localStorage.setItem("email", email);
                         localStorage.setItem("name", name3);
 
+                        var emailDisplay = localStorage.getItem("email");
+
+                        console.log("Email:" + email + ":" + emailDisplay);
+
                         //window.location = "/dashboard.html";
                     } else {
 
