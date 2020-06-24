@@ -1089,17 +1089,13 @@ function loginWithEmailStudent() {
                 if (accountType != null) {
                     if (accountType == "Student") {
 
-                        sessionStorage.setItem("email", email.toString());
-
-                        //window.localStorage.setItem("email", email.toString());
-
-                        let data = sessionStorage.getItem('key');
+                        window.localStorage.setItem("email", email.toString());
 
                         console.log(email);
 
                         console.log(data);
 
-                        //window.location = "../studentPortal/studentDashboard.html";
+                        window.location = "../studentPortal/studentDashboard.html";
 
                     } else {
 
