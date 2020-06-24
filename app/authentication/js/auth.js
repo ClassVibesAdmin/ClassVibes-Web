@@ -1091,7 +1091,6 @@ function loginWithEmailStudent() {
 
                         sessionStorage.setItem("email", email.toString());
 
-
                         //window.localStorage.setItem("email", email.toString());
 
                         let data = sessionStorage.getItem('key');
@@ -1101,7 +1100,6 @@ function loginWithEmailStudent() {
                         console.log(data);
 
                         //window.location = "../studentPortal/studentDashboard.html";
-
 
                     } else {
 
