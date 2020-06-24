@@ -65,18 +65,18 @@
       initializeFirebase();
       getProfileInfo();
 
-      
+
       var email = "email";
-      
-      var user = firebase.auth().currentUser;
-      var name, email, photoUrl, uid, emailVerified;
 
-      if (user != null) {
-        email = user.email;
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log(user.email);
 
-      } else {
-        window.location = "../loginOptions.html"
-      }
+          email = user.email;
+        } else {
+          console.log("user Signed out");
+        }
+      });
 
 
       //var email = window.localStorage.getItem("email");
