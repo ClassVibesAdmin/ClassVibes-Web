@@ -1,5 +1,7 @@
 
 function getChartData() {
+  
+  console.log("GETTING PIE CHART DEMO");
 
   var code = localStorage.getItem("codeForChart");
 
@@ -8,7 +10,6 @@ function getChartData() {
     
     var studentsReactionLists = [0,0,0];
 
-    console.log("GETTING PIE CHART DEMO");
 
       firebase.firestore().collection('Classes').doc(code).collection("Students").onSnapshot(function (doc) {
 
