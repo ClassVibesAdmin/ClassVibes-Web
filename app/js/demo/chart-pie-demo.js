@@ -17,6 +17,8 @@ function getChartData() {
 
             var data1 = snapshot.data();
 
+            console.log(data1);
+
             var reaction = data1["reaction"];
 
             if(reaction == "good"){
