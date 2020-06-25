@@ -311,7 +311,7 @@
           $("").appendTo("#messagesBoxOutput");
           
           outputMessage = ""
-          firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").onSnapshot(function (doc) {
+          firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").orderBy("time").limitToLast(1).onSnapshot(function (doc) {
 
             $("").appendTo("#messagesBoxOutput");
 
