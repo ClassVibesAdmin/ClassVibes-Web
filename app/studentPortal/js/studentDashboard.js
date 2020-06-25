@@ -953,10 +953,10 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 outputDashboard = `
                 <div class="card mb-4 py-3 border-left-success" style="height: 110px">
                       <div class="card-body">
-                        <p class="m-0 font-weight-bold text-primary">${nameClass} <span class = 'badge badge-secondary'>${date}</span></p>
+                        <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
                         <p>${message}</p>
 
-                        <p>${message}</p>
+                        <p style = 'font-weight: 700'>${date}</p>
                       </div>
                     </div>
                 `;
