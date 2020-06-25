@@ -11,6 +11,8 @@ function getChartData() {
 
       firebase.firestore().collection('Classes').doc(code).collection("Students").onSnapshot(function (doc) {
 
+        document.getElementById('studentReportHeadline').innerHTML = code;
+
         var studentsReactionLists = [0,0,0];
 
         doc.forEach(snapshot => {
