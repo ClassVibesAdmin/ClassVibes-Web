@@ -313,6 +313,8 @@
           outputMessage = ""
           firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").onSnapshot(function (doc) {
 
+            $("").appendTo("#messagesBoxOutput");
+
             doc.forEach(snapshot => {
 
               var data = snapshot.data();
