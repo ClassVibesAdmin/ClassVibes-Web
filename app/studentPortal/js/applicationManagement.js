@@ -105,7 +105,7 @@ function liveServerRedirects(){
 
     var data = result.data()["serversAreUp"];
 
-    if(data == false || data == null){
+    if(data == true){
         window.location = "app/authentication/loginOptions.html";
     } 
     
