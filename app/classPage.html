@@ -21,6 +21,15 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -291,8 +300,24 @@
 
             
     
-    `;
+    `;      
+
+                descriptionOutput2 = `
+                        <tr>
+                              <td>${studentName}</td>
+                              <td>${studentEmail}</td>
+                              <td>Some Comment</td>
+                              <td><div id = "face"></div></td>
+                              <td>2011/04/25</td>
+                              <td>                        <button type="button" class="btn btn-primary" onclick = "schedualMeeting('${studentEmail}', '${className}')" data-dismiss = "modal">Send message</button>
+</td>
+                            </tr>
+                
+                `
+
+
                         $(descriptionOutput).appendTo("#studentsList");
+                        $(descriptionOutput2).appendTo("#studentTable")
 
                         if (studentReaction == "good") {
                             document.getElementById("face").outerHTML = happy;
@@ -699,6 +724,122 @@
                 <!-- /.container-fluid -->
 
             </div>
+            <div id="content">
+
+                <!-- Topbar -->
+        
+                  <!-- Sidebar Toggle (Topbar) -->
+                  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                  </button>
+        
+                  
+        
+                  <!-- Topbar Navbar -->
+                  <ul class="navbar-nav ml-auto">
+        
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-search fa-fw"></i>
+                      </a>
+                      <!-- Dropdown - Messages -->
+                      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                        <form class="form-inline mr-auto w-100 navbar-search">
+                          <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+        
+                   
+                 
+        
+                </nav>
+                <!-- End of Topbar -->
+        
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+        
+                  <!-- Page Heading -->
+        
+                  <!-- DataTales Example -->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+                      <div style="margin-left: 65%;">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active" onclick="showAll()">
+                                <input type="radio" name="options" id="allstudents" autocomplete="off" checked>
+                                All Students
+                            </label>
+                            <label class="btn btn-secondary" onclick="showGreat()">
+                                <input type="radio" name="options" id="great" autocomplete="off"> Doing Great
+                            </label>
+                            <label class="btn btn-secondary" onclick="showHelp()">
+                                <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
+                            </label>
+                            <label class="btn btn-secondary" onclick="showFrustrated()">
+                                <input type="radio" name="options" id="frustrated" autocomplete="off">
+                                Frustrated
+                            </label>
+                        </div>
+                    </div>
+                      
+                    </div>
+                    <div class="card-body">
+                        
+                        
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Comment</th>
+                              <th>Mood</th>
+                              <th>Reported</th>
+                              <th>Schedule Meeting</th>
+
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Comment</th>
+                                <th>Mood</th>
+                                <th>Reported</th>
+                                <th>Schedule Meeting</th>
+
+                            </tr>
+                          </tfoot>
+                          <tbody id="studentTable">
+                            <tr>
+                              <td>Tiger Nixon</td>
+                              <td>System Architect</td>
+                              <td>Edinburgh</td>
+                              <td>61</td>
+                              <td>2011/04/25</td>
+                              <td><button class="btn btn-primary">Schedule Meeting</button></td>
+                            </tr>
+                           
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+        
+                </div>
+                <!-- /.container-fluid -->
+        
+              </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -751,6 +892,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  
+
 
 </body>
 
