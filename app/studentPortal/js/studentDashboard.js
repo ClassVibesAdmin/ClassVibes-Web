@@ -951,13 +951,17 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 var nameClass = classnamesList[i];
   
                 outputDashboard = `
-                <div class="card mb-3 py-3 border-left-success" style = 'height: max-content'>
+
+                <div class="col-xl-5 col-md-6 mb-4">
+                <div class="card border-left-success" style = 'height: max-content'>
                       <div class="card-body">
                         <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
                         <p>${message}</p>
 
                         <p style = 'font-weight: 700'>${date}</p>
                       </div>
+                    </div>
+
                     </div>
                 `;
 
