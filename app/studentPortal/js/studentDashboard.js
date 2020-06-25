@@ -981,7 +981,7 @@ function getAnnouncements() {
 
               $(outputAnnouncements).appendTo("#annoucementsSection");
 
-              //$(outputDashboard).appendTo("#AnnouncementsPageSection");
+              $(outputDashboard).appendTo("#AnnouncementsPageSection");
 
             }
           });
@@ -997,11 +997,23 @@ function getAnnouncements() {
 
 if (announcementsCount == 0) {
 
+  var noAnnouncementsHTML = ` 
+    
+  <center>
+  <img src="img/undraw_work_chat_erdt.svg" width="73%">
+
+  <h2 style="margin-top: 2%;">No Announcements</h2>
+  <p>You're all caught up</p>
+</center>
+  `;
+
   document.getElementById("loadingIndicator").style.display = "none";
 
   document.getElementById("announcementsSection-section").style.display = "none";
   
   document.getElementById("no-Announcements-section").style.display = "initial";
+
+  document.getElementById("AnnouncementsPageSection").innerHTML = noAnnouncementsHTML;
 
 } else {
   document.getElementById("loadingIndicator").style.display = "none";
