@@ -297,6 +297,7 @@
     `;      
 
                 descriptionOutput2 = `
+                <tbody>
                         <tr>
                               <td>${studentName}</td>
                               <td>${studentEmail}</td>
@@ -306,6 +307,8 @@
                               <td>         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>               
 </td>
                             </tr>
+
+                            </tbody>
                 
                 `
 
@@ -793,49 +796,7 @@
                     <div class="card-body">
                         
                         
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Comment</th>
-                              <th>Mood</th>
-                              <th>Reported</th>
-                              <th>Schedule Meeting</th>
-
-                            </tr>
-                          </thead>
-                          <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Comment</th>
-                                <th>Mood</th>
-                                <th>Reported</th>
-                                <th>Schedule Meeting</th>
-
-                            </tr>
-                          </tfoot>
-                          <tbody id="studentTable">
-                            
-                           
-                          </tbody>
-                          <tbody id="studentsListGreat">
-                            
-                           
-                        </tbody>
-                        <tbody id="studentsListHelp">
-                            
-                           
-                        </tbody>
-                        <tbody id="studentsListFrustrated">
-
-                        </tbody>
-                        </table>
-                      </div>
-
-                      <div class="table-responsive">
+                      <div class="table-responsive" id="studentTable">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
@@ -860,14 +821,40 @@
                             </tr>
                           </tfoot>
                           
-                          <tbody id="studentsListGreat">
-                            
-                           
-                        </tbody>
+                          
+                        </table>
+                      </div>
+
+                      <div class="table-responsive" studentsListGreat>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Comment</th>
+                              <th>Mood</th>
+                              <th>Reported</th>
+                              <th>Schedule Meeting</th>
+
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Comment</th>
+                                <th>Mood</th>
+                                <th>Reported</th>
+                                <th>Schedule Meeting</th>
+
+                            </tr>
+                          </tfoot>
+                          
+                         
                         
                         
                         </table>
-                        <div class="table-responsive">
+                        <div class="table-responsive" id="studentsListHelp">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                               <thead>
                                 <tr>
@@ -892,13 +879,10 @@
                                 </tr>
                               </tfoot>
                               
-                            <tbody id="studentsListHelp">
-                                
-                               
-                            </tbody>
+                           
                             
                             </table>
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="studentsListFrustrated">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <thead>
                                     <tr>
@@ -924,9 +908,7 @@
                                   </tfoot>
                               
                                    
-                                <tbody id="studentsListFrustrated">
-        
-                                </tbody>
+                               
                                 </table>
                               </div>
                           </div>
