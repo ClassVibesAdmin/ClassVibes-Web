@@ -25,6 +25,8 @@
 
   <script src="js/studentDashboard.js"></script>
 
+  <script src="js/applicationManagement.js"></script>
+
   <!--BOOTSTRAP-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
@@ -63,33 +65,19 @@
   <script>
     $(document).ready(function () {
       initializeFirebase();
+
       getProfileInfo();
 
       var email = localStorage.getItem('email');;
 
-
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          // User just signed in, we should not display dialog next time because of firebase auto-login
-          console.log("Firebase" + user.email);
-
-          email = user.email;
-
-        } else {
-          // User just signed-out or auto-login failed, we will show sign-in form immediately the next time he loads the page
-
-          console.log("user Signed out");
-
-          window.location = "../authentication/loginOptions.html";
-          
-          // Here implement logic to trigger the login dialog or redirect to sign-in page, if necessary. Don't redirect if dialog is already visible.
-          // e.g. showDialog()
-        }
-      })
-
       getStudentClasses(email);
       getStudentStatus();
-      getMeetings();
+      getMeetings('dashboard');
+
+      getLiveSeverAlerts();
+      getServerStatus();
+      checkUserAuthStatus();
+
       //getAnnouncements();
     });
   </script>
@@ -454,7 +442,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="../authentication/loginOptions.html">Logout</a>
+          <a class="btn btn-primary" onclick="logout()" href="#">Logout</a>
         </div>
       </div>
     </div>

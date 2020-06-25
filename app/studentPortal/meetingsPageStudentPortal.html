@@ -21,21 +21,20 @@
 
   <script src="js/studentDashboard.js"></script>
 
+  <script src="js/applicationManagement.js"></script>
+
       <!--BOOTSTRAP-->
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
 integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
 integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
 crossorigin="anonymous"></script>
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-
 
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -49,7 +48,9 @@ crossorigin="anonymous"></script>
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
+  
+  <link href='css/loader.css' rel="stylesheet">
 
 </head>
 
@@ -57,31 +58,18 @@ crossorigin="anonymous"></script>
 
   <script>
     $(document).ready(function () {
-
       initializeFirebase();
 
+      getLiveSeverAlerts();
+      getServerStatus();
+      checkUserAuthStatus();
+      
       var name = localStorage.getItem("name");
-    var pic = localStorage.getItem("photo");
-
-      function getProfileInfo() {
-      let outputPic = "";
-      outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
-
-   `
-
-      if (outputPic !== "") {
-        $(outputPic).appendTo("#profilePic")
-      }
-
-      document.getElementById("displayName").innerHTML = name
-
-    }
-
-    getProfileInfo();
+      var pic = localStorage.getItem("photo");
+      getProfileInfo();
       var email = localStorage.getItem("email");
-      updateAddClasesDropdown(email);
-      getMeetings();
+      //updateAddClasesDropdown(email);
+      getMeetings('meetingsPage');
 });
   </script>
 
@@ -96,7 +84,7 @@ crossorigin="anonymous"></script>
         <div class="sidebar-brand-icon">
           <img src="/img/classvibelogo.png" alt="" style="width: 50px;">
         </div>
-        <div class="sidebar-brand-text mx-3">Class Vibe</div>
+        <div class="sidebar-brand-text mx-3">Class Vibes</div>
       </a>
 
       <!-- Divider -->
@@ -239,10 +227,41 @@ crossorigin="anonymous"></script>
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">My Meetings</h1>
-          
-          <div class="row" id = "meetingsList">
 
-          </div>
+          <!--NO Meetings Page-->
+          <section id = "no-meetings-section" style="display: none;">
+            <center style="margin-top: 11%;">
+              <img src = "img/undraw_Group_chat_unwm.svg" width="23%">
+
+              <h2 style="margin-top: 2%;">No Scheduled Meetings</h2>
+
+              <p>Nothing much to see here. Just chill out.</p>
+            </center>
+          </section>
+
+
+
+          <!--All Meetings Page-->
+          <section id = "all-meetings-widget" style="display: none;">
+            <div class="row" id = "meetingsList-main-page">
+
+            </div>
+          </section>
+
+
+           <!--LOADING PAGE-->
+           <section id="loadingIndicator">
+            <center style="margin-top: 25%;">
+              <div class="sk-folding-cube">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
+              </div>
+            </center>
+          </section>
+          
+         
 
 
 
@@ -250,7 +269,7 @@ crossorigin="anonymous"></script>
         <!-- /.container-fluid -->
 
       </div>
-      <!-- End of Main Content -->
+      <!-- End of Main Content --->
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">

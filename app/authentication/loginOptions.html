@@ -21,7 +21,22 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/loginOptions.css" rel="stylesheet">
 
+  <script src="../studentPortal/js/applicationManagement.js"></script>
+
   <!--BOOTSTRAP-->
+
+   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
@@ -30,13 +45,19 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
-
 </head>
 
 <body style="background-color: royalblue;">
   <script>
     AOS.init();
   </script>
+
+<script>
+  $(document).ready(function () {
+    initializeFirebase();
+    getServerStatus();
+  });
+</script>
 
   <!-- HEADER -->
   <section id="header">
