@@ -1051,22 +1051,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
             </div>
                 `;
   
-                outputDashboard = `
-                <div class="card mb-4 py-3 border-left-success" style="height: 110px">
-                      <div class="card-body">
-                        <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
-                        <p>${message}</p>
-                      </div>
-                    </div>
-                `;
-  
-                if(pageType == "dashboard"){
-                  $(outputDashboard).appendTo("#AnnouncementsPageSection");
-                } else {
-  
                   $(outputAnnouncements).appendTo("#annoucementsSection");
-                }
-  
               }
             });
           });
@@ -1074,46 +1059,26 @@ function getAnnouncements(pageType = "annoncements-page-main") {
   
       }
   
-      console.log("NEW COUNT:" + announcementsCount);
-  
       setTimeout(() => {
   //IF there is no annonucements
   
   if (announcementsCount == 0) {
-  
-    var noAnnouncementsHTML = ` 
-      
-    <center>
-    <img src="img/undraw_work_chat_erdt.svg" width="73%">
-  
-    <h2 style="margin-top: 3%;">No Announcements</h2>
-    <p>You're all caught up</p>
-  </center>
-    `;
-  
-    if(pageType == "dashboard"){
-  
-      document.getElementById("AnnouncementsPageSection").innerHTML = noAnnouncementsHTML;
-    } else {
+
+
       document.getElementById("loadingIndicator").style.display = "none";
   
       document.getElementById("announcementsSection-section").style.display = "none";
       
       document.getElementById("no-Announcements-section").style.display = "initial";
-    }
-  
   
   } else {
   
-    if(pageType == "dashboard"){
-  
-    } else {
+
       document.getElementById("loadingIndicator").style.display = "none";
   
       document.getElementById("announcementsSection-section").style.display = "initial";
       
       document.getElementById("no-Announcements-section").style.display = "none";
-    }
   }
        }, 1000)
     }
