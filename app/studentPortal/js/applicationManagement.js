@@ -99,3 +99,15 @@ function logout(){
         console.log(error);
       });
 }
+
+function liveServerRedirects(){
+  firebase.firestore().collection('Application Management').doc("ServerManagement").onSnapshot(function(result){
+
+    var data = result.data()["serversAreUp"];
+
+    if(data == false || data == null){
+        window.location = "app/authentication/loginOptions.html";
+    } 
+    
+});
+}
