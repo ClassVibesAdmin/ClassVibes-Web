@@ -36,7 +36,9 @@ function getChartData() {
 
         });
 
-    }).then(() => {
+    });
+
+    setTimeout(function(){
       console.log(studentsReactionLists);
 
       // Set new default font family and font color to mimic Bootstrap's default styling
@@ -74,8 +76,10 @@ function getChartData() {
           cutoutPercentage: 80,
         },
       });
+   }, 700);//wait 2 seconds
+
     
-    });
+    
   
       /*
       if(snapshot.val() != null){
