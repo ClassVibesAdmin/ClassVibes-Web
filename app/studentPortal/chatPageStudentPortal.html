@@ -306,7 +306,7 @@
         var currentTime = new Date().toLocaleTimeString();
 
         function sendMessage() {
-          firebase.firestore().collection("Classes").doc("3564").collection("Class Chat").set({
+          firebase.firestore().collection("Classes").doc("3564").collection("Class Chat").doc().set({
               "message" : message,
               "time" : currentTime,
 
