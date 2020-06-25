@@ -297,7 +297,6 @@
     `;      
 
                 descriptionOutput2 = `
-                <tbody>
                         <tr>
                               <td>${studentName}</td>
                               <td>${studentEmail}</td>
@@ -307,8 +306,6 @@
                               <td>         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>               
 </td>
                             </tr>
-
-                            </tbody>
                 
                 `
 
@@ -796,7 +793,7 @@
                     <div class="card-body">
                         
                         
-                      <div class="table-responsive" id="studentTable">
+                      <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
@@ -820,12 +817,25 @@
 
                             </tr>
                           </tfoot>
-                          
-                          
+                          <tbody id="studentTable">
+                            
+                           
+                          </tbody>
+                          <tbody id="studentsListGreat">
+                            
+                           
+                        </tbody>
+                        <tbody id="studentsListHelp">
+                            
+                           
+                        </tbody>
+                        <tbody id="studentsListFrustrated">
+
+                        </tbody>
                         </table>
                       </div>
 
-                      <div class="table-responsive" id="studentsListGreat">
+                      <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
@@ -850,11 +860,14 @@
                             </tr>
                           </tfoot>
                           
-                         
+                          <tbody id="studentsListGreat">
+                            
+                           
+                        </tbody>
                         
                         
                         </table>
-                        <div class="table-responsive" id="studentsListHelp">
+                        <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                               <thead>
                                 <tr>
@@ -879,10 +892,13 @@
                                 </tr>
                               </tfoot>
                               
-                           
+                            <tbody id="studentsListHelp">
+                                
+                               
+                            </tbody>
                             
                             </table>
-                            <div class="table-responsive" id="studentsListFrustrated">
+                            <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <thead>
                                     <tr>
@@ -906,9 +922,21 @@
         
                                     </tr>
                                   </tfoot>
-                              
+                                  <tbody id="studentTable">
+                                    
                                    
-                               
+                                  </tbody>
+                                  <tbody id="studentsListGreat">
+                                    
+                                   
+                                </tbody>
+                                <tbody id="studentsListHelp">
+                                    
+                                   
+                                </tbody>
+                                <tbody id="studentsListFrustrated">
+        
+                                </tbody>
                                 </table>
                               </div>
                           </div>
