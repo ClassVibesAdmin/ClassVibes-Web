@@ -958,7 +958,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                         <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
                         <p>${message}</p>
 
-                        <p style = 'font-weight: 700'>${date}</p>
+                        <p style = 'font-weight: 700; margin-bottom: -5%'>${date}</p>
                       </div>
                     </div>
 
