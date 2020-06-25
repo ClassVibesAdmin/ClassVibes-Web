@@ -316,6 +316,7 @@
                         if (studentReaction == "good") {
                             document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput2).appendTo("#studentsListGreat");
+                            $(descriptionOutput2).appendTo('#studentTable-doing-good');
 
                         } else if (studentReaction == "meh") {
                             document.getElementById("face").outerHTML = meh;
@@ -330,6 +331,7 @@
                         } else {
                             document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput2).appendTo("#studentsListGreat");
+                            $(descriptionOutput2).appendTo('#studentTable-doing-good');
                         }
 
 
@@ -496,9 +498,13 @@
 
         function showGreat() {
             document.getElementById('studentTable').style.display = "none";
-            document.getElementById('studentsListGreat').style.display = "initial";
-            document.getElementById('studentsListHelp').style.display = "none";
-            document.getElementById('studentsListFrustrated').style.display = "none";
+
+
+           // document.getElementById('studentsListGreat').style.display = "initial";
+           // document.getElementById('studentsListHelp').style.display = "none";
+            //document.getElementById('studentsListFrustrated').style.display = "none";
+
+            document.getElementById("doing-good-table-section").style.display = "initial";
 
         }
 
@@ -791,30 +797,59 @@
                       
                     </div>
                     <div class="card-body">
-                        
-                        
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Comment</th>
-                              <th>Mood</th>
-                              <th>Reported</th>
-                              <th>Schedule Meeting</th>
 
-                            </tr>
-                          </thead>
-                          
-                          <tbody id="studentTable">
-                              
-                            
-                           
-                          </tbody>
-                          
-                        </table>
-                      </div>
+                        <section id = "allStudentsTable">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Comment</th>
+                                      <th>Mood</th>
+                                      <th>Reported</th>
+                                      <th>Schedule Meeting</th>
+        
+                                    </tr>
+                                  </thead>
+                                  
+                                  <tbody id="studentTable">
+                                      
+                                    
+                                   
+                                  </tbody>
+                                  
+                                </table>
+                              </div>
+                        </section>
+
+                        <section id = "doing-good-table-section" style="display: none;">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Comment</th>
+                                      <th>Mood</th>
+                                      <th>Reported</th>
+                                      <th>Schedule Meeting</th>
+        
+                                    </tr>
+                                  </thead>
+                                  
+                                  <tbody id="studentTable-doing-good">
+                                      
+                                    
+                                   
+                                  </tbody>
+                                  
+                                </table>
+                              </div>
+                        </section>
+                        
+                        
+
                       
 
                      
