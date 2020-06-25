@@ -537,13 +537,56 @@ function addClassToStudentData(classCode) {
 
 }
 
-
+//FIRESTORE MIGRATED FULLY
 function updateAddClasesDropdown(studentUsername) {
 
   let output = "";
 
   classesList = [];
 
+  
+  firebase.firestore().collection("UserData").doc(studentUsername).collection("Classes").get().then(function (doc) {
+  
+    doc.forEach(snapshot => {
+
+      var classData = snapshot.data();
+
+      var classCode = classData["Code"];
+      var className = classData["class-name"];
+
+      classesList.push(className);
+      classCodes[className] = classCode;
+    });
+
+  }).then(() => {
+    console.log(classesList.length);
+
+    console.log(classesList);
+
+    inital = `
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
+                  ${classesList[0]}
+                </button>
+        `;
+
+    selectedClass = classesList[0];
+
+    $(inital).appendTo("#selectedClassForDropdown");
+
+
+    classesList.forEach(function (item, index) {
+      console.log(item, index);
+
+      output2 = `
+          <a class="collapse-item">${item}</a>
+          `;
+
+
+      $(output2).appendTo("#classesListSideBar");
+    });
+  });;
+
+  /*
   var _ref = firebase.database().ref().child("UserData").child(studentUsername).child("Classes");
 
   _ref.once('value').then(function (snapshot) {
@@ -613,6 +656,8 @@ function updateAddClasesDropdown(studentUsername) {
       $(output).appendTo("#classesRowDisplay");
     });
   });
+
+  */
 
 }
 
