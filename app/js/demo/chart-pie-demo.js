@@ -5,14 +5,12 @@ function getChartData() {
 
   //var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
  // _chartDataRef.on('value', get);
-
-  function get(snapshot){
     
     var studentsReactionLists = [0,0,0];
-  
-      console.log(snapshot.val());
 
-      firebase.firestore().collection('Classes').doc(code).collection("Students").get().then(function (doc) {
+    console.log("GETTING PIE CHART DEMO");
+
+      firebase.firestore().collection('Classes').doc(code).collection("Students").onSnapshot(function (doc) {
 
         doc.forEach(snapshot => {
 
@@ -95,7 +93,7 @@ function getChartData() {
       cutoutPercentage: 80,
     },
   });
-  }
+
 
 }
 
