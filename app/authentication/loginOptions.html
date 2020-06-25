@@ -21,6 +21,8 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/loginOptions.css" rel="stylesheet">
 
+  <script src="js/applicationManagement.js"></script>
+
   <!--BOOTSTRAP-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
@@ -37,6 +39,18 @@
   <script>
     AOS.init();
   </script>
+
+<script>
+  $(document).ready(function () {
+    initializeFirebase();
+
+    getLiveSeverAlerts();
+    getServerStatus();
+    checkUserAuthStatus();
+
+    //getAnnouncements();
+  });
+</script>
 
   <!-- HEADER -->
   <section id="header">
