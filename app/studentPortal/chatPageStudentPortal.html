@@ -55,12 +55,15 @@
     $(document).ready(function () {
       initializeFirebase();
 
-      getMessages();
+      getLiveSeverAlerts();
+      getServerStatus();
+      checkUserAuthStatus();
 
-      //getProfileInfo();
+      getMessages();
+      getProfileInfo();
 
       var email = localStorage.getItem("email");
-      //updateAddClasesDropdown(email);
+      updateAddClasesDropdown(email);
       //getStudentContactsList(email);
     });
   </script>
