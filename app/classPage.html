@@ -22,11 +22,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  
+
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -111,54 +113,9 @@
                     console.log(classesList)
                 });
 
-                }).then(function() {
-                    console.log(classesList)
-
-
-                    for (var i = 0; i <= classesList.length; i++) {
-                    let output = "";
-                    let output2 = "";
-                    let output3 = "";
-                    var classData = classesList[i];
-                    console.log(classData);
-
-                    if (classData != null || classData != undefined) {
-
-                        console.log("works");
-                        var className = classData[1];
-                        var classCode = classData[0];
-
-                        output2 = `
-          <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
-          `;
-
-                        output3 = `
-          <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
-        <div class="dropdown-divider"></div>
-          
-          `
-
-                        $(output).appendTo("#topClassesSection");
-                        $(output2).appendTo("#classesOp");
-                        $(output3).appendTo("#classesOp1");
-                        $(output3).appendTo("#classesOp2")
-                    }
-
-                }
-                })
-        }
-
-            /*
-            classesRef.once("value", (snap) => {
-                console.log(snap.val());
-                rawData = snap.val();
-
-                if (rawData != null) {
-                    snap.forEach((child) => {
-                        classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
-                    })
-                }
             }).then(function () {
+                console.log(classesList)
+
 
                 for (var i = 0; i <= classesList.length; i++) {
                     let output = "";
@@ -190,13 +147,58 @@
                     }
 
                 }
+            })
+        }
 
-            }),
-            
-            */
+        /*
+        classesRef.once("value", (snap) => {
+            console.log(snap.val());
+            rawData = snap.val();
+
+            if (rawData != null) {
+                snap.forEach((child) => {
+                    classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
+                })
+            }
+        }).then(function () {
+
+            for (var i = 0; i <= classesList.length; i++) {
+                let output = "";
+                let output2 = "";
+                let output3 = "";
+                var classData = classesList[i];
+                console.log(classData);
+
+                if (classData != null || classData != undefined) {
+
+                    console.log("works");
+                    var className = classData[1];
+                    var classCode = classData[0];
+
+                    output2 = `
+      <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+      `;
+
+                    output3 = `
+      <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+    <div class="dropdown-divider"></div>
+      
+      `
+
+                    $(output).appendTo("#topClassesSection");
+                    $(output2).appendTo("#classesOp");
+                    $(output3).appendTo("#classesOp1");
+                    $(output3).appendTo("#classesOp2")
+                }
+
+            }
+
+        }),
         
-        
-    
+        */
+
+
+
 
 
 
@@ -291,37 +293,48 @@
                 </div>
 
             </div>
+            `;
 
-            
-    
-    `;      
-
-                descriptionOutput2 = `
+                        descriptionOutput2 = `
                 <tr>
-                              <td>${studentName}</td>
-                              <td>${studentEmail}</td>
-                              <td>Some Comment</td>
-                              <td><div id = "face"></div></td>
-                              <td>2011/04/25</td>
-                              <td>         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>               
-</td>
-</tr>
-                
+                <td>${studentName}</td>
+                <td>${studentEmail}</td>
+                <td>Some Comment</td>
+                <td><div id = "face"></div></td>
+                <td>2011/04/25</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
                 `;
 
-
-                descriptionOutput_happy = `
+                happy_face_Column = `
                 <tr>
-                              <td>${studentName}</td>
-                              <td>${studentEmail}</td>
-                              <td>Some Comment</td>
-                              <td><h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1></td>
-                              <td>2011/04/25</td>
-                              <td>         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>               
-</td>
-</tr>
-                
+                <td>${studentName}</td>
+                <td>${studentEmail}</td>
+                <td>Some Comment</td>
+                <td><h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1></td>
+                <td>2011/04/25</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
                 `;
+
+                meh_colum_face = `
+                <tr>
+                <td>${studentName}</td>
+                <td>${studentEmail}</td>
+                <td>Some Comment</td>
+                <td><h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1></td>
+                <td>2011/04/25</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                `;
+
+                frustrated_column_face = `
+                <tr>
+                <td>${studentName}</td>
+                <td>${studentEmail}</td>
+                <td>Some Comment</td>
+                <td><h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1></td>
+                <td>2011/04/25</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                `;
+
 
                         $(descriptionOutput).appendTo("#studentsList");
 
@@ -330,24 +343,26 @@
                         if (studentReaction == "good") {
                             document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput2).appendTo("#studentsListGreat");
-                            $(descriptionOutput2).appendTo('#studentTable-doing-good');
+                            $(happy_face_Column).appendTo('#studentTable-doing-good');
 
                         } else if (studentReaction == "meh") {
                             document.getElementById("face").outerHTML = meh;
                             $(descriptionOutput2).appendTo("#studentsListHelp");
+                            $(meh_colum_face).appendTo('#studentTable-meh');
 
 
                         } else if (studentReaction == "needs help") {
-                            document.getElementById("face").outerHTML = sad;
-                            $(descriptionOutput2).appendTo("#studentsListFrustrated");
 
+                            document.getElementById("face").outerHTML = sad;
+
+                            $(descriptionOutput2).appendTo("#studentsListFrustrated");
+                            $(frustrated_column_face).appendTo("#studentTable-frustrated");
 
                         } else {
                             document.getElementById("face").outerHTML = happy;
 
-                            $(descriptionOutput2).appendTo("#studentsListGreat");
+                            $(happy_face_Column).appendTo("#studentsListGreat");
 
-                            $(descriptionOutput_happy).appendTo('#studentTable-doing-good');
                         }
 
 
@@ -516,26 +531,51 @@
             document.getElementById('studentTable').style.display = "none";
 
 
-           // document.getElementById('studentsListGreat').style.display = "initial";
-           // document.getElementById('studentsListHelp').style.display = "none";
+            // document.getElementById('studentsListGreat').style.display = "initial";
+            // document.getElementById('studentsListHelp').style.display = "none";
             //document.getElementById('studentsListFrustrated').style.display = "none";
 
             document.getElementById("doing-good-table-section").style.display = "initial";
+            document.getElementById("meh-table-section").style.display = "none";
+            document.getElementById("frustrated-table-section").style.display = "none";
 
         }
 
         function showHelp() {
+
             document.getElementById('studentTable').style.display = "none";
-            document.getElementById('studentsListGreat').style.display = "none";
-            document.getElementById('studentsListHelp').style.display = "initial";
-            document.getElementById('studentsListFrustrated').style.display = "none";
+
+
+            // document.getElementById('studentsListGreat').style.display = "initial";
+            // document.getElementById('studentsListHelp').style.display = "none";
+            //document.getElementById('studentsListFrustrated').style.display = "none";
+
+            document.getElementById("doing-good-table-section").style.display = "none";
+            document.getElementById("meh-table-section").style.display = "initial";
+            document.getElementById("frustrated-table-section").style.display = "none";
+
+            // document.getElementById('studentTable').style.display = "none";
+            // document.getElementById('studentsListGreat').style.display = "none";
+            // document.getElementById('studentsListHelp').style.display = "initial";
+            // document.getElementById('studentsListFrustrated').style.display = "none";
         }
 
         function showFrustrated() {
+            // document.getElementById('studentTable').style.display = "none";
+            //document.getElementById('studentsListGreat').style.display = "none";
+            //document.getElementById('studentsListHelp').style.display = "none";
+            //document.getElementById('studentsListFrustrated').style.display = "initial";
+
             document.getElementById('studentTable').style.display = "none";
-            document.getElementById('studentsListGreat').style.display = "none";
-            document.getElementById('studentsListHelp').style.display = "none";
-            document.getElementById('studentsListFrustrated').style.display = "initial";
+
+
+            // document.getElementById('studentsListGreat').style.display = "initial";
+            // document.getElementById('studentsListHelp').style.display = "none";
+            //document.getElementById('studentsListFrustrated').style.display = "none";
+
+            document.getElementById("doing-good-table-section").style.display = "none";
+            document.getElementById("meh-table-section").style.display = "none";
+            document.getElementById("frustrated-table-section").style.display = "initial";
         }
 
         function showAll() {
@@ -690,210 +730,219 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800" id="className">Loading...</h1>
 
-                </div>
+                    <!--TABLES-->
 
+                    <div id="content">
 
-                <div class="card shadow mb-4" style="margin-left: 15px;">
-                    <div class="card-header py-3">
-                        <div class="row">
-                            <h6 class="m-0 font-weight-bold text-primary">Students</h6>
-                            <div style="margin-left: 65%;">
-                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-secondary active" onclick="showAll()">
-                                        <input type="radio" name="options" id="allstudents" autocomplete="off" checked>
-                                        All Students
-                                    </label>
-                                    <label class="btn btn-secondary" onclick="showGreat()">
-                                        <input type="radio" name="options" id="great" autocomplete="off"> Doing Great
-                                    </label>
-                                    <label class="btn btn-secondary" onclick="showHelp()">
-                                        <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
-                                    </label>
-                                    <label class="btn btn-secondary" onclick="showFrustrated()">
-                                        <input type="radio" name="options" id="frustrated" autocomplete="off">
-                                        Frustrated
-                                    </label>
+                        <!-- Topbar -->
+        
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+        
+        
+        
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+        
+                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+        
+        
+        
+        
+                            </nav>
+                            <!-- End of Topbar -->
+        
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+        
+                                <!-- Page Heading -->
+        
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+                                        <div style="margin-left: 65%;">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <label class="btn btn-secondary active" onclick="showAll()">
+                                                    <input type="radio" name="options" id="allstudents" autocomplete="off"
+                                                        checked>
+                                                    All Students
+                                                </label>
+                                                <label class="btn btn-secondary" onclick="showGreat()">
+                                                    <input type="radio" name="options" id="great" autocomplete="off"> Doing
+                                                    Great
+                                                </label>
+                                                <label class="btn btn-secondary" onclick="showHelp()">
+                                                    <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
+                                                </label>
+                                                <label class="btn btn-secondary" onclick="showFrustrated()">
+                                                    <input type="radio" name="options" id="frustrated" autocomplete="off">
+                                                    Frustrated
+                                                </label>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                    <div class="card-body">
+        
+                                        <section id="allStudentsTable">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Comment</th>
+                                                            <th>Mood</th>
+                                                            <th>Reported</th>
+                                                            <th>Schedule Meeting</th>
+        
+                                                        </tr>
+                                                    </thead>
+        
+                                                    <tbody id="studentTable">
+        
+        
+        
+                                                    </tbody>
+        
+                                                </table>
+                                            </div>
+                                        </section>
+        
+                                        <section id="doing-good-table-section" style="display: none;">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Comment</th>
+                                                            <th>Mood</th>
+                                                            <th>Reported</th>
+                                                            <th>Schedule Meeting</th>
+        
+                                                        </tr>
+                                                    </thead>
+        
+                                                    <tbody id="studentTable-doing-good">
+        
+        
+        
+                                                    </tbody>
+        
+                                                </table>
+                                            </div>
+                                        </section>
+        
+                                        <section id="meh-table-section" style="display: none;">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Comment</th>
+                                                            <th>Mood</th>
+                                                            <th>Reported</th>
+                                                            <th>Schedule Meeting</th>
+        
+                                                        </tr>
+                                                    </thead>
+        
+                                                    <tbody id="studentTable-meh">
+        
+        
+        
+                                                    </tbody>
+        
+                                                </table>
+                                            </div>
+                                        </section>
+        
+                                        <section id="frustrated-table-section" style="display: none;">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Comment</th>
+                                                            <th>Mood</th>
+                                                            <th>Reported</th>
+                                                            <th>Schedule Meeting</th>
+        
+                                                        </tr>
+                                                    </thead>
+        
+                                                    <tbody id="studentTable-frustrated">
+        
+        
+        
+                                                    </tbody>
+        
+                                                </table>
+                                            </div>
+                                        </section>
+        
+        
+        
+        
+        
+        
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                    </div>
-                    <!--
-                        <div class="card-body" id="studentsList">
-
-
                     </div>
 
-                    <div class="card-body" id="studentsListGreat" style="display: none;">
-
-
-                    </div>
-
-                    <div class="card-body" id="studentsListHelp" style="display: none;">
-
-
-                    </div>
-
-                    <div class="card-body" id="studentsListFrustrated" style="display: none;">
-
-
-                    </div>
-                    -->
-                    
                 </div>
+
                 <!-- /.container-fluid -->
 
             </div>
-            <div id="content">
-
-                <!-- Topbar -->
-        
-                  <!-- Sidebar Toggle (Topbar) -->
-                  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                  </button>
-        
-                  
-        
-                  <!-- Topbar Navbar -->
-                  <ul class="navbar-nav ml-auto">
-        
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-search fa-fw"></i>
-                      </a>
-                      <!-- Dropdown - Messages -->
-                      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                        <form class="form-inline mr-auto w-100 navbar-search">
-                          <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                              <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </li>
-        
-                   
-                 
-        
-                </nav>
-                <!-- End of Topbar -->
-        
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-        
-                  <!-- Page Heading -->
-        
-                  <!-- DataTales Example -->
-                  <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary">Students</h6>
-                      <div style="margin-left: 65%;">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active" onclick="showAll()">
-                                <input type="radio" name="options" id="allstudents" autocomplete="off" checked>
-                                All Students
-                            </label>
-                            <label class="btn btn-secondary" onclick="showGreat()">
-                                <input type="radio" name="options" id="great" autocomplete="off"> Doing Great
-                            </label>
-                            <label class="btn btn-secondary" onclick="showHelp()">
-                                <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
-                            </label>
-                            <label class="btn btn-secondary" onclick="showFrustrated()">
-                                <input type="radio" name="options" id="frustrated" autocomplete="off">
-                                Frustrated
-                            </label>
-                        </div>
-                    </div>
-                      
-                    </div>
-                    <div class="card-body">
-
-                        <section id = "allStudentsTable">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                  <thead>
-                                    <tr>
-                                      <th>Name</th>
-                                      <th>Email</th>
-                                      <th>Comment</th>
-                                      <th>Mood</th>
-                                      <th>Reported</th>
-                                      <th>Schedule Meeting</th>
-        
-                                    </tr>
-                                  </thead>
-                                  
-                                  <tbody id="studentTable">
-                                      
-                                    
-                                   
-                                  </tbody>
-                                  
-                                </table>
-                              </div>
-                        </section>
-
-                        <section id = "doing-good-table-section" style="display: none;">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                  <thead>
-                                    <tr>
-                                      <th>Name</th>
-                                      <th>Email</th>
-                                      <th>Comment</th>
-                                      <th>Mood</th>
-                                      <th>Reported</th>
-                                      <th>Schedule Meeting</th>
-        
-                                    </tr>
-                                  </thead>
-                                  
-                                  <tbody id="studentTable-doing-good">
-                                      
-                                    
-                                   
-                                  </tbody>
-                                  
-                                </table>
-                              </div>
-                        </section>
-                        
-                        
-
-                      
-
-                     
-                              </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-        
-                </div>
-                <!-- /.container-fluid -->
-        
-              </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
+
+    </div>
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -935,7 +984,7 @@
     <script src="js/demo/datatables-demo.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  
+
 
 
 </body>
