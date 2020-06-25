@@ -66,8 +66,6 @@
     $(document).ready(function () {
       initializeFirebase();
 
-      checkUserAuthStatus();
-
       getProfileInfo();
 
       var email = localStorage.getItem('email');;
@@ -78,6 +76,7 @@
 
       getLiveSeverAlerts();
       getServerStatus();
+      checkUserAuthStatus();
 
       //getAnnouncements();
     });
