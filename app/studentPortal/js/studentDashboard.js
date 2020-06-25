@@ -792,6 +792,7 @@ function getMeetings(pageType) {
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+                  <h6 style = 'color: gray; font-weight: 700'>${date}</h6>
                 </div>
                 <div class="col-auto">
   
