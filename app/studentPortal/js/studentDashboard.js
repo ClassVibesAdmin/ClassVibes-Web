@@ -1005,7 +1005,7 @@ if (announcementsCount == 0) {
   <center>
   <img src="img/undraw_work_chat_erdt.svg" width="73%">
 
-  <h2 style="margin-top: 2%;">No Announcements</h2>
+  <h2 style="margin-top: 3%;">No Announcements</h2>
   <p>You're all caught up</p>
 </center>
   `;
