@@ -888,7 +888,7 @@ function getMeetings(pageType) {
   */
 }
 
-function getAnnouncements() {
+function getAnnouncements(pageType = "annoncements-page-main") {
 
   document.getElementById("loadingIndicator").style.display = "initial";
 
@@ -979,9 +979,12 @@ function getAnnouncements() {
                   </div>
               `;
 
-              $(outputAnnouncements).appendTo("#annoucementsSection");
+              if(pageType == "dashboard"){
+                $(outputDashboard).appendTo("#AnnouncementsPageSection");
+              } else {
 
-              $(outputDashboard).appendTo("#AnnouncementsPageSection");
+                $(outputAnnouncements).appendTo("#annoucementsSection");
+              }
 
             }
           });
@@ -1007,20 +1010,29 @@ if (announcementsCount == 0) {
 </center>
   `;
 
-  document.getElementById("loadingIndicator").style.display = "none";
+  if(pageType == "dashboard"){
 
-  document.getElementById("announcementsSection-section").style.display = "none";
-  
-  document.getElementById("no-Announcements-section").style.display = "initial";
+    document.getElementById("AnnouncementsPageSection").innerHTML = noAnnouncementsHTML;
+  } else {
+    document.getElementById("loadingIndicator").style.display = "none";
 
-  document.getElementById("AnnouncementsPageSection").innerHTML = noAnnouncementsHTML;
+    document.getElementById("announcementsSection-section").style.display = "none";
+    
+    document.getElementById("no-Announcements-section").style.display = "initial";
+  }
+
 
 } else {
-  document.getElementById("loadingIndicator").style.display = "none";
 
-  document.getElementById("announcementsSection-section").style.display = "initial";
-  
-  document.getElementById("no-Announcements-section").style.display = "none";
+  if(pageType == "dashboard"){
+
+  } else {
+    document.getElementById("loadingIndicator").style.display = "none";
+
+    document.getElementById("announcementsSection-section").style.display = "initial";
+    
+    document.getElementById("no-Announcements-section").style.display = "none";
+  }
 }
      }, 1000)
 
