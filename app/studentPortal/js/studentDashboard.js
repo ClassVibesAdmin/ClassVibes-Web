@@ -952,7 +952,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
   
                 outputDashboard = `
 
-                <div class="col-xl-8 col-md-6 mb-4">
+                <div class="col-xl-12 col-md-6 mb-4">
                 <div class="card border-left-success" style = 'height: max-content'>
                       <div class="card-body">
                         <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
