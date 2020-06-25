@@ -307,6 +307,9 @@
         }
 
         function getMessages() {
+
+          $(outputMessage).appendTo("");
+
           outputMessage = ""
           firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").onSnapshot(function (doc) {
 
