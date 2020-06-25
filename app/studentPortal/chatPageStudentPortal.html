@@ -21,15 +21,14 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/studentDashboard.css" rel="stylesheet">
   <script src="js/studentDashboard.js"></script>
-  <script src="css/studentChatPage.css"></script>
-
-  <script src="js/applicationManagement.js"></script>
 
   <!--BOOTSTRAP-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
     integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
@@ -62,15 +61,29 @@
   <script>
     $(document).ready(function () {
       initializeFirebase();
+      function getProfileInfo() {
+        var name = localStorage.getItem("name");
+        var pic = localStorage.getItem("photo");
 
-      getLiveSeverAlerts();
-      getServerStatus();
-      checkUserAuthStatus();
+        let outputPic = "";
+        outputPic += `
+   <img class="img-profile rounded-circle" src="${pic}">
+
+   `
+
+        if (outputPic !== "") {
+          $(outputPic).appendTo("#profilePic")
+        }
+
+        document.getElementById("displayName").innerHTML = name
+
+      }
 
       getProfileInfo();
+
       var email = localStorage.getItem("email");
-      //updateAddClasesDropdown(email);
-      //getStudentContactsList(email);
+      updateAddClasesDropdown(email);
+      getStudentContactsList(email);
     });
   </script>
 
@@ -260,21 +273,6 @@
               </div>
             </div>
           </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-
-          <h1 class="h3 mb-4 text-gray-800">Chats</h1>
-
-
         </div>
         <div class="mesgs">
           <div class="msg_history">
@@ -305,7 +303,7 @@
       <script>
         var message = document.getElementById("messageSend")
         var code = localStorage.getItem("code")
-        var 
+        var = 
 
         firebase.firestore().collection("Classes").doc("3564").collection("Class Chat").doc(code).set({
               "message" : message;
@@ -319,13 +317,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Team Quarenteam</span>
-          </div>
-        </div>
-      </footer>
+     
       <!-- End of Footer -->
 
     </div>
