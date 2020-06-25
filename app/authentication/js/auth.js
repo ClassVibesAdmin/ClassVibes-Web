@@ -13,8 +13,6 @@ function initializeFirebase() {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
-    firebase.firestore().enablePersistence('synchronizeTabs:true');
 }
 
 //FIRESTORE MIGRATED
