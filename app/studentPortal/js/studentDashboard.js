@@ -704,6 +704,7 @@ function getMeetings(pageType) {
 
   var email = localStorage.getItem("email");
 
+  //GETS MEETINGS FOR MEETINGS PAGE
   if(pageType == "meetingsPage"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").get().then(function (doc) {
 
@@ -765,6 +766,9 @@ function getMeetings(pageType) {
     });
   } 
   
+  
+  //GETS MEETINGS FOR DASHBOARD PAGE SECTION 
+
   if(pageType == "dashboard"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
