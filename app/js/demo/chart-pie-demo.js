@@ -7,11 +7,11 @@ function getChartData() {
 
   //var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
  // _chartDataRef.on('value', get);
-    
-    var studentsReactionLists = [0,0,0];
 
 
       firebase.firestore().collection('Classes').doc(code).collection("Students").onSnapshot(function (doc) {
+
+        var studentsReactionLists = [0,0,0];
 
         doc.forEach(snapshot => {
 
