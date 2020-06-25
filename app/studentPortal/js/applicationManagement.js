@@ -70,3 +70,24 @@ function getServerStatus(){
       
   });
 }
+
+function checkUserAuthStatus(){
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // User just signed in, we should not display dialog next time because of firebase auto-login
+          console.log("Firebase" + user.email);
+
+          email = user.email;
+
+        } else {
+          // User just signed-out or auto-login failed, we will show sign-in form immediately the next time he loads the page
+
+          console.log("user Signed out");
+
+          window.location = "../authentication/loginOptions.html";
+          
+          // Here implement logic to trigger the login dialog or redirect to sign-in page, if necessary. Don't redirect if dialog is already visible.
+          // e.g. showDialog()
+        }
+      })
+}
