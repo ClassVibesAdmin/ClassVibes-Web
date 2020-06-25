@@ -21,14 +21,13 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/studentDashboard.css" rel="stylesheet">
   <script src="js/studentDashboard.js"></script>
+  <script src="css/studentChatPage.css"></script>
 
   <!--BOOTSTRAP-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
     integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
@@ -61,29 +60,10 @@
   <script>
     $(document).ready(function () {
       initializeFirebase();
-      function getProfileInfo() {
-        var name = localStorage.getItem("name");
-        var pic = localStorage.getItem("photo");
-
-        let outputPic = "";
-        outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
-
-   `
-
-        if (outputPic !== "") {
-          $(outputPic).appendTo("#profilePic")
-        }
-
-        document.getElementById("displayName").innerHTML = name
-
-      }
-
       getProfileInfo();
-
       var email = localStorage.getItem("email");
-      updateAddClasesDropdown(email);
-      getStudentContactsList(email);
+      //updateAddClasesDropdown(email);
+      //getStudentContactsList(email);
     });
   </script>
 
@@ -253,75 +233,6 @@
 
           <h1 class="h3 mb-4 text-gray-800">Chats</h1>
 
-          <div class="row">
-
-            <!--Contacts Select -->
-
-            <style>
-              div.scroll {
-                margin: 4px, 4px;
-                padding: 4px;
-                width: 450px;
-                height: initial;
-                overflow-x: hidden;
-                overflow-x: auto;
-                text-align: justify;
-              }
-            </style>
-
-
-            <div class="scroll">
-              <div class="col" id="contactsSection" style="height: 100%; width: 500px; ">
-
-
-              </div>
-            </div>
-
-
-
-            <div>
-
-              <div style="overflow-y: scroll; width: 960px;" class="container-fluid">
-
-                <div class="msg-chat-bubble">
-                  <div class="msg-chat-text">
-                    Hi, I have a few questions about the test last week.
-                  </div>
-                  <div class="msg-chat-time">9:15 AM</div>
-                </div>
-
-                <div style="height: 50px;"></div>
-
-                <div class="d-flex justify-content-end">
-                  <div class="msg-chat-bubble">
-                    <div class="msg-chat-text">
-                      Yeah lets talk about it in today's zoom meeting, at 10:00 PM today morning.
-                    </div>
-                    <div class="msg-chat-time">9:46 AM</div>
-                  </div>
-                </div>
-
-                <div style="height: 50px;"></div>
-
-                <div class="msg-chat-bubble">
-                  <div class="msg-chat-text">
-                    Thank you so much for the help.
-                  </div>
-                  <div class="msg-chat-time">9:55 AM</div>
-                </div>
-
-              </div>
-
-
-
-
-
-            </div>
-
-
-
-
-          </div>
 
         </div>
         <!-- /.container-fluid -->
