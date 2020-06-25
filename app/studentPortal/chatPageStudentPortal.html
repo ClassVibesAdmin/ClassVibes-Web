@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,15 +26,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
     integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
 
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -51,9 +47,6 @@
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
 
-
-
-
 </head>
 
 <body id="page-top">
@@ -61,29 +54,14 @@
   <script>
     $(document).ready(function () {
       initializeFirebase();
-      function getProfileInfo() {
-        var name = localStorage.getItem("name");
-        var pic = localStorage.getItem("photo");
 
-        let outputPic = "";
-        outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
+      getMessages();
 
-   `
-
-        if (outputPic !== "") {
-          $(outputPic).appendTo("#profilePic")
-        }
-
-        document.getElementById("displayName").innerHTML = name
-
-      }
-
-      getProfileInfo();
+      //getProfileInfo();
 
       var email = localStorage.getItem("email");
-      updateAddClasesDropdown(email);
-      getStudentContactsList(email);
+      //updateAddClasesDropdown(email);
+      //getStudentContactsList(email);
     });
   </script>
 
@@ -322,8 +300,14 @@
         }
 
         function getMessages() {
+
+          $("").appendTo("#messagesBoxOutput");
+          
           outputMessage = ""
-          firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").onSnapshot(function (doc) {
+          
+          firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").orderBy("time").limitToLast(1).onSnapshot(function (doc) {
+
+            $("").appendTo("#messagesBoxOutput");
 
             doc.forEach(snapshot => {
 

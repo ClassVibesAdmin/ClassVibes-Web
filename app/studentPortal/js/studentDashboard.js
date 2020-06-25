@@ -888,7 +888,7 @@ function getMeetings(pageType) {
   */
 }
 
-function getAnnouncements() {
+function getAnnouncements(pageType = "annoncements-page-main") {
 
   document.getElementById("loadingIndicator").style.display = "initial";
 
@@ -917,100 +917,178 @@ function getAnnouncements() {
 
   }).then(() => {
 
+    if(pageType == 'dashboard'){
 
-    var announcementsCount = 0;
+      var announcementsCount = 0;
 
-    for (let i = 0; i <= classesListCodes.length; i++) {
-      var classcode = classesListCodes[i];
-      console.log("CLASS CODE: " + classcode);
+      for (let i = 0; i <= classesListCodes.length; i++) {
+        var classcode = classesListCodes[i];
+        console.log("CLASS CODE: " + classcode);
+  
+        if (classcode != undefined && classcode != null) {
+  
+          firebase.firestore().collection('Classes').doc(classcode).collection("Announcements").orderBy("Timestamp").limitToLast(3).get().then(function (doc) {
+  
+  
+            doc.forEach(snapshot => {
+  
+              var annoucementData = snapshot.data();
+  
+              if (annoucementData != undefined && annoucementData != null) {
+                outputAnnouncements = "";
+  
+                announcementsCount += 1;
+  
+                console.log(announcementsCount);
+  
+                var title = annoucementData["Title"];
+                var message = annoucementData["Message"];
+                var date = annoucementData['Date'];
+  
+                console.log(title);
+                console.log(message);
+  
+                var nameClass = classnamesList[i];
+  
+                outputDashboard = `
 
-      if (classcode != undefined && classcode != null) {
+                <div class="col-xl-12 col-md-6 mb-4">
+                <div class="card border-left-success" style = 'height: max-content'>
+                      <div class="card-body">
+                        <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
+                        <p>${message}</p>
 
-        firebase.firestore().collection('Classes').doc(classcode).collection("Announcements").get().then(function (doc) {
-
-
-          doc.forEach(snapshot => {
-
-            var annoucementData = snapshot.data();
-
-            if (annoucementData != undefined && annoucementData != null) {
-              outputAnnouncements = "";
-
-              announcementsCount += 1;
-
-              console.log(announcementsCount);
-
-              var title = annoucementData["Title"];
-              var message = annoucementData["Message"];
-              var date = annoucementData['Date'];
-
-              console.log(title);
-              console.log(message);
-
-              var nameClass = classnamesList[i];
-
-              outputAnnouncements = `
-              <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${nameClass}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${message}</div>
-
-                      <div class="h6 mb-0" style = "color: #a2a39b">${date}</div>
+                        <p style = 'font-weight: 700; margin-bottom: -3%'>${date}</p>
+                      </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+
+                    </div>
+                `;
+
+                $(outputDashboard).appendTo("#AnnouncementsPageSection");
+              
+  
+              }
+            });
+          });
+        }
+  
+      }
+  
+      setTimeout(() => {
+  //IF there is no annonucements
+  
+  if (announcementsCount == 0) {
+  
+    var noAnnouncementsHTML = ` 
+      
+    <center>
+    <img src="img/undraw_work_chat_erdt.svg" width="73%">
+  
+    <h2 style="margin-top: 3%;">No Announcements</h2>
+    <p>You're all caught up</p>
+  </center>
+    `;
+  document.getElementById("AnnouncementsPageSection").innerHTML = noAnnouncementsHTML;
+  
+  } else {
+  
+  }
+       }, 1000)
+    } 
+    
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    else {
+      var announcementsCount = 0;
+
+      for (let i = 0; i <= classesListCodes.length; i++) {
+        var classcode = classesListCodes[i];
+        console.log("CLASS CODE: " + classcode);
+  
+        if (classcode != undefined && classcode != null) {
+  
+          firebase.firestore().collection('Classes').doc(classcode).collection("Announcements").get().then(function (doc) {
+  
+  
+            doc.forEach(snapshot => {
+  
+              var annoucementData = snapshot.data();
+  
+              if (annoucementData != undefined && annoucementData != null) {
+                outputAnnouncements = "";
+  
+                announcementsCount += 1;
+  
+                console.log(announcementsCount);
+  
+                var title = annoucementData["Title"];
+                var message = annoucementData["Message"];
+                var date = annoucementData['Date'];
+  
+                console.log(title);
+                console.log(message);
+  
+                var nameClass = classnamesList[i];
+  
+                outputAnnouncements = `
+                <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${nameClass}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${message}</div>
+  
+                        <div class="h6 mb-0" style = "color: #a2a39b">${date}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-              `;
-
-              outputDashboard = `
-              <div class="card mb-4 py-3 border-left-success" style="height: 110px">
-                    <div class="card-body">
-                      <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
-                      <p>${message}</p>
-                    </div>
-                  </div>
-              `;
-
-              $(outputAnnouncements).appendTo("#annoucementsSection");
-
-              //$(outputDashboard).appendTo("#AnnouncementsPageSection");
-
-            }
+                `;
+  
+                  $(outputAnnouncements).appendTo("#annoucementsSection");
+              }
+            });
           });
-        });
+        }
+  
       }
+  
+      setTimeout(() => {
+  //IF there is no annonucements
+  
+  if (announcementsCount == 0) {
 
+
+      document.getElementById("loadingIndicator").style.display = "none";
+  
+      document.getElementById("announcementsSection-section").style.display = "none";
+      
+      document.getElementById("no-Announcements-section").style.display = "initial";
+  
+  } else {
+  
+
+      document.getElementById("loadingIndicator").style.display = "none";
+  
+      document.getElementById("announcementsSection-section").style.display = "initial";
+      
+      document.getElementById("no-Announcements-section").style.display = "none";
+  }
+       }, 1000)
     }
 
-    console.log("NEW COUNT:" + announcementsCount);
 
-    setTimeout(() => {
-//IF there is no annonucements
 
-if (announcementsCount == 0) {
-
-  document.getElementById("loadingIndicator").style.display = "none";
-
-  document.getElementById("announcementsSection-section").style.display = "none";
-  
-  document.getElementById("no-Announcements-section").style.display = "initial";
-
-} else {
-  document.getElementById("loadingIndicator").style.display = "none";
-
-  document.getElementById("announcementsSection-section").style.display = "initial";
-  
-  document.getElementById("no-Announcements-section").style.display = "none";
-}
-     }, 1000)
 
   });
 }
