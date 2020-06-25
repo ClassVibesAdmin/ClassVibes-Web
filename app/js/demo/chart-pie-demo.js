@@ -5,8 +5,6 @@ function getChartData() {
 
   //var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
  // _chartDataRef.on('value', get);
-
-  function get(snapshot){
     
     var studentsReactionLists = [0,0,0];
   
@@ -95,7 +93,7 @@ function getChartData() {
       cutoutPercentage: 80,
     },
   });
-  }
+
 
 }
 
