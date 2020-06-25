@@ -700,69 +700,130 @@ function getStudentStatus() {
 }
 
 //FIRESTORE MIGRATED FULLY
-function getMeetings() {
+function getMeetings(pageType) {
+
   var email = localStorage.getItem("email");
 
-  firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
+  if(pageType == "meetingsPage"){
+    firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").get().then(function (doc) {
 
-    console.log("GETTING MEETINGS");
-
-    var meetingsCount = 0;
-
-    doc.forEach(snapshot => {
-
-      meetingsCount += 1;
-
-      var meetingsData = snapshot.data();
-
-      var classForMeeting = meetingsData["Course"];
-      var date = meetingsData["Date"];
-      var title = meetingsData["Title"];
-
-      console.log(date);
-
-      output = `
-        <div class="col-xl-12 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
-              </div>
-              <div class="col-auto">
-
-                <i class="fas fa-microphone-alt fa-2x text-gray-300"></i>
+      console.log("GETTING MEETINGS");
+  
+      var meetingsCount = 0;
+  
+      doc.forEach(snapshot => {
+  
+        meetingsCount += 1;
+  
+        var meetingsData = snapshot.data();
+  
+        var classForMeeting = meetingsData["Course"];
+        var date = meetingsData["Date"];
+        var title = meetingsData["Title"];
+  
+        console.log(date);
+  
+        output = `
+          <div class="col-xl-12 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+                </div>
+                <div class="col-auto">
+  
+                  <i class="fas fa-microphone-alt fa-2x text-gray-300"></i>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-        `;
+          `;
+  
+        $(output).appendTo("#meetingsList-main-page");
+      });
+  
+      //console.log("MEETINGS LIST: " + meetingsCount);
+  
+  
+      if (meetingsCount == 0) {
+  
+       document.getElementById("loadingIndicator").style.display = "none";
+       document.getElementById("all-meetings-widget").style.display = "none";
+       document.getElementById("no-meetings-section").style.display = "initial";
 
-      $(output).appendTo("#meetingsList");
+      } else {
+        document.getElementById("loadingIndicator").style.display = "none";
+        document.getElementById("all-meetings-widget").style.display = "initial";
+        document.getElementById("no-meetings-section").style.display = "none";
+      }
+  
     });
+  } else if(pageType == "dashboard"){
+    firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
-    //console.log("MEETINGS LIST: " + meetingsCount);
-
-
-    if (meetingsCount == 0) {
-      outputError = `
-      <center>
-      <img src = "img/undraw_Booked_j7rj.svg" width="70%">
-
-      <h2 style="margin-top: 2%;">No Scheduled Meetings</h2>
-      <p>You're all caught up</p>
-    </center>
-        `;
-
-      $(outputError).appendTo("#meetingsList");
-    } else {
-
-    }
-
-  });
+      console.log("GETTING MEETINGS");
+  
+      var meetingsCount = 0;
+  
+      doc.forEach(snapshot => {
+  
+        meetingsCount += 1;
+  
+        var meetingsData = snapshot.data();
+  
+        var classForMeeting = meetingsData["Course"];
+        var date = meetingsData["Date"];
+        var title = meetingsData["Title"];
+  
+        console.log(date);
+  
+        output = `
+          <div class="col-xl-12 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+                </div>
+                <div class="col-auto">
+  
+                  <i class="fas fa-microphone-alt fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+          `;
+  
+        $(output).appendTo("#meetingsList");
+      });
+  
+      //console.log("MEETINGS LIST: " + meetingsCount);
+  
+  
+      if (meetingsCount == 0) {
+        outputError = `
+        <center>
+        <img src = "img/undraw_Booked_j7rj.svg" width="70%">
+  
+        <h2 style="margin-top: 2%;">No Scheduled Meetings</h2>
+        <p>You're all caught up</p>
+      </center>
+          `;
+  
+        $(outputError).appendTo("#meetingsList");
+      } else {
+  
+      }
+  
+    });
+  }
 
   /*
 
