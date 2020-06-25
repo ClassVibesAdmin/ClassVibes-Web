@@ -324,12 +324,13 @@
                 `;
 
                         $(descriptionOutput).appendTo("#studentsList");
+
                         $(descriptionOutput2).appendTo("#studentTable")
 
                         if (studentReaction == "good") {
                             document.getElementById("face").outerHTML = happy;
                             $(descriptionOutput2).appendTo("#studentsListGreat");
-                            $(descriptionOutput_happy).appendTo('#studentTable-doing-good');
+                            $(descriptionOutput2).appendTo('#studentTable-doing-good');
 
                         } else if (studentReaction == "meh") {
                             document.getElementById("face").outerHTML = meh;
@@ -346,7 +347,7 @@
 
                             $(descriptionOutput2).appendTo("#studentsListGreat");
 
-                            $(descriptionOutput2).appendTo('#studentTable-doing-good');
+                            $(descriptionOutput_happy).appendTo('#studentTable-doing-good');
                         }
 
 
