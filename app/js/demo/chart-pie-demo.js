@@ -3,15 +3,41 @@ function getChartData() {
 
   var code = localStorage.getItem("codeForChart");
 
-  var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
-  _chartDataRef.on('value', get);
+  //var _chartDataRef = firebase.database().ref().child("Classes").child(code).child("Students");
+ // _chartDataRef.on('value', get);
 
   function get(snapshot){
     
     var studentsReactionLists = [0,0,0];
   
       console.log(snapshot.val());
+
+      firebase.firestore().collection('Classes').doc(code).collection("Students").get().then(function (doc) {
+
+        doc.forEach(snapshot => {
+
+            var data1 = snapshot.data();
+
+            var reaction = data1["reaction"];
+
+            if(reaction == "good"){
+              studentsReactionLists[0] = studentsReactionLists[0] + 1;
+            }
+    
+            if(reaction == "meh"){
+              studentsReactionLists[1] = studentsReactionLists[1] + 1;
+            }
+    
+            if(reaction == "needs help"){
+              studentsReactionLists[2] = studentsReactionLists[2] + 1;
+            }
+
+
+        });
+
+    })
   
+      /*
       if(snapshot.val() != null){
         snapshot.forEach((child) => {
           
@@ -31,6 +57,7 @@ function getChartData() {
       } else {
         studentsReactionLists[0] = 1;
       }
+      */
         console.log(studentsReactionLists);
         
   // Set new default font family and font color to mimic Bootstrap's default styling
