@@ -762,7 +762,9 @@ function getMeetings(pageType) {
       }
   
     });
-  } else if(pageType == "dashboard"){
+  } 
+  
+  if(pageType == "dashboard"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
       console.log("GETTING MEETINGS Dashboard");
