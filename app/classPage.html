@@ -234,7 +234,7 @@
 
                 });
 
-                //document.getElementById("studentTable").innerHTML = "";
+                document.getElementById("studentTable").innerHTML = "";
 
                 for (var i = 0; i <= classInfoList.length; i++) {
                     let descriptionOutput = "";
@@ -793,11 +793,11 @@
                     </div>
                       
                     </div>
-                    <   div class="card-body">
+                    <div class="card-body">
                         
                         
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"  id="studentTable">
+                      <div class="table-responsive" id="studentTable">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
                               <th>Name</th>
@@ -825,8 +825,8 @@
                         </table>
                       </div>
 
-                      <div class="table-responsive" >
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" id="studentsListGreat">
+                      <div class="table-responsive" id="studentsListGreat">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                             <tr>
                               <th>Name</th>
@@ -854,8 +854,8 @@
                         
                         
                         </table>
-                        <div class="table-responsive" >
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" id="studentsListHelp">
+                        <div class="table-responsive" id="studentsListHelp">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                               <thead>
                                 <tr>
                                   <th>Name</th>
@@ -882,8 +882,8 @@
                            
                             
                             </table>
-                            <div class="table-responsive" >
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" id="studentsListFrustrated">
+                            <div class="table-responsive" id="studentsListFrustrated">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <thead>
                                     <tr>
                                       <th>Name</th>
