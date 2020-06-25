@@ -707,7 +707,7 @@ function getMeetings(pageType) {
   if(pageType == "meetingsPage"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").get().then(function (doc) {
 
-      console.log("GETTING MEETINGS");
+      console.log("GETTING MEETINGS Main page");
   
       var meetingsCount = 0;
   
@@ -765,7 +765,7 @@ function getMeetings(pageType) {
   } else if(pageType == "dashboard"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
-      console.log("GETTING MEETINGS");
+      console.log("GETTING MEETINGS Dashboard");
   
       var meetingsCount = 0;
   
