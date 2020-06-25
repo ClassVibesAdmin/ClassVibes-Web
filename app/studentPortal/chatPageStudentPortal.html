@@ -308,8 +308,8 @@
 
         function getMessages() {
 
-          $(outputMessage).appendTo("");
-
+          $("").appendTo("#messagesBoxOutput");
+          
           outputMessage = ""
           firebase.firestore().collection('Classes').doc("3564").collection("Class Chat").onSnapshot(function (doc) {
 
