@@ -301,11 +301,13 @@
       </div>
       
       <script>
-        var message = document.getElementById("messageSend").value;
-        var code = localStorage.getItem("code")
-        var currentTime = new Date().toLocaleTimeString();
 
         function sendMessage() {
+
+          var message = document.getElementById("messageSend").value;
+        var code = localStorage.getItem("code")
+        var currentTime = new Date().toLocaleTimeString();
+        
           firebase.firestore().collection("Classes").doc("3564").collection("Class Chat").doc("Shabd Veyyakula").set({
               "message" : message,
               "time" : currentTime,
