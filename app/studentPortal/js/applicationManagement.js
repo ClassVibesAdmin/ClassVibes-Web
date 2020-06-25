@@ -50,7 +50,7 @@ function getLiveSeverAlerts(){
           
           `;
 
-          $(toastHTML).appendTo('#pageBody');
+          $(toastHTML).appendTo('#page-top');
   
           $('#exampleModal').modal('show')
         }
