@@ -661,53 +661,6 @@ googleSignInDistrict = () => {
 
 const btnLogout = document.getElementById("btnLogout");
 
-
-function checkServerStatus(signInType) {
-
-    firebase.firestore().collection("Application Management").doc("ServerManagement").get().then((documentSnapshot) => {
-
-        var status = documentSnapshot.data().serversAreUp;
-        console.log(documentSnapshot.data());
-
-        console.log('Status: ' + status);
-
-        if (status == null || status == undefined) {
-
-            document.getElementById('serverErrorMessage').style.display = "initial";
-            document.getElementById('signup-section').style.display = "none";
-
-
-        } else {
-            if (status == false) {
-                document.getElementById('serverErrorMessage').style.display = "initial";
-                document.getElementById('signup-section').style.display = "none";
-
-            } else {
-                if (signInType == "GoogleSignIn") {
-                    googleSignIn()
-                } else if (signInType == "FacebookLogin") {
-                    facebookLogin();
-                } else if (signInType == "GoogleSignInStudent") {
-                    googleSignInStudent();
-                }
-            }
-        }
-
-    });
-
-    var serverMessage = document.getElementById("serverStatusMessage");
-
-    var errorMessage = `
-    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px; width:100px">
-
-    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
-    style="margin-top: 20px; width: 600px; display: initial;">
-    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
-</div>
-
-    `;
-}
-
 //FIRESTORE MIGRATED
 function emailSignUp(type) {
 
