@@ -799,6 +799,13 @@ function emailSignUp(type) {
                             "Account Type": "Student",
                             "Account Status": "Deactivated",
                         });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                     }
 
                     else if (type == 'teacher') {
@@ -809,6 +816,13 @@ function emailSignUp(type) {
                             "Account Type": "Teacher",
                             "Account Status": "Deactivated",
                         });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                     }
 
                     else if (type == 'district') {
@@ -818,6 +832,14 @@ function emailSignUp(type) {
                             "username": email,
                             "Account Type": "District",
                             "Account Status": "Deactivated",
+                        });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment
                         });
                     }
 
@@ -874,6 +896,13 @@ facebookSignUp = (type) => {
                         "Account Type": "Student",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'teacher') {
@@ -884,6 +913,13 @@ facebookSignUp = (type) => {
                         "Account Type": "Teacher",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'district') {
@@ -895,9 +931,17 @@ facebookSignUp = (type) => {
                         "Account Type": "District",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment,
+                        });
                 }
 
-                console.log('signup success google');
+                console.log('signup success facebook');
 
                 setTimeout(() => {
                     var signUpPage = document.getElementById('signup-page-full');
@@ -970,6 +1014,13 @@ googleSignUp = (type) => {
                         "Account Type": "Student",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'teacher') {
@@ -980,6 +1031,13 @@ googleSignUp = (type) => {
                         "Account Type": "Teacher",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'district') {
@@ -991,6 +1049,14 @@ googleSignUp = (type) => {
                         "Account Type": "District",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment,
+                        });
                 }
 
                 console.log('signup success google');
