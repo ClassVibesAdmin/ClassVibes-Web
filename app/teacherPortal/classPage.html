@@ -17,6 +17,8 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <script src="js/teacherPortalScript.js"></script>
+
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -51,6 +53,7 @@
     <script>
 
         $(document).ready(function () {
+            initializeFirebase();
 
             getProfileInfo();
             getClassData();
@@ -58,35 +61,6 @@
             getStudentData();
         });
 
-        var firebaseConfig = {
-            apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
-            authDomain: "cyberdojo-a2a3e.firebaseapp.com",
-            databaseURL: "https://cyberdojo-a2a3e.firebaseio.com",
-            projectId: "cyberdojo-a2a3e",
-            storageBucket: "cyberdojo-a2a3e.appspot.com",
-            messagingSenderId: "938057332518",
-            appId: "1:938057332518:web:99c34da5abf1b1548533e7",
-            measurementId: "G-0EWJ1V40VX"
-        };
-        firebase.initializeApp(firebaseConfig);
-
-        var name = localStorage.getItem("name");
-        var pic = localStorage.getItem("photo");
-
-        function getProfileInfo() {
-            let outputPic = "";
-            outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
-
-   `;
-
-            if (outputPic !== "") {
-                $(outputPic).appendTo("#profilePic")
-            }
-
-            document.getElementById("displayName").innerHTML = name
-
-        }
 
         function getClassData() {
             var emailRef = localStorage.getItem("email")
@@ -981,8 +955,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
+
+    <script src="js/datatables-demo.js"></script>
+
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 
