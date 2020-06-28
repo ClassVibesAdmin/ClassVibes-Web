@@ -310,3 +310,75 @@ function writeAnnouncement() {
 
         
     }
+
+    
+function getClassData() {
+    var emailRef = localStorage.getItem("email")
+    console.log(emailRef)
+    //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
+    // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
+
+    // });
+    var classesList = [];
+    console.log(classesList);
+
+    firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+
+        doc.forEach(snapshot => {
+
+            var data1 = snapshot.data();
+
+            var classCode = data1["Code"];
+            var className = data1["class-name"];
+
+            classesList.push([classCode, className])
+
+            console.log(classesList)
+        });
+
+    }).then(function () {
+        console.log(classesList)
+
+
+        for (var i = 0; i <= classesList.length; i++) {
+            let output = "";
+            let output2 = "";
+            let output3 = "";
+            var classData = classesList[i];
+            console.log(classData);
+
+            if (classData != null || classData != undefined) {
+
+                console.log("works");
+                var className = classData[1];
+                var classCode = classData[0];
+
+                output2 = `
+    <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+    `;
+
+                output3 = `
+    <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+<div class="dropdown-divider"></div>
+    
+    `
+
+                $(output).appendTo("#topClassesSection");
+                $(output2).appendTo("#classesOp");
+                $(output3).appendTo("#classesOp1");
+                $(output3).appendTo("#classesOp2")
+            }
+
+        }
+    })
+}
+
+function storeClassPref(code, name) {
+    localStorage.setItem("code", code);
+    localStorage.setItem("className", name);
+    console.log(code);
+    window.location = "classPage.html"
+
+
+
+}
