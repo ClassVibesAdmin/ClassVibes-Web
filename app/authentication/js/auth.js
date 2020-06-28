@@ -298,7 +298,7 @@ function facebookLoginTeacher() {
                     localStorage.setItem("email", email);
                     localStorage.setItem("name", name3);
 
-                    window.location = "/dashboard.html";
+                    window.location = "../teacherPortal/dashboard.html";
                 } else {
 
                     errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1224,7 +1224,7 @@ function loginWithEmailTeacher() {
                             //localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", email);
                             //localStorage.setItem("name", name3);
-                            window.location = "../teacherPortal/dashboard.html";
+                            window.location = "../../teacherPortal/dashboard.html";
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
