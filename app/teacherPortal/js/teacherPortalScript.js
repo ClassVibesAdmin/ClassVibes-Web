@@ -2,15 +2,18 @@ function getProfileInfo() {
     var name = localStorage.getItem("name");
     var pic = localStorage.getItem("photo");
 
-    let outputPic = "";
-    outputPic += `
-   <img class="img-profile rounded-circle" src="${pic}">
+    var outputPic = ``;
 
-   `
-
-    if (outputPic !== "") {
-      $(outputPic).appendTo("#profilePic")
+    if(pic != null && pic != undefined){
+        outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
+    } else {
+        outputPic = `<img class="img-profile rounded-circle" src="https://thumbs.dreamstime.com/b/creative-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mockup-144849704.jpg">`;
     }
+
+
+
+
+    $(outputPic).appendTo("#profilePic")
 
     document.getElementById("displayName").innerHTML = name
 
