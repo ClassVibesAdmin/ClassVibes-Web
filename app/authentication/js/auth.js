@@ -1106,6 +1106,8 @@ function loginWithEmailStudent() {
                 if (accountType != null) {
                     if (accountType == "Student") {
 
+                        getProfileName(email);
+
                         window.localStorage.setItem("email", email.toString());
 
                         console.log(email);
@@ -1222,6 +1224,7 @@ function loginWithEmailTeacher() {
 
                     if (accountType != null) {
                         if (accountType == "Teacher") {
+                            getProfileName(email);
                             //localStorage.setItem("photo", profilePic);
                             localStorage.setItem("email", email);
                             //localStorage.setItem("name", name3);
@@ -1336,6 +1339,7 @@ function loginWithEmailDistrict() {
 
                 if (accountType != null) {
                     if (accountType == "District") {
+                        getProfileName(email);
 
                         localStorage.setItem("email", email);
 
@@ -1368,5 +1372,15 @@ function loginWithEmailDistrict() {
         }
     });
 
+}
+
+function getProfileName(email){
+    firebase.firestore().collection("UserData").doc(email).get().then(function (doc) {
+        var data = doc.data();
+
+        var name = data["display-name"];
+
+        localStorage.setItem("name", name);
+    });
 }
 
