@@ -4,7 +4,7 @@ function getProfileInfo() {
 
     var outputPic = ``;
 
-    if(pic != null && pic != undefined){
+    if(pic != null && pic != undefined && pic != ""){
         outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
     } else {
         outputPic = `<img class="img-profile rounded-circle" src="https://thumbs.dreamstime.com/b/creative-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mockup-144849704.jpg">`;
