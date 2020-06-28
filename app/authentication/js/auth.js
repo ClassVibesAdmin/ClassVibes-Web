@@ -1108,11 +1108,15 @@ function loginWithEmailStudent() {
 
                         getProfileName(email);
 
-                        window.localStorage.setItem("email", email.toString());
+                        setTimeout(function(){
+                            window.localStorage.setItem("email", email.toString());
 
-                        console.log(email);
+                            console.log(email);
+    
+                            window.location = "../studentPortal/studentDashboard.html";
+                       }, 500); 
 
-                        window.location = "../studentPortal/studentDashboard.html";
+
 
                     } else {
 
@@ -1226,9 +1230,14 @@ function loginWithEmailTeacher() {
                         if (accountType == "Teacher") {
                             getProfileName(email);
                             //localStorage.setItem("photo", profilePic);
-                            localStorage.setItem("email", email);
-                            //localStorage.setItem("name", name3);
-                            window.location = "../../teacherPortal/dashboard.html";
+
+                            setTimeout(function(){
+                                localStorage.setItem("email", email);
+                                //localStorage.setItem("name", name3);
+                                window.location = "../../teacherPortal/dashboard.html";
+                           }, 500); 
+
+
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1341,9 +1350,13 @@ function loginWithEmailDistrict() {
                     if (accountType == "District") {
                         getProfileName(email);
 
-                        localStorage.setItem("email", email);
+                        setTimeout(() => { 
+                            localStorage.setItem("email", email);
 
-                        window.location = "districtDashboard.html";
+                            window.location = "districtDashboard.html";
+                         }, 500)
+
+
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
