@@ -382,3 +382,70 @@ function storeClassPref(code, name) {
 
 
 }
+
+function createClass() {
+    var code = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+    var className = document.getElementById("className").value;
+    var course = document.getElementById("course").value;
+    var teacher = document.getElementById("teacher").value;
+    var classImg = document.getElementById("imageInput").value;
+    var courseDescription = document.getElementById("courseDescription").value;
+    var courseVideo = localStorage.getItem("videoLink");
+    var teachersNote = document.getElementById("teachersNote").value;
+    var classCreator = localStorage.getItem("email")
+
+    // var _refCreateClass = firebase.database().ref().child("UserData").child(classCreator).child("Classes").child(code);
+    // _refCreateClass.child("Code").set(code);
+    // _refCreateClass.child("class-name").set(className);
+    // _refCreateClass.child("Course").set(course);
+    // _refCreateClass.child("teacher").set(teacher);
+    // _refCreateClass.child("classImg").set(classImg);
+    // _refCreateClass.child("courseDescription").set(courseDescription);
+    // _refCreateClass.child("courseVideo").set(courseVideo);
+    // _refCreateClass.child("teachersNote").set(teachersNote);
+
+
+    // console.log(code);
+
+    // var _refStudentClass = firebase.database().ref().child("Classes").child(code);
+    // _refStudentClass.child("Code").set(code);
+    // _refStudentClass.child("class-name").set(className);
+    // _refStudentClass.child("Course").set(course);
+    // _refStudentClass.child("teacher").set(teacher);
+    // _refStudentClass.child("classImg").set(classImg);
+    // _refStudentClass.child("courseDescription").set(courseDescription);
+    // _refStudentClass.child("courseVideo").set(courseVideo);
+    // _refStudentClass.child("teachersNote").set(teachersNote).then(() => {
+    //   window.location = "dashboard.html";
+    // });
+
+    firebase.firestore().collection("UserData").doc(classCreator).collection("Classes").doc(code).set({
+            "Code": code,
+            "class-name": className,
+            "Course": course,
+            "teacher": teacher,
+            "classImg": classImg,
+            "courseDescription": courseDescription,
+            "courseVideo": courseVideo,
+            "teachersNote": teachersNote,
+
+     });
+
+     firebase.firestore().collection("Classes").doc(code).set({
+            "Code": code,
+            "class-name": className,
+            "Course": course,
+            "teacher": teacher,
+            "classImg": classImg,
+            "courseDescription": courseDescription,
+            "courseVideo": courseVideo,
+            "teachersNote": teachersNote,
+
+     });
+
+
+
+
+
+
+  }
