@@ -27,6 +27,8 @@ function getProfileInfo() {
 
   var outputPic = ``;
 
+  console.log("PIC:" + pic);
+
   if(pic != null && pic != undefined && pic != ""){
       outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
   } else {
