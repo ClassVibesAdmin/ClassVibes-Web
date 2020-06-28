@@ -1216,6 +1216,7 @@ function loginWithEmailTeacher() {
 
                 var accountType = doc.data()['Account Type'];
 
+
                 if (doc.exists) {
 
 
