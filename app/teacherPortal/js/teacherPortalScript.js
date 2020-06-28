@@ -1,7 +1,7 @@
 function getProfileInfo() {
     var name = localStorage.getItem("name");
     var pic = localStorage.getItem("photo");
-    
+
     let outputPic = "";
     outputPic += `
    <img class="img-profile rounded-circle" src="${pic}">
@@ -215,3 +215,98 @@ function writeAnnouncement() {
 
 
   }
+
+  function getMeetings() {
+    var name = localStorage.getItem("email");
+
+    //var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
+
+    firebase.firestore().collection('UserData').doc(name).collection("Meetings").get().then(function (doc) {
+
+        doc.forEach(snapshot => {
+
+            var data1 = snapshot.data();
+            var classForMeeting = data1["Course"]
+
+            var date = data1["Date"];
+            var title = data1["Title"];
+
+            output = `
+            <div class="col-xl-5 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+                    <div class="h6 mb-0 font-weight-bold text-blue-800">${date}</div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas ffas fa-headset fa-2x text-gray-300"></i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        `;
+
+            $(output).appendTo("#meetingsList");
+
+
+
+        });
+
+    })
+
+    /*
+    _ref.once('value').then(function (snapshot) {
+
+            console.log("MEETINGS:" + snapshot.val());
+
+            if (snapshot.val() != null) {
+                snapshot.forEach((child) => {
+                    var classForMeeting = child.child("Course").val();
+                    var date = child.child("Date").val();
+                    var title = child.child("Title").val();
+
+                    console.log(child.val());
+
+                    output = `
+<div class="col-xl-5 col-md-6 mb-4">
+<div class="card border-left-primary shadow h-100 py-2">
+  <div class="card-body">
+    <div class="row no-gutters align-items-center">
+      <div class="col mr-2">
+        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
+        <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
+        <div class="h6 mb-0 font-weight-bold text-blue-800">${date}</div>
+      </div>
+      <div class="col-auto">
+        <i class="fas ffas fa-headset fa-2x text-gray-300"></i>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+`;
+
+                    $(output).appendTo("#meetingsList");
+
+
+                });
+
+            } else {
+                console.log("NONE");
+                outputError = `
+<h1>No Scheduled Meetings</h1>
+`;
+
+                $(outputError).appendTo("#meetingsList");
+            }
+
+        });
+    */
+
+
+        
+    }
