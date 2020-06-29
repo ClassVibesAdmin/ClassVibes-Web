@@ -298,7 +298,7 @@ function facebookLoginTeacher() {
                     localStorage.setItem("email", email);
                     localStorage.setItem("name", name3);
 
-                    window.location = "/dashboard.html";
+                    window.location = "../teacherPortal/dashboard.html";
                 } else {
 
                     errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -515,7 +515,7 @@ googleSignInTeacher = () => {
 
                         console.log("Email:" + email + ":" + emailDisplay);
 
-                        window.location = "../../dashboard.html";
+                        window.location = "../teacherPortal/dashboard.html";
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -661,53 +661,6 @@ googleSignInDistrict = () => {
 
 const btnLogout = document.getElementById("btnLogout");
 
-
-function checkServerStatus(signInType) {
-
-    firebase.firestore().collection("Application Management").doc("ServerManagement").get().then((documentSnapshot) => {
-
-        var status = documentSnapshot.data().serversAreUp;
-        console.log(documentSnapshot.data());
-
-        console.log('Status: ' + status);
-
-        if (status == null || status == undefined) {
-
-            document.getElementById('serverErrorMessage').style.display = "initial";
-            document.getElementById('signup-section').style.display = "none";
-
-
-        } else {
-            if (status == false) {
-                document.getElementById('serverErrorMessage').style.display = "initial";
-                document.getElementById('signup-section').style.display = "none";
-
-            } else {
-                if (signInType == "GoogleSignIn") {
-                    googleSignIn()
-                } else if (signInType == "FacebookLogin") {
-                    facebookLogin();
-                } else if (signInType == "GoogleSignInStudent") {
-                    googleSignInStudent();
-                }
-            }
-        }
-
-    });
-
-    var serverMessage = document.getElementById("serverStatusMessage");
-
-    var errorMessage = `
-    <img src = "img/undraw_server_down_s4lk.svg" class = "img-fluid" style = "margin-bottom: 50px; width:100px">
-
-    <div class="alert alert-warning" role="alert" id = "serverStatusMessage"
-    style="margin-top: 20px; width: 600px; display: initial;">
-    <strong><i class="fas fa-cloud"></i>  Cloud Error </strong>Servers are experiencing downtime
-</div>
-
-    `;
-}
-
 //FIRESTORE MIGRATED
 function emailSignUp(type) {
 
@@ -799,6 +752,13 @@ function emailSignUp(type) {
                             "Account Type": "Student",
                             "Account Status": "Deactivated",
                         });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                     }
 
                     else if (type == 'teacher') {
@@ -809,6 +769,13 @@ function emailSignUp(type) {
                             "Account Type": "Teacher",
                             "Account Status": "Deactivated",
                         });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                     }
 
                     else if (type == 'district') {
@@ -818,6 +785,14 @@ function emailSignUp(type) {
                             "username": email,
                             "Account Type": "District",
                             "Account Status": "Deactivated",
+                        });
+
+                        const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment
                         });
                     }
 
@@ -874,6 +849,13 @@ facebookSignUp = (type) => {
                         "Account Type": "Student",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'teacher') {
@@ -884,6 +866,13 @@ facebookSignUp = (type) => {
                         "Account Type": "Teacher",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'district') {
@@ -895,9 +884,17 @@ facebookSignUp = (type) => {
                         "Account Type": "District",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment,
+                        });
                 }
 
-                console.log('signup success google');
+                console.log('signup success facebook');
 
                 setTimeout(() => {
                     var signUpPage = document.getElementById('signup-page-full');
@@ -970,6 +967,13 @@ googleSignUp = (type) => {
                         "Account Type": "Student",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'teacher') {
@@ -980,6 +984,13 @@ googleSignUp = (type) => {
                         "Account Type": "Teacher",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                        });
                 }
 
                 else if (type == 'district') {
@@ -991,6 +1002,14 @@ googleSignUp = (type) => {
                         "Account Type": "District",
                         "Account Status": "Deactivated",
                     });
+
+                    const increment = firebase.firestore.FieldValue.increment(1);
+
+                        firebase.firestore().collection("Application Management").doc("Statistics").update({
+                            "webUsers": increment,
+                            "totalUsers": increment,
+                            "totalDistricts": increment,
+                        });
                 }
 
                 console.log('signup success google');
@@ -1087,11 +1106,17 @@ function loginWithEmailStudent() {
                 if (accountType != null) {
                     if (accountType == "Student") {
 
-                        window.localStorage.setItem("email", email.toString());
+                        getProfileName(email);
 
-                        console.log(email);
+                        setTimeout(function(){
+                            window.localStorage.setItem("email", email.toString());
 
-                        window.location = "../studentPortal/studentDashboard.html";
+                            console.log(email);
+    
+                            window.location = "../studentPortal/studentDashboard.html";
+                       }, 500); 
+
+
 
                     } else {
 
@@ -1197,15 +1222,22 @@ function loginWithEmailTeacher() {
 
                 var accountType = doc.data()['Account Type'];
 
+
                 if (doc.exists) {
 
 
                     if (accountType != null) {
                         if (accountType == "Teacher") {
+                            getProfileName(email);
                             //localStorage.setItem("photo", profilePic);
-                            localStorage.setItem("email", email);
-                            //localStorage.setItem("name", name3);
-                            window.location = "../teacherPortal/dashboard.html";
+
+                            setTimeout(function(){
+                                localStorage.setItem("email", email);
+                                //localStorage.setItem("name", name3);
+                                window.location = "../../teacherPortal/dashboard.html";
+                           }, 500); 
+
+
                         } else {
 
                             errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1316,10 +1348,15 @@ function loginWithEmailDistrict() {
 
                 if (accountType != null) {
                     if (accountType == "District") {
+                        getProfileName(email);
 
-                        localStorage.setItem("email", email);
+                        setTimeout(() => { 
+                            localStorage.setItem("email", email);
 
-                        window.location = "districtDashboard.html";
+                            window.location = "districtDashboard.html";
+                         }, 500)
+
+
                     } else {
 
                         errorHTML = `<div class="alert alert-danger" role="alert" 
@@ -1348,5 +1385,15 @@ function loginWithEmailDistrict() {
         }
     });
 
+}
+
+function getProfileName(email){
+    firebase.firestore().collection("UserData").doc(email).get().then(function (doc) {
+        var data = doc.data();
+
+        var name = data["display-name"];
+
+        localStorage.setItem("name", name);
+    });
 }
 
