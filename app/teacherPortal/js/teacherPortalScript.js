@@ -214,8 +214,8 @@ function writeAnnouncement() {
   firebase.firestore().collection("Classes").doc(numberClass).collection("Announcements").doc().set({
     "Title": messageTitle,
     "Message": messageText,
-    "Date" : formattedDate,
-    "Timestamp" : dateNow,
+    "Date" : formattedDate.toString(),
+    "Timestamp" : dateNow.toString(),
   });
 
 
