@@ -4,12 +4,15 @@ function getTeacherAccountStatus(){
   firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
     var data = doc.data();
 
-    var in_a_district = data['District Code'];
+    var in_a_district = data['District Code'] ? null: null;
+    console.log("DISTRICT: " + in_a_district);
 
+    //IN A DISTRICT
     if(in_a_district != null &&  in_a_district != undefined){
       firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
         var data = doc.data()["status"];
 
+        //DISTRICT IS NOT ACTIVATED
         if(data != "Activated"){
 
           var activateDistrictHTML = `
@@ -24,23 +27,37 @@ function getTeacherAccountStatus(){
 
           $('#main-body-page-teacher').html(activateDistrictHTML);
         } else {
-          getClassData();
-          getProfileInfo();
-          getChartData();
+         // getClassData();
+         // getProfileInfo();
+         // getChartData();
     
         }
 
       });
     } else {
+      //NOT IN A DISTRICT
+
       var accountStatus = data['Account Status'];
 
+      //ACCOUNT ACTIVE
       if(accountStatus == "Activated"){
-        getClassData();
-        getProfileInfo();
-        getChartData();
-  
-      } else {
+        //getClassData();
+        //getProfileInfo();
+       // getChartData();
         
+       //ACCOUNT NOT ACTIVE
+      } else {
+        var activateDistrictHTML = `
+        <center style="margin-top: 23%;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
+
+        <h2 style="margin-top: 2%;">District Not Active</h2>
+
+        <p>If this is an error, contact you district admin for more info.</p>
+      </center>
+        `;
+
+        $('#main-body-page-teacher').html(activateDistrictHTML);
       }
     }
 
@@ -497,27 +514,6 @@ function createClass() {
     "teachersNote": teachersNote,
 
   });
-
-
-
-
-
-
-}
-
-$(document).ready(function () {
-  initializeFirebase();
-
-  getServerStatus();
-  getLiveSeverAlerts();
-  checkUserAuthStatus();
-
-
-  getProfileInfo();
-  getClassData();
-
-  getStudentData();
-});
 
 
 function getClassData() {
