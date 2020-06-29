@@ -482,11 +482,14 @@
             var meetingTitle = document.getElementById("title").value;
             var meetingDate = document.getElementById("date").value;
             // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
+            var dateNow = new Date();
+            var formattedDate = dateNow.toLacaleString();
 
             firebase.firestore().collection('UserData').doc(emailStudent).collection("Meetings").doc().set({
                 "Title": meetingTitle,
                 "Date": meetingDate,
                 "Course": course,
+                "Timestamp": dateNow.toString(),
             });
 
 
@@ -940,7 +943,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-<div class=""></div>    <!-- Logout Modal-->
+    <div class=""></div> <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
