@@ -1,10 +1,10 @@
-function getTeacherAccountStatus(){
+function getTeacherAccountStatus(pageType){
   var email = localStorage.getItem('email');
 
   firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
     var data = doc.data();
 
-    var in_a_district = data['District Code'] ? null: null;
+    var in_a_district = data['District Code'] != undefined? data['District Code'] : null;
     console.log("DISTRICT: " + in_a_district);
 
     //IN A DISTRICT
@@ -27,40 +27,159 @@ function getTeacherAccountStatus(){
 
           $('#main-body-page-teacher').html(activateDistrictHTML);
         } else {
-         // getClassData();
-         // getProfileInfo();
-         // getChartData();
+          if(pageType == 'meetings-page'){
+            getClassData();
+            getProfileInfo();
+            getMeetings();
+        } else if(pageType == ""){
+
+        } else {
+          getClassData();
+          getProfileInfo();
+         getChartData();
+        }
     
         }
 
       });
-    } else {
-      //NOT IN A DISTRICT
+    } 
+    //NOT IN A DISTRICT
+    else {
+      
 
       var accountStatus = data['Account Status'];
 
       //ACCOUNT ACTIVE
       if(accountStatus == "Activated"){
-        //getClassData();
-        //getProfileInfo();
-       // getChartData();
+
+        if(pageType == 'meetings-page'){
+          getClassData();
+          getProfileInfo();
+          getMeetings();
+      } else if(pageType == ""){
+
+      } else {
+        getClassData();
+        getProfileInfo();
+       getChartData();
+      }
+        
         
        //ACCOUNT NOT ACTIVE
       } else {
         var activateDistrictHTML = `
-        <center style="margin-top: 23%;">
+        
+        <center style="margin-top: 20%;">
         <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
 
-        <h2 style="margin-top: 2%;">District Not Active</h2>
+        <h2 style="margin-top: 2%;">Account Not Activated</h2>
 
-        <p>If this is an error, contact you district admin for more info.</p>
+        <p>If you are a solo teacher please contact <a href="mailto:sales@classvibes.net">sales@classvibes.net</a>
+          <br> to activate your account.</p>
+
+        <h5>Or</h5>
+
+          <div id = "district-join-input">
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-6 my-4 my-md-0 mw-100 navbar-search">
+              <div class="input-group">
+                  <input type="text" class="form-control bg-light border-3 small" placeholder="District code.." aria-label="Search" aria-describedby="basic-addon2" id="searchInputDistrict">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="button" onclick="checkIfDistrictCodeExists()">
+                          Join
+                      </button>
+                  </div>
+              </div>
+          </form>
+          </div>
+
+
+        <div id = "school-join-input" style="display: none;">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-6 my-4 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-3 small" placeholder="School Code..." aria-label="Search" aria-describedby="basic-addon2" id="searchInputSchool">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" onclick="checkIfSchoolCodeExists()">
+                        Join
+                    </button>
+                </div>
+            </div>
+        </form>
+        </div>
+
+      <div id = "joinSchool-district-err">
+
+      </div>
+
       </center>
-        `;
+       `;
 
         $('#main-body-page-teacher').html(activateDistrictHTML);
       }
     }
 
+  });
+}
+
+
+function checkIfDistrictCodeExists(){
+  var code = document.getElementById('searchInputDistrict').value;
+
+  firebase.firestore().collection('Districts').doc(code).get().then(function (doc) {
+    var data = doc.data();
+
+    if(data != null && data != undefined){
+
+      $('#joinSchool-district-err').html('');
+
+      document.getElementById('school-join-input').style.display = "initial";
+      document.getElementById('district-join-input').style.display = "none";
+
+    } else {
+
+      var errHTML = `<p style = 'color: red; margin-top: 5px'>District doesn't exist</p>`;
+
+      $('#joinSchool-district-err').html(errHTML);
+    }
+  });
+}
+
+function checkIfSchoolCodeExists(){
+  var district_code = document.getElementById('searchInputDistrict').value;
+  var school_code = document.getElementById('searchInputSchool').value;
+
+  var teacher_email = localStorage.getItem('email');
+  var teacher_name = localStorage.getItem('name');
+
+  firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).get().then(function (doc) {
+    var data = doc.data();
+
+    if(data != null && data != undefined){
+
+      $('#joinSchool-district-err').html('');
+
+      firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).collection('Teachers').doc(teacher_email).set({
+        "Teacher Name": teacher_name,
+        "Teacher Email": teacher_email,
+      });
+
+      firebase.firestore().collection('UserData').doc(teacher_email).update({
+        "District Code": district_code,
+      })
+
+      const increment = firebase.firestore.FieldValue.increment(1);
+
+      firebase.firestore().collection('Districts').doc(district_code).update({
+        "Teacher Count": increment,
+      }).then(() => {
+        window.location.reload();
+      });
+
+    } else {
+
+      var errHTML = `<p style = 'color: red; margin-top: 5px'>School doesn't exist</p>`;
+
+      $('#joinSchool-district-err').html(errHTML);
+    }
   });
 }
 
@@ -1020,6 +1139,7 @@ function showAll() {
   //document.getElementById('studentsListHelp').style.display = "none";
   //document.getElementById('studentsListFrustrated').style.display = "none";
   window.location.reload();
+}
 }
 
 
