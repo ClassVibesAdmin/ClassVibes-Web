@@ -243,7 +243,7 @@
                 <td>Some Comment</td>
                 <td><div id = "face"></div></td>
                 <td>2011/04/25</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${studentEmail}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
                 `;
 
                         happy_face_Column = `
@@ -253,7 +253,7 @@
                 <td>Some Comment</td>
                 <td><h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1></td>
                 <td>2011/04/25</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${studentEmail}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
                 `;
 
                         meh_colum_face = `
@@ -263,7 +263,7 @@
                 <td>Some Comment</td>
                 <td><h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1></td>
                 <td>2011/04/25</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${studentEmail}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
                 `;
 
                         frustrated_column_face = `
@@ -273,7 +273,7 @@
                 <td>Some Comment</td>
                 <td><h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1></td>
                 <td>2011/04/25</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${studentEmail}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
 
                 
 
@@ -283,11 +283,11 @@
                 `;
 
                         outputModel = `
-                <div class="modal fade" id="exampleModal${studentEmail}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel${i}" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Schedual Meeting</h5>
+                        <h5 class="modal-title" id="exampleModalLabel${i}">Schedual Meeting</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -317,7 +317,7 @@
                 </div>
                 `
 
-
+                        $(outputModel).appendTo("#outputModel")
                         $(descriptionOutput2).appendTo("#studentTable")
 
                         if (studentReaction == "good") {
@@ -344,10 +344,6 @@
                             $(happy_face_Column).appendTo("#studentsListGreat");
 
                         }
-
-                        $(outputModel).appendTo("#outputModel")
-
-
 
                     }
                 }
@@ -469,15 +465,15 @@
         */
 
 
-        // $('#exampleModal').on('show.bs.modal', function (event) {
-        //     var button = $(event.relatedTarget) // Button that triggered the modal
-        //     var recipient = button.data('whatever') // Extract info from data-* attributes
-        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //     var modal = $(this)
-        //     //modal.find('.modal-title').text('New message to ' + recipient)
-        //     //modal.find('.modal-body input').val(recipient)
-        // })
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            //modal.find('.modal-title').text('New message to ' + recipient)
+            //modal.find('.modal-body input').val(recipient)
+        })
 
         function schedualMeeting(emailStudent, course) {
             console.log("schedual meeting")
