@@ -1,3 +1,26 @@
+function getTeacherAccountStatus(){
+  var email = localStorage.getItem('email');
+
+  firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
+    var data = doc.data();
+
+    var in_a_district = data['District Code'];
+
+    if(in_a_district != null &&  in_a_district != undefined){
+
+    } else {
+      var accountStatus = data['Account Status'];
+
+      if(accountStatus == "Activated"){
+
+      } else {
+        
+      }
+    }
+
+  });
+}
+
 function getProfileInfo() {
   var name = localStorage.getItem("name");
   var pic = localStorage.getItem("photo");

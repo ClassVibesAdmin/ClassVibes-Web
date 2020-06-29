@@ -8,10 +8,10 @@
     background-color: rgb(131, 158, 241);
     border: none;
     height: 40px;
-    width: 90px;
     color: white;
     font-weight: 700;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .join-class-btn:hover
@@ -19,7 +19,6 @@
     background-color: royalblue;
     border: none;
     height: 40px;
-    width: 90px;
     color: white;
     font-weight: 700;
     border-radius: 5px;

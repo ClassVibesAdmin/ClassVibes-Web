@@ -408,6 +408,7 @@ function checkIfClassCodeExists(addType) {
       } else {
         exists = false;
       }
+      
 
       console.log("EXISTS:" + exists);
 
@@ -484,6 +485,7 @@ function checkIfClassCodeExists(addType) {
   // });
 
 }
+
 
 //Firestore migrated fully
 function addClassToStudentData(classCode) {
