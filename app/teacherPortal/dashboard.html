@@ -50,9 +50,8 @@
       getLiveSeverAlerts();
       checkUserAuthStatus();
 
-      getClassData();
-      getProfileInfo();
-      getChartData();
+      getTeacherAccountStatus();
+
 
     });
   </script>
@@ -215,7 +214,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" id = "main-body-page-teacher" style="display: none;">
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -407,6 +406,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="container-fluid">
+          
         </div>
       </div>
 

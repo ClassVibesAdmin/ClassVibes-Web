@@ -7,12 +7,31 @@ function getTeacherAccountStatus(){
     var in_a_district = data['District Code'];
 
     if(in_a_district != null &&  in_a_district != undefined){
+      firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
+        var data = doc.data()["status"];
 
+        if(data != "Activated"){
+          var bodyPage = document.getElementById('main-body-page-teacher');
+
+          var activateDistrictHTML = `
+          
+          `;
+        } else {
+          getClassData();
+          getProfileInfo();
+          getChartData();
+    
+        }
+
+      });
     } else {
       var accountStatus = data['Account Status'];
 
       if(accountStatus == "Activated"){
-
+        getClassData();
+        getProfileInfo();
+        getChartData();
+  
       } else {
         
       }
