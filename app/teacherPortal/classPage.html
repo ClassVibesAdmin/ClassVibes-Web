@@ -483,7 +483,7 @@
             var meetingDate = document.getElementById("date").value;
             // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
             var dateNow = new Date();
-            var formattedDate = dateNow.toLacaleString();
+            var formattedDate = dateNow.toLocaleString();
 
             firebase.firestore().collection('UserData').doc(emailStudent).collection("Meetings").doc().set({
                 "Title": meetingTitle,
