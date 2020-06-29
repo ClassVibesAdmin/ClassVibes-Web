@@ -202,7 +202,7 @@ function writeAnnouncement() {
   var messageTitle = document.getElementById("messageTitle").value;
   var messageText = document.getElementById("messageText").value;
   var dateNow = new Date();
-  var formattedDate = dateNow.toLacaleString();
+  var formattedDate = dateNow.toLocaleString();
   /*
   var _refWriteAnnouncement = firebase.database().ref().child("Classes").child(numberClass).child("Announcements").push();
  
