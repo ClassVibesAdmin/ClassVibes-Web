@@ -11,11 +11,18 @@ function getTeacherAccountStatus(){
         var data = doc.data()["status"];
 
         if(data != "Activated"){
-          var bodyPage = document.getElementById('main-body-page-teacher');
 
           var activateDistrictHTML = `
-          
+          <center style="margin-top: 23%;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
+
+          <h2 style="margin-top: 2%;">District Not Active</h2>
+
+          <p>If this is an error, contact you district admin for more info.</p>
+        </center>
           `;
+
+          $('#main-body-page-teacher').html(activateDistrictHTML);
         } else {
           getClassData();
           getProfileInfo();
