@@ -269,17 +269,25 @@
                         </div>
 
 
-                        <div class="Col">
+                        <div class="col" style="margin-top: 5%;">
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-3 text-gray-800">Join Class</h1>
 
-                            <div class="row">
-                                <div class="form-group mx-sm-3 mb-2" style="width: 200px;">
-                                    <input type="tel" class="form-control" id="inputClassCode" placeholder="Class Code"
-                                        maxlength='4'>
+                            <center>
+                                <h1 class="h3 mb-3 text-gray-800">Join Class</h1>
+                            </center>
+                            
+                            <div class="d-flex justify-content-center">
+
+                                <div class="row">
+                                    <div class="form-group mx-sm-3 mb-2" style="width: 200px;">
+                                        <input type="tel" class="form-control" id="inputClassCode" placeholder="Class Code"
+                                            maxlength='4'>
+                                    </div>
+                                    <button onclick="checkIfClassCodeExists()" class="join-class-btn">Join Class</button>
                                 </div>
-                                <button onclick="checkIfClassCodeExists()" class="join-class-btn">Join Class</button>
+                                
                             </div>
+
 
                             <div id="errorMessage">
 
