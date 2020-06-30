@@ -16,6 +16,8 @@ function initializeFirebase(){
 function validateAccountState(page) {
     var email = localStorage.getItem('email');
 
+    console.log("Working");
+
     //OLD CODE
     // var _ref = firebase.database().ref().child("UserData").child(email).child('Account Status');
 
@@ -59,6 +61,9 @@ function validateAccountState(page) {
         document.getElementById('deactivatedAccountSection').style.display = "initial";
         document.getElementById('createDistrictOptions').style.display = "none";
 
+        
+    console.log("Deactivated");
+
         return "Deactivated";
 
     } else if (accountStatus == "Activated") {
@@ -73,6 +78,9 @@ function validateAccountState(page) {
             getDistrictStatusCreatePage();
 
             getDistrictID();
+
+            
+            console.log("Create page");
         }
 
         if (page == "schoolsPage") {
