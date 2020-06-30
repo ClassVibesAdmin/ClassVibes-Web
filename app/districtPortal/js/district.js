@@ -549,6 +549,8 @@ function getDistrictData(districtCode) {
 
     var districtName = "";
 
+    console.log(districtCode);
+
     var code = districtCode.toString()
 
 
