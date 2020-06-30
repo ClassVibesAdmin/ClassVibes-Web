@@ -363,7 +363,7 @@ function createDistrict() {
 
                 console.log(newCode);
 
-                var _newRef = firebase.firestore().collection('Districts').doc(newCode);
+                var _newRef = firebase.firestore().collection('Districts').doc(newCode.toString());
 
                 var newCode = generateNew();
 
@@ -374,7 +374,7 @@ function createDistrict() {
 
             }
         }).then(() => {
-            firebase.firestore().collection('Districts').doc(code).set({
+            firebase.firestore().collection('Districts').doc(code.toString()).set({
                 "Name": name,
                 "Email": email,
                 "Website": website,
@@ -385,7 +385,7 @@ function createDistrict() {
                 "Code": code
             });
 
-            firebase.firestore().collection('UserData').doc(userEmail).collection("Districts").doc(code).set({
+            firebase.firestore().collection('UserData').doc(userEmail).collection("Districts").doc(code.toString()).set({
                 "Name": name,
                 "Code": code
             });
