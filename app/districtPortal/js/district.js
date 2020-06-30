@@ -216,6 +216,33 @@ function getSchoolStatusManageSchoolsScreen() {
 function getDistrictID() {
     var email = localStorage.getItem('email');
 
+    firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snapshot => {
+
+        snapshot.forEach(doc => {
+
+            var data = doc.data();
+            if (data == null) {
+                return null;
+            } else {
+                var key = 0;
+    
+
+                key = data['Code'];
+    
+                console.log("district id:" + key);
+    
+                localStorage.setItem("district id", key);
+    
+                return key;
+    
+            }
+        })
+
+
+    })
+
+    /*
+
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
@@ -238,6 +265,7 @@ function getDistrictID() {
 
         }
     });
+    */
 }
 
 function getDistrictStatusCreatePage() {
