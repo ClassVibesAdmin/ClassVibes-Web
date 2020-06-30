@@ -129,32 +129,32 @@ function getDistrictStatus() {
     // });
 
     //NEW CODE
-    var districts = firebase.firestore().collection("UserData").document(email).collection("Districts").get().then((querySnap) => {
-        querySnap.data()['Account Status'];
+    firebase.firestore().collection("UserData").document(email).collection("Districts").get().then((querySnap) => {
 
+        var index = 0;
 
-        if (districts == null) {
-            document.getElementById('createDistrictOptions').style.display = "initial";
-            document.getElementById('districtInfo-stats').style.display = "none";
-        } else {
+        querySnap.forEach(function (doc) {
+            index += 1;
+
+            var districts = doc.data()['Account Status'];
+
             document.getElementById('districtInfo-stats').style.display = "initial";
             document.getElementById('createDistrictOptions').style.display = "none";
 
             var key = 0;
 
-            // snapshot.forEach((child) => {
-            //     key = child.child('Code').val();
-            // });
+            key = doc.data()['Code'];
 
-            querySnap.forEach(function (doc) {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                key = doc.data()['Code'];
-            });
 
             getDistrictData(key);
 
+        });
+
+        if(index == 0){
+            document.getElementById('createDistrictOptions').style.display = "initial";
+             document.getElementById('districtInfo-stats').style.display = "none";
         }
+
     });
 }
 
