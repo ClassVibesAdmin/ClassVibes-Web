@@ -263,7 +263,7 @@ function getDistrictID(page) {
             if(districtID == null || districtID == undefined || districtID == "null"){
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
-                getDistrictStatus();
+                validateDistrictStatus('dashboard');
             }
         }
 
