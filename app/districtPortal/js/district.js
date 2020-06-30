@@ -53,10 +53,12 @@ function validateAccountState(page) {
     // });
 
     //NEW CODE
-    var accountStatus = firebase.firestore().collection("UserData").doc(email).get().then((docSnap) => {
-        docSnap.data()['Account Status'];
-    });
+    firebase.firestore().collection("UserData").doc(email).get().then((docSnap) => {
+        var accountStatus = docSnap.data()['Account Status'];
+        
+        console.log("Working");
 
+        
     if (accountStatus == "Deactivated") {
         document.getElementById('deactivatedAccountSection').style.display = "initial";
         document.getElementById('createDistrictOptions').style.display = "none";
@@ -91,6 +93,8 @@ function validateAccountState(page) {
 
         return "Activated";
     }
+    });
+
 
 }
 
