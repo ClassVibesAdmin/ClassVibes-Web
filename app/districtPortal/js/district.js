@@ -613,10 +613,10 @@ function getDistrictData(districtCode) {
         //GET PLAN DETAILS
         var planDetailsValue = data["planDetails"];
 
-        var planActivated = planDetailsValue["Plan Activated"];
-        var planExpires = planDetailsValue["Plan Expires"];
-        var planName = planDetailsValue["Plan Name"];
-        var planStatus = planDetailsValue["Plan Status"];
+        var planActivated = planDetailsValue["planActivated"];
+        var planExpires = planDetailsValue["planExpire"];
+        var planName = planDetailsValue["planName"];
+        var planStatus = planDetailsValue["planStatus"];
 
         if (planStatus == null || planStatus == undefined || planStatus == "Deactivated") {
             $('#planStatus').html(`<span class="badge badge-danger" >Inactive</span>`);
