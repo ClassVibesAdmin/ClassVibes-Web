@@ -259,6 +259,7 @@ function getDistrictID(page) {
             var districtID = localStorage.getItem('district id')
 
             if(districtID == null || districtID == undefined){
+                console.log("DISTRICT DOESN EXIST");
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
                 getDistrictStatus();
