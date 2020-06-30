@@ -541,7 +541,7 @@ function createDistrict() {
 }
 
 //Firestore Migrated Fully
-function getDistrictData(code) {
+function getDistrictData(districtCode) {
     var students = 0;
     var teachers = 0;
     var schools = 0;
@@ -549,7 +549,7 @@ function getDistrictData(code) {
 
     var districtName = "";
 
-    var code = this.code.toString()
+    var code = districtCode.toString()
 
 
 
