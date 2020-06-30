@@ -272,6 +272,8 @@ function getDistrictID() {
 function getDistrictStatusCreatePage() {
     var email = localStorage.getItem('email');
 
+    console.log("Working to get");
+
     firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snap => {
 
         var index = 0;
