@@ -311,6 +311,7 @@ function getDistrictStatusCreatePage() {
     */
 }
 
+//Firestore migrated fully
 function createDistrict() {
 
     var userEmail = localStorage.getItem('email');
@@ -454,6 +455,7 @@ function createDistrict() {
     }
 }
 
+//Firestore Migrated Fully
 function getDistrictData(code) {
     var students = 0;
     var teachers = 0;
