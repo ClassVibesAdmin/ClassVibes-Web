@@ -549,7 +549,7 @@ function getDistrictData(code) {
 
     var districtName = "";
 
-    var code = code.toString()
+    var code = this.code.toString()
 
 
 
