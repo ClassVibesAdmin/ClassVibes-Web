@@ -606,7 +606,7 @@ function getDistrictData(code) {
 
 
         //GET PLAN DETAILS
-        var planDetailsValue = data["Plan Details"];
+        var planDetailsValue = data["planDetails"];
 
         var planActivated = planDetailsValue["Plan Activated"];
         var planExpires = planDetailsValue["Plan Expires"];
