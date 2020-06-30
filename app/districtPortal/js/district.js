@@ -123,7 +123,7 @@ function getDistrictStatus(page) {
                     <i class="fas fa-exclamation-triangle fa-4x"></i>
                     <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
                             href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for
-                        activating your account. <br> Your district id is: <h3>${districtID}</h3></p>
+                        activating your account. <br> <h4> Your district id is: </h4><h3>${districtID}</h3></p>
                 </center>
             </section>
                 `;
@@ -139,7 +139,7 @@ function getDistrictStatus(page) {
                     <i class="fas fa-exclamation-triangle fa-4x"></i>
                     <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
                             href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for
-                        activating your account. <br> Your district id is: <h3>${districtID}</h3></p>
+                        activating your account. <br> <h4>Your district id is:</h4> <h3>${districtID}</h3></p>
                 </center>
             </section>
                 `;
