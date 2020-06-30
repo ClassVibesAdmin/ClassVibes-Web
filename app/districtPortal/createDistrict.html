@@ -43,7 +43,7 @@
     <script>
     $( document ).ready(function() {
         initializeFirebase();
-        validateAccountState('createPage')
+        //validateAccountState('createPage')
     });
   </script>
 
@@ -248,6 +248,14 @@
                     <span class="text">Create District</span>
                   </a>
 
+            </section>
+
+            <section id = "districtCreateSuccess" style="display: none;">
+              <center style="margin-top: 20%;">
+                <i class="far fa-check-circle" style="font-size: 80px; color: green; margin-bottom: 1%;"></i>
+                <h1>District Created</h1>
+                <p>You have successfully created your district, you can now add <br> schools and start adding teachers to your district. Need help, go to <a href="">docs</a>.</p>
+              </center>
             </section>
 
          

@@ -388,6 +388,11 @@ function createDistrict() {
             firebase.firestore().collection('UserData').doc(userEmail).collection("Districts").doc(code.toString()).set({
                 "Name": name,
                 "Code": code
+            }).then(() => {
+                document.getElementById('districtCreateSuccess').style.display = 'initial';
+                document.getElementById('createDistrict-page').style.display = 'none';
+
+
             });
 
         });
