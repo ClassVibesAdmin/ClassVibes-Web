@@ -461,6 +461,8 @@ function getDistrictData(code) {
 
     var districtName = "";
 
+    var code = code.toString()
+
     //District NAME GET
 
     firebase.firestore().collection('Districts').doc(code);
