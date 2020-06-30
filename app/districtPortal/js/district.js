@@ -243,19 +243,34 @@ function getDistrictID() {
 function getDistrictStatusCreatePage() {
     var email = localStorage.getItem('email');
 
+    firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snap => {
+        snap.forEach(doc => {
+            if (doc.data() == null) {
+                document.getElementById('createDistrict-page').style.display = "initial";
+                document.getElementById('quotaReached').style.display = "none";
+            } else {
+                document.getElementById('createDistrict-page').style.display = "none";
+                document.getElementById('quotaReached').style.display = "initial";
+            }
+        })
+    });
+
+    /*
+
     var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
 
     _ref.once('value').then(function (snapshot) {
         //console.log(snapshot.val());
+            if (snapshot.val() == null) {
+                document.getElementById('createDistrict-page').style.display = "initial";
+                document.getElementById('quotaReached').style.display = "none";
+            } else {
+                document.getElementById('createDistrict-page').style.display = "none";
+                document.getElementById('quotaReached').style.display = "initial";
+            }
 
-        if (snapshot.val() == null) {
-            document.getElementById('createDistrict-page').style.display = "initial";
-            document.getElementById('quotaReached').style.display = "none";
-        } else {
-            document.getElementById('createDistrict-page').style.display = "none";
-            document.getElementById('quotaReached').style.display = "initial";
-        }
     });
+    */
 }
 
 function createDistrict() {
