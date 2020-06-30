@@ -261,7 +261,7 @@ function getDistrictID(page) {
             if(districtID == null || districtID == undefined){
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
-
+                getDistrictStatus();
             }
             validateDistrictState('dashboard');
         }
