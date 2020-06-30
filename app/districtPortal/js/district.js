@@ -273,7 +273,8 @@ function getDistrictStatusCreatePage() {
 
     firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snap => {
         snap.forEach(doc => {
-            if (doc.data() == null) {
+            var data = doc.data()
+            if ( data == null) {
                 document.getElementById('createDistrict-page').style.display = "initial";
                 document.getElementById('quotaReached').style.display = "none";
             } else {
