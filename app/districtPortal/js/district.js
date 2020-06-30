@@ -382,7 +382,8 @@ function createDistrict() {
                 "Head Email": headEmail,
                 "Phone": phone,
                 "Social Media Links": socialMedia,
-                "Code": code
+                "Code": code,
+                "Status": "Deactivated"
             });
 
             firebase.firestore().collection('UserData').doc(userEmail).collection("Districts").doc(code.toString()).set({
