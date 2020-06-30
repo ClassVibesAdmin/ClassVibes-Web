@@ -104,44 +104,37 @@ function validateDistrictStatus(page) {
 //FIResTORE mIGRATED
              
 
-function getDistrictStatus() {
+function getDistrictStatus(page) {
     var email = localStorage.getItem('email');
 
     var districtID = localStorage.getItem('district id');
 
-    // var _ref = firebase.database().ref().child("UserData").child(email).child('Districts');
-
-    // _ref.once('value').then(function (snapshot) {
-
-    //     if (snapshot.val() == null) {
-    //         document.getElementById('createDistrictOptions').style.display = "initial";
-    //         document.getElementById('districtInfo-stats').style.display = "none";
-    //     } else {
-    //         document.getElementById('districtInfo-stats').style.display = "initial";
-    //         document.getElementById('createDistrictOptions').style.display = "none";
-
-    //         var key = 0;
-
-    //         snapshot.forEach((child) => {
-    //             key = child.child('Code').val();
-    //         });
-
-    //         getDistrictData(key);
-    //     }
-    // });
-
-    //NEW CODE
     firebase.firestore().collection("Districts").doc(districtID).get().then((querySnap) => {
 
         var data = querySnap.data();
 
         if(data['Status'] != "Activated"){
-            document.getElementById('deactivatedDistrictSection').style.display = "initial";
-            document.getElementById('districtInfo-stats').style.display = "none";
-        } else {
+            if(page == 'schoolpage'){
+                document.getElementById('createSchool-page').style.display = "none";
+                document.getElementById('deactivatedDistrictSection').style.display = "initial";
+            } 
+            else if(page == 'dashboard'){
+                document.getElementById('deactivatedDistrictSection').style.display = "initial";
+                document.getElementById('districtInfo-stats').style.display = "none";
+            }
             
-            document.getElementById('districtInfo-stats').style.display = "initial";
-            document.getElementById('deactivatedDistrictSection').style.display = "none";
+        } else {
+
+            if(page == 'schoolpage'){
+                getSchoolStatusManageSchoolsScreen();
+                document.getElementById('deactivatedDistrictSection').style.display = "none";
+            } 
+            else if(page == 'dashboard'){
+                document.getElementById('districtInfo-stats').style.display = "initial";
+                document.getElementById('deactivatedDistrictSection').style.display = "none";
+            }
+
+
         }
 
         /*
@@ -285,6 +278,23 @@ function getDistrictID(page) {
                 document.getElementById('quotaReached').style.display = "initial";
             }
         }
+
+        else if(page == 'schoolpage'){
+            var districtID = localStorage.getItem('district id')
+
+            console.log(districtID);
+
+            if(districtID == null || districtID == undefined || districtID == "null"){
+
+                document.getElementById('createDistrictOptions').style.display = "initial";
+
+            } else {
+
+                validateDistrictStatus('schoolpage');
+            }
+        }
+
+
     })
 
     /*

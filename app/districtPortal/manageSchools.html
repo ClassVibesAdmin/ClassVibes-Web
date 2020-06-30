@@ -59,7 +59,7 @@
     $( document ).ready(function() {
 
         
-        validateAccountState('schoolsPage');
+        validateAccountState('schoolpage');
 
         new ClipboardJS('.btn');
 
@@ -203,10 +203,10 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-            <section id = "deactivatedAccountSection" style="display: none;">
+            <section id = "deactivatedDistrictSection" style="display: none;">
                 <center style="margin-top: 22%;">
                     <i class="fas fa-exclamation-triangle fa-4x"></i>
-                    <p style="margin-top: 10px;"> Account Activation Required. Please <br> contact <a href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for activating your account.</p>
+                    <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for activating your account.</p>
              </center>
             </section>
 
@@ -270,6 +270,27 @@
                   </a>
 
             </section>
+
+            <section id="createDistrictOptions" style="display: none;">
+
+              <center style="margin-top: 15%;">
+
+                  <img src="img/undraw_no_data_qbuo.svg" width="10%">
+
+                  <h2>Nothing to see here</h2>
+
+                  <p>Create a district to see any data</p>
+
+                  <a href="#" class="btn btn-primary btn-icon-split btn-lg"
+                      onclick="window.location = 'createDistrict.html'">
+                      <span class="icon text-white-50">
+                          <i class="fas fa-folder-plus"></i>
+                      </span>
+                      <span class="text">Create District</span>
+                  </a>
+              </center>
+
+          </section>
 
             <section id = "schoolCreateSuccess" style="display: none;">
                 <center>
