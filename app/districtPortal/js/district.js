@@ -129,7 +129,7 @@ function getDistrictStatus() {
     // });
 
     //NEW CODE
-    firebase.firestore().collection("UserData").document(email).collection("Districts").get().then((querySnap) => {
+    firebase.firestore().collection("UserData").doc(email).collection("Districts").get().then((querySnap) => {
 
         var index = 0;
 
