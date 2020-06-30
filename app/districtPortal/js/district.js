@@ -157,7 +157,7 @@ function getDistrictStatus(page) {
             } 
             else if(page == 'dashboard'){
                 document.getElementById('districtInfo-stats').style.display = "initial";
-                getDistrictData();
+                getDistrictData(districtID);
                 //document.getElementById('deactivatedDistrictSection').style.display = "none";
             }
 
