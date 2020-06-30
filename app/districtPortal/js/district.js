@@ -463,19 +463,113 @@ function getDistrictData(code) {
 
     var code = code.toString()
 
-    //District NAME GET
 
-    firebase.firestore().collection('Districts').doc(code);
 
-    _districtNameRef.get().then(function (snapshot) {
-        var value = snapshot.data()['Name'];
+    var _districtRef = firebase.firestore().collection('Districts').doc(code);
 
-        if (value == null || value == undefined) {
+    _districtRef.get().then(function (snapshot) {
+
+        var data = snapshot.data();
+
+        //District NAME GET
+        var nameValue = data['Name'];
+
+        if (nameValue == null || nameValue == undefined) {
             $('#districtName').text("Loading...");
         } else {
-            districtName = snapshot.val();
-            $('#districtName').text(districtName);
+            $('#districtName').text(nameValue);
         }
+
+        //STUDENTS GET
+
+        var studentCountValue = data["Student Count"];
+
+        if (studentCountValue == null || studentCountValue == undefined) {
+            students = 0;
+        } else {
+
+        $('#studentsCount').text(studentCountValue);
+        }
+
+        //TEACHERS GET
+        var teacherValue = data['Teacher Count'];
+
+        if (teacherValue == null || teacherValue == undefined) {
+            teachers = 0;
+        } else {
+            $('#teachersCount').text(teacherValue);
+        }
+
+        //SCHOOLS GET
+        var schoolsValue = data["Schools Count"];
+
+        if (schoolsValue == null || schoolsValue == undefined) {
+            schools = 0;
+        } else {
+            $('#schoolsCount').text(schoolsValue);
+        }
+
+        //PENDING REQUESTS GET
+        var pendingRequestValue = data['Pending Requests'];
+
+        if (pendingRequestValue == null || pendingRequestValue == undefined || pendingRequestValue == 0) {
+            pendingTeacherRequests = 0;
+        } else {
+
+            $('#pendingRequests').html(`${pendingRequestValue} <span class="badge badge-warning" style="padding-top: -6px;">New</span>`);
+        }
+
+
+        //GET PLAN DETAILS
+        var planDetailsValue = data["Plan Details"];
+
+        var planActivated = planDetailsValue["Plan Activated"];
+        var planExpires = planDetailsValue["Plan Expires"];
+        var planName = planDetailsValue["Plan Name"];
+        var planStatus = planDetailsValue["Plan Status"];
+
+        if (planStatus == null || planStatus == undefined || planStatus == "Deactivated") {
+            $('#planStatus').html(`<span class="badge badge-danger" >Inactive</span>`);
+
+        } else {
+
+            $('#planStatus').html(`<span class="badge badge-success" >${planStatus}</span>`);
+            $('#activatedDate').text(planActivated);
+            $('#expireDate').text(planExpires);
+            $('#planName').html(`<span class="badge badge-warning" >${planName}</span>`);
+
+            function dateDiffInDays(date1, date2) {
+                // round to the nearest whole number
+                return Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
+            }
+            var totalDays = dateDiffInDays(new Date(planActivated), new Date(planExpires));
+
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = mm + '/' + dd + '/' + yyyy;
+
+
+            var untilExpireDays = dateDiffInDays(new Date(today), new Date(planExpires));
+
+            if (totalDays == 0) {
+                console.log("PLAN EXPIRED");
+            }
+
+            console.log(totalDays);
+
+
+            console.log("DAYS LEFT: " + untilExpireDays);
+
+            var percentage = Math.round((untilExpireDays / totalDays) * 100);
+
+            console.log(percentage + "%");
+
+            document.getElementById('percentageBar').style.width = percentage + "%";
+        }
+
     });
 
     /*
@@ -492,23 +586,7 @@ function getDistrictData(code) {
             $('#districtName').text(districtName);
         }
     });
-*/
-    //STUDENTS GET
-
-    firebase.firestore().collection('Districts').doc(code);
-
-    _studentRef.get().then(function (snapshot) {
-        var value = snapshot.data()["Student Count"];
-
-        if (value == null || value == undefined) {
-            students = 0;
-            _studentRef.set(students);
-        } else {
-            students = snapshot.val();
-
-            $('#studentsCount').text(students);
-        }
-    });
+    */
 
     /*
 
@@ -527,7 +605,7 @@ function getDistrictData(code) {
         }
     });
 */
-    //TEACHERS GET
+/*
 
     var _teacherRef = firebase.database().ref().child('Districts').child(code).child("Teacher Count");
 
@@ -543,8 +621,10 @@ function getDistrictData(code) {
             $('#teachersCount').text(teachers);
         }
     });
+    */
 
-    //SCHOOLS GET
+
+    /*
 
     var _schoolsRef = firebase.database().ref().child('Districts').child(code).child("Schools Count");
 
@@ -560,9 +640,10 @@ function getDistrictData(code) {
             $('#schoolsCount').text(schools);
         }
     });
+    */
 
-    //PENDING REQUESTS GET
 
+    /*
     var _pendingRequestsRef = firebase.database().ref().child('Districts').child(code).child("Pending Requests");
 
     _pendingRequestsRef.once('value').then(function (snapshot) {
@@ -578,7 +659,9 @@ function getDistrictData(code) {
         }
     });
 
-    //PLAN DETAILS GET
+    */
+
+    /*
 
     var _planDetailsRef = firebase.database().ref().child('Districts').child(code).child("Plan Details");
 
@@ -633,6 +716,7 @@ function getDistrictData(code) {
             document.getElementById('percentageBar').style.width = percentage + "%";
         }
     });
+    */
 
 
 }
