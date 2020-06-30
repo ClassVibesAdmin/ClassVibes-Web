@@ -225,7 +225,6 @@ function getDistrictID() {
                 return null;
             } else {
                 var key = 0;
-    
 
                 key = data['Code'];
     
