@@ -267,7 +267,7 @@ function getDistrictID(page) {
 
             console.log(districtID);
 
-            if(districtID == null || districtID == undefined){
+            if(districtID == null || districtID == undefined || districtID == "null"){
                 console.log("DISTRICT DOESN EXIST");
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
