@@ -61,7 +61,11 @@ function validateAccountState(page) {
         
     if (accountStatus == "Deactivated") {
         document.getElementById('deactivatedAccountSection').style.display = "initial";
-        document.getElementById('createDistrictOptions').style.display = "none";
+
+        if(page != "createPage"){
+            document.getElementById('createDistrictOptions').style.display = "none";
+        } 
+
 
         
     console.log("Deactivated");
