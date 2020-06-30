@@ -116,10 +116,32 @@ function getDistrictStatus(page) {
         if(data['Status'] != "Activated"){
             if(page == 'schoolpage'){
                 document.getElementById('createSchool-page').style.display = "none";
-                document.getElementById('deactivatedDistrictSection').style.display = "initial";
+                //document.getElementById('deactivatedDistrictSection').style.display = "initial";
+                document.getElementById('main-body-content').innerHTML = `
+                <section id="deactivatedDistrictSection" style="display: none;">
+                <center style="margin-top: 22%;">
+                    <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
+                            href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for
+                        activating your account. <br> Your district id is: <h3>${districtID}</h3></p>
+                </center>
+            </section>
+                `;
             } 
             else if(page == 'dashboard'){
-                document.getElementById('deactivatedDistrictSection').style.display = "initial";
+                //document.getElementById('deactivatedDistrictSection').style.display = "initial";
+
+                document.getElementById('main-body-content').innerHTML = `
+                <section id="deactivatedDistrictSection" style="display: none;">
+                <center style="margin-top: 22%;">
+                    <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
+                            href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for
+                        activating your account. <br> Your district id is: <h3>${districtID}</h3></p>
+                </center>
+            </section>
+                `;
+                
                 document.getElementById('districtInfo-stats').style.display = "none";
             }
             
