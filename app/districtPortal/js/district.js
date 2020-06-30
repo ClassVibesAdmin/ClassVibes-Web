@@ -263,7 +263,7 @@ function getDistrictID(page) {
             } else {
                 getDistrictStatus();
             }
-            validateDistrictState('dashboard');
+            validateDistrictStatus('dashboard');
         }
     })
 
