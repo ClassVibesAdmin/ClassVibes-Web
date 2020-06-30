@@ -118,7 +118,7 @@ function getDistrictStatus(page) {
                 document.getElementById('createSchool-page').style.display = "none";
                 //document.getElementById('deactivatedDistrictSection').style.display = "initial";
                 document.getElementById('main-body-content').innerHTML = `
-                <section id="deactivatedDistrictSection" style="display: none;">
+                <section id="deactivatedDistrictSection">
                 <center style="margin-top: 22%;">
                     <i class="fas fa-exclamation-triangle fa-4x"></i>
                     <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
@@ -134,7 +134,7 @@ function getDistrictStatus(page) {
                 document.getElementById('districtInfo-stats').style.display = "none";
 
                 document.getElementById('main-body-content').innerHTML = `
-                <section id="deactivatedDistrictSection" style="display: none;">
+                <section id="deactivatedDistrictSection">
                 <center style="margin-top: 22%;">
                     <i class="fas fa-exclamation-triangle fa-4x"></i>
                     <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
