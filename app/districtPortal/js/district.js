@@ -268,10 +268,21 @@ function getDistrictID(page) {
             console.log(districtID);
 
             if(districtID == null || districtID == undefined || districtID == "null"){
-                console.log("DISTRICT DOESN EXIST");
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
                 getDistrictStatus();
+            }
+        }
+
+        else if(page == 'createpage'){
+            var districtID = localStorage.getItem('district id')
+
+            console.log(districtID);
+
+            if(districtID == null || districtID == undefined || districtID == "null"){
+                document.getElementById('createDistrict-page').style.display = "initial";
+            } else {
+                document.getElementById('quotaReached').style.display = "initial";
             }
         }
     })
