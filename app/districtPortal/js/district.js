@@ -234,7 +234,10 @@ function getDistrictID(page) {
 
     firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snapshot => {
 
+        var index = 0;
+
         snapshot.forEach(doc => {
+            index += 1
 
             var data = doc.data();
             if (data == null) {
@@ -252,6 +255,10 @@ function getDistrictID(page) {
     
             }
         })
+
+        if(index == 0){
+            localStorage.setItem("district id", null);
+        }
 
 
     }).then(() => {
