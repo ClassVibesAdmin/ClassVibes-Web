@@ -131,6 +131,8 @@ function getDistrictStatus(page) {
             else if(page == 'dashboard'){
                 //document.getElementById('deactivatedDistrictSection').style.display = "initial";
 
+                document.getElementById('districtInfo-stats').style.display = "none";
+
                 document.getElementById('main-body-content').innerHTML = `
                 <section id="deactivatedDistrictSection" style="display: none;">
                 <center style="margin-top: 22%;">
@@ -142,18 +144,18 @@ function getDistrictStatus(page) {
             </section>
                 `;
 
-                document.getElementById('districtInfo-stats').style.display = "none";
+                
             }
             
         } else {
 
             if(page == 'schoolpage'){
                 getSchoolStatusManageSchoolsScreen();
-                document.getElementById('deactivatedDistrictSection').style.display = "none";
+                //document.getElementById('deactivatedDistrictSection').style.display = "none";
             } 
             else if(page == 'dashboard'){
                 document.getElementById('districtInfo-stats').style.display = "initial";
-                document.getElementById('deactivatedDistrictSection').style.display = "none";
+                //document.getElementById('deactivatedDistrictSection').style.display = "none";
             }
 
 
