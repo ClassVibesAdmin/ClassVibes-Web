@@ -279,15 +279,18 @@ function getDistrictStatusCreatePage() {
             index += 1
             var data = doc.data()
             if ( data == null) {
+                console.log("CREATE AVALIABle");
                 document.getElementById('createDistrict-page').style.display = "initial";
                 document.getElementById('quotaReached').style.display = "none";
             } else {
+                console.log("Quota reached");
                 document.getElementById('createDistrict-page').style.display = "none";
                 document.getElementById('quotaReached').style.display = "initial";
             }
         });
 
         if(index == 0){
+            console.log("Quota reached");
             document.getElementById('createDistrict-page').style.display = "initial";
             document.getElementById('quotaReached').style.display = "none";
         }
