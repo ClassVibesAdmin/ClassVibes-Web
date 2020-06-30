@@ -272,7 +272,10 @@ function getDistrictStatusCreatePage() {
     var email = localStorage.getItem('email');
 
     firebase.firestore().collection('UserData').doc(email).collection('Districts').get().then(snap => {
+
+        var index = 0;
         snap.forEach(doc => {
+            index += 1
             var data = doc.data()
             if ( data == null) {
                 document.getElementById('createDistrict-page').style.display = "initial";
@@ -281,7 +284,12 @@ function getDistrictStatusCreatePage() {
                 document.getElementById('createDistrict-page').style.display = "none";
                 document.getElementById('quotaReached').style.display = "initial";
             }
-        })
+        });
+
+        if(index == 0){
+            document.getElementById('createDistrict-page').style.display = "initial";
+            document.getElementById('quotaReached').style.display = "none";
+        }
     });
 
     /*
