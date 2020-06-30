@@ -463,6 +463,21 @@ function getDistrictData(code) {
 
     //District NAME GET
 
+    firebase.firestore().collection('Districts').doc(code);
+
+    _districtNameRef.get().then(function (snapshot) {
+        var value = snapshot.data()['Name'];
+
+        if (value == null || value == undefined) {
+            $('#districtName').text("Loading...");
+        } else {
+            districtName = snapshot.val();
+            $('#districtName').text(districtName);
+        }
+    });
+
+    /*
+
     var _districtNameRef = firebase.database().ref().child('Districts').child(code).child("Name");
 
     _districtNameRef.once('value').then(function (snapshot) {
@@ -475,8 +490,25 @@ function getDistrictData(code) {
             $('#districtName').text(districtName);
         }
     });
-
+*/
     //STUDENTS GET
+
+    firebase.firestore().collection('Districts').doc(code);
+
+    _studentRef.get().then(function (snapshot) {
+        var value = snapshot.data()["Student Count"];
+
+        if (value == null || value == undefined) {
+            students = 0;
+            _studentRef.set(students);
+        } else {
+            students = snapshot.val();
+
+            $('#studentsCount').text(students);
+        }
+    });
+
+    /*
 
     var _studentRef = firebase.database().ref().child('Districts').child(code).child("Student Count");
 
@@ -492,7 +524,7 @@ function getDistrictData(code) {
             $('#studentsCount').text(students);
         }
     });
-
+*/
     //TEACHERS GET
 
     var _teacherRef = firebase.database().ref().child('Districts').child(code).child("Teacher Count");
