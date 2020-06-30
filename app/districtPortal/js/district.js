@@ -342,7 +342,7 @@ function createDistrict() {
 
         console.log(code);
 
-        firebase.firestore().collection('Districts').doc(code).get().then(snapshot => {
+        firebase.firestore().collection('Districts').doc(code.toString()).get().then(snapshot => {
             var exists = snapshot.data();
 
             while (exists != null) {
