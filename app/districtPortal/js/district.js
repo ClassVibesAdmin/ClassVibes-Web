@@ -268,6 +268,7 @@ function getDistrictID() {
     */
 }
 
+//Firestore Migrated FUlly
 function getDistrictStatusCreatePage() {
     var email = localStorage.getItem('email');
 
@@ -341,6 +342,58 @@ function createDistrict() {
 
         console.log(code);
 
+        firebase.firestore().collection('Districts').doc(code).get().then(snapshot => {
+            var exists = snapshot.data();
+
+            while (exists != null) {
+
+                function generateNew() {
+                    _newRef.get().then(snapshot => {
+                        var data = snapshot.data();
+                        if (data == null) {
+                            code = newCode;
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+                console.log("exists");
+                var newCode = Math.floor(100000 + Math.random() * 900000);
+
+                console.log(newCode);
+
+                var _newRef = firebase.firestore().collection('Districts').doc(newCode);
+
+                var newCode = generateNew();
+
+                if (newCode == true) {
+                    break
+                }
+
+
+            }
+        }).then(() => {
+            firebase.firestore().collection('Districts').doc(code).set({
+                "Name": name,
+                "Email": email,
+                "Website": website,
+                "Address": headOffice,
+                "Head Email": headEmail,
+                "Phone": phone,
+                "Social Media Links": socialMedia,
+                "Code": code
+            });
+
+            firebase.firestore().collection('UserData').doc(userEmail).collection("Districts").doc(code).set({
+                "Name": name,
+                "Code": code
+            });
+
+        });
+
+        /*
+
         var _ref = firebase.database().ref().child('Districts').child(code).child('Name');
 
         _ref.once('value').then(function (snapshot) {
@@ -391,6 +444,7 @@ function createDistrict() {
             _ref.child("Code").set(code);
         });
     }
+    */
 }
 
 function getDistrictData(code) {
