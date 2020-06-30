@@ -445,6 +445,7 @@ function createDistrict() {
         });
     }
     */
+    }
 }
 
 function getDistrictData(code) {
