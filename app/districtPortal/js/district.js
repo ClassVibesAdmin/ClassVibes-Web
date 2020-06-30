@@ -288,13 +288,12 @@ function getDistrictStatusCreatePage() {
                 document.getElementById('createDistrict-page').style.display = "none";
                 document.getElementById('quotaReached').style.display = "initial";
             }
-        }).then(() => {
+        })
             if(index == 0){
                 console.log("Quota reached");
                 document.getElementById('createDistrict-page').style.display = "initial";
                 document.getElementById('quotaReached').style.display = "none";
             }
-        });
 
 
     });
