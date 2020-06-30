@@ -141,7 +141,7 @@ function getDistrictStatus(page) {
                 </center>
             </section>
                 `;
-                
+
                 document.getElementById('districtInfo-stats').style.display = "none";
             }
             
@@ -285,7 +285,7 @@ function getDistrictID(page) {
             if(districtID == null || districtID == undefined || districtID == "null"){
                 document.getElementById('createDistrictOptions').style.display = "initial";
             } else {
-                validateDistrictStatus('dashboard');
+                getDistrictStatus('dashboard');
             }
         }
 
@@ -312,7 +312,7 @@ function getDistrictID(page) {
 
             } else {
 
-                validateDistrictStatus('schoolpage');
+                getDistrictStatus('schoolpage');
             }
         }
 
