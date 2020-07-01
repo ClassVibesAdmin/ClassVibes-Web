@@ -148,10 +148,31 @@ function getDistrictStatus(page) {
 
                 
             }
+
+            else if(page == 'schoolpage'){
+
+                console.log('school page is locked');
+     
+                document.getElementById('main-body-content').innerHTML = `
+                <section id="deactivatedDistrictSection">
+                <center style="margin-top: 22%;">
+                    <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a
+                            href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for
+                        activating your account. <br> <h4>Your district id is:</h4> <h3>${districtID}</h3></p>
+                </center>
+            </section>
+                `;
+
+
+
+                
+            }
             
         } else {
 
             if(page == 'schoolpage'){
+                console.log('school page is NOT locked');
                 getSchoolStatusManageSchoolsScreen();
                 //document.getElementById('deactivatedDistrictSection').style.display = "none";
             } 
