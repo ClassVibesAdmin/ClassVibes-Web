@@ -266,9 +266,9 @@ function getSchoolStatusManageSchoolsScreen() {
             if(index == 0){
 
                 console.log('NO Schools')
-                
+
                 document.getElementById('main-body-content').innerHTML = `
-                <section id = "createSchoolMessage" style="display: none;">
+                <section id = "createSchoolMessage">
 
                 <center style="margin-top: 14%;">
 
@@ -865,8 +865,47 @@ function getDistrictData(districtCode) {
 }
 
 function showSchoolsOptionClick() {
-    document.getElementById('createSchoolMessage').style.display = "none";
-    document.getElementById('createSchool-page').style.display = "initial";
+
+    document.getElementById('main-body-content').innerHTML = `
+    <section id = "createSchool-page">
+    <h1 style="margin-bottom: 1%;">Create School</h1>
+
+    <section id = "schoolCreateError">
+        
+    </section>
+  
+    <h5>School Name</h5>
+
+    <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName" style="margin-bottom: 1%;">
+
+    <h5>School Address</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress" style="margin-bottom: 1%;">
+
+    <h5>School Website</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite" style="margin-bottom: 1%;">
+
+    <h5>Principal Email</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail" style="margin-bottom: 1%;">
+
+    <h5>School Phone</h5>
+
+    <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone" style="margin-bottom: 1%;">
+
+    <h5>School Logo Link (Direct Link)</h5>
+
+    <input type="text"  class="form-control bg-light border-3 large" placeholder="ie. Instagram or Twitter" aria-label="Search" aria-describedby="basic-addon2" id = "schoolLogoLink" style="margin-bottom: 1%;">
+
+    <p>By creating a school with ClassVibes you agree to our <a href = "#">Privacy Policy</a> and our <a href = "#">Terms & Conditions</a></p>
+
+    <a href="#" class="btn btn-primary btn-icon-split btn-lg" onclick="createSchool()">
+        <span class="text">Create School</span>
+      </a>
+
+</section>
+    `;
 }
 
 function makeid(length) {
@@ -917,6 +956,62 @@ function createSchool() {
             var schoolCode = makeid(6);
 
             console.log(schoolCode);
+
+            var _ref = firebase.firestore().collection('Districts').doc(districtID).collection('Schools').doc(schoolCode);
+
+            _ref.get().then(function (snapshot) {
+                var exists = snapshot.data();
+
+                while (exists != null) {
+
+                    function generateNew() {
+                        _newRef.get().then(function (snapshot) {
+                            if (snapshot.data() == null) {
+                                schoolCode = snapshot.data();
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        });
+                    }
+                    console.log("exists");
+                    var schoolCode = makeid(6);
+
+                    console.log(schoolCode);
+
+                    var _newRef = firebase.firestore().collection('Districts').doc(districtID).collection('Schools').doc(schoolCode);
+
+                    var newCodeGenerated = generateNew();
+
+                    if (newCodeGenerated == true) {
+                        break
+                    }
+
+
+                }
+            }).then(() => {
+
+                const increment = firebase.firestore.FieldValue.increment(1);
+
+                firebase.firestore().collection('Districts').doc(districtID).update({
+                    "Schools Count": increment
+                });
+
+                firebase.firestore().collection('Districts').doc(districtID).collection("Schools").doc(schoolCode).set({
+                    "School Name":schoolName,
+                    "School Website":schoolWebsite,
+                    "School Address":schoolAddress,
+                    "Principal Email":principalEmail,
+                    "School Phone":schoolPhone,
+                    "School Logo Links":schoolLogo,
+                    "School Code":schoolCode,
+                });
+
+
+            });
+
+            //////////////////////
+            /*
 
             var _ref = firebase.database().ref().child('Districts').child(districtID).child('Schools').child(schoolCode);
 
@@ -979,9 +1074,31 @@ function createSchool() {
                 _ref.child("School Code").set(schoolCode);
             });
 
-            document.getElementById("createSchool-page").style.display = "none";
+            */
 
-            document.getElementById("schoolCreateSuccess").style.display = "initial";
+            document.getElementById("main-body-content").innerHTML = `
+            
+            <section id = "schoolCreateSuccess" style="display: none;">
+                <center>
+                    <div style = "margin-top: 23%;">
+                        <i class="far fa-check-circle fa-5x" style="color: green;"></i>
+                        <h2 style="margin-top: 10px;">School Created</h2>
+                        <p class="col col-lg-4">Share your school code below with teachers, they can use it to join your school. Reload the page to view your school.</p>
+
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                              <input type="text" class="form-control bg-light border-4 small" value = "test" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy" readonly>
+                              <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy" id = "copyButtonText" onclick="copyToClipboard()">
+                                  Copy
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                    </div>
+                </center>
+            </section>
+            `;
 
             document.getElementById("schoolCodeCopy").value = schoolCode;
         }
