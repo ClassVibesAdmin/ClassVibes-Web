@@ -1299,6 +1299,8 @@ function getSchoolsData() {
 
                       <h5 style="margin-left: 20px;">School ID</h5>
 
+                      <div class = "row">
+
                       <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                           <input type="text" class="form-control bg-light border-4 small" value = "${data["School Code"]}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy${data["School Code"]}" readonly>
@@ -1309,6 +1311,9 @@ function getSchoolsData() {
                           </div>
                         </div>
                       </form>
+                      
+
+                      </div>
 
 
                     </div>
@@ -1317,7 +1322,7 @@ function getSchoolsData() {
             `;
 
             $(elementHTML).appendTo('#schoolsList');
-            
+
                 });
 
         });
