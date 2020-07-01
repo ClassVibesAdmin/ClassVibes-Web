@@ -243,9 +243,12 @@ function getSchoolStatusManageSchoolsScreen() {
 
     console.log('TESTING...');
 
-    var schools = firebase.firestore().collection("Districts").doc(districtID).collection('Schools')
-        .get().then(function(querySnapshot) {
+    firebase.firestore().collection("Districts").doc(districtID).collection('Schools').get().then(function(querySnapshot) {
+
+        var index = 0;
+
             querySnapshot.forEach(function(doc) {
+                index += 1
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
 
@@ -259,6 +262,34 @@ function getSchoolStatusManageSchoolsScreen() {
                     document.getElementById('schoolsInfoSection').style.display = "none";
                 }
             });
+
+            if(index == 0){
+
+                console.log('NO Schools'):
+                document.getElementById('main-body-content').innerHTML = `
+                <section id = "createSchoolMessage" style="display: none;">
+
+                <center style="margin-top: 14%;">
+
+                    <img src="img/undraw_quite_town_mg2q.svg" width="20%" style="margin-bottom: 2%;">
+
+                    <h2>No Schools</h2>
+
+                    <p>Create a school to get started</p>
+
+                    <a href="#" class="btn btn-primary btn-icon-split btn-m"
+                                onclick="showSchoolsOptionClick()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                <span class="text">Create School</span>
+                            </a>
+
+             </center>
+
+            </section>
+                `;
+            }
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
