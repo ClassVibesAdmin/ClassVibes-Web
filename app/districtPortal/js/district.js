@@ -265,7 +265,8 @@ function getSchoolStatusManageSchoolsScreen() {
 
             if(index == 0){
 
-                console.log('NO Schools'):
+                console.log('NO Schools')
+                
                 document.getElementById('main-body-content').innerHTML = `
                 <section id = "createSchoolMessage" style="display: none;">
 
