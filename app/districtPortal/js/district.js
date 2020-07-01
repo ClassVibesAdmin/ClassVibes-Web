@@ -255,7 +255,22 @@ function getSchoolStatusManageSchoolsScreen() {
                 console.log(doc.id, " => ", doc.data());
 
                 if (data != null && data != undefined) {
-                    document.getElementById('schoolsInfoSection').style.display = "initial";
+                    document.getElementById('main-body-content').innerHTML = `
+                    <section id = "schoolsInfoSection" style="display: none;">
+
+                    <div class="row" style="justify-content: space-between; margin-left: 10px;">
+                      <h1>My Schools</h1>
+    
+                      <button class="btn btn-primary btn-icon-split btn-lg" onclick="toggleCreateSchoolView()" style="margin-bottom: 20px;">
+                        <span class="text" style="margin-top: 5px;">Create School</span>
+                      </button>
+                    </div>
+    
+                  <div id = "schoolsList">
+    
+                  </div>
+                </section>
+                    `;
         
                     getSchoolsData();
                 } else {
