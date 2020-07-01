@@ -250,16 +250,39 @@ function getSchoolStatusManageSchoolsScreen() {
             querySnapshot.forEach(function(doc) {
                 index += 1
                 // doc.data() is never undefined for query doc snapshots
+
+                var data = doc.data();
                 console.log(doc.id, " => ", doc.data());
 
-                if (doc.exists()) {
-                    document.getElementById('createSchoolMessage').style.display = "none";
+                if (data != null && data != undefined) {
                     document.getElementById('schoolsInfoSection').style.display = "initial";
         
                     getSchoolsData();
                 } else {
-                    document.getElementById('createSchoolMessage').style.display = "initial";
-                    document.getElementById('schoolsInfoSection').style.display = "none";
+                    document.getElementById('main-body-content').innerHTML = `
+                    <section id = "createSchoolMessage">
+    
+                    <center style="margin-top: 14%;">
+    
+                        <img src="img/undraw_quite_town_mg2q.svg" width="20%" style="margin-bottom: 2%;">
+    
+                        <h2>No Schools</h2>
+    
+                        <p>Create a school to get started</p>
+    
+                        <a href="#" class="btn btn-primary btn-icon-split btn-m"
+                                    onclick="showSchoolsOptionClick()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Create School</span>
+                                </a>
+    
+                 </center>
+    
+                </section>
+                    `;
+
                 }
             });
 
@@ -1078,7 +1101,7 @@ function createSchool() {
 
             document.getElementById("main-body-content").innerHTML = `
             
-            <section id = "schoolCreateSuccess" style="display: none;">
+            <section id = "schoolCreateSuccess">
                 <center>
                     <div style = "margin-top: 23%;">
                         <i class="far fa-check-circle fa-5x" style="color: green;"></i>
