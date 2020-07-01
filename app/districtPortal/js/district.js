@@ -1221,7 +1221,7 @@ function getSchoolsData() {
                         
 
                         <div class="col-auto" style="margin-right: 10px;">
-                          <a href="#" class="btn btn-primary btn-circle btn-lg">
+                          <a onclick = "storePrefForSchoolView('${schoolCode}', '${districtID}')" href = "#" class="btn btn-primary btn-circle btn-lg">
                             <i class="fas fa-eye"></i>
                           </a>
                         </div>
@@ -1369,9 +1369,82 @@ function updateSchoolInfo(schoolCode) {
 
 }
 
+//FIRESTORE MIGRATED FULLY
+function storePrefForSchoolView(schoolID, districtID){
+    localStorage.setItem('School ID', schoolID);
+
+    localStorage.setItem('District ID', districtID);
+
+    window.location = 'viewSchool.html';
+}
+
+//FIRESTORE MIGRATED FULLY
 function toggleCreateSchoolView() {
 
     document.getElementById("schoolsInfoSection").style.display = "none";
     document.getElementById("createSchool-page").style.display = "initial";
+}
+
+function getSchoolPersonelInfo(type){
+    var schoolID = localStorage.getItem('School ID');
+    var districtID = localStorage.getItem('District ID');
+
+    if(type == 'student'){
+
+        var index = 0;
+
+        var _personelRef = firebase.firestore().collection('UserData').where('School ID', '==', schoolID.toString()).where('District ID', '==', districtID.toString());
+    
+    
+        _personelRef.get().then(snap => {
+            snap.forEach(doc => {
+    
+                index += 1
+                var data = doc.data();
+    
+                var classesCount = 0;
+    
+                firebase.firestore().collection('UserData').doc(data['email']).collection("Classes").get().then(snap => {
+                    console.log("SIZE :" + snap.size);
+                    classesCount = snap.size
+                }).then(() => {
+                    var output = `
+                    <tr>
+                    <td>${data["display-name"]}</td>
+                    <td>${data['email']}</td>
+                    <td>${data['Join Date']}</td>
+                    <td>${data['Grade']}</td>
+                    <td>${classesCount}</td>
+                  </tr>
+                    `;
+        
+                    $(output).appendTo('#student-list-body');
+                });
+    
+    
+    
+            })
+        }).then(() => {
+    
+            console.log(index);
+    
+            if(index == 0){
+    
+                console.log('no students');
+    
+                var no_students_output = `
+                <center style="margin-top:9%;">
+                <img src="img/undraw_empty_xct9.svg" alt="" width="25%">
+                <h1>No Students</h1>
+    
+                <p>Any students who join classes in your district will show up here</p>
+              </center>
+                `;
+    
+                document.getElementById('table-display-main').innerHTML = no_students_output;
+            }
+        })
+    }
+
 
 }
