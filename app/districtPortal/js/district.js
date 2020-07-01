@@ -216,8 +216,7 @@ function getDistrictStatus(page) {
 }
 
 
-//FIRESTORE NOT FINISHED
-//                                             CHECK THIS CODE FOR ERRORS !!
+//FIRESTORE MIGRATED FULLY
 function getSchoolStatusManageSchoolsScreen() {
     //OLD CODE
     // var districtID = localStorage.getItem('district id');
@@ -256,7 +255,7 @@ function getSchoolStatusManageSchoolsScreen() {
 
                 if (data != null && data != undefined) {
                     document.getElementById('main-body-content').innerHTML = `
-                    <section id = "schoolsInfoSection" style="display: none;">
+                    <section id = "schoolsInfoSection">
 
                     <div class="row" style="justify-content: space-between; margin-left: 10px;">
                       <h1>My Schools</h1>
@@ -340,6 +339,7 @@ function getSchoolStatusManageSchoolsScreen() {
 
 }
 
+//FIRESTORE MIGRATED FULLY
 function getDistrictID(page) {
     var email = localStorage.getItem('email');
 
@@ -902,6 +902,7 @@ function getDistrictData(districtCode) {
 
 }
 
+//FIRESTORE MIGRATED FULLY
 function showSchoolsOptionClick() {
 
     document.getElementById('main-body-content').innerHTML = `
@@ -946,6 +947,7 @@ function showSchoolsOptionClick() {
     `;
 }
 
+//FIRESTORE MIGRATED FULLY
 function makeid(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -956,6 +958,7 @@ function makeid(length) {
     return result;
 }
 
+//FIRESTORE MIGRATED FULLY
 function createSchool() {
 
     var userEmail = localStorage.getItem('email');
@@ -1145,6 +1148,7 @@ function createSchool() {
 
 }
 
+//FIRESTORE MIGRATED FULLY
 function copyToClipboard(schoolCode = "") {
 
 
@@ -1172,17 +1176,33 @@ function copyToClipboard(schoolCode = "") {
 
 }
 
+
 function getSchoolsData() {
     var districtID = localStorage.getItem('district id');
 
-    var _ref = firebase.database().ref().child("Districts").child(districtID).child("Schools");
+    var _ref = firebase.firestore().collection("Districts").doc(districtID).collection("Schools");
 
-    _ref.once('value').then(function (snapshot) {
+    _ref.get().then(function (snapshot) {
 
-        console.log(snapshot.val());
 
-        snapshot.forEach((child) => {
-            elementHTML = `
+        snapshot.forEach((snap) => {
+
+            var data = snap.data();
+
+            var schoolCode = data['School Code'];
+
+                var _refStudent = firebase.firestore().collection("UserData").where('School ID', '==', schoolCode).where('Account Type', '==', "Student");
+
+                var studentCount = 0;
+
+                _refStudent.get().then(studentSnap => {
+                    studentSnap.forEach(studentDoc => {
+                        studentCount += 1
+                        console.log(studentDoc.data());
+                    })
+                }).then(() => {
+
+                    elementHTML = `
             <div class="col-xl-12 col-md-6 mb-4">
                   <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
@@ -1192,10 +1212,10 @@ function getSchoolsData() {
                           <div class="row" style="margin-left: 4px;">
                             <i class="fas fa-users"></i>
 
-                            <h5 style="margin-left: 5px; margin-top: -4px;">901 Students</h5>
+                            <h5 style="margin-left: 5px; margin-top: -4px;">${studentCount} Students</h5>
                           </div>
 
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">${child.child("School Name").val()}</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">${data["School Name"]}</div>
                         </div>
 
                         
@@ -1207,13 +1227,13 @@ function getSchoolsData() {
                         </div>
 
                         <div class="col-auto" style="margin-right: 10px;">
-                          <a data-toggle="collapse" href="#inviteInfoCollapse${child.child("School Code").val()}" role="button" aria-expanded="false" aria-controls="inviteInfoCollapse${child.child("School Code").val()}" class="btn btn-primary btn-circle btn-lg">
+                          <a data-toggle="collapse" href="#inviteInfoCollapse${data["School Code"]}" role="button" aria-expanded="false" aria-controls="inviteInfoCollapse${data["School Code"]}" class="btn btn-primary btn-circle btn-lg">
                             <i class="fas fa-user-plus"></i>
                           </a>
                         </div>
 
                         <div class="col-auto">
-                          <a data-toggle="collapse" href="#multiCollapse${child.child("School Code").val()}" role="button" aria-expanded="false" aria-controls="multiCollapse${child.child("School Code").val()}" class="btn btn-primary btn-circle btn-lg">
+                          <a data-toggle="collapse" href="#multiCollapse${data["School Code"]}" role="button" aria-expanded="false" aria-controls="multiCollapse${data["School Code"]}" class="btn btn-primary btn-circle btn-lg">
                             <i class="far fa-edit"></i>
                           </a>
                         </div>
@@ -1221,7 +1241,7 @@ function getSchoolsData() {
                     </div>
                   </div>
 
-                  <div class="collapse multi-collapse" id="multiCollapse${child.child("School Code").val()}">
+                  <div class="collapse multi-collapse" id="multiCollapse${data["School Code"]}">
                     <div class="card card-body">
                      
                       <h2>Edit School</h2>
@@ -1230,17 +1250,17 @@ function getSchoolsData() {
   
                         <div class="col">
                           <h5>School Name</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Name").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName${data["School Code"]}" style="margin-bottom: 1%;" value = '${data["School Name"]}'>  
                         </div>
   
                         <div class="col">
                           <h5>School Website</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Website").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite${data["School Code"]}" style="margin-bottom: 1%;" value = '${data["School Website"]}'>  
                         </div>
   
                         <div class="col">
                           <h5>School Phone</h5>
-                          <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Phone").val()}'>
+                          <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone${data["School Code"]}" style="margin-bottom: 1%;" value = '${data["School Phone"]}'>
                         </div>
   
                       </div>
@@ -1249,22 +1269,22 @@ function getSchoolsData() {
   
                         <div class="col">
                           <h5>School Address</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("School Address").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress${data["School Code"]}" style="margin-bottom: 1%;" value = '${data["School Address"]}'>  
                         </div>
   
                         <div class="col">
                           <h5>Principal Email</h5>
-                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail${child.child("School Code").val()}" style="margin-bottom: 1%;" value = '${child.child("Principal Email").val()}'>  
+                          <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail${data["School Code"]}" style="margin-bottom: 1%;" value = '${data["Principal Email"]}'>  
                         </div>
   
                       </div>
 
-                      <div id = "updateErrorList${child.child('School Code').val()}">
+                      <div id = "updateErrorList${data['School Code']}">
 
                       </div>
   
                       <div class="float-right" style="margin-left: 11px; margin-top: 10px;">
-                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="updateSchoolInfo('${child.child('School Code').val()}')">
+                        <a href="#" class="btn btn-primary btn-icon-split btn-m" style="width: 150px;" align = "right" onclick="updateSchoolInfo('${data['School Code']}')">
                           <span class="text" >Save Changes</span>
                         </a>
                       </div>
@@ -1274,16 +1294,16 @@ function getSchoolsData() {
 
 
                
-                  <div class="collapse multi-collapse" id="inviteInfoCollapse${child.child("School Code").val()}">
+                  <div class="collapse multi-collapse" id="inviteInfoCollapse${data["School Code"]}">
                     <div class="card card-body">
 
                       <h5 style="margin-left: 20px;">School ID</h5>
 
                       <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                          <input type="text" class="form-control bg-light border-4 small" value = "${child.child("School Code").val()}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy${child.child("School Code").val()}" readonly>
+                          <input type="text" class="form-control bg-light border-4 small" value = "${data["School Code"]}" placeholder="loading..." aria-label="Search" aria-describedby="basic-addon2" id = "schoolCodeCopy${data["School Code"]}" readonly>
                           <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy${child.child("School Code").val()}" id = "copyButtonText${child.child("School Code").val()}" onclick="copyToClipboard('${child.child("School Code").val()}')">
+                            <button class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target = "#schoolCodeCopy${data["School Code"]}" id = "copyButtonText${data["School Code"]}" onclick="copyToClipboard('${data["School Code"]}')">
                               Copy
                             </button>
                           </div>
@@ -1297,6 +1317,8 @@ function getSchoolsData() {
             `;
 
             $(elementHTML).appendTo('#schoolsList');
+            
+                });
 
         });
 
