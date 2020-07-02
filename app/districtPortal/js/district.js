@@ -1672,10 +1672,10 @@ function acceptRequest(schoolID, districtID, requestID, teacherEmail){
     }).then(() => {
         firebase.firestore().collection("Districts").doc(districtID).collection('Teacher Requests').doc(requestID).delete().then(() => {
             firebase.firestore().collection("UserData").doc(teacherEmail).update({
-                "Pending District Request": null,
-                "Pending School Request": null,
-                "Pending School Request Name": null,
-                "Pending Request ID":null,
+                "Pending District Request": firebase.firestore.FieldValue.delete(),
+                "Pending School Request": firebase.firestore.FieldValue.delete(),
+                "Pending School Request Name": firebase.firestore.FieldValue.delete(),
+                "Pending Request ID":firebase.firestore.FieldValue.delete(),
 
                 "District Code": districtID
             }).then(() => {
@@ -1694,10 +1694,10 @@ function declineRequest(schoolID, districtID, requestID, teacherEmail){
     }).then(() => {
         firebase.firestore().collection("Districts").doc(districtID).collection('Teacher Requests').doc(requestID).delete().then(() => {
             firebase.firestore().collection("UserData").doc(teacherEmail).update({
-                "Pending District Request": null,
-                "Pending School Request": null,
-                "Pending School Request Name": null,
-                "Pending Request ID":null,
+                "Pending District Request": firebase.firestore.FieldValue.delete(),
+                "Pending School Request": firebase.firestore.FieldValue.delete(),
+                "Pending School Request Name": firebase.firestore.FieldValue.delete(),
+                "Pending Request ID":firebase.firestore.FieldValue.delete(),
             }).then(() => {
                 window.location.reload();
             });
