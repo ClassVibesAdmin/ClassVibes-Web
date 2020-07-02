@@ -1176,7 +1176,7 @@ function copyToClipboard(schoolCode = "") {
 
 }
 
-
+//FIRESTORE MIGRATED FULLY
 function getSchoolsData() {
     var districtID = localStorage.getItem('district id');
 
@@ -1352,17 +1352,23 @@ function updateSchoolInfo(schoolCode) {
 
 
     } else {
-        var _ref = firebase.database().ref().child("Districts").child(districtID).child('Schools').child(schoolCode);
+        var _ref = firebase.firestore().collection("Districts").doc(districtID).collection('Schools').doc(schoolCode);
 
-        _ref.child("School Name").set(schoolName);
-        _ref.child("School Website").set(schoolWebsite);
-        _ref.child("School Phone").set(schoolPhone);
-        _ref.child("School Address").set(schoolAddress);
-        _ref.child("Principal Email").set(principalEmail);
+        _ref.update({
+            "School Name": schoolName,
+            "School Website":schoolWebsite,
+            "School Phone":schoolPhone,
+            "School Address":schoolAddress,
+            "Principal Email":principalEmail,
+        }).then(() => {
 
-        $('#multiCollapse' + schoolCode).collapse('toggle');
+            $('#multiCollapse' + schoolCode).collapse('toggle');
 
-        location.reload();
+            location.reload();
+        })
+    
+
+
     }
 
 
@@ -1385,6 +1391,7 @@ function toggleCreateSchoolView() {
     document.getElementById("createSchool-page").style.display = "initial";
 }
 
+//FIRESTORE MIGRATED FULLY
 function getSchoolPersonelInfo(type){
     var schoolID = localStorage.getItem('School ID');
     var districtID = localStorage.getItem('District ID');
