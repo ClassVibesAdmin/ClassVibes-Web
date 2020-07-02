@@ -212,11 +212,13 @@ function checkIfSchoolCodeExists(){
         "Teacher Email": teacher_email,
         "Teacher School ID Request": school_code,
         "School Name": name,
+      }).then(() => {
+        window.location.reload();
       })
 
     })
 
-      window.location.reload();
+
 
     } else {
 
