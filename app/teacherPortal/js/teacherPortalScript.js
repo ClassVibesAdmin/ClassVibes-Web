@@ -1235,10 +1235,11 @@ function showAll() {
 }
 
 function cancelTeacherRequest(ID, districtID){
-  firebase.firestore().collection('Districts').doc(districtID).collection('Pending Requests').doc(ID).delete().then(() => {
-    console.log('Dleeted');
-    //window.location.reload()
+  firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
+    
   });
+
+  //window.location.reload()
 }
 
 
