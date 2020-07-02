@@ -28,11 +28,13 @@ function getTeacherAccountStatus(pageType){
 
     var pendingSchoolRequestName = data["Pending School Request Name"];
 
-    var pendingSchoolRequestID = data["Pending School Request ID"];
+    var pendingRequestID = data["Pending Request ID"];
 
-    var pendingDistrictRequestID = data["Pending District Request ID"];
+    var pendingDistrictRequestID = data["Pending District Request"];
 
-    if(pendingSchoolRequest){
+    console.log(pendingRequestID, pendingDistrictRequestID);
+
+    if(pendingSchoolRequestName){
 
       console.log("Pending request");
 
@@ -44,7 +46,7 @@ function getTeacherAccountStatus(pageType){
 
       <p>You have successfully sent a request to join ${pendingSchoolRequestName}</p>
 
-      <button class="btn danger" onclick = "cancelTeacherRequest('${pendingSchoolRequestID}', '${pendingDistrictRequestID}')">Cancel</button>
+      <button class="btn-screen danger" onclick = "cancelTeacherRequest('${pendingRequestID}', '${pendingDistrictRequestID}')">Cancel</button>
     </center>
       `;
 
@@ -237,19 +239,27 @@ function checkIfSchoolCodeExists(){
 
     }).then((name) => {
 
-      firebase.firestore().collection('UserData').doc(teacher_email).update({
-        "Pending District Request": district_code,
-        "Pending School Request": school_code,
-        "Pending School Request Name": name
-      })
-
-      firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc().set({
+      var _requestRef = firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc()
+      
+      _requestRef.set({
         "Teacher Name": teacher_name,
         "Teacher Email": teacher_email,
         "Teacher School ID Request": school_code,
         "School Name": name,
       }).then(() => {
-        window.location.reload();
+
+        console.log(_requestRef.id);
+
+
+        firebase.firestore().collection('UserData').doc(teacher_email).update({
+          "Pending District Request": district_code,
+          "Pending School Request": school_code,
+          "Pending School Request Name": name,
+          "Pending Request ID": _requestRef.id,
+        }).then(() => {
+          window.location.reload();
+        })
+        
       })
 
     })
@@ -1226,7 +1236,8 @@ function showAll() {
 
 function cancelTeacherRequest(ID, districtID){
   firebase.firestore().collection('Districts').doc(districtID).collection('Pending Requests').doc(ID).delete().then(() => {
-    window.location.reload()
+    console.log('Dleeted');
+    //window.location.reload()
   });
 }
 
