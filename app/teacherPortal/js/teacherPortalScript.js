@@ -24,7 +24,7 @@ function getTeacherAccountStatus(pageType){
     var data = doc.data();
 
     var in_a_district = data['District Code'] != undefined? data['District Code'] : null;
-    
+
     console.log("DISTRICT: " + in_a_district);
 
     var pendingSchoolRequestName = data["Pending School Request Name"];
@@ -56,7 +56,9 @@ function getTeacherAccountStatus(pageType){
     //IN A DISTRICT
     if(in_a_district != null &&  in_a_district != undefined){
       firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
-        var data = doc.data()["status"];
+        var data = doc.data()["Status"];
+
+        console.log("STATUS:" + data);
 
         //DISTRICT IS NOT ACTIVATED
         if(data != "Activated"){
