@@ -180,22 +180,43 @@ function checkIfSchoolCodeExists(){
 
       $('#joinSchool-district-err').html('');
 
+      /*
       firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).collection('Teachers').doc(teacher_email).set({
         "Teacher Name": teacher_name,
         "Teacher Email": teacher_email,
       });
+      */
 
       firebase.firestore().collection('UserData').doc(teacher_email).update({
         "District Code": district_code,
       })
 
-      const increment = firebase.firestore.FieldValue.increment(1);
-
-      firebase.firestore().collection('Districts').doc(district_code).update({
-        "Teacher Count": increment,
-      }).then(() => {
-        window.location.reload();
+      /*
+      firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).collection('Teachers').doc(teacher_email).set({
+        "Teacher Name": teacher_name,
+        "Teacher Email": teacher_email,
       });
+      */
+
+     firebase.firestore().collection('Districts').doc(district_code).collection('Schools').doc(school_code).get().then(snapshot => {
+        var data = snapshot.data();
+
+        var schoolName = data['School Name']
+
+        return schoolName
+
+    }).then((name) => {
+
+      firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc().set({
+        "Teacher Name": teacher_name,
+        "Teacher Email": teacher_email,
+        "Teacher School ID Request": school_code,
+        "School Name": name,
+      })
+
+    })
+
+      window.location.reload();
 
     } else {
 
