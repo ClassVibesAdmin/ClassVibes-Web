@@ -1596,6 +1596,12 @@ function getTeacherRequests(){
 
             var schoolID = data['Teacher School ID Request'];
 
+            var teacherEmail = data['Teacher Email']
+
+            var requestDocID = doc.id;
+
+            console.log(requestDocID);
+
             var output = `
             <div class="col-xl-12 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -1615,11 +1621,11 @@ function getTeacherRequests(){
                             <div class="h5 mb-0 font-weight-bold text-gray-800">${teacherName}</div>
                         </div>
 
-                        <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;" onclick = "acceptRequest('${schoolID}', '${districtID}')">
+                        <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;" onclick = "acceptRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
                             <i class="fas fa-check"></i>
                           </a>
 
-                        <a href="#" class="btn btn-danger btn-circle btn-lg" onclick = "declineRequest('${schoolID}', '${districtID}')">
+                        <a href="#" class="btn btn-danger btn-circle btn-lg" onclick = "declineRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
                         <i class="fas fa-trash"></i>
                         </a>
 
@@ -1657,22 +1663,44 @@ function getTeacherRequests(){
     })
 }
 
-function acceptRequest(schoolID, districtID){
+function acceptRequest(schoolID, districtID, requestID, teacherEmail){
 
     const decrement = firebase.firestore.FieldValue.increment(-1);
 
     firebase.firestore().collection("Districts").doc(districtID).update({
         "Pending Requests": decrement,
     }).then(() => {
-        
+        firebase.firestore().collection("Districts").doc(districtID).collection('Teacher Requests').doc(requestID).delete().then(() => {
+            firebase.firestore().collection("UserData").doc(teacherEmail).update({
+                "Pending District Request": null,
+                "Pending School Request": null,
+                "Pending School Request Name": null,
+                "Pending Request ID":null,
+
+                "District Code": districtID
+            }).then(() => {
+                window.location.reload();
+            });
+        });
     })
 }
 
-function declineRequest(schoolID, districtID){
+function declineRequest(schoolID, districtID, requestID, teacherEmail){
 
     const decrement = firebase.firestore.FieldValue.increment(-1);
 
     firebase.firestore().collection("Districts").doc(districtID).update({
         "Pending Requests": decrement,
+    }).then(() => {
+        firebase.firestore().collection("Districts").doc(districtID).collection('Teacher Requests').doc(requestID).delete().then(() => {
+            firebase.firestore().collection("UserData").doc(teacherEmail).update({
+                "Pending District Request": null,
+                "Pending School Request": null,
+                "Pending School Request Name": null,
+                "Pending Request ID":null,
+            }).then(() => {
+                window.location.reload();
+            });
+        });
     })
 }

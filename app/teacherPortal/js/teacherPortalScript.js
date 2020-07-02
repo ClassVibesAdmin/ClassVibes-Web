@@ -24,6 +24,7 @@ function getTeacherAccountStatus(pageType){
     var data = doc.data();
 
     var in_a_district = data['District Code'] != undefined? data['District Code'] : null;
+    
     console.log("DISTRICT: " + in_a_district);
 
     var pendingSchoolRequestName = data["Pending School Request Name"];
