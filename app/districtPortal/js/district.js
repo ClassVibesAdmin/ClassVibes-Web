@@ -751,6 +751,55 @@ function getDistrictData(districtCode) {
             document.getElementById('percentageBar').style.width = percentage + "%";
         }
 
+        //Get teacher to student ratio
+        // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#858796';
+
+var studentCount = data['Student Count'] == undefined? 0 : data['Student Count']; 
+var teacherCount = data['Teacher Count'] == undefined? 0: data['Teacher Count'];
+
+console.log(studentCount);
+
+// Pie Chart Example
+var ctx = document.getElementById("teacher-student-ration-chart");
+
+if(studentCount == 0 && teacherCount == 0){
+    document.getElementById("no-data").innerHTML = `
+        <center style = 'margin-top: 20%'><h2>No Data</h2></center>
+    `;
+} else {
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ["Student", "Teacher"],
+          datasets: [{
+            data: [studentCount, teacherCount],
+            backgroundColor: ['#4e73df', '#1cc88a'],
+            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+          legend: {
+            display: false
+          },
+          cutoutPercentage: 80,
+        },
+      });
+}
+
     });
 
     /*
@@ -1191,6 +1240,8 @@ function getSchoolsData() {
 
             var schoolCode = data['School Code'];
 
+            var schoolName = data['School Name'];
+
                 var _refStudent = firebase.firestore().collection("UserData").where('School ID', '==', schoolCode).where('Account Type', '==', "Student");
 
                 var studentCount = 0;
@@ -1221,7 +1272,7 @@ function getSchoolsData() {
                         
 
                         <div class="col-auto" style="margin-right: 10px;">
-                          <a onclick = "storePrefForSchoolView('${schoolCode}', '${districtID}')" href = "#" class="btn btn-primary btn-circle btn-lg">
+                          <a onclick = "storePrefForSchoolView('${schoolCode}', '${districtID}', '${schoolName}')" href = "#" class="btn btn-primary btn-circle btn-lg">
                             <i class="fas fa-eye"></i>
                           </a>
                         </div>
@@ -1291,8 +1342,6 @@ function getSchoolsData() {
                     </div>
   
                   </div>
-
-
                
                   <div class="collapse multi-collapse" id="inviteInfoCollapse${data["School Code"]}">
                     <div class="card card-body">
@@ -1376,10 +1425,12 @@ function updateSchoolInfo(schoolCode) {
 }
 
 //FIRESTORE MIGRATED FULLY
-function storePrefForSchoolView(schoolID, districtID){
+function storePrefForSchoolView(schoolID, districtID, schoolName){
     localStorage.setItem('School ID', schoolID);
 
     localStorage.setItem('District ID', districtID);
+
+    localStorage.setItem('School Name', schoolName);
 
     window.location = 'viewSchool.html';
 }
@@ -1395,6 +1446,9 @@ function toggleCreateSchoolView() {
 function getSchoolPersonelInfo(type){
     var schoolID = localStorage.getItem('School ID');
     var districtID = localStorage.getItem('District ID');
+    var schoolName = localStorage.getItem('School Name');
+
+    document.getElementById('schoolName').innerHTML = schoolName;
 
     if(type == 'student'){
 
@@ -1420,7 +1474,6 @@ function getSchoolPersonelInfo(type){
                     <td>${data["display-name"]}</td>
                     <td>${data['email']}</td>
                     <td>${data['Join Date']}</td>
-                    <td>${data['Grade']}</td>
                     <td>${classesCount}</td>
                   </tr>
                     `;

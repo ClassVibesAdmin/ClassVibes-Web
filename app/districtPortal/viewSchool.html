@@ -26,6 +26,8 @@
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="css/loader.css">
+
 </head>
 
 <body id="page-top">
@@ -188,8 +190,19 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+        <!--LOADING PAGE-->
+
+        <center style="margin-top: 25%;" id = 'loader-icon'>
+          <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+          </div>
+        </center>
+
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Mountain House High School</h1>
+          <h1 class="h3 mb-2 text-gray-800" id = "schoolName"></h1>
           <p class="mb-4">Manage All Teachers and Students.</p>
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary">Students</button>
