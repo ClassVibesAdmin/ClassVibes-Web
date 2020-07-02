@@ -187,9 +187,12 @@ function checkIfSchoolCodeExists(){
       });
       */
 
+      /*
+
       firebase.firestore().collection('UserData').doc(teacher_email).update({
         "District Code": district_code,
       })
+      */
 
       /*
       firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).collection('Teachers').doc(teacher_email).set({
