@@ -46,7 +46,7 @@ function getTeacherAccountStatus(pageType){
 
       <p>You have successfully sent a request to join ${pendingSchoolRequestName}</p>
 
-      <button class="btn-screen danger" onclick = "cancelTeacherRequest('${pendingRequestID}', '${pendingDistrictRequestID}')">Cancel</button>
+      <button class="btn-screen danger" onclick = "cancelTeacherRequest('${pendingRequestID}', '${pendingDistrictRequestID}', '${email}')">Cancel</button>
     </center>
       `;
 
@@ -238,6 +238,12 @@ function checkIfSchoolCodeExists(){
         return schoolName
 
     }).then((name) => {
+
+      const increment = firebase.firestore.FieldValue.increment(1);
+
+      firebase.firestore().collection('Districts').doc(district_code).update({
+        "Pending Requests": increment
+      })
 
       var _requestRef = firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc()
       
@@ -1234,12 +1240,18 @@ function showAll() {
 }
 }
 
-function cancelTeacherRequest(ID, districtID){
+function cancelTeacherRequest(ID, districtID, teacher_email){
   firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
-    
+    firebase.firestore().collection('UserData').doc(teacher_email).update({
+      "Pending District Request": null,
+      "Pending School Request": null,
+      "Pending School Request Name": null,
+      "Pending Request ID":null,
+    }).then(() => {
+      window.location.reload()
+    })
   });
 
-  //window.location.reload()
 }
 
 
