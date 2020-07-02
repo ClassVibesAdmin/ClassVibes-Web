@@ -1562,3 +1562,32 @@ function getSchoolPersonelInfo(type){
 
 
 }
+
+function getTeacherRequests(){
+    var districtID = localStorage.getItem('district id')
+    var _ref = firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests');
+
+    var index = 0;
+
+    _ref.get().then(snapshot => {
+
+        snapshot.forEach(doc => {
+            index += 1
+            console.log(doc.data());
+
+            var data = doc.data();
+
+            var teacherName = data['Teacher Name'];
+
+            var schoolName = data['School Name'];
+
+            var schoolID = data['Teacher School ID Request'];
+
+
+        })
+    }).then(() => {
+        if(index == 0){
+
+        }
+    })
+}

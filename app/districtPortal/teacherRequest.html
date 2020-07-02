@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,41 +12,48 @@
 
   <script src="js/district.js"></script>
 
-  <title>Create District</title>
+  <title>View School</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-  <script src="js/district.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/loader.css">
 
 </head>
 
 <body id="page-top">
 
+  
      <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
   
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
   
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
   
     <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+
+    <link rel="stylesheet" href='css/loader.css'>
 
     <script>
     $( document ).ready(function() {
-        initializeFirebase();
-        getDistrictID('createpage');
-      });
-  </script>
+      initializeFirebase();
+      getTeacherRequests();
+     //getSchoolPersonelInfo('student');
+    });
+</script>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -93,14 +101,14 @@
             <span>Manage Schools</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link" href="teacherRequest.html">
         <i class="fas fa-chalkboard-teacher"></i>
           <span>Teacher Requests</span></a>
   </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="districtDashboard.html">
+      <li class="nav-item">
+        <a class="nav-link" href="createDistrict.html">
             <i class="fas fa-folder-plus"></i>
           <span>Create District</span></a>
       </li>
@@ -183,89 +191,71 @@
             </li>
 
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-            <section id = "deactivatedAccountSection" style="display: none;">
-                <center style="margin-top: 22%;">
-                    <i class="fas fa-exclamation-triangle fa-4x"></i>
-                    <p style="margin-top: 10px;"> District Activation Required. Please <br> contact <a href="mailto:sales@classvibes.net" target="blank">sales@classvibes.net</a> for activating your account.</p>
-             </center>
-            </section>
+        <!--LOADING PAGE-->
 
-            <section id = "quotaReached" style="display: none;">
-
-                <center style="margin-top: 14%;">
-
-                    <img src="img/undraw_fill_forms_yltj.svg" width="20%" style="margin-bottom: 2%;">
-
-                    <h2>Quota Reached</h2>
-
-                    <p>You can only create one district per account</p>
-
-             </center>
-
-            </section>
-
-            <section id = "createDistrict-page" style="display: none;">
-                <h1 style="margin-bottom: 1%;">Create District</h1>
-
-                <section id = "districtCreateError">
-                    
-                </section>
-              
-                <h5>District Name</h5>
-
-                <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtName" style="margin-bottom: 1%;">
-
-                <h5>District Email</h5>
-
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtEmail" style="margin-bottom: 1%;">
-
-                <h5>District Website</h5>
-
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtWebsite" style="margin-bottom: 1%;">
-
-
-                <h5>Head Office Address</h5>
-
-                <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtAddress" style="margin-bottom: 1%;">
-
-                <h5>Superintendent Email</h5>
-
-                <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtEmailHead" style="margin-bottom: 1%;">
-
-
-                <h5>District Phone</h5>
-
-                <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "districtPhone" style="margin-bottom: 1%;">
-            
-                <h5>District Social Media Link</h5>
-
-                <input type="text"  class="form-control bg-light border-3 large" placeholder="ie. Instagram or Twitter" aria-label="Search" aria-describedby="basic-addon2" id = "districtSocialMedia" style="margin-bottom: 1%;">
-
-                <p>By creating a district with ClassVibes you agree to our <a href = "#">Privacy Policy</a> and our <a href = "#">Terms & Conditions</a></p>
-
-                <a href="#" class="btn btn-primary btn-icon-split btn-lg" onclick="createDistrict()">
-                    <span class="text">Create District</span>
-                  </a>
-
-            </section>
-
-            <section id = "districtCreateSuccess" style="display: none;">
-              <center style="margin-top: 20%;">
-                <i class="far fa-check-circle" style="font-size: 80px; color: green; margin-bottom: 1%;"></i>
-                <h1>District Created</h1>
-                <p>You have successfully created your district, you can now add <br> schools and start adding teachers to your district. Need help, go to <a href="">docs</a>.</p>
+        <section id = 'loader-icon' style="display: none;">
+            <center style="margin-top: 25%;">
+                <div class="sk-folding-cube">
+                  <div class="sk-cube1 sk-cube"></div>
+                  <div class="sk-cube2 sk-cube"></div>
+                  <div class="sk-cube4 sk-cube"></div>
+                  <div class="sk-cube3 sk-cube"></div>
+                </div>
               </center>
-            </section>
+        </section>
 
-         
+        <section id = "main-page-table">
+         <h1>Teacher Join Requests</h1>
+
+         <div id = "request-list">
+
+         </div>
+
+         <div class="col-xl-12 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="row" style="margin-left: 4px;">
+                                <i class="fas fa-school"></i>
         
+                              <h5 style="margin-left: 5px; margin-top: -4px;">MHHS</h5>
+                            </div>
+        
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Pranav Krishna</div>
+                        </div>
+
+                        <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;">
+                            <i class="fas fa-check"></i>
+                          </a>
+
+                        <a href="#" class="btn btn-danger btn-circle btn-lg">
+                        <i class="fas fa-trash"></i>
+                        </a>
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         
+        </section>
+
+ 
 
         </div>
         <!-- /.container-fluid -->
@@ -277,7 +267,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>2020 Copyright &copy; ClassVibes</span>
+            <span>Copyright &copy; Your Website 2019</span>
           </div>
         </div>
       </footer>
@@ -322,6 +312,11 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
 
 </body>
 
