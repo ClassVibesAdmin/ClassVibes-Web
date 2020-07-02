@@ -1565,7 +1565,7 @@ function getSchoolPersonelInfo(type){
 
 function getTeacherRequests(){
     var districtID = localStorage.getItem('district id')
-    var _ref = firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests1');
+    var _ref = firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests');
 
     var index = 0;
 
@@ -1615,11 +1615,11 @@ function getTeacherRequests(){
                             <div class="h5 mb-0 font-weight-bold text-gray-800">${teacherName}</div>
                         </div>
 
-                        <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;">
+                        <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;" onclick = "acceptRequest('${schoolID}', '${districtID}')">
                             <i class="fas fa-check"></i>
                           </a>
 
-                        <a href="#" class="btn btn-danger btn-circle btn-lg">
+                        <a href="#" class="btn btn-danger btn-circle btn-lg" onclick = "declineRequest('${schoolID}', '${districtID}')">
                         <i class="fas fa-trash"></i>
                         </a>
 
@@ -1637,10 +1637,12 @@ function getTeacherRequests(){
             $(output).appendTo('#request-list');
         })
     }).then(() => {
+
+        document.getElementById('loader-icon').style.display = "none";
         if(index == 0){
             document.getElementById('main-body-content').innerHTML = `
             <div id = "request-list">
-            <center style="margin-top: 13%;">
+            <center style="margin-top: 15%;">
                 <img src="img/undraw_browsing_online_sr8c.svg" alt="" width="20%" >
 
                 <h1 style="margin-top: 1%;">No Pending Requests</h1>
@@ -1650,7 +1652,27 @@ function getTeacherRequests(){
             </div>
             `;
         } else {
-            document.getElementById('main-body-content').style.display = "initial"
+            document.getElementById('main-page').style.display = "initial"
         }
+    })
+}
+
+function acceptRequest(schoolID, districtID){
+
+    const decrement = firebase.firestore.FieldValue.increment(-1);
+
+    firebase.firestore().collection("Districts").doc(districtID).update({
+        "Pending Requests": decrement,
+    }).then(() => {
+        
+    })
+}
+
+function declineRequest(schoolID, districtID){
+
+    const decrement = firebase.firestore.FieldValue.increment(-1);
+
+    firebase.firestore().collection("Districts").doc(districtID).update({
+        "Pending Requests": decrement,
     })
 }
