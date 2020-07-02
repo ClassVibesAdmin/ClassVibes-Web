@@ -1502,6 +1502,14 @@ function getSchoolPersonelInfo(type){
                 `;
     
                 document.getElementById('table-display-main').innerHTML = no_students_output;
+                
+                document.getElementById('loader-icon').style.display = 'none';
+                document.getElementById('main-page-table').style.display = 'initial';
+                
+                
+            } else {
+                document.getElementById('loader-icon').style.display = 'none';
+                document.getElementById('main-page-table').style.display = 'initial';
             }
         })
     }
