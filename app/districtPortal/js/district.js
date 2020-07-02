@@ -1438,8 +1438,47 @@ function storePrefForSchoolView(schoolID, districtID, schoolName){
 //FIRESTORE MIGRATED FULLY
 function toggleCreateSchoolView() {
 
-    document.getElementById("schoolsInfoSection").style.display = "none";
-    document.getElementById("createSchool-page").style.display = "initial";
+    document.getElementById("main-body-content").innerHTML = `
+    <section id = "createSchool-page">
+    <h1 style="margin-bottom: 1%;">Create School</h1>
+
+    <section id = "schoolCreateError">
+        
+    </section>
+  
+    <h5>School Name</h5>
+
+    <input type="text" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolName" style="margin-bottom: 1%;">
+
+    <h5>School Address</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolAddress" style="margin-bottom: 1%;">
+
+    <h5>School Website</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolWebsite" style="margin-bottom: 1%;">
+
+    <h5>Principal Email</h5>
+
+    <input type="email" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "principalEmail" style="margin-bottom: 1%;">
+
+    <h5>School Phone</h5>
+
+    <input type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control bg-light border-3 large" placeholder="" aria-label="Search" aria-describedby="basic-addon2" id = "schoolPhone" style="margin-bottom: 1%;">
+
+    <h5>School Logo Link (Direct Link)</h5>
+
+    <input type="text"  class="form-control bg-light border-3 large" placeholder="ie. Instagram or Twitter" aria-label="Search" aria-describedby="basic-addon2" id = "schoolLogoLink" style="margin-bottom: 1%;">
+
+    <p>By creating a school with ClassVibes you agree to our <a href = "#">Privacy Policy</a> and our <a href = "#">Terms & Conditions</a></p>
+
+    <a href="#" class="btn btn-primary btn-icon-split btn-lg" onclick="createSchool()">
+        <span class="text">Create School</span>
+      </a>
+
+</section>
+    `;
+
 }
 
 //FIRESTORE MIGRATED FULLY
