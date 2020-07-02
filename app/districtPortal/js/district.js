@@ -1474,7 +1474,14 @@ function getSchoolPersonelInfo(type){
                     <td>${data["display-name"]}</td>
                     <td>${data['email']}</td>
                     <td>${data['Join Date']}</td>
-                    <td>${classesCount}</td>
+                    <td><center>${classesCount}</center></td>
+                    <td>
+                    <center>
+                    <a href="#" class="btn btn-danger btn-icon-split btn-lg">
+                    <span class="text">Remove</span>
+                  </a>
+                  </center>
+                  </td>
                   </tr>
                     `;
         
