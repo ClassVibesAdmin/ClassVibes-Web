@@ -26,6 +26,30 @@ function getTeacherAccountStatus(pageType){
     var in_a_district = data['District Code'] != undefined? data['District Code'] : null;
     console.log("DISTRICT: " + in_a_district);
 
+    var pendingSchoolRequestName = data["Pending School Request Name"];
+
+    var pendingSchoolRequestID = data["Pending School Request ID"];
+
+    var pendingDistrictRequestID = data["Pending District Request ID"];
+
+    if(pendingSchoolRequest){
+
+      console.log("Pending request");
+
+      var waitingRequestHTML = `
+      <center style="margin-top: 23%;">
+      <i class="far fa-check-circle" style = "font-size: 80px; color: green"></i>
+
+      <h2 style="margin-top: 2%;">Request Sent</h2>
+
+      <p>You have successfully sent a request to join ${pendingSchoolRequestName}</p>
+
+      <button class="btn danger" onclick = "cancelTeacherRequest('${pendingSchoolRequestID}', '${pendingDistrictRequestID}')">Cancel</button>
+    </center>
+      `;
+
+      $('#main-body-page-teacher').html(waitingRequestHTML);
+    } else {
     //IN A DISTRICT
     if(in_a_district != null &&  in_a_district != undefined){
       firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
@@ -65,6 +89,7 @@ function getTeacherAccountStatus(pageType){
         }
 
       });
+
     } 
     //NOT IN A DISTRICT
     else {
@@ -139,6 +164,8 @@ function getTeacherAccountStatus(pageType){
         $('#main-body-page-teacher').html(activateDistrictHTML);
       }
     }
+    }
+
 
   });
 }
@@ -209,6 +236,12 @@ function checkIfSchoolCodeExists(){
         return schoolName
 
     }).then((name) => {
+
+      firebase.firestore().collection('UserData').doc(teacher_email).update({
+        "Pending District Request": district_code,
+        "Pending School Request": school_code,
+        "Pending School Request Name": name
+      })
 
       firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc().set({
         "Teacher Name": teacher_name,
@@ -1191,6 +1224,11 @@ function showAll() {
 }
 }
 
+function cancelTeacherRequest(ID, districtID){
+  firebase.firestore().collection('Districts').doc(districtID).collection('Pending Requests').doc(ID).delete().then(() => {
+    window.location.reload()
+  });
+}
 
 
 
