@@ -78,7 +78,7 @@
       getServerStatus();
       checkUserAuthStatus();
 
-      getAnnouncements('dashboard');
+      //getAnnouncements('dashboard');
     });
   </script>
 
@@ -247,15 +247,14 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Student Dashboard</h1>
 
+          <style lang = "less">
+         
+          </style>
+
           <!--LOADING PAGE-->
           <section id="loadingIndicator">
             <center style="margin-top: 25%;">
-              <div class="sk-folding-cube">
-                <div class="sk-cube1 sk-cube"></div>
-                <div class="sk-cube2 sk-cube"></div>
-                <div class="sk-cube4 sk-cube"></div>
-                <div class="sk-cube3 sk-cube"></div>
-              </div>
+              <div class="loader"></div>
             </center>
           </section>
 
@@ -400,7 +399,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Team Quarenteam</span>
+            <span>Copyright &copy; Xeon Developers. v0.9.0-beta</span>
           </div>
         </div>
       </footer>
