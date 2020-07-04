@@ -75,13 +75,13 @@ function getGrayStudentStatus(classCode){
       _ref.get().then(snapshot => {
         var data = snapshot.data();
     
-        var lastStatusUpdate = data['Last Status Update']['Last Status Update-' + classCode];
+        var lastStatusUpdate = data['Last Status Update']
 
         console.log("LAST STATUS UPDATE: " + lastStatusUpdate)
     
         if(lastStatusUpdate != null && lastStatusUpdate != undefined){
 
-          var lastStatusUpdate = new Date(lastStatusUpdate)
+          var lastStatusUpdate = new Date(lastStatusUpdate['Last Status Update-' + classCode])
 
           var today = new Date();
 
@@ -387,6 +387,12 @@ function updateReaction(reaction) {
   console.log("TESET:" + classSelected);
 
   console.log(classCodes);
+
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
+    studentEmail: studentEmail,
+    reaction: reaction,
+    date: currentDate.toString()
+  });
 
 
   firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
