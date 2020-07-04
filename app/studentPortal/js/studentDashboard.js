@@ -87,6 +87,12 @@ function getGrayStudentStatus(classCode){
             lastDate.setHours ( today.getHours() + hours );
             lastDate.setMinutes ( today.getMinutes() + minutes );
             lastDate.setSeconds ( today.getSeconds() + seconds );
+
+            if(today.getTime() < lastDate.getTime()){
+              console.log("PAST STUDENT GRAY TIME")
+          }
+
+            console.log(lastDate);
         }
       });
     }
