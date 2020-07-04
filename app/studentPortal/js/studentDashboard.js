@@ -74,22 +74,19 @@ function getGrayStudentStatus(classCode){
         var lastStatusUpdate = data['Last Status Update-' + classCode];
     
         if(lastStatusUpdate != null && lastStatusUpdate != undefined){
-            var addDate = lastStatusUpdate + greyTimeLimit
             var today = new Date()
-
-            var d1 = new Date ();
 
             var days = addDate[0];
             var hours = addDate[1];
             var minutes = addDate[2];
             var seconds = addDate[3];
 
-            var outputDate = new Date();
-            
-            outputDate.setDate ( today.getDate() + days );
-            outputDate.setHours ( today.getHours() + hours );
-            outputDate.setMinutes ( today.getMinutes() + minutes );
-            outputDate.setSeconds ( today.getSeconds() + seconds );
+            var lastDate = new Date();
+
+            lastDate.setDate ( today.getDate() + days );
+            lastDate.setHours ( today.getHours() + hours );
+            lastDate.setMinutes ( today.getMinutes() + minutes );
+            lastDate.setSeconds ( today.getSeconds() + seconds );
         }
       });
     }
