@@ -34,7 +34,7 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-7
+
 
 </head>
 
@@ -202,204 +202,226 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800" id="className">Loading...</h1>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Students</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Settings</a>
+                        </li>
+                       
+                      </ul>
+                      <div style="height: 100px;"></div>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div id="content">
+
+                                <!-- Topbar -->
+        
+                                <!-- Sidebar Toggle (Topbar) -->
+                                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+        
+        
+        
+                                <!-- Topbar Navbar -->
+                                <ul class="navbar-nav ml-auto">
+        
+                                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                                    <li class="nav-item dropdown no-arrow d-sm-none">
+                                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-search fa-fw"></i>
+                                        </a>
+                                        <!-- Dropdown - Messages -->
+                                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                            aria-labelledby="searchDropdown">
+                                            <form class="form-inline mr-auto w-100 navbar-search">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control bg-light border-0 small"
+                                                        placeholder="Search for..." aria-label="Search"
+                                                        aria-describedby="basic-addon2">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="button">
+                                                            <i class="fas fa-search fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+        
+        
+        
+        
+                                    </nav>
+                                    <!-- End of Topbar -->
+        
+                                    <!-- Begin Page Content -->
+                                    <div class="container-fluid">
+        
+                                        <!-- Page Heading -->
+        
+                                        <!-- DataTales Example -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+                                                <div style="margin-left: 65%;">
+                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label class="btn btn-secondary active" onclick="showAll()">
+                                                            <input type="radio" name="options" id="allstudents"
+                                                                autocomplete="off" checked>
+                                                            All Students
+                                                        </label>
+                                                        <label class="btn btn-secondary" onclick="showGreat()">
+                                                            <input type="radio" name="options" id="great" autocomplete="off">
+                                                            Doing
+                                                            Great
+                                                        </label>
+                                                        <label class="btn btn-secondary" onclick="showHelp()">
+                                                            <input type="radio" name="options" id="help" autocomplete="off">
+                                                            Needs Help
+                                                        </label>
+                                                        <label class="btn btn-secondary" onclick="showFrustrated()">
+                                                            <input type="radio" name="options" id="frustrated"
+                                                                autocomplete="off">
+                                                            Frustrated
+                                                        </label>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                            <div class="card-body">
+        
+                                                <section id="allStudentsTable">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                                            cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Comment</th>
+                                                                    <th>Mood</th>
+                                                                    <th>Reported</th>
+                                                                    <th>Schedule Meeting</th>
+        
+                                                                </tr>
+                                                            </thead>
+        
+                                                            <tbody id="studentTable">
+        
+        
+        
+                                                            </tbody>
+        
+                                                        </table>
+                                                    </div>
+                                                </section>
+        
+                                                <section id="doing-good-table-section" style="display: none;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                                            cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Comment</th>
+                                                                    <th>Mood</th>
+                                                                    <th>Reported</th>
+                                                                    <th>Schedule Meeting</th>
+        
+                                                                </tr>
+                                                            </thead>
+        
+                                                            <tbody id="studentTable-doing-good">
+        
+        
+        
+                                                            </tbody>
+        
+                                                        </table>
+                                                    </div>
+                                                </section>
+        
+                                                <section id="meh-table-section" style="display: none;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                                            cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Comment</th>
+                                                                    <th>Mood</th>
+                                                                    <th>Reported</th>
+                                                                    <th>Schedule Meeting</th>
+        
+                                                                </tr>
+                                                            </thead>
+        
+                                                            <tbody id="studentTable-meh">
+        
+        
+        
+                                                            </tbody>
+        
+                                                        </table>
+                                                    </div>
+                                                </section>
+        
+                                                <section id="frustrated-table-section" style="display: none;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                                            cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Comment</th>
+                                                                    <th>Mood</th>
+                                                                    <th>Reported</th>
+                                                                    <th>Schedule Meeting</th>
+        
+                                                                </tr>
+                                                            </thead>
+        
+                                                            <tbody id="studentTable-frustrated">
+        
+        
+        
+                                                            </tbody>
+        
+                                                        </table>
+                                                    </div>
+                                                </section>
+        
+                                                <div id="outputModel"></div>
+        
+        
+        
+        
+        
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <!--Settings Content-->
+                            <div id="editInfo"></div>
+                            
+                            <!--End of Setting Content-->
+                        </div>
+                      </div>
 
                     <!--TABLES-->
 
-                    <div id="content">
-
-                        <!-- Topbar -->
-
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-
-
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto">
-
-                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
-                                                placeholder="Search for..." aria-label="Search"
-                                                aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-
-
-
-
-                            </nav>
-                            <!-- End of Topbar -->
-
-                            <!-- Begin Page Content -->
-                            <div class="container-fluid">
-
-                                <!-- Page Heading -->
-
-                                <!-- DataTales Example -->
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">Students</h6>
-                                        <div style="margin-left: 65%;">
-                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <label class="btn btn-secondary active" onclick="showAll()">
-                                                    <input type="radio" name="options" id="allstudents"
-                                                        autocomplete="off" checked>
-                                                    All Students
-                                                </label>
-                                                <label class="btn btn-secondary" onclick="showGreat()">
-                                                    <input type="radio" name="options" id="great" autocomplete="off">
-                                                    Doing
-                                                    Great
-                                                </label>
-                                                <label class="btn btn-secondary" onclick="showHelp()">
-                                                    <input type="radio" name="options" id="help" autocomplete="off">
-                                                    Needs Help
-                                                </label>
-                                                <label class="btn btn-secondary" onclick="showFrustrated()">
-                                                    <input type="radio" name="options" id="frustrated"
-                                                        autocomplete="off">
-                                                    Frustrated
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="card-body">
-
-                                        <section id="allStudentsTable">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered" id="dataTable" width="100%"
-                                                    cellspacing="0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Comment</th>
-                                                            <th>Mood</th>
-                                                            <th>Reported</th>
-                                                            <th>Schedule Meeting</th>
-
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody id="studentTable">
-
-
-
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                        </section>
-
-                                        <section id="doing-good-table-section" style="display: none;">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered" id="dataTable" width="100%"
-                                                    cellspacing="0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Comment</th>
-                                                            <th>Mood</th>
-                                                            <th>Reported</th>
-                                                            <th>Schedule Meeting</th>
-
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody id="studentTable-doing-good">
-
-
-
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                        </section>
-
-                                        <section id="meh-table-section" style="display: none;">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered" id="dataTable" width="100%"
-                                                    cellspacing="0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Comment</th>
-                                                            <th>Mood</th>
-                                                            <th>Reported</th>
-                                                            <th>Schedule Meeting</th>
-
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody id="studentTable-meh">
-
-
-
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                        </section>
-
-                                        <section id="frustrated-table-section" style="display: none;">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered" id="dataTable" width="100%"
-                                                    cellspacing="0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Comment</th>
-                                                            <th>Mood</th>
-                                                            <th>Reported</th>
-                                                            <th>Schedule Meeting</th>
-
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody id="studentTable-frustrated">
-
-
-
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                        </section>
-
-                                        <div id="outputModel"></div>
-
-
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
+                    
 
                 </div>
 
