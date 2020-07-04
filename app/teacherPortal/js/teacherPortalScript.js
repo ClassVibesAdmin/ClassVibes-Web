@@ -1266,6 +1266,48 @@ function cancelTeacherRequest(ID, districtID, teacher_email){
 
 }
 
+function getEditData() {
+  var code = localStorage.getItem("code");
+  output = ''
+
+  firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
+
+   var data = doc.data();
+   return data;
+
+
+}).then((data) => {
+  var className = data['class-name'];
+   var course = data['Course']
+   var teacher = data['teacher']
+  output += `
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+  </div>
+  <input type="text" class="form-control" placeholder="${className}" aria-label="Username"
+    aria-describedby="basic-addon1" id="className" readonly>
+</div>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="${course}" aria-label="Recipient's username"
+    aria-describedby="basic-addon2" id="course" readonly>
+  <div class="input-group-append">
+  </div>
+</div>
+<div class="input-group mb-3" id="hackLocation">
+  <input type="text" class="form-control" placeholder="${teacher}" aria-label="Recipient's username"
+    aria-describedby="basic-addon2" id="teacher" readonly>
+  <div class="input-group-append">
+  </div>
+</div>
+
+  `
+
+  $(output).appendTo("#editInfo")
+
+})
+}
+
 
 
 
