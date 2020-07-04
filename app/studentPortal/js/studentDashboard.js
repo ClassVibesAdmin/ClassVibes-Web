@@ -63,7 +63,7 @@ function getGrayStudentStatus(classCode){
 
     var data = snapshot.data();
 
-    var className = data["class name"];
+    var className = data["class-name"];
 
     var greyTimeLimit = data['Gray Time Limit'];
 
@@ -104,7 +104,7 @@ function getGrayStudentStatus(classCode){
 
               var output = `
               <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal${classCode}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -114,16 +114,19 @@ function getGrayStudentStatus(classCode){
         </button>
       </div>
       <div class="modal-body">
-        You have exceeded your gray time for the class ${}
+        You have exceeded your gray time for the class ${className}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
       </div>
     </div>
   </div>
 </div>
               `;
+
+              $(output).appendTo('#main-body-content')
+
+              $(`#exampleModal${classCode}`).modal('toggle')
           } else {
             "NOT PAST GRAY STUDENT TIME"
           }
