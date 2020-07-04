@@ -58,38 +58,49 @@ function getProfileInfo() {
 function getGrayStudentStatus(classCode){
   var email = localStorage.getItem('email');
 
-  var _classInfoRef = firebase.firestore().collection("Classes").doc(classCode);
+  firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {
+    console.log("GETTING GRAY STUDENTS +++++++++++++++++++++++>");
 
-  _classInfoRef.get().then(snapshot => {
     var data = snapshot.data();
 
     var greyTimeLimit = data['Gray Time Limit'];
 
-    if(greyTimeLimit != null, undefined){
+    console.log("GRAY TIME LIMIT:" + greyTimeLimit);
+
+    if(greyTimeLimit != null && greyTimeLimit != undefined){
       var _ref = firebase.firestore().collection("UserData").doc(email)
 
       _ref.get().then(snapshot => {
         var data = snapshot.data();
     
         var lastStatusUpdate = data['Last Status Update-' + classCode];
+
+        console.log(lastStatusUpdate)
     
         if(lastStatusUpdate != null && lastStatusUpdate != undefined){
-            var today = new Date()
 
-            var days = addDate[0];
-            var hours = addDate[1];
-            var minutes = addDate[2];
-            var seconds = addDate[3];
+          var lastStatusUpdate = new Date(lastStatusUpdate)
+
+          var today = new Date();
+
+            var days = greyTimeLimit[0];
+            var hours = greyTimeLimit[1];
+            var minutes = greyTimeLimit[2];
+            var seconds = greyTimeLimit[3];
 
             var lastDate = new Date();
 
-            lastDate.setDate ( today.getDate() + days );
-            lastDate.setHours ( today.getHours() + hours );
-            lastDate.setMinutes ( today.getMinutes() + minutes );
-            lastDate.setSeconds ( today.getSeconds() + seconds );
+            lastDate.setDate ( lastStatusUpdate.getDate() + days );
+            lastDate.setHours ( lastStatusUpdate.getHours() + hours );
+            lastDate.setMinutes ( lastStatusUpdate.getMinutes() + minutes );
+            lastDate.setSeconds ( lastStatusUpdate.getSeconds() + seconds );
 
-            if(today.getTime() < lastDate.getTime()){
+            console.log(lastDate);
+
+            if(today.getTime() > lastDate.getTime()){
               console.log("PAST STUDENT GRAY TIME")
+          } else {
+            "NOT PAST GRAY STUDENT TIME"
           }
 
             console.log(lastDate);
