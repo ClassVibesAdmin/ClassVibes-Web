@@ -73,8 +73,13 @@ function getTeacherAccountStatus(pageType){
         </center>
           `;
 
+          document.getElementById('loader-icon').style.display = 'none';
+
           $('#main-body-page-teacher').html(activateDistrictHTML);
         } else {
+          document.getElementById('loader-icon').style.display = 'none';
+          document.getElementById('dashboard-section').style.display = 'initial';
+
           if(pageType == 'meetings-page'){
             getClassData();
             getProfileInfo();
@@ -104,6 +109,10 @@ function getTeacherAccountStatus(pageType){
 
       //ACCOUNT ACTIVE
       if(accountStatus == "Activated"){
+
+        document.getElementById('loader-icon').style.display = 'none';
+
+        document.getElementById('dashboard-section').style.display = 'none';
 
         if(pageType == 'meetings-page'){
           getClassData();
@@ -165,7 +174,7 @@ function getTeacherAccountStatus(pageType){
 
       </center>
        `;
-
+       document.getElementById('loader-icon').style.display = 'none';
         $('#main-body-page-teacher').html(activateDistrictHTML);
       }
     }
