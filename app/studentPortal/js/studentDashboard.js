@@ -63,6 +63,8 @@ function getGrayStudentStatus(classCode){
 
     var data = snapshot.data();
 
+    var className = data["class name"];
+
     var greyTimeLimit = data['Gray Time Limit'];
 
     console.log("GRAY TIME LIMIT:" + greyTimeLimit);
@@ -75,7 +77,7 @@ function getGrayStudentStatus(classCode){
     
         var lastStatusUpdate = data['Last Status Update-' + classCode];
 
-        console.log(lastStatusUpdate)
+        console.log("LAST STATUS UPDATE: " + lastStatusUpdate)
     
         if(lastStatusUpdate != null && lastStatusUpdate != undefined){
 
@@ -99,6 +101,29 @@ function getGrayStudentStatus(classCode){
 
             if(today.getTime() > lastDate.getTime()){
               console.log("PAST STUDENT GRAY TIME")
+
+              var output = `
+              <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Gray Time Exceeded</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You have exceeded your gray time for the class ${}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+              `;
           } else {
             "NOT PAST GRAY STUDENT TIME"
           }
@@ -139,7 +164,8 @@ function getStudentClasses(studentUsername, pageType) {
 
       console.log(classesList.length);
 
-      getGrayStudentStatus(classCode)
+      setTimeout(getGrayStudentStatus(classCode), 3000);
+      
     });
 
     console.log(classesList.length + ": LENGTH");
