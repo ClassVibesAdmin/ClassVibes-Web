@@ -22,9 +22,13 @@
 
   <script src="js/chart-pie-demo.js"></script>
 
-  <script src = "../studentPortal/js/applicationManagement.js"></script>
+  <script src="../studentPortal/js/applicationManagement.js"></script>
 
   <script src="js/teacherPortalScript.js"></script>
+
+  <link rel="stylesheet" href="css/button-outline.css">
+
+  <link rel="stylesheet" href="css/loader.css">
 
 
 </head>
@@ -33,14 +37,14 @@
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
 
   <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
 
   <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -50,9 +54,7 @@
       getLiveSeverAlerts();
       checkUserAuthStatus();
 
-      getClassData();
-      getProfileInfo();
-      getChartData();
+      getTeacherAccountStatus();
 
     });
   </script>
@@ -215,205 +217,224 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" id="main-body-page-teacher">
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-
-          </div>
-
-          <!-- Content Row -->
-          <div class="row" id="topClassesSection">
-
-          </div>
-
-
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Students Grade Average</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink" id="classesOp2">
-                      <div class="dropdown-header">Classes:</div>
-
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-
-
-                  </div>
-
-                </div>
+        <!--LOADING PAGE-->
+        <section id = 'loader-icon'>
+          <center style="margin-top: 25%;">
+              <div class="sk-folding-cube">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
               </div>
-            </div>
+            </center>
+      </section>
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary"  id = "studentReportHeadline">Student Report</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink" id="classesOp1">
-                      <div class="dropdown-header">Classes:</div>
+      <section id="dashboard-section" style="display: none;">
+        
+ <!-- Page Heading -->
+ <div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div style="height: 20px;"></div>
-                  <!--
-                      <center>
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" >
-                        <label class="btn btn-primary active" onclick="showAll()">
-                            <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
-                            All Students
-                        </label>
-                        <label class="btn btn-success" onclick="showGreat()">
-                            <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
-                        </label>
-                        <label class="btn btn-warning" onclick="showHelp()">
-                            <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
-                        </label>
-                        <label class="btn btn-danger" onclick="showFrustrated()">
-                            <input type="radio" name="options" id="frustrated" autocomplete="off">
-                            Frustrated
-                        </label>
-                    </div>
-                    </center>
-                    -->
-                  <div class="mt-4 text-center small">
+</div>
 
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Good
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-warning"></i> Moderate
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-danger"></i> Needs Help
-                    </span>
+<!-- Content Row -->
+<div class="row" id="topClassesSection">
 
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@mdo">Send Announcement</button>
-          <div id="popupModal"></div>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Send Announcement</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                        <label for="message-text" class="col-form-label">Class Number:</label>
-                        <input class="form-control" id="numberClass" type="number"></input>
-                      </div>
-                    </div>
-                </div>
-                <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                  <label for="message-text" class="col-form-label">Title:</label>
-                  <input class="form-control" id="messageTitle"></input>
-                </div>
-                <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea class="form-control" id="messageText"></textarea>
-                </div>
-                </form>
-                <button class="btn btn-primary" onclick="writeAnnouncement()" data-dismiss="modal">Send
-                  Announcement</button>
-              </div>
-              <div class="modal-footer">
+</div>
 
 
-              </div>
-            </div>
-          </div>
+<!-- Content Row -->
 
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@mdo">Create Chat</button>
-          <div id="popupModal"></div>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Create Chat</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Chat Name: </label>
-                      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                        <label for="message-text" class="col-form-label">Class Number:</label>
-                        <input class="form-control" id="numberClass" type="number"></input>
-                      </div>
-                    </div>
-                </div>
-                <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                  <label for="message-text" class="col-form-label">Title:</label>
-                  <input class="form-control" id="messageTitle"></input>
-                </div>
-                <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea class="form-control" id="messageText"></textarea>
-                </div>
-                </form>
-                <button class="btn btn-primary" onclick="writeAnnouncement()" data-dismiss="modal">Send
-                  Announcement</button>
-              </div>
-              <div class="modal-footer">
+<div class="row">
 
+  <!-- Area Chart -->
+  <div class="col-xl-8 col-lg-7">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Students Grade Average</h6>
+        <div class="dropdown no-arrow">
+          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+            aria-labelledby="dropdownMenuLink" id="classesOp2">
+            <div class="dropdown-header">Classes:</div>
 
-              </div>
-            </div>
           </div>
         </div>
       </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area">
+          <canvas id="myAreaChart"></canvas>
 
 
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary" id="studentReportHeadline">Student Report</h6>
+        <div class="dropdown no-arrow">
+          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+            aria-labelledby="dropdownMenuLink" id="classesOp1">
+            <div class="dropdown-header">Classes:</div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-pie pt-4 pb-2">
+          <canvas id="myPieChart"></canvas>
+        </div>
+        <div style="height: 20px;"></div>
+        <!--
+            <center>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+              <label class="btn btn-primary active" onclick="showAll()">
+                  <input type="radio" name="options" id="allstudents" autocomplete="off" checked >
+                  All Students
+              </label>
+              <label class="btn btn-success" onclick="showGreat()">
+                  <input type="radio" name="options" id="great" autocomplete="off" > Doing Great
+              </label>
+              <label class="btn btn-warning" onclick="showHelp()">
+                  <input type="radio" name="options" id="help" autocomplete="off"> Needs Help
+              </label>
+              <label class="btn btn-danger" onclick="showFrustrated()">
+                  <input type="radio" name="options" id="frustrated" autocomplete="off">
+                  Frustrated
+              </label>
+          </div>
+          </center>
+          -->
+        <div class="mt-4 text-center small">
+
+          <span class="mr-2">
+            <i class="fas fa-circle text-success"></i> Good
+          </span>
+          <span class="mr-2">
+            <i class="fas fa-circle text-warning"></i> Moderate
+          </span>
+          <span class="mr-2">
+            <i class="fas fa-circle text-danger"></i> Needs Help
+          </span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+  data-whatever="@mdo">Send Announcement</button>
+<div id="popupModal"></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Announcement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+              <label for="message-text" class="col-form-label">Class Number:</label>
+              <input class="form-control" id="numberClass" type="number"></input>
+            </div>
+          </div>
+      </div>
+      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+        <label for="message-text" class="col-form-label">Title:</label>
+        <input class="form-control" id="messageTitle"></input>
+      </div>
+      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+        <label for="message-text" class="col-form-label">Message:</label>
+        <textarea class="form-control" id="messageText"></textarea>
+      </div>
+      </form>
+      <button class="btn btn-primary" onclick="writeAnnouncement()" data-dismiss="modal">Send
+        Announcement</button>
+    </div>
+    <div class="modal-footer">
 
 
     </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+  data-whatever="@mdo">Create Chat</button>
+<div id="popupModal"></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Chat</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Chat Name: </label>
+            <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+              <label for="message-text" class="col-form-label">Class Number:</label>
+              <input class="form-control" id="numberClass" type="number"></input>
+            </div>
+          </div>
+      </div>
+      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+        <label for="message-text" class="col-form-label">Title:</label>
+        <input class="form-control" id="messageTitle"></input>
+      </div>
+      <div class="form-group" style="padding-left: 10px; padding-right: 10px;">
+        <label for="message-text" class="col-form-label">Message:</label>
+        <textarea class="form-control" id="messageText"></textarea>
+      </div>
+      </form>
+      <button class="btn btn-primary" onclick="writeAnnouncement()" data-dismiss="modal">Send
+        Announcement</button>
+    </div>
+    <div class="modal-footer">
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+
+
+</div>
+      </section>
+
+
+         
   </div>
 
   <!-- /.container-fluid -->

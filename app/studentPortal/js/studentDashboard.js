@@ -1,3 +1,16 @@
+function encrypt(){
+  var AES_KEY = `
+      MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
+      0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
+      XKV1hUMBhxcfPICA60OyBR5lo/vZC8GwQIhJJBgF4EHjkFuvccYLNlLdSAzLTsVj
+      GSs9e0fkp+LX193UXQIDAQAB
+      `;
+
+      var data = CryptoJS.AES.encrypt(title, AES_KEY);
+
+      return data.toString();
+}
+
 function initializeFirebase() {
   var firebaseConfig = {
     apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
@@ -408,6 +421,7 @@ function checkIfClassCodeExists(addType) {
       } else {
         exists = false;
       }
+      
 
       console.log("EXISTS:" + exists);
 
@@ -484,6 +498,7 @@ function checkIfClassCodeExists(addType) {
   // });
 
 }
+
 
 //Firestore migrated fully
 function addClassToStudentData(classCode) {
