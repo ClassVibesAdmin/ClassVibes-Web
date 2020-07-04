@@ -55,6 +55,90 @@ function getProfileInfo() {
 
 }
 
+function getGrayStudentStatus(classCode){
+  var email = localStorage.getItem('email');
+
+  firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {
+    console.log("GETTING GRAY STUDENTS +++++++++++++++++++++++>");
+
+    var data = snapshot.data();
+
+    var className = data["class-name"];
+
+    var greyTimeLimit = data['Gray Time Limit'];
+
+    console.log("GRAY TIME LIMIT:" + greyTimeLimit);
+
+    if(greyTimeLimit != null && greyTimeLimit != undefined){
+      var _ref = firebase.firestore().collection("UserData").doc(email)
+
+      _ref.get().then(snapshot => {
+        var data = snapshot.data();
+    
+        var lastStatusUpdate = data['Last Status Update']
+
+        console.log("LAST STATUS UPDATE: " + lastStatusUpdate)
+    
+        if(lastStatusUpdate != null && lastStatusUpdate != undefined){
+
+          var lastStatusUpdate = new Date(lastStatusUpdate['Last Status Update-' + classCode])
+
+          var today = new Date();
+
+            var days = greyTimeLimit[0];
+            var hours = greyTimeLimit[1];
+            var minutes = greyTimeLimit[2];
+            var seconds = greyTimeLimit[3];
+
+            var lastDate = new Date();
+
+            lastDate.setDate ( lastStatusUpdate.getDate() + days );
+            lastDate.setHours ( lastStatusUpdate.getHours() + hours );
+            lastDate.setMinutes ( lastStatusUpdate.getMinutes() + minutes );
+            lastDate.setSeconds ( lastStatusUpdate.getSeconds() + seconds );
+
+            console.log(lastDate);
+
+            if(today.getTime() > lastDate.getTime()){
+              console.log("PAST STUDENT GRAY TIME")
+
+              var output = `
+              <!-- Modal -->
+<div class="modal fade" id="exampleModal${classCode}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Gray Time Exceeded</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You have exceeded your gray time for the class ${className}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+              `;
+
+              $(output).appendTo('#main-body-content')
+
+              $(`#exampleModal${classCode}`).modal('toggle')
+          } else {
+            "NOT PAST GRAY STUDENT TIME"
+          }
+
+            console.log(lastDate);
+        }
+      });
+    }
+  })
+
+}
+
 // FIRESTORE MIGRATED FULLY
 function getStudentClasses(studentUsername, pageType) {
 
@@ -82,6 +166,9 @@ function getStudentClasses(studentUsername, pageType) {
       classCodes[className] = classCode;
 
       console.log(classesList.length);
+
+      setTimeout(getGrayStudentStatus(classCode), 3000);
+      
     });
 
     console.log(classesList.length + ": LENGTH");
@@ -300,6 +387,12 @@ function updateReaction(reaction) {
   console.log("TESET:" + classSelected);
 
   console.log(classCodes);
+
+  firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
+    studentEmail: studentEmail,
+    reaction: reaction,
+    date: currentDate.toString()
+  });
 
 
   firebase.firestore().collection("Classes").doc(classSelected).collection("Student Reactions").doc().set({
