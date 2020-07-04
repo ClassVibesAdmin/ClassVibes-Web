@@ -55,6 +55,34 @@ function getProfileInfo() {
 
 }
 
+function getGrayStudentStatus(classCode){
+  var email = localStorage.getItem('email');
+
+  var _classInfoRef = firebase.firestore().collection("Classes").doc(classCode);
+
+  _classInfoRef.get().then(snapshot => {
+    var data = snapshot.data();
+
+    var greyTimeLimit = data['Gray Time Limit'];
+
+    if(greyTimeLimit != null, undefined){
+      var _ref = firebase.firestore().collection("UserData").doc(email)
+
+      _ref.get().then(snapshot => {
+        var data = snapshot.data();
+    
+        var lastStatusUpdate = data['Last Status Update-' + classCode];
+    
+        if(lastStatusUpdate != null && lastStatusUpdate != undefined){
+            var addDate = lastStatusUpdate + greyTimeLimit
+            var today = new Date();
+        }
+      });
+    }
+  })
+
+}
+
 // FIRESTORE MIGRATED FULLY
 function getStudentClasses(studentUsername, pageType) {
 
@@ -82,6 +110,8 @@ function getStudentClasses(studentUsername, pageType) {
       classCodes[className] = classCode;
 
       console.log(classesList.length);
+
+      getGrayStudentStatus(classCode)
     });
 
     console.log(classesList.length + ": LENGTH");
