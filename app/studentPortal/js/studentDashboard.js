@@ -390,6 +390,8 @@ function updateReaction(reaction) {
 
   firebase.firestore().collection("UserData").doc(`${studentEmail}/Last Status Update.Last Status Update-${classSelected}`).update({
     date: currentDate.toString()
+  }).then(() => {
+    console.log("UPDATED IN USER");
   });
 
 
