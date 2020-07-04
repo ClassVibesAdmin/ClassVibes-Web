@@ -388,7 +388,7 @@ function updateReaction(reaction) {
 
   console.log(classCodes);
 
-  firebase.firestore().collection("UserData").doc(`${studentEmail}/Last Status Update${classSelected}`).collection("Student Reactions").doc().set({
+  firebase.firestore().collection("UserData").doc(`${studentEmail}/Last Status Update.Last Status Update-${classSelected}`).update({
     date: currentDate.toString()
   });
 
