@@ -40,8 +40,6 @@ function getProfileInfo() {
 
   var outputPic = ``;
 
-  console.log("PIC:" + pic);
-
   if(pic != null && pic != undefined && pic != ""){
       outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
   } else {
@@ -93,7 +91,6 @@ function getGrayStudentStatus(classCode){
             lastDate.setSeconds ( lastStatusUpdate.getSeconds() + seconds );
 
             if(today.getTime() > lastDate.getTime()){
-              console.log("PAST STUDENT GRAY TIME")
 
               var output = `
               <!-- Modal -->
@@ -137,7 +134,6 @@ function getStudentClasses(studentUsername, pageType) {
     document.getElementById("classesRowDisplay").innerHTML = "";
   }
 
-  console.log(studentUsername);
 
   let output = "";
 
@@ -156,18 +152,15 @@ function getStudentClasses(studentUsername, pageType) {
       classesList.push(className);
       classCodes[className] = classCode;
 
-      console.log(classesList.length);
 
       setTimeout(getGrayStudentStatus(classCode), 3000);
       
     });
 
-    console.log(classesList.length + ": LENGTH");
 
 
     if (classesList.length != 0) {
 
-      console.log(classesList);
 
       inital = `
           <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
@@ -181,7 +174,6 @@ function getStudentClasses(studentUsername, pageType) {
 
 
       classesList.forEach(function (item, index) {
-        console.log(item, index);
         output = `
             <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
@@ -375,12 +367,11 @@ function updateReaction(reaction) {
 
   var classSelected = localStorage.getItem("selectedClassDropdown");
 
-  console.log(classCodes);
+
 
   firebase.firestore().collection("UserData").doc(studentEmail).collection("Classes").doc(classSelected).update({
     "Last Status Update": currentDate.toString(),
   }).then(() => {
-    console.log("UPDATED IN USER");
   });
 
 
@@ -415,8 +406,6 @@ function setMainClassForMood(index) {
 
   selectedClass = classCodes[className];
 
-  console.log(selectedClass + ":" + index + ":" + className);
-
   localStorage.setItem("selectedClassDropdown", selectedClass);
 
 }
@@ -430,7 +419,6 @@ function checkIfClassCodeExists(addType) {
 
     var error = document.getElementById("errorMessage-noClasses");
 
-    console.log(code);
 
     var exists = false;
 
@@ -476,7 +464,6 @@ function checkIfClassCodeExists(addType) {
         getStudentClasses(localStorage.getItem("email"));
       }
 
-      console.log(exists);
 
     });
 
@@ -486,7 +473,6 @@ function checkIfClassCodeExists(addType) {
 
     var error = document.getElementById("errorMessage");
 
-    console.log(code);
 
     //var exists = false;
 
@@ -504,8 +490,6 @@ function checkIfClassCodeExists(addType) {
         exists = false;
       }
       
-
-      console.log("EXISTS:" + exists);
 
       if (exists == false) {
         error.innerHTML = `
@@ -534,8 +518,6 @@ function checkIfClassCodeExists(addType) {
 
         getStudentClasses(email);
       }
-
-      console.log(exists);
 
 
     });
@@ -603,8 +585,6 @@ function addClassToStudentData(classCode) {
 
   });
 
-  console.log("Success");
-
   // var _classInfoRef = firebase.database().ref().child("Classes").child(classCode).child("class-name");
 
   // _classInfoRef.once('value').then(function (snapshot) {
@@ -659,9 +639,6 @@ function updateAddClasesDropdown(studentUsername) {
     });
 
   }).then(() => {
-    console.log(classesList.length);
-
-    console.log(classesList);
 
     inital = `
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
@@ -675,7 +652,6 @@ function updateAddClasesDropdown(studentUsername) {
 
 
     classesList.forEach(function (item, index) {
-      console.log(item, index);
 
       output2 = `
           <a class="collapse-item">${item}</a>
@@ -796,7 +772,6 @@ function getStudentContactsList(studentUsername) {
 
 
     classesListContacts.forEach(function (item, index) {
-      //console.log(item, index);
       output = `
       <div class="chat-contactBox">
 
@@ -822,7 +797,6 @@ function getStudentStatus() {
   firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
     var value = doc.data()["Reaction"];
 
-    //console.log("REACTION:" + value);
 
     if (value != undefined) {
       if (value == "needs help") {
@@ -853,8 +827,6 @@ function getMeetings(pageType) {
   if(pageType == "meetingsPage"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").get().then(function (doc) {
 
-      console.log("GETTING MEETINGS Main page");
-  
       var meetingsCount = 0;
   
       doc.forEach(snapshot => {
@@ -867,7 +839,6 @@ function getMeetings(pageType) {
         var date = meetingsData["Date"];
         var title = meetingsData["Title"];
   
-        //console.log(date);
   
         output = `
           <div class="col-xl-6 col-md-6 mb-4">
@@ -893,8 +864,7 @@ function getMeetings(pageType) {
         $(output).appendTo("#meetingsList-main-page");
       });
   
-      //console.log("MEETINGS LIST: " + meetingsCount);
-  
+
   
       if (meetingsCount == 0) {
   
@@ -917,7 +887,6 @@ function getMeetings(pageType) {
   if(pageType == "dashboard"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
-      //console.log("GETTING MEETINGS Dashboard");
   
       var meetingsCount = 0;
   
@@ -931,8 +900,7 @@ function getMeetings(pageType) {
         var date = meetingsData["Date"];
         var title = meetingsData["Title"];
   
-        console.log(date);
-  
+
         output = `
           <div class="col-xl-12 col-md-6 mb-4">
           <div class="card border-left-primary shadow h-100 py-2">
@@ -956,9 +924,7 @@ function getMeetings(pageType) {
   
         $(output).appendTo("#meetingsList");
       });
-  
-      //console.log("MEETINGS LIST: " + meetingsCount);
-  
+    
   
       if (meetingsCount == 0) {
         outputError = `
@@ -1068,7 +1034,6 @@ function getAnnouncements(pageType = "annoncements-page-main") {
 
       for (let i = 0; i <= classesListCodes.length; i++) {
         var classcode = classesListCodes[i];
-        console.log("CLASS CODE: " + classcode);
   
         if (classcode != undefined && classcode != null) {
   
@@ -1083,15 +1048,12 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 outputAnnouncements = "";
   
                 announcementsCount += 1;
-  
-                console.log(announcementsCount);
+
   
                 var title = annoucementData["Title"];
                 var message = annoucementData["Message"];
                 var date = annoucementData['Date'];
-  
-                //console.log(title);
-                //console.log(message);
+
   
                 var nameClass = classnamesList[i];
   
@@ -1152,7 +1114,6 @@ function getAnnouncements(pageType = "annoncements-page-main") {
 
       for (let i = 0; i <= classesListCodes.length; i++) {
         var classcode = classesListCodes[i];
-        console.log("CLASS CODE: " + classcode);
   
         if (classcode != undefined && classcode != null) {
   
@@ -1168,14 +1129,10 @@ function getAnnouncements(pageType = "annoncements-page-main") {
   
                 announcementsCount += 1;
   
-                console.log(announcementsCount);
   
                 var title = annoucementData["Title"];
                 var message = annoucementData["Message"];
                 var date = annoucementData['Date'];
-  
-                //console.log(title);
-                //console.log(message);
   
                 var nameClass = classnamesList[i];
   
