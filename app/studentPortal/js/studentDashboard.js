@@ -59,7 +59,6 @@ function getGrayStudentStatus(classCode){
   var email = localStorage.getItem('email');
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {
-    console.log("GETTING GRAY STUDENTS +++++++++++++++++++++++>");
 
     var data = snapshot.data();
 
@@ -67,21 +66,17 @@ function getGrayStudentStatus(classCode){
 
     var greyTimeLimit = data['Gray Time Limit'];
 
-    console.log("GRAY TIME LIMIT:" + greyTimeLimit);
-
     if(greyTimeLimit != null && greyTimeLimit != undefined){
-      var _ref = firebase.firestore().collection("UserData").doc(email)
+      var _ref = firebase.firestore().collection("UserData").doc(email).collection("Classes").doc(classCode)
 
       _ref.get().then(snapshot => {
         var data = snapshot.data();
     
         var lastStatusUpdate = data['Last Status Update']
-
-        console.log("LAST STATUS UPDATE: " + lastStatusUpdate)
     
         if(lastStatusUpdate != null && lastStatusUpdate != undefined){
 
-          var lastStatusUpdate = new Date(lastStatusUpdate['Last Status Update-' + classCode])
+          var lastStatusUpdate = new Date(lastStatusUpdate)
 
           var today = new Date();
 
@@ -97,41 +92,37 @@ function getGrayStudentStatus(classCode){
             lastDate.setMinutes ( lastStatusUpdate.getMinutes() + minutes );
             lastDate.setSeconds ( lastStatusUpdate.getSeconds() + seconds );
 
-            console.log(lastDate);
-
             if(today.getTime() > lastDate.getTime()){
               console.log("PAST STUDENT GRAY TIME")
 
               var output = `
               <!-- Modal -->
-<div class="modal fade" id="exampleModal${classCode}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Gray Time Exceeded</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        You have exceeded your gray time for the class ${className}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-      </div>
-    </div>
-  </div>
-</div>
+              <div class="modal fade" id="exampleModal${classCode}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+              <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-stopwatch"></i> Gray Time Exceeded</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+              You have exceeded your gray time for the class ${className}. Please update you reaction for this class.
+              </div>
+              <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+              </div>
+              </div>
+              </div>
+              </div>
               `;
 
               $(output).appendTo('#main-body-content')
 
               $(`#exampleModal${classCode}`).modal('toggle')
           } else {
-            "NOT PAST GRAY STUDENT TIME"
+            
           }
-
-            console.log(lastDate);
         }
       });
     }
@@ -384,12 +375,10 @@ function updateReaction(reaction) {
 
   var classSelected = localStorage.getItem("selectedClassDropdown");
 
-  console.log("TESET:" + classSelected);
-
   console.log(classCodes);
 
-  firebase.firestore().collection("UserData").doc(`${studentEmail}/Last Status Update.Last Status Update-${classSelected}`).update({
-    date: currentDate.toString()
+  firebase.firestore().collection("UserData").doc(studentEmail).collection("Classes").doc(classSelected).update({
+    "Last Status Update": currentDate.toString(),
   }).then(() => {
     console.log("UPDATED IN USER");
   });
@@ -807,7 +796,7 @@ function getStudentContactsList(studentUsername) {
 
 
     classesListContacts.forEach(function (item, index) {
-      console.log(item, index);
+      //console.log(item, index);
       output = `
       <div class="chat-contactBox">
 
@@ -833,7 +822,7 @@ function getStudentStatus() {
   firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
     var value = doc.data()["Reaction"];
 
-    console.log("REACTION:" + value);
+    //console.log("REACTION:" + value);
 
     if (value != undefined) {
       if (value == "needs help") {
@@ -878,7 +867,7 @@ function getMeetings(pageType) {
         var date = meetingsData["Date"];
         var title = meetingsData["Title"];
   
-        console.log(date);
+        //console.log(date);
   
         output = `
           <div class="col-xl-6 col-md-6 mb-4">
@@ -928,7 +917,7 @@ function getMeetings(pageType) {
   if(pageType == "dashboard"){
     firebase.firestore().collection('UserData').doc(email).collection("Meetings").orderBy("Date").limitToLast(3).get().then(function (doc) {
 
-      console.log("GETTING MEETINGS Dashboard");
+      //console.log("GETTING MEETINGS Dashboard");
   
       var meetingsCount = 0;
   
@@ -1101,8 +1090,8 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 var message = annoucementData["Message"];
                 var date = annoucementData['Date'];
   
-                console.log(title);
-                console.log(message);
+                //console.log(title);
+                //console.log(message);
   
                 var nameClass = classnamesList[i];
   
@@ -1185,8 +1174,8 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 var message = annoucementData["Message"];
                 var date = annoucementData['Date'];
   
-                console.log(title);
-                console.log(message);
+                //console.log(title);
+                //console.log(message);
   
                 var nameClass = classnamesList[i];
   
