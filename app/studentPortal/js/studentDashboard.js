@@ -77,13 +77,15 @@ function getGrayStudentStatus(classCode){
             var addDate = lastStatusUpdate + greyTimeLimit
             var today = new Date()
 
-            var days = 2;
-            var hours = 0;
-            var minutes = 0;
-            var seconds = 0;
+            var d1 = new Date ();
+
+            var days = addDate[0];
+            var hours = addDate[1];
+            var minutes = addDate[2];
+            var seconds = addDate[3];
 
             var outputDate = new Date();
-
+            
             outputDate.setDate ( today.getDate() + days );
             outputDate.setHours ( today.getHours() + hours );
             outputDate.setMinutes ( today.getMinutes() + minutes );
