@@ -75,7 +75,7 @@ function getGrayStudentStatus(classCode){
       _ref.get().then(snapshot => {
         var data = snapshot.data();
     
-        var lastStatusUpdate = data['Last Status Update-' + classCode];
+        var lastStatusUpdate = data['Last Status Update']['Last Status Update-' + classCode];
 
         console.log("LAST STATUS UPDATE: " + lastStatusUpdate)
     
