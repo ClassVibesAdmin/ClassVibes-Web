@@ -120,7 +120,15 @@ function getTeacherAccountStatus(pageType){
           getMeetings();
       } else if(pageType == ""){
 
-      } else {
+      } else if(pageType == 'class-page') {
+        getProfileInfo();
+        getClassData();
+        getStudentData();
+        getEditData();
+      }
+      
+      
+      else {
         getClassData();
         getProfileInfo();
        getChartData();
