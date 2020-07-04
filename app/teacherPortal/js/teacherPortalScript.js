@@ -90,6 +90,7 @@ function getTeacherAccountStatus(pageType){
           getProfileInfo();
           getClassData();
           getStudentData();
+          getEditData();
         } else {
           getClassData();
           getProfileInfo();
@@ -97,7 +98,6 @@ function getTeacherAccountStatus(pageType){
         }
     
         }
-
       });
 
     } 
