@@ -121,7 +121,7 @@
       };
       gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
-        range: range,
+        range: 0,
         valueInputOption: valueInputOption,
         resource: body
       }).then((response) => {
