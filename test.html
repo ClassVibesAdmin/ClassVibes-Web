@@ -121,8 +121,8 @@
       };
       gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
-        range: 0,
-        //valueInputOption: valueInputOption,
+        range: 'a1',
+        valueInputOption: "INSERT_ROWS",
         resource: body
       }).then((response) => {
         var result = response.result;
