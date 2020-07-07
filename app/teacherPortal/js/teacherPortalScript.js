@@ -848,9 +848,11 @@ function getEditData() {
   output += `
   <div class="input-group mb-3">
   <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    </span>
   </div>
-  <input type="text" class="form-control" placeholder="${className}" aria-label="Username"
-    aria-describedby="basic-addon1" id="className" readonly>
+  <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1" readonly>
 </div>
 
 <div class="input-group mb-3">
