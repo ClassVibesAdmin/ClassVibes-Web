@@ -442,11 +442,6 @@ function getClassData() {
             
             `
   
-
-  
-  
-  
-  
           $(output).appendTo("#topClassesSection");
           $(output2).appendTo("#classesOp");
           $(output3).appendTo("#classesOp1");
@@ -469,7 +464,6 @@ function getClassData() {
   classesRef.once("value", (snap) => {
       console.log(snap.val());
       rawData = snap.val();
-
       if (rawData != null) {
         snap.forEach((child) => {
           classesList.push([child.child("Code").val(), child.child("class-name").val(),]);
@@ -477,7 +471,6 @@ function getClassData() {
         })
       }
     }).then(function () {
-
       for (var i = 0; i <= classesList.length; i++) {
         let output = "";
         let output2 = "";
@@ -485,14 +478,10 @@ function getClassData() {
         let output4 = "";
         var classData = classesList[i];
         console.log(classData);
-
         if (classData != null || classData != undefined) {
-
           console.log("works");
           var className = classData[1];
           var classCode = classData[0];
-
-
           output = `
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
@@ -510,7 +499,6 @@ function getClassData() {
             </div>
           </div>
         `;
-
           output2 = `
         <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
         `;
@@ -520,14 +508,9 @@ function getClassData() {
                     <div class="dropdown-divider"></div>
         
         `
-
           function setClassCode(classCode) {
             localStorage.setItem("code", classCode);
           }
-
-
-
-
           $(output).appendTo("#topClassesSection");
           $(output2).appendTo("#classesOp");
           $(output3).appendTo("#classesOp1");
@@ -535,21 +518,9 @@ function getClassData() {
         }
 
       }
-
-
-
-
-
-
-
-
     }).then(() => {
       getChartData();
     });*/
-
-
-
-
 }
 
 function setClassCode(classCode) {
@@ -766,8 +737,6 @@ function storeClassPref(code, name) {
   localStorage.setItem("className", name);
   console.log(code);
   window.location = "classPage.html"
-
-
 
 }
 
