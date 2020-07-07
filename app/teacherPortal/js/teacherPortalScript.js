@@ -886,7 +886,7 @@ function getEditData() {
 
     $(output).appendTo("#editInfo");
 
-    updateDetails() {
+    function updateDetails() {
       var newName = document.getElementById('editName').value;
       var newCourse = document.getElementById('editCourse').value;
       var newTeacher = document.getElementById('editTeacher').value;
