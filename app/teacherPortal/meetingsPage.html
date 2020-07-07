@@ -25,6 +25,8 @@
 
     <script src="js/teacherPortalScript.js"></script>
 
+    <link rel="stylesheet" href="css/loader.css">
+
 
 
 </head>
@@ -192,15 +194,27 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="main-body-page-teacher">
 
+                    <!--LOADING PAGE-->
+                    <section id = 'loader-icon'>
+                        <center style="margin-top: 25%;">
+                        <div class="loader">
+                    </center>
+                </section>
+
+                <section id = "main-page-content-meetings-page" style="display: none;">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800" id="className">Meetings</h1>
+                    <div class="row" id="meetingsList" style="margin-left: 20px;">
+
+                    </div>
+                </section>
+
+
 
                 </div>
 
 
-                <div class="row" id="meetingsList" style="margin-left: 20px;">
 
-                </div>
                 <!-- /.container-fluid -->
 
             </div>

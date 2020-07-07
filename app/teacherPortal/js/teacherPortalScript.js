@@ -83,8 +83,9 @@ function getTeacherAccountStatus(pageType){
           document.getElementById('loader-icon').style.display = 'none';
 
           if(pageType == 'meetings-page'){
-            getClassData();
+            document.getElementById('main-page-content-meetings-page').style.display = "initial";
             getProfileInfo();
+            getClassData();
             getMeetings();
         } 
         if(pageType == ""){
@@ -126,8 +127,9 @@ function getTeacherAccountStatus(pageType){
         document.getElementById('dashboard-section').style.display = 'none';
 
         if(pageType == 'meetings-page'){
-          getClassData();
+          document.getElementById('main-page-content-meetings-page').style.display = "initial";
           getProfileInfo();
+          getClassData();
           getMeetings();
       } 
       if(pageType == ""){
