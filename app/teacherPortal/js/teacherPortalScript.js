@@ -88,17 +88,17 @@ function getTeacherAccountStatus(pageType){
             getClassData();
             getMeetings();
         } 
-        if(pageType == ""){
+        else if(pageType == ""){
 
         } 
-        if(pageType == 'class-page') {
+        else if(pageType == 'class-page') {
           getProfileInfo();
           getClassData();
           getStudentData();
           getEditData();
         } 
         
-        if (pageType == 'dashboard'){
+        else if (pageType == 'dashboard'){
           getProfileInfo();
           getClassData();
         }
@@ -132,16 +132,16 @@ function getTeacherAccountStatus(pageType){
           getClassData();
           getMeetings();
       } 
-      if(pageType == ""){
+      else if(pageType == ""){
 
       } 
-      if(pageType == 'class-page') {
+      else if(pageType == 'class-page') {
         getProfileInfo();
         getClassData();
         getStudentData();
         getEditData();
       } 
-      if(pageType == 'dashboard'){
+      else if(pageType == 'dashboard'){
         console.log("executing");
         getProfileInfo();
         getClassData();
@@ -586,9 +586,12 @@ function getMeetings() {
 
   //var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
 
+  var index = 0;
+
   firebase.firestore().collection('UserData').doc(name).collection("Meetings").get().then(function (doc) {
 
     doc.forEach(snapshot => {
+      index = index + 1
 
       var data1 = snapshot.data();
       var classForMeeting = data1["Course"]
@@ -619,6 +622,19 @@ function getMeetings() {
 
 
 
+    }).then(() => {
+      var noMeetingsHTML = `
+      <center style="margin-top: 15%;">
+      <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
+    
+      <h1 style="margin-top: 20px;">No Meetings</h1>
+      <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
+      </center>
+      `;
+
+      if(index == 0){
+          document.getElementById('main-body-page-teacher').innerHTML = noMeetingsHTML;
+      }
     });
 
   })
