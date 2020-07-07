@@ -122,7 +122,10 @@ function getTeacherAccountStatus(pageType){
       //ACCOUNT ACTIVE
       if(accountStatus == "Activated"){
 
-        document.getElementById('loader-icon').style.display = 'none';
+        if (document.getElementById('loader-icon') != null) {
+          document.getElementById('loader-icon').style.display = 'none';
+
+        }
 
         document.getElementById('dashboard-section').style.display = 'none';
 
