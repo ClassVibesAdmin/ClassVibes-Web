@@ -631,7 +631,7 @@ function getMeetings() {
     <img src = 'img/undraw_checking_boxes_2ibd.svg'/ width="25%">
   
     <h1 style="margin-top: 20px;">No Meetings</h1>
-    <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
+    <p>You do not have any scheduled meetings yet, go <br> to <strong> Sidebar > Classes > Class</strong> to schedule <br> meetings with your students</p>
     </center>
     `;
 
