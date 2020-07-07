@@ -846,16 +846,19 @@ function getEditData() {
     var course = data['Course']
     var teacher = data['teacher']
     output += `
+
+    <h6>Edit Class Name</h6>
+
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <h4>Edit Class Name</h4>
 
   <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1" name="editName" id="editName">
 </div>
+<h6>Edit Class Course</h6>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -863,10 +866,10 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <h4>Edit Class Course</h4>
 
   <input type="text" class="form-control" placeholder="${course}" aria-label="Username" aria-describedby="basic-addon1" name="editCourse" id="editCourse">
 </div>
+<h6>Edit Class Teacher</h6>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -874,7 +877,6 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <h4>Edit Class Teacher</h4>
 
   <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1" name="editTeacher" id="editTeacher">
 </div>
@@ -891,6 +893,8 @@ function getEditData() {
 }
 
 function updateDetails() {
+  var code = localStorage.getItem("code");
+
   var newName = document.getElementById('editName').value;
   var newCourse = document.getElementById('editCourse').value;
   var newTeacher = document.getElementById('editTeacher').value;
