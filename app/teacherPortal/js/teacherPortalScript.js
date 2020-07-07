@@ -91,7 +91,12 @@ function getTeacherAccountStatus(pageType){
           getClassData();
           getStudentData();
           getEditData();
-        } else {
+        }  else if (pageType == 'dashboard'){
+          console.log("executing");
+          getClassData();
+        }
+        
+        else {
           getClassData();
           getProfileInfo();
          getChartData();
@@ -125,6 +130,10 @@ function getTeacherAccountStatus(pageType){
         getClassData();
         getStudentData();
         getEditData();
+      } else if(pageType == 'dashboard'){
+        console.log("executing");
+        getProfileInfo();
+        getClassData();
       }
       
       
@@ -329,9 +338,21 @@ function getClassData() {
   var classesList = [];
   console.log(classesList);
 
+  var no_classes_HTML = `
+  <center style="margin-top: 15%;">
+  <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
+
+  <h1 style="margin-top: 20px;">Nothing here yet</h1>
+  <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
+  </center>
+  `;
+
+  var index = 0;
+
   firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
 
     doc.forEach(snapshot => {
+      index = index + 1
 
       var data = snapshot.data();
 
@@ -343,63 +364,67 @@ function getClassData() {
     });
 
   }).then(function () {
-    for (var i = 0; i <= classesList.length; i++) {
-      let output = "";
-      let output2 = "";
-      let output3 = "";
-      let output4 = "";
-      var classData = classesList[i];
-      console.log(classData);
 
-      if (classData != null || classData != undefined) {
-
-        console.log("works");
-        var className = classData[1];
-        var classCode = classData[0];
-
-
-        output = `
-          <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">${className}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Class Code: ${classCode}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+    if(index == 0){
+      document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
+    } else {
+      for (var i = 0; i <= classesList.length; i++) {
+        let output = "";
+        let output2 = "";
+        let output3 = "";
+        let output4 = "";
+        var classData = classesList[i];
+        console.log(classData);
+  
+        if (classData != null || classData != undefined) {
+  
+          console.log("works");
+          var className = classData[1];
+          var classCode = classData[0];
+  
+  
+          output = `
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">${className}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Class Code: ${classCode}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
+  
+          output2 = `
+            <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
+            `;
+  
+          output3 = `
+            <a class="dropdown-item" href="#" onclick = "storeClassforChart(${classCode})">${className}</a>
+                        <div class="dropdown-divider"></div>
+            
+            `
+  
 
-        output2 = `
-          <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
-          `;
-
-        output3 = `
-          <a class="dropdown-item" href="#" onclick = "storeClassforChart(${classCode})">${className}</a>
-                      <div class="dropdown-divider"></div>
-          
-          `
-
-        function setClassCode(classCode) {
-          localStorage.setItem("code", classCode);
+  
+  
+  
+  
+          $(output).appendTo("#topClassesSection");
+          $(output2).appendTo("#classesOp");
+          $(output3).appendTo("#classesOp1");
+          $(output3).appendTo("#classesOp2");
         }
-
-
-
-
-        $(output).appendTo("#topClassesSection");
-        $(output2).appendTo("#classesOp");
-        $(output3).appendTo("#classesOp1");
-        $(output3).appendTo("#classesOp2");
+  
       }
-
     }
+
 
   }).then(function () {
     getChartData();
@@ -490,6 +515,10 @@ function getClassData() {
 
 
 
+}
+
+function setClassCode(classCode) {
+  localStorage.setItem("code", classCode);
 }
 
 

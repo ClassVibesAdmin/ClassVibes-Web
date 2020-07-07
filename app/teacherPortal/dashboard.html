@@ -54,7 +54,7 @@
       getLiveSeverAlerts();
       checkUserAuthStatus();
 
-      getTeacherAccountStatus();
+      getTeacherAccountStatus('dashboard');
 
     });
   </script>
@@ -221,13 +221,8 @@
         <!--LOADING PAGE-->
         <section id = 'loader-icon'>
           <center style="margin-top: 25%;">
-              <div class="sk-folding-cube">
-                <div class="sk-cube1 sk-cube"></div>
-                <div class="sk-cube2 sk-cube"></div>
-                <div class="sk-cube4 sk-cube"></div>
-                <div class="sk-cube3 sk-cube"></div>
-              </div>
-            </center>
+            <div class="loader">
+        </center>
       </section>
 
       <section id="dashboard-section" style="display: none;">
