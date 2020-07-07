@@ -852,7 +852,7 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <label for="editName">Edit Class Name</label>
+  <h4>Edit Class Name</h4>
 
   <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1" name="editName" id="editName">
 </div>
@@ -863,7 +863,7 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <label for="editCourse">Ediit Class Course</label>
+  <h4>Edit Class Course</h4>
 
   <input type="text" class="form-control" placeholder="${course}" aria-label="Username" aria-describedby="basic-addon1" name="editCourse" id="editCourse">
 </div>
@@ -874,8 +874,7 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <label>
-  <label for="editTeacher">Edit Class Teacher</label>
+  <h4>Edit Class Teacher</h4>
 
   <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1" name="editTeacher" id="editTeacher">
 </div>
@@ -886,24 +885,26 @@ function getEditData() {
 
     $(output).appendTo("#editInfo");
 
-    function updateDetails() {
-      var newName = document.getElementById('editName').value;
-      var newCourse = document.getElementById('editCourse').value;
-      var newTeacher = document.getElementById('editTeacher').value;
-
-      firebase.firestore().collection('Classes').doc(code).update({
-        "class-name": newName,
-        "Course": newCourse,
-        "teacher": newTeacher
-
-      }).then(() => {
-        window.location.reload()
-
-      });
-    };
+    
 
   })
 }
+
+function updateDetails() {
+  var newName = document.getElementById('editName').value;
+  var newCourse = document.getElementById('editCourse').value;
+  var newTeacher = document.getElementById('editTeacher').value;
+
+  firebase.firestore().collection('Classes').doc(code).update({
+    "class-name": newName,
+    "Course": newCourse,
+    "teacher": newTeacher
+
+  }).then(() => {
+    window.location.reload()
+
+  });
+};
 
 
 
