@@ -105,9 +105,9 @@ function getTeacherAccountStatus(pageType){
         }
         
         else {
-          getClassData();
+          //getClassData();
           getProfileInfo();
-         getChartData();
+          //getChartData();
         }
     
         }
@@ -225,10 +225,7 @@ function getClassData() {
 
 
   var emailRef = localStorage.getItem("email")
-  console.log(emailRef)
-  // var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
   var classesList = [];
-  console.log(classesList);
 
   var no_classes_HTML = `
   <center style="margin-top: 15%;">
@@ -245,8 +242,6 @@ function getClassData() {
 
     doc.forEach(snapshot => {
 
-      console.log("Getting");
-
       index = index + 1
 
       var data = snapshot.data();
@@ -255,12 +250,10 @@ function getClassData() {
       var className = data["class-name"];
       classesList.push([classCode, className])
 
-      console.log(classesList)
     });
 
   }).then(function () {
 
-    console.log("INDEX:" + index)
 
     if(index == 0){
       document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
@@ -271,11 +264,9 @@ function getClassData() {
         let output2 = "";
         let output3 = "";
         var classData = classesList[i];
-        console.log(classData);
   
         if (classData != null || classData != undefined) {
   
-          console.log("works");
           var className = classData[1];
           var classCode = classData[0];
 
