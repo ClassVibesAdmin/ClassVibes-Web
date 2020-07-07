@@ -33,11 +33,7 @@ function getTeacherAccountStatus(pageType){
 
     var pendingDistrictRequestID = data["Pending District Request"];
 
-    console.log(pendingRequestID, pendingDistrictRequestID);
-
     if(pendingSchoolRequestName){
-
-      console.log("Pending request");
 
       var waitingRequestHTML = `
       <center style="margin-top: 23%;">
@@ -56,12 +52,16 @@ function getTeacherAccountStatus(pageType){
     //IN A DISTRICT
     if(in_a_district != null &&  in_a_district != undefined){
       firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
+
+        console.log('Executing 1');
+
         var data = doc.data()["Status"];
 
         console.log("STATUS:" + data);
 
         //DISTRICT IS NOT ACTIVATED
         if(data != "Activated"){
+          
 
           var activateDistrictHTML = `
           <center style="margin-top: 23%;">
@@ -77,22 +77,28 @@ function getTeacherAccountStatus(pageType){
 
           $('#main-body-page-teacher').html(activateDistrictHTML);
         } else {
+
+          console.log('Executing 2');
+
           document.getElementById('loader-icon').style.display = 'none';
-          document.getElementById('dashboard-section').style.display = 'initial';
 
           if(pageType == 'meetings-page'){
             getClassData();
             getProfileInfo();
             getMeetings();
-        } else if(pageType == ""){
+        } 
+        if(pageType == ""){
 
-        } else if(pageType == 'class-page') {
+        } 
+        if(pageType == 'class-page') {
           getProfileInfo();
           getClassData();
           getStudentData();
           getEditData();
-        }  else if (pageType == 'dashboard'){
-          console.log("executing");
+        } 
+        
+        if (pageType == 'dashboard'){
+          getProfileInfo();
           getClassData();
         }
         
@@ -123,14 +129,17 @@ function getTeacherAccountStatus(pageType){
           getClassData();
           getProfileInfo();
           getMeetings();
-      } else if(pageType == ""){
+      } 
+      if(pageType == ""){
 
-      } else if(pageType == 'class-page') {
+      } 
+      if(pageType == 'class-page') {
         getProfileInfo();
         getClassData();
         getStudentData();
         getEditData();
-      } else if(pageType == 'dashboard'){
+      } 
+      if(pageType == 'dashboard'){
         console.log("executing");
         getProfileInfo();
         getClassData();
@@ -332,6 +341,10 @@ function getProfileInfo() {
 }
 
 function getClassData() {
+
+  console.log("GET CLASS DAata");
+
+
   var emailRef = localStorage.getItem("email")
   console.log(emailRef)
   // var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
@@ -352,6 +365,9 @@ function getClassData() {
   firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
 
     doc.forEach(snapshot => {
+
+      console.log("Getting");
+
       index = index + 1
 
       var data = snapshot.data();
@@ -365,14 +381,16 @@ function getClassData() {
 
   }).then(function () {
 
+    console.log("INDEX:" + index)
+
     if(index == 0){
       document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
     } else {
       for (var i = 0; i <= classesList.length; i++) {
+
         let output = "";
         let output2 = "";
         let output3 = "";
-        let output4 = "";
         var classData = classesList[i];
         console.log(classData);
   
@@ -381,6 +399,11 @@ function getClassData() {
           console.log("works");
           var className = classData[1];
           var classCode = classData[0];
+
+
+        if(i == 0){
+          storeClassforChart(classCode)
+        }
   
   
           output = `
@@ -406,7 +429,7 @@ function getClassData() {
             `;
   
           output3 = `
-            <a class="dropdown-item" href="#" onclick = "storeClassforChart(${classCode})">${className}</a>
+            <a class="dropdown-item" href="#" onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
                         <div class="dropdown-divider"></div>
             
             `
@@ -419,7 +442,7 @@ function getClassData() {
           $(output).appendTo("#topClassesSection");
           $(output2).appendTo("#classesOp");
           $(output3).appendTo("#classesOp1");
-          $(output3).appendTo("#classesOp2");
+          $(output2).appendTo("#dropdown-sidebar");
         }
   
       }
@@ -427,6 +450,8 @@ function getClassData() {
 
 
   }).then(function () {
+
+    document.getElementById('dashboard-section').style.display = "initial";
     getChartData();
   })
 
@@ -650,7 +675,7 @@ function getMeetings() {
 }
 
 
-function getClassData() {
+function getClassDataDropdown() {
   var emailRef = localStorage.getItem("email")
   console.log(emailRef)
   //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
