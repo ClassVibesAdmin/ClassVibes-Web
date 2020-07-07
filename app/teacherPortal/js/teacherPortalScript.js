@@ -830,6 +830,7 @@ function createClass() {
     "teachersNote": teachersNote,
 
   });
+}
 
 
 function getClassData() {
@@ -949,9 +950,6 @@ function storeClassPref(code, name) {
   localStorage.setItem("code", code);
   localStorage.setItem("className", name);
   console.log(code);
-
-
-
 }
 
 function getStudentData() {
