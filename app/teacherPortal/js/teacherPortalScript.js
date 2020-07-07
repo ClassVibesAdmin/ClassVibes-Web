@@ -453,8 +453,10 @@ function getClassData() {
 
   }).then(function () {
 
-    document.getElementById('dashboard-section').style.display = "initial";
-    getChartData();
+    if(document.getElementById('dashboard-section') != null){
+      document.getElementById('dashboard-section').style.display = "initial";
+      getChartData();
+    }
   })
 
   /*
@@ -622,22 +624,21 @@ function getMeetings() {
 
 
 
-    }).then(() => {
-      var noMeetingsHTML = `
-      <center style="margin-top: 15%;">
-      <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
-    
-      <h1 style="margin-top: 20px;">No Meetings</h1>
-      <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
-      </center>
-      `;
+    })
+  }).then(() => {
+    var noMeetingsHTML = `
+    <center style="margin-top: 15%;">
+    <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
+  
+    <h1 style="margin-top: 20px;">No Meetings</h1>
+    <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
+    </center>
+    `;
 
-      if(index == 0){
-          document.getElementById('main-body-page-teacher').innerHTML = noMeetingsHTML;
-      }
-    });
-
-  })
+    if(index == 0){
+        document.getElementById('main-body-page-teacher').innerHTML = noMeetingsHTML;
+    }
+  });
 
   /*
   _ref.once('value').then(function (snapshot) {
