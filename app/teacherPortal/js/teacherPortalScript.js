@@ -99,15 +99,14 @@ function getTeacherAccountStatus(pageType){
         } 
         
         else if (pageType == 'dashboard'){
-          console.log("executing DASBHOARD");
           getProfileInfo();
           getClassData();
         }
         
         else {
-          //getClassData();
+          getClassData();
           getProfileInfo();
-          //getChartData();
+         getChartData();
         }
     
         }
@@ -149,7 +148,7 @@ function getTeacherAccountStatus(pageType){
         getEditData();
       } 
       else if(pageType == 'dashboard'){
-        console.log("executing DASBHOARD");
+        console.log("executing");
         getProfileInfo();
         getClassData();
       }
@@ -217,111 +216,6 @@ function getTeacherAccountStatus(pageType){
 
 
   });
-}
-
-function getClassData() {
-
-  console.log("GET CLASS DAata");
-
-
-  var emailRef = localStorage.getItem("email")
-  var classesList = [];
-
-  var no_classes_HTML = `
-  <center style="margin-top: 15%;">
-  <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
-
-  <h1 style="margin-top: 20px;">No Classes To See</h1>
-  <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
-  </center>
-  `;
-
-  var index = 0;
-
-  firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
-
-    doc.forEach(snapshot => {
-
-      index = index + 1
-
-      var data = snapshot.data();
-
-      var classCode = data["Code"];
-      var className = data["class-name"];
-      classesList.push([classCode, className])
-
-    });
-
-  }).then(function () {
-
-
-    if(index == 0){
-      document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
-    } else {
-      for (var i = 0; i <= classesList.length; i++) {
-
-        let output = "";
-        let output2 = "";
-        let output3 = "";
-        var classData = classesList[i];
-  
-        if (classData != null || classData != undefined) {
-  
-          var className = classData[1];
-          var classCode = classData[0];
-
-
-        if(i == 0){
-          storeClassforChart(classCode)
-        }
-  
-  
-          output = `
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">${className}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Class Code: ${classCode}</div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-  
-          output2 = `
-            <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
-            `;
-  
-          output3 = `
-            <a class="dropdown-item" href="#" onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
-                        <div class="dropdown-divider"></div>
-            
-            `
-  
-          $(output).appendTo("#topClassesSection");
-          $(output2).appendTo("#classesOp");
-          $(output3).appendTo("#classesOp1");
-          $(output2).appendTo("#dropdown-sidebar");
-        }
-  
-      }
-    }
-
-
-  }).then(function () {
-
-    if(document.getElementById('dashboard-section') != null){
-      document.getElementById('dashboard-section').style.display = "initial";
-      getChartData();
-    }
-  })
-
 }
 
 
@@ -454,6 +348,110 @@ function getProfileInfo() {
 
 }
 
+function getClassData() {
+
+  var emailRef = localStorage.getItem("email")
+  var classesList = [];
+
+  var no_classes_HTML = `
+  <center style="margin-top: 15%;">
+  <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
+
+  <h1 style="margin-top: 20px;">No Classes To See</h1>
+  <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
+  </center>
+  `;
+
+  var index = 0;
+
+  firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+
+    doc.forEach(snapshot => {
+
+      index = index + 1
+
+      var data = snapshot.data();
+
+      var classCode = data["Code"];
+      var className = data["class-name"];
+      classesList.push([classCode, className])
+    });
+
+  }).then(function () {
+
+    if(index == 0){
+      document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
+    } else {
+      for (var i = 0; i <= classesList.length; i++) {
+
+        let output = "";
+        let output2 = "";
+        let output3 = "";
+        var classData = classesList[i];
+  
+        if (classData != null || classData != undefined) {
+  
+          console.log("works");
+          var className = classData[1];
+          var classCode = classData[0];
+
+
+        if(i == 0){
+          storeClassforChart(classCode)
+        }
+  
+  
+          output = `
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">${className}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Class Code: ${classCode}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+  
+          output2 = `
+            <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
+            `;
+  
+          output3 = `
+            <a class="dropdown-item" href="#" onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
+                        <div class="dropdown-divider"></div>
+            
+            `
+  
+
+  
+  
+  
+  
+          $(output).appendTo("#topClassesSection");
+          $(output2).appendTo("#classesOp");
+          $(output3).appendTo("#classesOp1");
+          $(output2).appendTo("#dropdown-sidebar");
+        }
+  
+      }
+    }
+
+
+  }).then(function () {
+
+    if(document.getElementById('dashboard-section') != null){
+      document.getElementById('dashboard-section').style.display = "initial";
+      getChartData();
+    }
+  })
+}
 
 function setClassCode(classCode) {
   localStorage.setItem("code", classCode);
@@ -473,13 +471,6 @@ function writeAnnouncement() {
   var messageText = document.getElementById("messageText").value;
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
-  /*
-  var _refWriteAnnouncement = firebase.database().ref().child("Classes").child(numberClass).child("Announcements").push();
- 
-  _refWriteAnnouncement.child("Title").set(messageTitle);
-  _refWriteAnnouncement.child("Message").set(messageText);
-  
-  */
 
   firebase.firestore().collection("Classes").doc(numberClass).collection("Announcements").doc().set({
     "Title": messageTitle,
@@ -494,8 +485,6 @@ function writeAnnouncement() {
 
 function getMeetings() {
   var name = localStorage.getItem("email");
-
-  //var _ref = firebase.database().ref().child("UserData").child(name).child("Meetings");
 
   var index = 0;
 
@@ -549,69 +538,13 @@ function getMeetings() {
     }
   });
 
-  /*
-  _ref.once('value').then(function (snapshot) {
-
-          console.log("MEETINGS:" + snapshot.val());
-
-          if (snapshot.val() != null) {
-              snapshot.forEach((child) => {
-                  var classForMeeting = child.child("Course").val();
-                  var date = child.child("Date").val();
-                  var title = child.child("Title").val();
-
-                  console.log(child.val());
-
-                  output = `
-<div class="col-xl-5 col-md-6 mb-4">
-<div class="card border-left-primary shadow h-100 py-2">
-<div class="card-body">
-  <div class="row no-gutters align-items-center">
-    <div class="col mr-2">
-      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
-      <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
-      <div class="h6 mb-0 font-weight-bold text-blue-800">${date}</div>
-    </div>
-    <div class="col-auto">
-      <i class="fas ffas fa-headset fa-2x text-gray-300"></i>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-`;
-
-                  $(output).appendTo("#meetingsList");
-
-
-              });
-
-          } else {
-              console.log("NONE");
-              outputError = `
-<h1>No Scheduled Meetings</h1>
-`;
-
-              $(outputError).appendTo("#meetingsList");
-          }
-
-      });
-  */
-
-
-
 }
 
 
 function getClassDataDropdown() {
   var emailRef = localStorage.getItem("email")
-  console.log(emailRef)
-  //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
-  // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
 
-  // });
   var classesList = [];
-  console.log(classesList);
 
   firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
 
@@ -624,11 +557,9 @@ function getClassDataDropdown() {
 
       classesList.push([classCode, className])
 
-      console.log(classesList)
     });
 
   }).then(function () {
-    console.log(classesList)
 
 
     for (var i = 0; i <= classesList.length; i++) {
@@ -636,7 +567,6 @@ function getClassDataDropdown() {
       let output2 = "";
       let output3 = "";
       var classData = classesList[i];
-      console.log(classData);
 
       if (classData != null || classData != undefined) {
 
@@ -669,6 +599,8 @@ function storeClassPref(code, name) {
   localStorage.setItem("className", name);
   console.log(code);
   window.location = "classPage.html"
+
+
 
 }
 
@@ -731,75 +663,15 @@ function createClass() {
     "teachersNote": teachersNote,
 
   });
-}
-
-
-function getClassData() {
-  var emailRef = localStorage.getItem("email")
-  console.log(emailRef)
-  //var classesRef = firebase.database().ref().child("UserData").child(emailRef).child("Classes")
-  // var classesRef = firebase.firestore().collection("UserData").doc(emailRef).collection("classes").get().then(function(querySanp[]){
-
-  // });
-  var classesList = [];
-  console.log(classesList);
-
-  firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
-
-      doc.forEach(snapshot => {
-
-          var data1 = snapshot.data();
-
-          var classCode = data1["Code"];
-          var className = data1["class-name"];
-
-          classesList.push([classCode, className])
-
-          console.log(classesList)
-      });
-
-  }).then(function () {
-      console.log(classesList)
-
-
-      for (var i = 0; i <= classesList.length; i++) {
-          let output = "";
-          let output2 = "";
-          let output3 = "";
-          var classData = classesList[i];
-          console.log(classData);
-
-          if (classData != null || classData != undefined) {
-
-              console.log("works");
-              var className = classData[1];
-              var classCode = classData[0];
-
-              output2 = `
-<a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
-`;
-
-              output3 = `
-<a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
-<div class="dropdown-divider"></div>
-
-`
-
-              $(output).appendTo("#topClassesSection");
-              $(output2).appendTo("#classesOp");
-              $(output3).appendTo("#classesOp1");
-              $(output3).appendTo("#classesOp2")
-          }
-
-      }
-  })
-}
 
 
 function storeClassPref(code, name) {
   localStorage.setItem("code", code);
   localStorage.setItem("className", name);
   console.log(code);
+
+
+
 }
 
 function getStudentData() {
@@ -966,6 +838,129 @@ function getStudentData() {
 
 
 }
+/*
+classInfoRef.once("value", (snap) => {
+              console.log(snap.val());
+              rawData2 = snap.val();
+
+              if (rawData2 != null) {
+
+                  snap.forEach((child) => {
+                      classInfoList.push([child.child("Name").val(), child.child("Reaction").val(), child.child("Email").val()])
+
+                  });
+
+
+              }
+
+
+              document.getElementById("studentsList").innerHTML = "";
+
+              for (var i = 0; i <= classInfoList.length; i++) {
+                  let descriptionOutput = "";
+                  classInfoData = classInfoList[i];
+                  var happy = '<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1>';
+                  var meh = '<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1>';
+                  var sad = '<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>'
+
+                  if (classInfoData != null || classInfoData != undefined) {
+                      console.log("works")
+                      var className = localStorage.getItem("className");
+                      document.getElementById("className").innerHTML = className
+                      var studentName = classInfoData[0];
+
+                      var studentReaction = classInfoData[1];
+
+                      var studentEmail = classInfoData[2];
+
+
+                      descriptionOutput = `
+      <div class="card mb-4 py-3 border-left-success" id = "studentCard">
+          <div class="row">
+              <div class="card-body">
+                  <h4>${studentName}</h4>
+              </div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>
+              <div style="margin-right: 25px;" id = "face"></div>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Schedual Meeting</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <form>
+                      <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Title:</label>
+                          <input type="text" class="form-control" id="title">
+                      </div>
+                      <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Date/Time</label>
+                          <input type="text" class="form-control" id="date">
+                      </div>
+                      <div class="form-group">
+                          <label for="message-text" class="col-form-label">Student</label>
+                          <input type="text" class="form-control" placeholder = "${studentName}" readonly>
+                      </div>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" onclick = "schedualMeeting('${studentEmail}', '${className}')" data-dismiss = "modal">Send message</button>
+                  </div>
+                  </div>
+              </div>
+              </div>
+
+          </div>
+
+          
+  
+  `;
+                      $(descriptionOutput).appendTo("#studentsList");
+
+                      if (studentReaction == "good") {
+                          document.getElementById("face").outerHTML = happy;
+                          $(descriptionOutput).appendTo("#studentsListGreat");
+
+                      } else if (studentReaction == "meh") {
+                          document.getElementById("face").outerHTML = meh;
+                          $(descriptionOutput).appendTo("#studentsListHelp");
+
+
+                      } else if (studentReaction == "needs help") {
+                          document.getElementById("face").outerHTML = sad;
+                          $(descriptionOutput).appendTo("#studentsListFrustrated");
+
+
+                      } else {
+                          document.getElementById("face").outerHTML = happy;
+                          $(descriptionOutput).appendTo("#studentsListGreat");
+                      }
+
+
+                  }
+
+              }
+*/
+
+/*
+
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  //modal.find('.modal-title').text('New message to ' + recipient)
+  //modal.find('.modal-body input').val(recipient)
+})
+*/
 
 function schedualMeeting(emailStudent, course, index) {
   console.log("schedual meeting")
@@ -1062,7 +1057,7 @@ function showAll() {
   //document.getElementById('studentsListFrustrated').style.display = "none";
   window.location.reload();
 }
-
+}
 
 function cancelTeacherRequest(ID, districtID, teacher_email){
   firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
