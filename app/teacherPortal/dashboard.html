@@ -30,6 +30,8 @@
 
   <link rel="stylesheet" href="css/loader.css">
 
+  <script src="../app_config.js"></script>
+
 
 </head>
 
@@ -49,6 +51,8 @@
   <script>
     $(document).ready(function () {
       initializeFirebase();
+
+      setVersionFooter();
 
       getServerStatus();
       getLiveSeverAlerts();
@@ -427,7 +431,6 @@
 </div>
 
   </div>
-      </section>
     </section>
 
 
@@ -443,12 +446,13 @@
   <!-- Footer -->
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
-      <div class="copyright text-center my-auto">
+      <div class="copyright text-center my-auto" id = "footer-version-code">
         <span>Copyright &copy; Team Quarenteam 2020</span>
       </div>
     </div>
   </footer>
   <!-- End of Footer -->
+
 
   </div>
   <!-- End of Content Wrapper -->
