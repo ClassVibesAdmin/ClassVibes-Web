@@ -849,23 +849,28 @@ function getEditData() {
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">
-    <i class="fa fa-pencil" aria-hidden="true"></i>
+    <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1" readonly>
+  <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1">
 </div>
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="${course}" aria-label="Recipient's username"
-    aria-describedby="basic-addon2" id="course" readonly>
-  <div class="input-group-append">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">
+    <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
+    </span>
   </div>
+  <input type="text" class="form-control" placeholder="${course}" aria-label="Username" aria-describedby="basic-addon1">
 </div>
-<div class="input-group mb-3" id="hackLocation">
-  <input type="text" class="form-control" placeholder="${teacher}" aria-label="Recipient's username"
-    aria-describedby="basic-addon2" id="teacher" readonly>
-  <div class="input-group-append">
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">
+    <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
+    </span>
   </div>
+  <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1">
 </div>
 
   `
@@ -874,6 +879,7 @@ function getEditData() {
 
 })
 }
+
 
 
 
