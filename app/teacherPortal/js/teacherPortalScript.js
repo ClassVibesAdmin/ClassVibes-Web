@@ -1335,7 +1335,7 @@ function showAll() {
   //document.getElementById('studentsListFrustrated').style.display = "none";
   window.location.reload();
 }
-}
+
 
 function cancelTeacherRequest(ID, districtID, teacher_email){
   firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
