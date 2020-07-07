@@ -16,14 +16,14 @@ function initializeFirebase() {
   //firebase.firestore().enablePersistence();
 }
 
-function getTeacherAccountStatus(pageType){
+function getTeacherAccountStatus(pageType) {
 
   var email = localStorage.getItem('email');
 
   firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
     var data = doc.data();
 
-    var in_a_district = data['District Code'] != undefined? data['District Code'] : null;
+    var in_a_district = data['District Code'] != undefined ? data['District Code'] : null;
 
     console.log("DISTRICT: " + in_a_district);
 
@@ -33,7 +33,7 @@ function getTeacherAccountStatus(pageType){
 
     var pendingDistrictRequestID = data["Pending District Request"];
 
-    if(pendingSchoolRequestName){
+    if (pendingSchoolRequestName) {
 
       var waitingRequestHTML = `
       <center style="margin-top: 23%;">
@@ -49,20 +49,20 @@ function getTeacherAccountStatus(pageType){
 
       $('#main-body-page-teacher').html(waitingRequestHTML);
     } else {
-    //IN A DISTRICT
-    if(in_a_district != null &&  in_a_district != undefined){
-      firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
+      //IN A DISTRICT
+      if (in_a_district != null && in_a_district != undefined) {
+        firebase.firestore().collection('Districts').doc(in_a_district).get().then(function (doc) {
 
-        console.log('Executing 1');
+          console.log('Executing 1');
 
-        var data = doc.data()["Status"];
+          var data = doc.data()["Status"];
 
-        console.log("STATUS:" + data);
+          console.log("STATUS:" + data);
 
-        //DISTRICT IS NOT ACTIVATED
-        if(data != "Activated"){
-          
-          var activateDistrictHTML = `
+          //DISTRICT IS NOT ACTIVATED
+          if (data != "Activated") {
+
+            var activateDistrictHTML = `
           <center style="margin-top: 23%;">
           <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
 
@@ -72,95 +72,95 @@ function getTeacherAccountStatus(pageType){
         </center>
           `;
 
-          document.getElementById('loader-icon').style.display = 'none';
+            document.getElementById('loader-icon').style.display = 'none';
 
-          $('#main-body-page-teacher').html(activateDistrictHTML);
-        } else {
+            $('#main-body-page-teacher').html(activateDistrictHTML);
+          } else {
 
-          console.log('Executing 2');
+            console.log('Executing 2');
 
-          document.getElementById('loader-icon').style.display = 'none';
+            document.getElementById('loader-icon').style.display = 'none';
 
-          if(pageType == 'meetings-page'){
+            if (pageType == 'meetings-page') {
+              document.getElementById('main-page-content-meetings-page').style.display = "initial";
+              getProfileInfo();
+              getClassData();
+              getMeetings();
+            }
+            else if (pageType == "") {
+
+            }
+            else if (pageType == 'class-page') {
+              getProfileInfo();
+              getClassData();
+              getStudentData();
+              getEditData();
+            }
+
+            else if (pageType == 'dashboard') {
+              getProfileInfo();
+              getClassData();
+            }
+
+            else {
+              getClassData();
+              getProfileInfo();
+              getChartData();
+            }
+
+          }
+        });
+
+      }
+      //NOT IN A DISTRICT
+      else {
+
+        var accountStatus = data['Account Status'];
+
+        //ACCOUNT ACTIVE
+        if (accountStatus == "Activated") {
+
+          if (document.getElementById('loader-icon') != null) {
+            document.getElementById('loader-icon').style.display = 'none';
+
+          }
+
+          if (document.getElementById('dashboard-section') != null) {
+            document.getElementById('dashboard-section').style.display = 'none';
+          }
+
+
+          if (pageType == 'meetings-page') {
             document.getElementById('main-page-content-meetings-page').style.display = "initial";
             getProfileInfo();
             getClassData();
             getMeetings();
-        } 
-        else if(pageType == ""){
+          }
+          else if (pageType == "") {
 
-        } 
-        else if(pageType == 'class-page') {
-          getProfileInfo();
-          getClassData();
-          getStudentData();
-          getEditData();
-        } 
-        
-        else if (pageType == 'dashboard'){
-          getProfileInfo();
-          getClassData();
-        }
-        
-        else {
-          getClassData();
-          getProfileInfo();
-         getChartData();
-        }
-    
-        }
-      });
+          }
+          else if (pageType == 'class-page') {
+            getProfileInfo();
+            getClassData();
+            getStudentData();
+            getEditData();
+          }
+          else if (pageType == 'dashboard') {
+            console.log("executing");
+            getProfileInfo();
+            getClassData();
+          }
 
-    } 
-    //NOT IN A DISTRICT
-    else {
-      
-      var accountStatus = data['Account Status'];
-
-      //ACCOUNT ACTIVE
-      if(accountStatus == "Activated"){
-
-        if (document.getElementById('loader-icon') != null) {
-          document.getElementById('loader-icon').style.display = 'none';
-
-        }
-
-        if(document.getElementById('dashboard-section') != null) {
-          document.getElementById('dashboard-section').style.display = 'none';
-        }
+          else {
+            getClassData();
+            getProfileInfo();
+            getChartData();
+          }
 
 
-        if(pageType == 'meetings-page'){
-          document.getElementById('main-page-content-meetings-page').style.display = "initial";
-          getProfileInfo();
-          getClassData();
-          getMeetings();
-      } 
-      else if(pageType == ""){
-
-      } 
-      else if(pageType == 'class-page') {
-        getProfileInfo();
-        getClassData();
-        getStudentData();
-        getEditData();
-      } 
-      else if(pageType == 'dashboard'){
-        console.log("executing");
-        getProfileInfo();
-        getClassData();
-      }
-      
-      else {
-        getClassData();
-        getProfileInfo();
-       getChartData();
-      }
-        
-        
-       //ACCOUNT NOT ACTIVE
-      } else {
-        var activateDistrictHTML = `
+          //ACCOUNT NOT ACTIVE
+        } else {
+          var activateDistrictHTML = `
         
         <center style="margin-top: 20%;">
         <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
@@ -204,22 +204,22 @@ function getTeacherAccountStatus(pageType){
 
       </center>
        `;
-       document.getElementById('loader-icon').style.display = 'none';
-        $('#main-body-page-teacher').html(activateDistrictHTML);
+          document.getElementById('loader-icon').style.display = 'none';
+          $('#main-body-page-teacher').html(activateDistrictHTML);
+        }
       }
-    }
     }
   });
 }
 
 
-function checkIfDistrictCodeExists(){
+function checkIfDistrictCodeExists() {
   var code = document.getElementById('searchInputDistrict').value;
 
   firebase.firestore().collection('Districts').doc(code).get().then(function (doc) {
     var data = doc.data();
 
-    if(data != null && data != undefined){
+    if (data != null && data != undefined) {
 
       $('#joinSchool-district-err').html('');
 
@@ -235,7 +235,7 @@ function checkIfDistrictCodeExists(){
   });
 }
 
-function checkIfSchoolCodeExists(){
+function checkIfSchoolCodeExists() {
   var district_code = document.getElementById('searchInputDistrict').value;
   var school_code = document.getElementById('searchInputSchool').value;
 
@@ -245,7 +245,7 @@ function checkIfSchoolCodeExists(){
   firebase.firestore().collection('Districts').doc(district_code).collection("Schools").doc(school_code).get().then(function (doc) {
     var data = doc.data();
 
-    if(data != null && data != undefined){
+    if (data != null && data != undefined) {
 
       $('#joinSchool-district-err').html('');
 
@@ -270,45 +270,45 @@ function checkIfSchoolCodeExists(){
       });
       */
 
-     firebase.firestore().collection('Districts').doc(district_code).collection('Schools').doc(school_code).get().then(snapshot => {
+      firebase.firestore().collection('Districts').doc(district_code).collection('Schools').doc(school_code).get().then(snapshot => {
         var data = snapshot.data();
 
         var schoolName = data['School Name']
 
         return schoolName
 
-    }).then((name) => {
+      }).then((name) => {
 
-      const increment = firebase.firestore.FieldValue.increment(1);
+        const increment = firebase.firestore.FieldValue.increment(1);
 
-      firebase.firestore().collection('Districts').doc(district_code).update({
-        "Pending Requests": increment
-      })
-
-      var _requestRef = firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc()
-      
-      _requestRef.set({
-        "Teacher Name": teacher_name,
-        "Teacher Email": teacher_email,
-        "Teacher School ID Request": school_code,
-        "School Name": name,
-      }).then(() => {
-
-        console.log(_requestRef.id);
-
-
-        firebase.firestore().collection('UserData').doc(teacher_email).update({
-          "Pending District Request": district_code,
-          "Pending School Request": school_code,
-          "Pending School Request Name": name,
-          "Pending Request ID": _requestRef.id,
-        }).then(() => {
-          window.location.reload();
+        firebase.firestore().collection('Districts').doc(district_code).update({
+          "Pending Requests": increment
         })
-        
-      })
 
-    })
+        var _requestRef = firebase.firestore().collection('Districts').doc(district_code).collection("Teacher Requests").doc()
+
+        _requestRef.set({
+          "Teacher Name": teacher_name,
+          "Teacher Email": teacher_email,
+          "Teacher School ID Request": school_code,
+          "School Name": name,
+        }).then(() => {
+
+          console.log(_requestRef.id);
+
+
+          firebase.firestore().collection('UserData').doc(teacher_email).update({
+            "Pending District Request": district_code,
+            "Pending School Request": school_code,
+            "Pending School Request Name": name,
+            "Pending Request ID": _requestRef.id,
+          }).then(() => {
+            window.location.reload();
+          })
+
+        })
+
+      })
 
 
 
@@ -373,7 +373,7 @@ function getClassData() {
 
   }).then(function () {
 
-    if(index == 0){
+    if (index == 0) {
       document.getElementById('main-body-page-teacher').innerHTML = no_classes_HTML;
     } else {
       for (var i = 0; i <= classesList.length; i++) {
@@ -382,16 +382,16 @@ function getClassData() {
         let output2 = "";
         let output3 = "";
         var classData = classesList[i];
-  
+
         if (classData != null || classData != undefined) {
-  
+
           console.log("works");
           var className = classData[1];
           var classCode = classData[0];
 
-        if(i == 0){
-          storeClassforChart(classCode)
-        }
+          if (i == 0) {
+            storeClassforChart(classCode)
+          }
           output = `
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
@@ -409,11 +409,11 @@ function getClassData() {
                 </div>
               </div>
             `;
-  
+
           output2 = `
             <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
             `;
-  
+
           output3 = `
             <a class="dropdown-item" href="#" onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
                         <div class="dropdown-divider"></div>
@@ -428,7 +428,7 @@ function getClassData() {
       }
     }
   }).then(function () {
-    if(document.getElementById('dashboard-section') != null){
+    if (document.getElementById('dashboard-section') != null) {
       document.getElementById('dashboard-section').style.display = "initial";
       getChartData();
     }
@@ -456,8 +456,8 @@ function writeAnnouncement() {
   firebase.firestore().collection("Classes").doc(numberClass).collection("Announcements").doc().set({
     "Title": messageTitle,
     "Message": messageText,
-    "Date" : formattedDate.toString(),
-    "Timestamp" : dateNow.toString(),
+    "Date": formattedDate.toString(),
+    "Timestamp": dateNow.toString(),
   });
 }
 
@@ -508,8 +508,8 @@ function getMeetings() {
     </center>
     `;
 
-    if(index == 0){
-        document.getElementById('main-body-page-teacher').innerHTML = noMeetingsHTML;
+    if (index == 0) {
+      document.getElementById('main-body-page-teacher').innerHTML = noMeetingsHTML;
     }
   });
 
@@ -626,39 +626,39 @@ function getStudentData() {
 
   firebase.firestore().collection('Classes').doc(code).collection("Students").get().then(function (doc) {
 
-      doc.forEach(snapshot => {
+    doc.forEach(snapshot => {
 
-          var data = snapshot.data();
+      var data = snapshot.data();
 
-          var reaction = data["reaction"];
-          var studentName = data["name"];
-          var studentEmail = data["email"]
-          classInfoList.push([studentName, reaction, studentEmail])
-          console.log(classInfoList)
+      var reaction = data["reaction"];
+      var studentName = data["name"];
+      var studentEmail = data["email"]
+      classInfoList.push([studentName, reaction, studentEmail])
+      console.log(classInfoList)
 
-      });
+    });
 
-      document.getElementById("studentTable").innerHTML = "";
+    document.getElementById("studentTable").innerHTML = "";
 
-      for (var i = 0; i <= classInfoList.length; i++) {
-          let descriptionOutput = "";
-          classInfoData = classInfoList[i];
-          var happy = '<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1>';
-          var meh = '<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1>';
-          var sad = '<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>'
+    for (var i = 0; i <= classInfoList.length; i++) {
+      let descriptionOutput = "";
+      classInfoData = classInfoList[i];
+      var happy = '<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1>';
+      var meh = '<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1>';
+      var sad = '<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>'
 
-          if (classInfoData != null || classInfoData != undefined) {
-              console.log("works")
-              var className = localStorage.getItem("className");
-              document.getElementById("className").innerHTML = className
-              var studentName = classInfoData[0];
+      if (classInfoData != null || classInfoData != undefined) {
+        console.log("works")
+        var className = localStorage.getItem("className");
+        document.getElementById("className").innerHTML = className
+        var studentName = classInfoData[0];
 
-              var studentReaction = classInfoData[1];
+        var studentReaction = classInfoData[1];
 
-              var studentEmail = classInfoData[2];
-              console.log(classInfoData)
+        var studentEmail = classInfoData[2];
+        console.log(classInfoData)
 
-              descriptionOutput2 = `
+        descriptionOutput2 = `
       <tr>
       <td>${studentName}</td>
       <td>${studentEmail}</td>
@@ -668,7 +668,7 @@ function getStudentData() {
       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
       `;
 
-              happy_face_Column = `
+        happy_face_Column = `
       <tr>
       <td>${studentName}</td>
       <td>${studentEmail}</td>
@@ -678,7 +678,7 @@ function getStudentData() {
       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
       `;
 
-              meh_colum_face = `
+        meh_colum_face = `
       <tr>
       <td>${studentName}</td>
       <td>${studentEmail}</td>
@@ -688,7 +688,7 @@ function getStudentData() {
       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
       `;
 
-              frustrated_column_face = `
+        frustrated_column_face = `
       <tr>
       <td>${studentName}</td>
       <td>${studentEmail}</td>
@@ -699,7 +699,7 @@ function getStudentData() {
   </div>
       `;
 
-      outputModel = `
+        outputModel = `
       <div class="modal fade" id="exampleModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel${i}" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -733,34 +733,34 @@ function getStudentData() {
       </div>
       </div>
       `
-              $(outputModel).appendTo("#outputModel")
-              $(descriptionOutput2).appendTo("#studentTable")
+        $(outputModel).appendTo("#outputModel")
+        $(descriptionOutput2).appendTo("#studentTable")
 
-              if (studentReaction == "good") {
-                  document.getElementById("face").outerHTML = happy;
-                  $(descriptionOutput2).appendTo("#studentsListGreat");
-                  $(happy_face_Column).appendTo('#studentTable-doing-good');
+        if (studentReaction == "good") {
+          document.getElementById("face").outerHTML = happy;
+          $(descriptionOutput2).appendTo("#studentsListGreat");
+          $(happy_face_Column).appendTo('#studentTable-doing-good');
 
-              } else if (studentReaction == "meh") {
-                  document.getElementById("face").outerHTML = meh;
-                  $(descriptionOutput2).appendTo("#studentsListHelp");
-                  $(meh_colum_face).appendTo('#studentTable-meh');
+        } else if (studentReaction == "meh") {
+          document.getElementById("face").outerHTML = meh;
+          $(descriptionOutput2).appendTo("#studentsListHelp");
+          $(meh_colum_face).appendTo('#studentTable-meh');
 
 
-              } else if (studentReaction == "needs help") {
+        } else if (studentReaction == "needs help") {
 
-                  document.getElementById("face").outerHTML = sad;
+          document.getElementById("face").outerHTML = sad;
 
-                  $(descriptionOutput2).appendTo("#studentsListFrustrated");
-                  $(frustrated_column_face).appendTo("#studentTable-frustrated");
+          $(descriptionOutput2).appendTo("#studentsListFrustrated");
+          $(frustrated_column_face).appendTo("#studentTable-frustrated");
 
-              } else {
-                  document.getElementById("face").outerHTML = happy;
+        } else {
+          document.getElementById("face").outerHTML = happy;
 
-                  $(happy_face_Column).appendTo("#studentsListGreat");
-              }
-          }
+          $(happy_face_Column).appendTo("#studentsListGreat");
+        }
       }
+    }
   });
 }
 
@@ -775,17 +775,17 @@ function schedualMeeting(emailStudent, course, index) {
   var formattedDate = dateNow.toLocaleString();
 
   firebase.firestore().collection('UserData').doc(emailStudent).collection("Meetings").doc().set({
-      "Title": meetingTitle,
-      "Date": meetingDate,
-      "Course": course,
-      "Timestamp": dateNow.toString(),
+    "Title": meetingTitle,
+    "Date": meetingDate,
+    "Course": course,
+    "Timestamp": dateNow.toString(),
   });
 
   firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
-      "Title": meetingTitle,
-      "Date": meetingDate,
-      "Course": course,
-      "Timestamp": dateNow.toString(),
+    "Title": meetingTitle,
+    "Date": meetingDate,
+    "Course": course,
+    "Timestamp": dateNow.toString(),
   });
 
 }
@@ -818,13 +818,13 @@ function showAll() {
 }
 
 
-function cancelTeacherRequest(ID, districtID, teacher_email){
+function cancelTeacherRequest(ID, districtID, teacher_email) {
   firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
     firebase.firestore().collection('UserData').doc(teacher_email).update({
       "Pending District Request": null,
       "Pending School Request": null,
       "Pending School Request Name": null,
-      "Pending Request ID":null,
+      "Pending Request ID": null,
     }).then(() => {
       window.location.reload()
     })
@@ -837,15 +837,15 @@ function getEditData() {
 
   firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
 
-   var data = doc.data();
-   return data;
+    var data = doc.data();
+    return data;
 
 
-}).then((data) => {
-  var className = data['class-name'];
-   var course = data['Course']
-   var teacher = data['teacher']
-  output += `
+  }).then((data) => {
+    var className = data['class-name'];
+    var course = data['Course']
+    var teacher = data['teacher']
+    output += `
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">
@@ -880,24 +880,29 @@ function getEditData() {
   <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1" name="editTeacher" id="editTeacher">
 </div>
 
+<button class="btn btn-primary" onclick="updateDetails()">Update Class Details</button>
+
   `
 
-  $(output).appendTo("#editInfo")
+    $(output).appendTo("#editInfo");
 
-  var newName = document.getElementById('editName').value;
-  var newCourse = document.getElementById('editCourse').value;
-  var newTeacher = document.getElementById('editTeacher').value;
+    updateDetails() {
+      var newName = document.getElementById('editName').value;
+      var newCourse = document.getElementById('editCourse').value;
+      var newTeacher = document.getElementById('editTeacher').value;
 
-  firebase.firestore().collection('Classes').doc(code).update({
-    "class-name": newName,
-    "Course" : newCourse,
-    "teacher" : newTeacher
+      firebase.firestore().collection('Classes').doc(code).update({
+        "class-name": newName,
+        "Course": newCourse,
+        "teacher": newTeacher
 
-}).then(() => {
-  window.location.reload();
-});
+      }).then(() => {
+        window.location.reload()
 
-})
+      });
+    };
+
+  })
 }
 
 
