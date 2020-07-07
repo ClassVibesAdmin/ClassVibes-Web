@@ -852,7 +852,9 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1">
+  <label for="editName">Edit Class Name</label>
+
+  <input type="text" class="form-control" placeholder="${className}" aria-label="Username" aria-describedby="basic-addon1" name="editName" id="editName">
 </div>
 
 <div class="input-group mb-3">
@@ -861,7 +863,9 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <input type="text" class="form-control" placeholder="${course}" aria-label="Username" aria-describedby="basic-addon1">
+  <label for="editCourse">Ediit Class Course</label>
+
+  <input type="text" class="form-control" placeholder="${course}" aria-label="Username" aria-describedby="basic-addon1" name="editCourse" id="editCourse">
 </div>
 
 <div class="input-group mb-3">
@@ -870,12 +874,28 @@ function getEditData() {
     <i class="fa fa-pencil" aria-hidden="true" onclick = "editTitle()"></i>
     </span>
   </div>
-  <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1">
+  <label>
+  <label for="editTeacher">Edit Class Teacher</label>
+
+  <input type="text" class="form-control" placeholder="${teacher}" aria-label="Username" aria-describedby="basic-addon1" name="editTeacher" id="editTeacher">
 </div>
 
   `
 
   $(output).appendTo("#editInfo")
+
+  var newName = document.getElementById('editName').value;
+  var newCourse = document.getElementById('editCourse').value;
+  var newTeacher = document.getElementById('editTeacher').value;
+
+  firebase.firestore().collection('Classes').doc(code).update({
+    "class-name": newName,
+    "Course" : newCourse,
+    "teacher" : newTeacher
+
+}).then(() => {
+  window.location.reload();
+});
 
 })
 }
