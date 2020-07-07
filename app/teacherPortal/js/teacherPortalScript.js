@@ -127,7 +127,10 @@ function getTeacherAccountStatus(pageType){
 
         }
 
-        document.getElementById('dashboard-section').style.display = 'none';
+        if(document.getElementById('dashboard-section') != null) {
+          document.getElementById('dashboard-section').style.display = 'none';
+        }
+
 
         if(pageType == 'meetings-page'){
           document.getElementById('main-page-content-meetings-page').style.display = "initial";
