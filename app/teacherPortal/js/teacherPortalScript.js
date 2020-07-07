@@ -357,7 +357,7 @@ function getClassData() {
   <center style="margin-top: 15%;">
   <img src = 'img/undraw_taking_notes_tjaf.svg'/ width="25%">
 
-  <h1 style="margin-top: 20px;">Nothing here yet</h1>
+  <h1 style="margin-top: 20px;">No Classes To See</h1>
   <p>You have not created any classes yet. <br> Go to <strong>Sidebar > Classes > Create Class</strong> <br> to get started</p>
   </center>
   `;
@@ -628,7 +628,7 @@ function getMeetings() {
   }).then(() => {
     var noMeetingsHTML = `
     <center style="margin-top: 15%;">
-    <img src = 'img/undraw_checking_boxes_2ibd.svg'/ width="25%">
+    <img src = 'img/undraw_checking_boxes_2ibd.svg' width="25%"/>
   
     <h1 style="margin-top: 20px;">No Meetings</h1>
     <p>You do not have any scheduled meetings yet, go <br> to <strong> Sidebar > Classes > Class</strong> to schedule <br> meetings with your students</p>
