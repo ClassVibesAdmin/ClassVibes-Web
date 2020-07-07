@@ -62,7 +62,6 @@ function getTeacherAccountStatus(pageType){
         //DISTRICT IS NOT ACTIVATED
         if(data != "Activated"){
           
-
           var activateDistrictHTML = `
           <center style="margin-top: 23%;">
           <i class="fas fa-exclamation-triangle" style="font-size: 70px;"></i>
@@ -116,7 +115,6 @@ function getTeacherAccountStatus(pageType){
     //NOT IN A DISTRICT
     else {
       
-
       var accountStatus = data['Account Status'];
 
       //ACCOUNT ACTIVE
@@ -153,7 +151,6 @@ function getTeacherAccountStatus(pageType){
         getClassData();
       }
       
-      
       else {
         getClassData();
         getProfileInfo();
@@ -188,7 +185,6 @@ function getTeacherAccountStatus(pageType){
           </form>
           </div>
 
-
         <div id = "school-join-input" style="display: none;">
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-6 my-4 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -213,8 +209,6 @@ function getTeacherAccountStatus(pageType){
       }
     }
     }
-
-
   });
 }
 
@@ -395,12 +389,9 @@ function getClassData() {
           var className = classData[1];
           var classCode = classData[0];
 
-
         if(i == 0){
           storeClassforChart(classCode)
         }
-  
-  
           output = `
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
@@ -428,24 +419,15 @@ function getClassData() {
                         <div class="dropdown-divider"></div>
             
             `
-  
 
-  
-  
-  
-  
           $(output).appendTo("#topClassesSection");
           $(output2).appendTo("#classesOp");
           $(output3).appendTo("#classesOp1");
           $(output2).appendTo("#dropdown-sidebar");
         }
-  
       }
     }
-
-
   }).then(function () {
-
     if(document.getElementById('dashboard-section') != null){
       document.getElementById('dashboard-section').style.display = "initial";
       getChartData();
@@ -456,7 +438,6 @@ function getClassData() {
 function setClassCode(classCode) {
   localStorage.setItem("code", classCode);
 }
-
 
 function storeClassforChart(code) {
   localStorage.setItem("codeForChart", code);
@@ -478,9 +459,6 @@ function writeAnnouncement() {
     "Date" : formattedDate.toString(),
     "Timestamp" : dateNow.toString(),
   });
-
-
-
 }
 
 function getMeetings() {
@@ -519,9 +497,6 @@ function getMeetings() {
         `;
 
       $(output).appendTo("#meetingsList");
-
-
-
     })
   }).then(() => {
     var noMeetingsHTML = `
@@ -582,8 +557,7 @@ function getClassDataDropdown() {
     <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
 <div class="dropdown-divider"></div>
     
-    `
-
+    `;
         $(output).appendTo("#topClassesSection");
         $(output2).appendTo("#classesOp");
         $(output3).appendTo("#classesOp1");
@@ -599,9 +573,6 @@ function storeClassPref(code, name) {
   localStorage.setItem("className", name);
   console.log(code);
   window.location = "classPage.html"
-
-
-
 }
 
 function createClass() {
@@ -614,31 +585,6 @@ function createClass() {
   var courseVideo = localStorage.getItem("videoLink");
   var teachersNote = document.getElementById("teachersNote").value;
   var classCreator = localStorage.getItem("email")
-
-  // var _refCreateClass = firebase.database().ref().child("UserData").child(classCreator).child("Classes").child(code);
-  // _refCreateClass.child("Code").set(code);
-  // _refCreateClass.child("class-name").set(className);
-  // _refCreateClass.child("Course").set(course);
-  // _refCreateClass.child("teacher").set(teacher);
-  // _refCreateClass.child("classImg").set(classImg);
-  // _refCreateClass.child("courseDescription").set(courseDescription);
-  // _refCreateClass.child("courseVideo").set(courseVideo);
-  // _refCreateClass.child("teachersNote").set(teachersNote);
-
-
-  // console.log(code);
-
-  // var _refStudentClass = firebase.database().ref().child("Classes").child(code);
-  // _refStudentClass.child("Code").set(code);
-  // _refStudentClass.child("class-name").set(className);
-  // _refStudentClass.child("Course").set(course);
-  // _refStudentClass.child("teacher").set(teacher);
-  // _refStudentClass.child("classImg").set(classImg);
-  // _refStudentClass.child("courseDescription").set(courseDescription);
-  // _refStudentClass.child("courseVideo").set(courseVideo);
-  // _refStudentClass.child("teachersNote").set(teachersNote).then(() => {
-  //   window.location = "dashboard.html";
-  // });
 
   firebase.firestore().collection("UserData").doc(classCreator).collection("Classes").doc(code).set({
     "Code": code,
@@ -663,24 +609,17 @@ function createClass() {
     "teachersNote": teachersNote,
 
   });
+}
 
 
 function storeClassPref(code, name) {
   localStorage.setItem("code", code);
   localStorage.setItem("className", name);
   console.log(code);
-
-
-
 }
 
 function getStudentData() {
   var code = localStorage.getItem("code");
-
-
-  //var classInfoRef = firebase.database().ref().child("Classes").child(code).child("Students");
-
-
 
   var classInfoList = [];
   console.log(classInfoList);
@@ -718,7 +657,6 @@ function getStudentData() {
 
               var studentEmail = classInfoData[2];
               console.log(classInfoData)
-
 
               descriptionOutput2 = `
       <tr>
@@ -758,15 +696,10 @@ function getStudentData() {
       <td><h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1></td>
       <td>2011/04/25</td>
       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${i}" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button></td></tr>
-
-      
-
   </div>
-
-  
       `;
 
-              outputModel = `
+      outputModel = `
       <div class="modal fade" id="exampleModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel${i}" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -800,7 +733,6 @@ function getStudentData() {
       </div>
       </div>
       `
-
               $(outputModel).appendTo("#outputModel")
               $(descriptionOutput2).appendTo("#studentTable")
 
@@ -826,141 +758,12 @@ function getStudentData() {
                   document.getElementById("face").outerHTML = happy;
 
                   $(happy_face_Column).appendTo("#studentsListGreat");
-
               }
-
           }
       }
-
-
-
   });
-
-
 }
-/*
-classInfoRef.once("value", (snap) => {
-              console.log(snap.val());
-              rawData2 = snap.val();
 
-              if (rawData2 != null) {
-
-                  snap.forEach((child) => {
-                      classInfoList.push([child.child("Name").val(), child.child("Reaction").val(), child.child("Email").val()])
-
-                  });
-
-
-              }
-
-
-              document.getElementById("studentsList").innerHTML = "";
-
-              for (var i = 0; i <= classInfoList.length; i++) {
-                  let descriptionOutput = "";
-                  classInfoData = classInfoList[i];
-                  var happy = '<h1 class="icon-hover" style = "margin-left: 20px; font-size: 70px;"  style="color: green;">&#128513;</h1>';
-                  var meh = '<h1  class="icon-hover" style = "margin-right: 20px; margin-left: 20px; font-size: 70px;"  style="color: yellow;">&#128533;</h1>';
-                  var sad = '<h1  class="icon-hover" style = "margin-right: 20px; font-size: 70px;">&#128545;</h1>'
-
-                  if (classInfoData != null || classInfoData != undefined) {
-                      console.log("works")
-                      var className = localStorage.getItem("className");
-                      document.getElementById("className").innerHTML = className
-                      var studentName = classInfoData[0];
-
-                      var studentReaction = classInfoData[1];
-
-                      var studentEmail = classInfoData[2];
-
-
-                      descriptionOutput = `
-      <div class="card mb-4 py-3 border-left-success" id = "studentCard">
-          <div class="row">
-              <div class="card-body">
-                  <h4>${studentName}</h4>
-              </div>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style = "height: 50px; margin-right: 20px; margin-top: 15px">Schedual Meeting</button>
-              <div style="margin-right: 25px;" id = "face"></div>
-
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Schedual Meeting</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-                      <form>
-                      <div class="form-group">
-                          <label for="recipient-name" class="col-form-label">Title:</label>
-                          <input type="text" class="form-control" id="title">
-                      </div>
-                      <div class="form-group">
-                          <label for="recipient-name" class="col-form-label">Date/Time</label>
-                          <input type="text" class="form-control" id="date">
-                      </div>
-                      <div class="form-group">
-                          <label for="message-text" class="col-form-label">Student</label>
-                          <input type="text" class="form-control" placeholder = "${studentName}" readonly>
-                      </div>
-                      </form>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" onclick = "schedualMeeting('${studentEmail}', '${className}')" data-dismiss = "modal">Send message</button>
-                  </div>
-                  </div>
-              </div>
-              </div>
-
-          </div>
-
-          
-  
-  `;
-                      $(descriptionOutput).appendTo("#studentsList");
-
-                      if (studentReaction == "good") {
-                          document.getElementById("face").outerHTML = happy;
-                          $(descriptionOutput).appendTo("#studentsListGreat");
-
-                      } else if (studentReaction == "meh") {
-                          document.getElementById("face").outerHTML = meh;
-                          $(descriptionOutput).appendTo("#studentsListHelp");
-
-
-                      } else if (studentReaction == "needs help") {
-                          document.getElementById("face").outerHTML = sad;
-                          $(descriptionOutput).appendTo("#studentsListFrustrated");
-
-
-                      } else {
-                          document.getElementById("face").outerHTML = happy;
-                          $(descriptionOutput).appendTo("#studentsListGreat");
-                      }
-
-
-                  }
-
-              }
-*/
-
-/*
-
-
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  //modal.find('.modal-title').text('New message to ' + recipient)
-  //modal.find('.modal-body input').val(recipient)
-})
-*/
 
 function schedualMeeting(emailStudent, course, index) {
   console.log("schedual meeting")
@@ -968,7 +771,6 @@ function schedualMeeting(emailStudent, course, index) {
   var nameLocal = localStorage.getItem("email");
   var meetingTitle = document.getElementById("title" + index).value;
   var meetingDate = document.getElementById("date" + index).value;
-  // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(emailStudent).child("Meetings").push();
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
 
@@ -979,34 +781,17 @@ function schedualMeeting(emailStudent, course, index) {
       "Timestamp": dateNow.toString(),
   });
 
-
-  // _refSchedualMeeting.child("Title").set(meetingTitle);
-  // _refSchedualMeeting.child("Date").set(meetingDate);
-  // _refSchedualMeeting.child("Course").set(course);
-
-
-  // var _refSchedualMeeting = firebase.database().ref().child("UserData").child(nameLocal).child("Meetings").push();
-
   firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
       "Title": meetingTitle,
       "Date": meetingDate,
       "Course": course,
       "Timestamp": dateNow.toString(),
   });
-  // _refSchedualMeeting.child("Title").set(meetingTitle);
-  // _refSchedualMeeting.child("Date").set(meetingDate);
-  // _refSchedualMeeting.child("Course").set(course);
 
 }
 
 function showGreat() {
   document.getElementById('studentTable').style.display = "none";
-
-
-  // document.getElementById('studentsListGreat').style.display = "initial";
-  // document.getElementById('studentsListHelp').style.display = "none";
-  //document.getElementById('studentsListFrustrated').style.display = "none";
-
   document.getElementById("doing-good-table-section").style.display = "initial";
   document.getElementById("meh-table-section").style.display = "none";
   document.getElementById("frustrated-table-section").style.display = "none";
@@ -1016,48 +801,22 @@ function showGreat() {
 function showHelp() {
 
   document.getElementById('studentTable').style.display = "none";
-
-
-  // document.getElementById('studentsListGreat').style.display = "initial";
-  // document.getElementById('studentsListHelp').style.display = "none";
-  //document.getElementById('studentsListFrustrated').style.display = "none";
-
   document.getElementById("doing-good-table-section").style.display = "none";
   document.getElementById("meh-table-section").style.display = "initial";
   document.getElementById("frustrated-table-section").style.display = "none";
-
-  // document.getElementById('studentTable').style.display = "none";
-  // document.getElementById('studentsListGreat').style.display = "none";
-  // document.getElementById('studentsListHelp').style.display = "initial";
-  // document.getElementById('studentsListFrustrated').style.display = "none";
 }
 
 function showFrustrated() {
-  // document.getElementById('studentTable').style.display = "none";
-  //document.getElementById('studentsListGreat').style.display = "none";
-  //document.getElementById('studentsListHelp').style.display = "none";
-  //document.getElementById('studentsListFrustrated').style.display = "initial";
-
   document.getElementById('studentTable').style.display = "none";
-
-
-  // document.getElementById('studentsListGreat').style.display = "initial";
-  // document.getElementById('studentsListHelp').style.display = "none";
-  //document.getElementById('studentsListFrustrated').style.display = "none";
-
   document.getElementById("doing-good-table-section").style.display = "none";
   document.getElementById("meh-table-section").style.display = "none";
   document.getElementById("frustrated-table-section").style.display = "initial";
 }
 
 function showAll() {
-  //document.getElementById('studentTable').style.display = "initial";
-  //document.getElementById('studentsListGreat').style.display = "none";
-  //document.getElementById('studentsListHelp').style.display = "none";
-  //document.getElementById('studentsListFrustrated').style.display = "none";
   window.location.reload();
 }
-}
+
 
 function cancelTeacherRequest(ID, districtID, teacher_email){
   firebase.firestore().collection('Districts').doc(districtID).collection('Teacher Requests').doc(ID).delete().then(() => {
@@ -1070,7 +829,6 @@ function cancelTeacherRequest(ID, districtID, teacher_email){
       window.location.reload()
     })
   });
-
 }
 
 function getEditData() {
