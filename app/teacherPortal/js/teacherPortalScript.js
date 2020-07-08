@@ -90,6 +90,11 @@ function getTeacherAccountStatus(pageType) {
             else if (pageType == "") {
 
             }
+            
+            else if(pageType == 'create-class'){
+              getClassDataDropdown();
+            }
+
             else if (pageType == 'class-page') {
               getProfileInfo();
               getClassData();
@@ -150,6 +155,10 @@ function getTeacherAccountStatus(pageType) {
             console.log("executing");
             getProfileInfo();
             getClassData();
+          }
+
+          else if(pageType == 'create-class'){
+            getClassDataDropdown();
           }
 
           else {
