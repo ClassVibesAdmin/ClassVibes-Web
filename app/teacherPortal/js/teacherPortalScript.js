@@ -109,6 +109,7 @@ function getTeacherAccountStatus(pageType) {
             }
 
             else if(pageType == "student-requests"){
+              getProfileInfo();
               getStudentRequests();
             }
 
@@ -167,6 +168,7 @@ function getTeacherAccountStatus(pageType) {
           }
 
           else if(pageType == "student-requests"){
+            getProfileInfo();
             getStudentRequests();
           }
 
@@ -247,57 +249,64 @@ function getStudentRequests(){
       var data1 = snapshot.data();
 
       var classCode = data1["Code"];
-      var className = data1["class-name"];
 
-      classesList.push([classCode, className])
+      firebase.firestore().collection('Classes').doc(classCode).get().then(function (doc) {
+        var data = doc.data();
+
+        var className = data["class-name"]
+
+        classesList.push([classCode, className])
+
+      })
 
     });
 
   }).then(function () {
 
+    setTimeout(function(){
 
+      document.getElementById('main-body-page-teacher').innerHTML = `
+      <section id = "main-page" style = "display: none">
+      <h1>Teacher Join Requests</h1>
+    
+      <div id = "request-list">
+          
+      </div>
+    
+      
+     </section>
+      `;
+      
     for (var i = 0; i <= classesList.length; i++) {
       var classData = classesList[i];
 
       if (classData != null || classData != undefined) {
 
         console.log("works");
-        var className = classData[1];
+        var className1 = classData[1];
         var classCode = classData[0];
 
         var _ref = firebase.firestore().collection('Classes').doc(classCode).collection('Student Requests');
       
-        document.getElementById('main-body-page-teacher').innerHTML = `
-        <section id = "main-page" style = "display: none">
-        <h1>Teacher Join Requests</h1>
-      
-        <div id = "request-list">
-            
-        </div>
-      
-        
-       </section>
-        `;
-      
         _ref.get().then(snapshot => {
       
             snapshot.forEach(doc => {
+
+              var className = className1
               totalIndex += 1
                 console.log(doc.data());
       
                 var data = doc.data();
       
-                var teacherName = data['Teacher Name'];
-      
-                var schoolName = data['School Name'];
-      
-                var schoolID = data['Teacher School ID Request'];
-      
-                var teacherEmail = data['Teacher Email']
+                var classID = data['Class Code'];
+
+                var studentName = data['Student Name']
+
+                var studentEmail = data['Student Email']
       
                 var requestDocID = doc.id;
       
-                console.log(requestDocID);
+                console.log(className1);
       
                 var output = `
                 <div class="col-xl-12 col-md-6 mb-4">
@@ -312,17 +321,17 @@ function getStudentRequests(){
                                 <div class="row" style="margin-left: 4px;">
                                     <i class="fas fa-school"></i>
             
-                                  <h5 style="margin-left: 5px; margin-top: -4px;">${schoolName}</h5>
+                                  <h5 style="margin-left: 5px; margin-top: -4px;">${className}</h5>
                                 </div>
             
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">${teacherName}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">${studentName}</div>
                             </div>
       
-                            <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;" onclick = "acceptRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
+                            <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;">
                                 <i class="fas fa-check"></i>
                               </a>
       
-                            <a href="#" class="btn btn-danger btn-circle btn-lg" onclick = "declineRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
+                            <a href="#" class="btn btn-danger btn-circle btn-lg">
                             <i class="fas fa-trash"></i>
                             </a>
       
@@ -339,29 +348,35 @@ function getStudentRequests(){
       
                 $(output).appendTo('#request-list');
             })
-        }).then(() => {
-      
-            if(totalIndex == 0){
-                document.getElementById('main-body-page-teacher').innerHTML = `
-                <div id = "request-list">
-                <center style="margin-top: 15%;">
-                    <img src="img/undraw_browsing_online_sr8c.svg" alt="" width="20%" >
-      
-                    <h1 style="margin-top: 1%;">No Pending Requests</h1>
-      
-                    <p>There are no pending teacher requests at the moment</p>
-                </center>
-                </div>
-                `;
-            } else {
-                document.getElementById('main-page').style.display = "initial"
-            }
         })
       }
 
     }
+
+   }, 1000);
+
   }).then(() => {
-    console.log("DONE");
+
+    setTimeout(function(){
+      if(totalIndex == 0){
+        document.getElementById('main-body-page-teacher').innerHTML = `
+        <div id = "request-list">
+        <center style="margin-top: 15%;">
+            <img src="img/undraw_empty_xct9.svg" alt="" width="20%" > 
+  
+            <h1 style="margin-top: 1%;">No Pending Requests</h1>
+  
+            <p>There are no pending teacher student at the moment</p>
+        </center>
+        </div>
+        `;
+    } else {
+        document.getElementById('main-page').style.display = "initial"
+    }
+   }, 1200);
+
+
+
   })
 }
 
