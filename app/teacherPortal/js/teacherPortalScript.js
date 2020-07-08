@@ -488,6 +488,7 @@ function getMeetings() {
 
       var date = data1["Date"];
       var title = data1["Title"];
+      var message = data1["message"]
 
       output = `
       <section class="resume" style="margin-left: 0px;">
@@ -500,7 +501,7 @@ function getMeetings() {
                 <h4>${classForMeeting}</h4>
                 <h5>1 Hour 30 Minutes</h5>
                 <p style="width: 2000px">
-                  Meet at the Main Hall for the opening ceremony in our discord server.
+                  ${message}
 
                 </p>
               </div>
@@ -754,6 +755,10 @@ function getStudentData() {
                   <input type="text" class="form-control" id="date${i}">
               </div>
               <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Message</label>
+                  <input type="text" class="form-control" id="message${i}" textarea>
+              </div>
+              <div class="form-group">
                   <label for="message-text" class="col-form-label">Student</label>
                   <input type="text" class="form-control" placeholder = "${studentName}" readonly>
               </div>
@@ -805,6 +810,7 @@ function schedualMeeting(emailStudent, course, index) {
   var nameLocal = localStorage.getItem("email");
   var meetingTitle = document.getElementById("title" + index).value;
   var meetingDate = document.getElementById("date" + index).value;
+  var meetingMessage = document.getElementById("message" + index)
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
 
@@ -813,6 +819,7 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
+    "message" : meetingMessage
   });
 
   firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
@@ -820,6 +827,8 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
+    "message" : meetingMessage
+
   });
 
 }
