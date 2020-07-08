@@ -433,7 +433,6 @@ function checkIfClassCodeExists(addType) {
 
         addClassToStudentData(code);
 
-        
       }
 
 
@@ -520,7 +519,10 @@ function addClassToStudentData(classCode) {
     });
 
   }).then(() => {
-    window.location.reload();
+    setTimeout(function(){
+      window.location.reload();
+   }, 500);
+    
   });
 
 }
