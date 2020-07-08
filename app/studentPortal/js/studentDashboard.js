@@ -521,6 +521,8 @@ function addClassToStudentData(classCode) {
       'email': email,
     });
 
+  }).then(() => {
+    window.location.reload();
   });
 
 }
