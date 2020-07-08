@@ -433,7 +433,7 @@ function checkIfClassCodeExists(addType) {
 
         addClassToStudentData(code);
 
-        getStudentClasses(localStorage.getItem("email"));
+        
       }
 
 
@@ -452,7 +452,6 @@ function checkIfClassCodeExists(addType) {
 
     firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
       var classCode = doc.data();
-      var email = localStorage.getItem('email');
 
       var exist = false;
 
@@ -488,7 +487,6 @@ function checkIfClassCodeExists(addType) {
 
         addClassToStudentData(code);
 
-        getStudentClasses(email);
       }
 
 
