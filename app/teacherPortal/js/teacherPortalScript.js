@@ -897,7 +897,8 @@ function getStudentData() {
               </div>
               <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Message</label>
-                  <input type="text" class="form-control" id="message${i}" textarea>
+                  <textarea type="text" class="form-control" id="message${i}">
+                  </textarea>
               </div>
               <div class="form-group">
               <label for="recipient-name" class="col-form-label">Length</label>
