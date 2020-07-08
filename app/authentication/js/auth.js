@@ -504,7 +504,7 @@ googleSignInTeacher = () => {
                 console.log("Document data:", doc.data()["Account Type"]);
 
                 if (accountType != null) {
-                    if (accountType == "Teacher" || type == 'Solo Teacher') {
+                    if (accountType == "Teacher" || accountType == 'Solo Teacher') {
                         console.log('Login Success');
 
                         localStorage.setItem("photo", profilePic);
@@ -1227,7 +1227,7 @@ function loginWithEmailTeacher() {
 
 
                     if (accountType != null) {
-                        if (accountType == "Teacher" || type == 'Solo Teacher') {
+                        if (accountType == "Teacher" || accountType == 'Solo Teacher') {
                             getProfileName(email);
                             //localStorage.setItem("photo", profilePic);
 
