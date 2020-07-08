@@ -608,6 +608,8 @@ function createClass() {
     "courseVideo": courseVideo,
     "teachersNote": teachersNote,
 
+  }).then(() => {
+    window.location = "dashboard.html"
   });
 }
 
