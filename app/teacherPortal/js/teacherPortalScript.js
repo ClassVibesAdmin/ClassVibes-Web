@@ -137,12 +137,13 @@ function getTeacherAccountStatus(pageType) {
             getMeetings();
           }
           else if (pageType == "") {
-
+            getClassDataDropdown();
           }
           else if (pageType == 'class-page') {
             getProfileInfo();
             getClassData();
             getStudentData();
+            getClassDataDropdown()
             getEditData();
           }
           else if (pageType == 'dashboard') {
@@ -155,6 +156,7 @@ function getTeacherAccountStatus(pageType) {
             getClassData();
             getProfileInfo();
             getChartData();
+            getClassDataDropdown();
           }
 
 
