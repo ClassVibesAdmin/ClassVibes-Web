@@ -499,7 +499,7 @@ function getMeetings() {
               <div class="resume-item pb-0">
                 <h4>${classForMeeting}</h4>
                 <h5>1 Hour 30 Minutes</h5>
-                <p style="width: 100%">
+                <p style="width: 2000px">
                   Meet at the Main Hall for the opening ceremony in our discord server.
 
                 </p>
