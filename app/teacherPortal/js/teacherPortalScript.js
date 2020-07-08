@@ -497,9 +497,9 @@ function getMeetings() {
         <div class="col-lg-6" data-aos="fade-up">
               <h3 class="resume-title">${date} <span class="badge badge-primary">Friday</span></h3>
 
-              <h3 class="resume-title" style="width: 500px">${title}</h3>
+              <h3 class="resume-title" style="width: 500px">${classForMeeting}</h3>
               <div class="resume-item pb-0">
-                <h4 style="width: 500px">${classForMeeting}</h4>
+                <h4 style="width: 500px">${title}</h4>
                 <h5>${length}</h5>
                 <p style="width: 100%">
                   ${message}
