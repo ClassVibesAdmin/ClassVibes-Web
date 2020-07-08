@@ -630,24 +630,28 @@ function getMeetings() {
 
       var date = data1["Date"];
       var title = data1["Title"];
+      var message = data1["message"]
+      var length = data1["len"]
 
       output = `
-            <div class="col-xl-5 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${classForMeeting}</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">${title}</div>
-                    <div class="h6 mb-0 font-weight-bold text-blue-800">${date}</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas ffas fa-headset fa-2x text-gray-300"></i>
-                </div>
-                </div>
-            </div>
-            </div>
+      <section class="resume" style="margin-left: 0px;">
+        <div class="row">
+        <div class="col-lg-6" data-aos="fade-up">
+              <h3 class="resume-title">${date} <span class="badge badge-primary">Friday</span></h3>
+
+              <h3 class="resume-title" style="width: 500px">${title}</h3>
+              <div class="resume-item pb-0">
+                <h4 style="width: 500px">${classForMeeting}</h4>
+                <h5>${len}</h5>
+                <p style="width: 100%">
+                  ${message}
+
+                </p>
+              </div>
+
         </div>
+      </section>
+           
         `;
 
       $(output).appendTo("#meetingsList");
@@ -894,6 +898,14 @@ function getStudentData() {
                   <input type="text" class="form-control" id="date${i}">
               </div>
               <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Message</label>
+                  <input type="text" class="form-control" id="message${i}" textarea>
+              </div>
+              <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Length</label>
+              <input type="text" class="form-control" id="len${i}" textarea>
+              </div>
+              <div class="form-group">
                   <label for="message-text" class="col-form-label">Student</label>
                   <input type="text" class="form-control" placeholder = "${studentName}" readonly>
               </div>
@@ -945,6 +957,8 @@ function schedualMeeting(emailStudent, course, index) {
   var nameLocal = localStorage.getItem("email");
   var meetingTitle = document.getElementById("title" + index).value;
   var meetingDate = document.getElementById("date" + index).value;
+  var meetingMessage = document.getElementById("message" + index).value;
+  var len = document.getElementById("len" + index).value;
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
 
@@ -953,6 +967,8 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
+    "message" : meetingMessage,
+    "len" : len
   });
 
   firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
@@ -960,6 +976,10 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
+    "message" : meetingMessage,
+    "len" : len
+
+
   });
 
 }
