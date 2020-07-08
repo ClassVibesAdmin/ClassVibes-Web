@@ -810,7 +810,7 @@ function schedualMeeting(emailStudent, course, index) {
   var nameLocal = localStorage.getItem("email");
   var meetingTitle = document.getElementById("title" + index).value;
   var meetingDate = document.getElementById("date" + index).value;
-  var meetingMessage = document.getElementById("message" + index)
+  var meetingMessage = document.getElementById("message" + index).value;
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
 
