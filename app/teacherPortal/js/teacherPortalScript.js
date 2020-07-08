@@ -652,6 +652,9 @@ function storeClassPref(code, name) {
 function getStudentData() {
   var code = localStorage.getItem("code");
 
+  var className = localStorage.getItem("className");
+  document.getElementById("className").innerHTML = `<h1>${className}</h1>`
+
   var classInfoList = [];
   console.log(classInfoList);
 
@@ -680,8 +683,6 @@ function getStudentData() {
 
       if (classInfoData != null || classInfoData != undefined) {
         console.log("works")
-        var className = localStorage.getItem("className");
-        document.getElementById("className").innerHTML = "TEST"
         var studentName = classInfoData[0];
 
         var studentReaction = classInfoData[1];
