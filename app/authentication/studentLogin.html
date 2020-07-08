@@ -9,30 +9,45 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="css/index.css">
-
-
   <script src="js/auth.js"></script>
 
 
   <title>Student Login</title>
 
   <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+
+  <link href="/css/signup.css" rel="stylesheet">
+
+  <script src="../studentPortal/js/applicationManagement.js"></script>
+
 
 
   <!--BOOTSTRAP-->
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
     integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
     crossorigin="anonymous"></script>
@@ -42,27 +57,11 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link href="css\signup.css" rel="stylesheet">
-  
-  <script src="../studentPortal/js/applicationManagement.js"></script>
-
 </head>
 
 <body style="background-image: url('img/background_signup.png'); width: 100%; height: 100%; position: absolute;
 background-position: center;
 background-repeat: no-repeat; margin: 0px; padding: 0px;">
-
-<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
-
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
-
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
 
   <script>
     AOS.init();
@@ -74,12 +73,11 @@ background-repeat: no-repeat; margin: 0px; padding: 0px;">
   </script>
 
 
-
   <!-- NAVBAR -->
 
   <div class="container-fluid" style="background-color: royalblue;">
     <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-      <a class="navbar-brand" href="../index.html" style="color: white; font-size: 25px; font-weight: 700;">Class Vibe</a>
+      <a class="navbar-brand" href="../index.html" style="color: white; font-size: 25px; font-weight: 700;">ClassVibes</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
