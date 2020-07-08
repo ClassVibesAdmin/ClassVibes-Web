@@ -842,6 +842,7 @@ function getEditData() {
 
 
 }).then((data) => {
+
   var className = data['class-name'];
    var course = data['Course']
    var teacher = data['teacher']
