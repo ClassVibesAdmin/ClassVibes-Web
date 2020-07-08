@@ -325,34 +325,6 @@ function getStudentClasses(studentUsername, pageType) {
 
 }
 
-//realtime db
-/*
-function updateReaction(reaction) {
-  var box = document.getElementById("moodBox");
-
-  box.innerHTML = '<div class="card shadow mb-4" style="width: max-content;"><div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Your Mood</h6></div><div class="card-body"><div class="center-text">Response reported.</div><div><button class = "btn btn-primary" onclick = "reloadPage()">Update Response</button></div></div></div>';
-
-  var currentDate = new Date();
-
-  var studentEmail = localStorage.getItem("email");
-
-  var _ref = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Student Reactions").push();
-
-  _ref.child("Student Email").set(studentEmail);
-  _ref.child("Reaction").set(reaction);
-  _ref.child("Date").set(currentDate.toString());
-
-  var _reactionRef = firebase.database().ref().child("Classes").child(classCodes[selectedClass]).child("Students").child(studentEmail);
-  _reactionRef.child("Reaction").set(reaction);
-
-  var _reactionRefStudent = firebase.database().ref().child("UserData").child(studentEmail);
-  _reactionRefStudent.child("Reaction").set(reaction);
-
-  getStudentStatus();
-
-
-}
-*/
 
 // FIRESTORE MIGRATED FULLY
 function updateReaction(reaction) {
@@ -526,41 +498,6 @@ function checkIfClassCodeExists(addType) {
   }
 
 
-
-  // _ref.once('value').then(function (snapshot) {
-
-  // if (snapshot.val() != null) {
-  //   exists = true;
-  // } else {
-  //   exists = false;
-
-  // }
-
-  // if(exists == false){
-  //   error.innerHTML = `
-  //   <div class="alert alert-danger" role="alert" style="width: 310px;">
-  //   Class code doesn't exist
-  //  </div>
-  //  `;
-  // }
-
-  // if(exists == true){
-  //   error.innerHTML = `
-  //   <div class="alert alert-success" role="alert" style="width: 310px;">
-  //   You have joined this class
-  //  </div>
-  //  `;
-
-  //  addClassToStudentData(code);
-
-  //  getStudentClasses(localStorage.getItem("email"));
-  // }
-
-  // console.log(exists);
-
-
-  // });
-
 }
 
 
@@ -568,6 +505,7 @@ function checkIfClassCodeExists(addType) {
 function addClassToStudentData(classCode) {
 
   var email = localStorage.getItem("email");
+  var name = localStorage.getItem('name')
 
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(function (doc) {
@@ -579,41 +517,11 @@ function addClassToStudentData(classCode) {
     });
 
     firebase.firestore().collection("Classes").doc(classCode).collection("Students").doc(email).set({
-      'name': "ADD NAME PROPERLY",
+      'name': name,
       'email': email,
     });
 
   });
-
-  // var _classInfoRef = firebase.database().ref().child("Classes").child(classCode).child("class-name");
-
-  // _classInfoRef.once('value').then(function (snapshot) {
-  //   console.log("LOG:" + snapshot.val());
-  //   if (snapshot.val() != null) {
-  //     className = snapshot.val();
-  //   }
-  // }).then(() => {
-  //   console.log("CLASS NAME: " + className);
-
-  //   var _studentRef = firebase.database().ref().child("UserData").child(localStorage.getItem("email")).child("Classes").child(classCode);
-
-  //   _studentRef.child("Code").set(classCode.toString());
-  //   _studentRef.child("class-name").set(className);
-
-  // });
-
-  // var studentEmail = localStorage.getItem("email");
-
-  // var studentName = localStorage.getItem("name");//localStorage.getItem("Formatted Email");
-
-  // var _classInfoStudentRef = firebase.database().ref().child("Classes").child(classCode).child("Students").child(studentEmail);
-
-  // _classInfoStudentRef.child("Name").set(studentName);
-  // _classInfoStudentRef.child("Email").set(studentEmail);
-
-
-
-
 
 }
 
