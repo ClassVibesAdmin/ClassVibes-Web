@@ -94,9 +94,7 @@ function checkUserAuthStatus(){
 
 function logout(){
     firebase.auth().signOut().then(function() {
-      localStorage.removeItem('email')
-      localStorage.removeItem('photo')
-      localStorage.removeItem('name')
+      localStorage.clear();
 
         window.location = "../authentication/loginOptions.html";
       }, function(error) {
