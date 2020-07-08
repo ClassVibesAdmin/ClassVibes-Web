@@ -489,6 +489,7 @@ function getMeetings() {
       var date = data1["Date"];
       var title = data1["Title"];
       var message = data1["message"]
+      var length = data1["len"]
 
       output = `
       <section class="resume" style="margin-left: 0px;">
@@ -496,10 +497,10 @@ function getMeetings() {
         <div class="col-lg-6" data-aos="fade-up">
               <h3 class="resume-title">${date} <span class="badge badge-primary">Friday</span></h3>
 
-              <h3 class="resume-title">${title}</h3>
+              <h3 class="resume-title" style="width: 500px">${title}</h3>
               <div class="resume-item pb-0">
-                <h4>${classForMeeting}</h4>
-                <h5>1 Hour 30 Minutes</h5>
+                <h4 style="width: 500px">${classForMeeting}</h4>
+                <h5>${len}</h5>
                 <p style="width: 100%">
                   ${message}
 
@@ -759,6 +760,10 @@ function getStudentData() {
                   <input type="text" class="form-control" id="message${i}" textarea>
               </div>
               <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Length</label>
+              <input type="text" class="form-control" id="len${i}" textarea>
+              </div>
+              <div class="form-group">
                   <label for="message-text" class="col-form-label">Student</label>
                   <input type="text" class="form-control" placeholder = "${studentName}" readonly>
               </div>
@@ -811,6 +816,7 @@ function schedualMeeting(emailStudent, course, index) {
   var meetingTitle = document.getElementById("title" + index).value;
   var meetingDate = document.getElementById("date" + index).value;
   var meetingMessage = document.getElementById("message" + index).value;
+  var len = document.getElementById("len" + index).value;
   var dateNow = new Date();
   var formattedDate = dateNow.toLocaleString();
 
@@ -819,7 +825,8 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
-    "message" : meetingMessage
+    "message" : meetingMessage,
+    "len" : len
   });
 
   firebase.firestore().collection('UserData').doc(nameLocal).collection("Meetings").doc().set({
@@ -827,7 +834,9 @@ function schedualMeeting(emailStudent, course, index) {
     "Date": meetingDate,
     "Course": course,
     "Timestamp": dateNow.toString(),
-    "message" : meetingMessage
+    "message" : meetingMessage,
+    "len" : len
+
 
   });
 
