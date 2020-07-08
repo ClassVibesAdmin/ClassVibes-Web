@@ -519,7 +519,10 @@ function addClassToStudentData(classCode) {
     });
 
   }).then(() => {
-    window.location.reload();
+    setTimeout(function(){
+      window.location.reload();
+   }, 500);
+    
   });
 
 }
