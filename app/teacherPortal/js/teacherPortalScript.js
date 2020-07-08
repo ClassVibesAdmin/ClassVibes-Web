@@ -637,7 +637,7 @@ function getMeetings() {
       <section class="resume" style="margin-left: 0px;">
         <div class="row">
         <div class="col-lg-6" data-aos="fade-up">
-              <h3 class="resume-title">${date} <span class="badge badge-primary">Friday</span></h3>
+              <h3 class="resume-title">${date} </h3>
 
               <h3 class="resume-title" style="width: 500px">${classForMeeting}</h3>
               <div class="resume-item pb-0">
@@ -651,7 +651,6 @@ function getMeetings() {
 
         </div>
       </section>
-           
         `;
 
       $(output).appendTo("#meetingsList");
