@@ -1087,10 +1087,22 @@ function getEditData() {
 
 function updateDetails() {
   var code = localStorage.getItem("code");
+  var emailRef = localStorage.getItem("email")
+
 
   var newName = document.getElementById('editName').value;
   var newCourse = document.getElementById('editCourse').value;
   var newTeacher = document.getElementById('editTeacher').value;
+
+  firebase.firestore().collection('UserData').doc(emailRef).collection('Classes').doc(code).update({
+    "class-name": newName,
+    "Course": newCourse,
+    "teacher": newTeacher
+
+  }).then(() => {
+    window.location.reload()
+
+  });
 
   firebase.firestore().collection('Classes').doc(code).update({
     "class-name": newName,
