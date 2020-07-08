@@ -90,6 +90,11 @@ function getTeacherAccountStatus(pageType) {
             else if (pageType == "") {
 
             }
+            
+            else if(pageType == 'create-class'){
+              getClassDataDropdown();
+            }
+
             else if (pageType == 'class-page') {
               getProfileInfo();
               getClassData();
@@ -137,12 +142,13 @@ function getTeacherAccountStatus(pageType) {
             getMeetings();
           }
           else if (pageType == "") {
-
+            getClassDataDropdown();
           }
           else if (pageType == 'class-page') {
             getProfileInfo();
             getClassData();
             getStudentData();
+            getClassDataDropdown()
             getEditData();
           }
           else if (pageType == 'dashboard') {
@@ -151,10 +157,15 @@ function getTeacherAccountStatus(pageType) {
             getClassData();
           }
 
+          else if(pageType == 'create-class'){
+            getClassDataDropdown();
+          }
+
           else {
             getClassData();
             getProfileInfo();
             getChartData();
+            getClassDataDropdown();
           }
 
 
