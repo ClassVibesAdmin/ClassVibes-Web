@@ -580,6 +580,7 @@ function storeClassPref(code, name) {
 
   
   `
+  $(output).appendTo('#className')
 }
 
 function createClass() {
