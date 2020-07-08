@@ -341,8 +341,7 @@ function getStudentRequests(){
             })
         }).then(() => {
       
-            document.getElementById('loader-icon').style.display = "none";
-            if(index == 0){
+            if(totalIndex == 0){
                 document.getElementById('main-body-page-teacher').innerHTML = `
                 <div id = "request-list">
                 <center style="margin-top: 15%;">
