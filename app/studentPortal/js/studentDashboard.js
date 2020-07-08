@@ -134,12 +134,11 @@ function getStudentClasses(studentUsername, pageType) {
     document.getElementById("classesRowDisplay").innerHTML = "";
   }
 
-
   let output = "";
 
   classesList = [];
 
-
+  var index = 0;
 
   firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes").get().then(function (doc) {
 
@@ -174,6 +173,16 @@ function getStudentClasses(studentUsername, pageType) {
 
 
       classesList.forEach(function (item, index) {
+
+        var classCode = classCodes[item]
+
+        if(index == 0){
+          localStorage.setItem("selectedClassDropdown", classCode);
+        }
+
+        index = index + 1
+
+
         output = `
             <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
