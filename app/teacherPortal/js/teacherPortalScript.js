@@ -633,11 +633,20 @@ function createClass() {
 }
 
 
-// function storeClassPref(code, name) {
-//   localStorage.setItem("code", code);
-//   localStorage.setItem("className", name);
-//   console.log(code);
-// }
+function storeClassPref(code, name) {
+  localStorage.setItem("code", code);
+  localStorage.setItem("className", name);
+  var name = localStorage.getItem("className");
+  console.log(code);
+  window.location = "classPage.html"
+  output = ''
+  output += `
+  <h1 class="h3 mb-4 text-gray-800" id="className">${name}</h1>
+
+  
+  `
+  $(output).appendTo('#className')
+}
 
 function getStudentData() {
   var code = localStorage.getItem("code");
