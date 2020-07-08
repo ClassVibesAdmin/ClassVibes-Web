@@ -96,6 +96,7 @@ function logout(){
     firebase.auth().signOut().then(function() {
       localStorage.removeItem('email')
       localStorage.removeItem('photo')
+      localStorage.removeItem('name')
 
         window.location = "../authentication/loginOptions.html";
       }, function(error) {
