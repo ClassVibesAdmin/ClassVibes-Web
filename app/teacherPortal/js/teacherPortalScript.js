@@ -651,7 +651,7 @@ function getMeetings() {
       <section class="resume" style="margin-left: 0px;">
         <div class="row">
         <div class="col-lg-6" data-aos="fade-up">
-              <h3 class="resume-title">${date} <span class="badge badge-primary">Friday</span></h3>
+              <h3 class="resume-title">${date} </h3>
 
               <h3 class="resume-title" style="width: 500px">${classForMeeting}</h3>
               <div class="resume-item pb-0">
@@ -665,7 +665,6 @@ function getMeetings() {
 
         </div>
       </section>
-           
         `;
 
       $(output).appendTo("#meetingsList");
@@ -913,7 +912,8 @@ function getStudentData() {
               </div>
               <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Message</label>
-                  <input type="text" class="form-control" id="message${i}" textarea>
+                  <textarea type="text" class="form-control" id="message${i}">
+                  </textarea>
               </div>
               <div class="form-group">
               <label for="recipient-name" class="col-form-label">Length</label>
@@ -1102,10 +1102,22 @@ function getEditData() {
 
 function updateDetails() {
   var code = localStorage.getItem("code");
+  var emailRef = localStorage.getItem("email")
+
 
   var newName = document.getElementById('editName').value;
   var newCourse = document.getElementById('editCourse').value;
   var newTeacher = document.getElementById('editTeacher').value;
+
+  firebase.firestore().collection('UserData').doc(emailRef).collection('Classes').doc(code).update({
+    "class-name": newName,
+    "Course": newCourse,
+    "teacher": newTeacher
+
+  }).then(() => {
+    window.location.reload()
+
+  });
 
   firebase.firestore().collection('Classes').doc(code).update({
     "class-name": newName,
