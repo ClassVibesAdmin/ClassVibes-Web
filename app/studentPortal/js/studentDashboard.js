@@ -716,6 +716,8 @@ function getStudentStatus() {
   firebase.firestore().collection('UserData').doc(studentEmail).get().then(function (doc) {
     var value = doc.data()["Reaction"];
 
+    console.log("REACTION:" + value)
+
 
     if (value != undefined) {
       if (value == "needs help") {
