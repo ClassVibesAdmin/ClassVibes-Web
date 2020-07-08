@@ -761,7 +761,7 @@ function emailSignUp(type) {
                         });
                     }
 
-                    else if (type == 'teacher') {
+                    else if (type == 'teacher' || type == 'Solo Teacher') {
                         firebase.firestore().collection("UserData").doc(email).set({
                             "display-name": displayName,
                             "email": email,
@@ -858,7 +858,7 @@ facebookSignUp = (type) => {
                         });
                 }
 
-                else if (type == 'teacher') {
+                else if (type == 'teacher' || type == 'Solo Teacher') {
                     firebase.firestore().collection("UserData").doc(email).set({
                         "display-name": displayName,
                         "email": email,
@@ -976,7 +976,7 @@ googleSignUp = (type) => {
                         });
                 }
 
-                else if (type == 'teacher') {
+                else if (type == 'teacher' || type == 'Solo Teacher') {
                     firebase.firestore().collection("UserData").doc(email).set({
                         "display-name": displayName,
                         "email": email,
@@ -1227,7 +1227,7 @@ function loginWithEmailTeacher() {
 
 
                     if (accountType != null) {
-                        if (accountType == "Teacher") {
+                        if (accountType == "Teacher" || type == 'Solo Teacher') {
                             getProfileName(email);
                             //localStorage.setItem("photo", profilePic);
 
