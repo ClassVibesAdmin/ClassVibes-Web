@@ -108,6 +108,10 @@ function getTeacherAccountStatus(pageType) {
               getClassData();
             }
 
+            else if(pageType == "student-requests"){
+              getStudentRequests();
+            }
+
             else {
               getClassData();
               getProfileInfo();
@@ -160,6 +164,10 @@ function getTeacherAccountStatus(pageType) {
 
           else if(pageType == 'create-class'){
             getClassDataDropdown();
+          }
+
+          else if(pageType == "student-requests"){
+            getStudentRequests();
           }
 
           else {
@@ -222,6 +230,140 @@ function getTeacherAccountStatus(pageType) {
       }
     }
   });
+}
+
+function getStudentRequests(){
+
+  var totalIndex = 0;
+
+  var emailRef = localStorage.getItem("email")
+
+  var classesList = [];
+
+  firebase.firestore().collection('UserData').doc(emailRef).collection("Classes").get().then(function (doc) {
+
+    doc.forEach(snapshot => {
+
+      var data1 = snapshot.data();
+
+      var classCode = data1["Code"];
+      var className = data1["class-name"];
+
+      classesList.push([classCode, className])
+
+    });
+
+  }).then(function () {
+
+
+    for (var i = 0; i <= classesList.length; i++) {
+      var classData = classesList[i];
+
+      if (classData != null || classData != undefined) {
+
+        console.log("works");
+        var className = classData[1];
+        var classCode = classData[0];
+
+        var _ref = firebase.firestore().collection('Classes').doc(classCode).collection('Student Requests');
+      
+        document.getElementById('main-body-page-teacher').innerHTML = `
+        <section id = "main-page" style = "display: none">
+        <h1>Teacher Join Requests</h1>
+      
+        <div id = "request-list">
+            
+        </div>
+      
+        
+       </section>
+        `;
+      
+        _ref.get().then(snapshot => {
+      
+            snapshot.forEach(doc => {
+              totalIndex += 1
+                console.log(doc.data());
+      
+                var data = doc.data();
+      
+                var teacherName = data['Teacher Name'];
+      
+                var schoolName = data['School Name'];
+      
+                var schoolID = data['Teacher School ID Request'];
+      
+                var teacherEmail = data['Teacher Email']
+      
+                var requestDocID = doc.id;
+      
+                console.log(requestDocID);
+      
+                var output = `
+                <div class="col-xl-12 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+      
+                        <div class="row">
+      
+                            <div class="col">
+                                <div class="row" style="margin-left: 4px;">
+                                    <i class="fas fa-school"></i>
+            
+                                  <h5 style="margin-left: 5px; margin-top: -4px;">${schoolName}</h5>
+                                </div>
+            
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">${teacherName}</div>
+                            </div>
+      
+                            <a href="#" class="btn btn-success btn-circle btn-lg" style="margin-right: 1%;" onclick = "acceptRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
+                                <i class="fas fa-check"></i>
+                              </a>
+      
+                            <a href="#" class="btn btn-danger btn-circle btn-lg" onclick = "declineRequest('${schoolID}', '${districtID}', '${requestDocID}', '${teacherEmail}')">
+                            <i class="fas fa-trash"></i>
+                            </a>
+      
+                        </div>
+      
+      
+      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+                `;
+      
+                $(output).appendTo('#request-list');
+            })
+        }).then(() => {
+      
+            document.getElementById('loader-icon').style.display = "none";
+            if(index == 0){
+                document.getElementById('main-body-page-teacher').innerHTML = `
+                <div id = "request-list">
+                <center style="margin-top: 15%;">
+                    <img src="img/undraw_browsing_online_sr8c.svg" alt="" width="20%" >
+      
+                    <h1 style="margin-top: 1%;">No Pending Requests</h1>
+      
+                    <p>There are no pending teacher requests at the moment</p>
+                </center>
+                </div>
+                `;
+            } else {
+                document.getElementById('main-page').style.display = "initial"
+            }
+        })
+      }
+
+    }
+  }).then(() => {
+    console.log("DONE");
+  })
 }
 
 
