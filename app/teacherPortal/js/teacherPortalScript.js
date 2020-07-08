@@ -622,11 +622,11 @@ function createClass() {
 }
 
 
-function storeClassPref(code, name) {
-  localStorage.setItem("code", code);
-  localStorage.setItem("className", name);
-  console.log(code);
-}
+// function storeClassPref(code, name) {
+//   localStorage.setItem("code", code);
+//   localStorage.setItem("className", name);
+//   console.log(code);
+// }
 
 function getStudentData() {
   var code = localStorage.getItem("code");
