@@ -97,7 +97,7 @@ function getTeacherAccountStatus(pageType) {
 
             else if (pageType == 'class-page') {
               getProfileInfo();
-              getClassData();
+              //getClassData();
               getStudentData();
               getEditData();
             }
