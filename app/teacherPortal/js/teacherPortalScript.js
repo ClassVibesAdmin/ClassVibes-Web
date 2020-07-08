@@ -681,7 +681,7 @@ function getStudentData() {
       if (classInfoData != null || classInfoData != undefined) {
         console.log("works")
         var className = localStorage.getItem("className");
-        document.getElementById("className").innerHTML = className
+        document.getElementById("className").innerHTML = "TEST"
         var studentName = classInfoData[0];
 
         var studentReaction = classInfoData[1];
