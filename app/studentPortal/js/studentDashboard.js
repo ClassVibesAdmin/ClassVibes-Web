@@ -831,7 +831,12 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 <div class="card border-left-success" style = 'height: max-content'>
                       <div class="card-body">
                         <h4 class="badge badge-info">${nameClass}</h4>
-                        <h5 style = 'font-weight: 700; margin: 2px'>${title}</h5>
+
+                        <h5 style = 'font-weight: 700; margin: 2px; style = 'overflow: hidden; text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1; /* number of lines to show */
+                        -webkit-box-orient: vertical;''>${title}</h5>
+
                         <p style = '   overflow: hidden;
                         text-overflow: ellipsis;
                         display: -webkit-box;
