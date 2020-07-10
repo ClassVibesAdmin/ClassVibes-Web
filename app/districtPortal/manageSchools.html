@@ -26,6 +26,9 @@
 
   <script src="js/clipboard.js-master/dist/clipboard.js"></script>
 
+  <script src="../app_config.js"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -46,6 +49,7 @@
 
     <script>
     $( document ).ready(function() {
+      setVersionFooter();
       initializeFirebase();
       getDistrictID('schoolpage');
       new ClipboardJS('.btn');
@@ -364,7 +368,7 @@
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
-          <div class="copyright text-center my-auto">
+          <div class="copyright text-center my-auto" id = "footer-version-code">
             <span>2020 Copyright &copy; ClassVibes</span>
           </div>
         </div>

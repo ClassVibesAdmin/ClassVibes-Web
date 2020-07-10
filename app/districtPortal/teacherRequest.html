@@ -27,7 +27,8 @@
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="css/loader.css">
-
+  
+  <script src="../app_config.js"></script>
 </head>
 
 <body id="page-top">
@@ -49,6 +50,7 @@
 
     <script>
     $( document ).ready(function() {
+      setVersionFooter();
       initializeFirebase();
       getTeacherRequests();
     });
@@ -226,7 +228,7 @@
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
-          <div class="copyright text-center my-auto">
+          <div class="copyright text-center my-auto" id = "footer-version-code">
             <span>Copyright &copy; Your Website 2019</span>
           </div>
         </div>

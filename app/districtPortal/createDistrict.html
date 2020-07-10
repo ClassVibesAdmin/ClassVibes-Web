@@ -10,6 +10,7 @@
   <meta name="author" content="">
 
   <script src="js/district.js"></script>
+  <script src="../app_config.js"></script>
 
   <title>Create District</title>
 
@@ -42,6 +43,7 @@
 
     <script>
     $( document ).ready(function() {
+      setVersionFooter();
         initializeFirebase();
         getDistrictID('createpage');
       });
@@ -276,7 +278,7 @@
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
-          <div class="copyright text-center my-auto">
+          <div class="copyright text-center my-auto"  id = "footer-version-code">
             <span>2020 Copyright &copy; ClassVibes</span>
           </div>
         </div>
