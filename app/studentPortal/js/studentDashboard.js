@@ -176,9 +176,8 @@ function getStudentClasses(studentUsername, pageType) {
 
         var classCode = classCodes[item]
 
-        if(index == 0){
-          localStorage.setItem("selectedClassDropdown", classCode);
-        }
+        localStorage.setItem("selectedClassDropdown", classCode);
+
 
         index = index + 1
 
