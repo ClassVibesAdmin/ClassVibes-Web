@@ -128,7 +128,7 @@ function getGrayStudentStatus(classCode){
 }
 
 // FIRESTORE MIGRATED FULLY
-function getStudentClasses(studentUsername, pageType) {
+async function getStudentClasses(studentUsername, pageType) {
 
   if (document.getElementById("classesRowDisplay") != null) {
     document.getElementById("classesRowDisplay").innerHTML = "";
@@ -140,23 +140,30 @@ function getStudentClasses(studentUsername, pageType) {
 
   var index = 0;
 
-  firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes").get().then(function (doc) {
+  /////////////////////
 
-    doc.forEach(snapshot => {
-      var classData = snapshot.data();
 
-      var classCode = classData["Code"];
-      var className = classData["class-name"];
+  let classesRef = firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes");
+  let classesRefGet = await classesRef.get();
+  for(const doc of classesRefGet.docs){
 
+    var classData = doc.data();
+
+    var classCode = classData["Code"];
+
+    var className = "loading"
+
+    var x = await firebase.firestore().collection('Classes').doc(classCode).get().then(snap => {
+      var data = snap.data();
+  
+      if(data != null && data != undefined){
+          className = data['class-name'];
+      }
+    }).then(() => {
       classesList.push(className);
       classCodes[className] = classCode;
-
-
-      setTimeout(getGrayStudentStatus(classCode), 3000);
-      
-    });
-
-
+    })
+  }
 
     if (classesList.length != 0) {
 
@@ -250,9 +257,7 @@ function getStudentClasses(studentUsername, pageType) {
         document.getElementById('noClassesSection').style.display = "initial";
 
       }
-    }
-
-  });
+    }   
 
 }
 
@@ -766,7 +771,7 @@ function getMeetings(pageType) {
   */
 }
 
-function getAnnouncements(pageType = "annoncements-page-main") {
+async function getAnnouncements(pageType = "annoncements-page-main") {
 
   document.getElementById("loadingIndicator").style.display = "initial";
 
@@ -775,6 +780,38 @@ function getAnnouncements(pageType = "annoncements-page-main") {
   var classesListCodes = [];
 
   var classnamesList = [];
+
+  classesList = [];
+
+  var index = 0;
+
+  /////////////////////
+
+
+  let classesRef = firebase.firestore().collection('UserData').doc(email).collection("Classes");
+  let classesRefGet = await classesRef.get();
+  for(const doc of classesRefGet.docs){
+
+    var classData = doc.data();
+
+    var classCode = classData["Code"];
+
+    var className = "loading"
+
+    var x = await firebase.firestore().collection('Classes').doc(classCode).get().then(snap => {
+      var data = snap.data();
+  
+      if(data != null && data != undefined){
+          className = data['class-name'];
+      }
+    }).then(() => {
+      classesListCodes.push(classCode)
+      classnamesList.push(className)
+      console.log('done')
+    })
+  }
+
+  /*
 
   firebase.firestore().collection('UserData').doc(email).collection("Classes").get().then(function (doc) {
 
@@ -794,6 +831,11 @@ function getAnnouncements(pageType = "annoncements-page-main") {
     });
 
   }).then(() => {
+    */
+
+    console.log('.///////////////////////')
+
+    console.log(classesListCodes)
 
     if(pageType == 'dashboard'){
 
@@ -972,5 +1014,5 @@ function getAnnouncements(pageType = "annoncements-page-main") {
 
 
 
-  });
+  //});
 }
