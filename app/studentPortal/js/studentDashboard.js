@@ -202,7 +202,7 @@ function getStudentClasses(studentUsername, pageType) {
             `;
 
         output2 = `
-            <a class="collapse-item" style = '  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>${item}</a>
+            <a class="collapse-item" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>${item}</a>
             `;
 
         output3 = `

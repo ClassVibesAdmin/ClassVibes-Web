@@ -582,7 +582,7 @@ function getClassData() {
             `;
 
           output2 = `
-            <a class="collapse-item" href="classPage.html" onclick = "setClassCode(${classCode})">${className}</a>
+            <a class="collapse-item" href="classPage.html" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' onclick = "setClassCode(${classCode})">${className}</a>
             `;
 
           output3 = `
