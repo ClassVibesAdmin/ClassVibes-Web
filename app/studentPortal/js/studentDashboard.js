@@ -830,7 +830,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 <div class="col-xl-12 col-md-6 mb-4">
                 <div class="card border-left-success" style = 'height: max-content'>
                       <div class="card-body">
-                        <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
+                        <p class="badge badge-info">${nameClass}</p>
                         <h5 style = 'font-weight: 700; margin: 2px'>${title}</h5>
                         <p>${message}</p>
 
