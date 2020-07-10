@@ -488,7 +488,6 @@ async function updateAddClasesDropdown(studentUsername) {
       }
     }).then(() => {
       classesList.push(className);
-      classCodes[className] = classCode;
     })
   }
 
