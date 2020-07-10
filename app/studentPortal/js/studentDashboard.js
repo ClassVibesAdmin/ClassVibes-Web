@@ -202,7 +202,7 @@ function getStudentClasses(studentUsername, pageType) {
             `;
 
         output2 = `
-            <a class="collapse-item">${item}</a>
+            <a class="collapse-item" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>${item}</a>
             `;
 
         output3 = `
@@ -257,80 +257,6 @@ function getStudentClasses(studentUsername, pageType) {
 
   });
 
-
-
-  /*
-
-  var _ref = firebase.database().ref().child("UserData").child(studentUsername).child("Classes");
-
-  _ref.once('value').then(function (snapshot) {
-
-    if (snapshot.val() != null) {
-      snapshot.forEach((child) => {
-        var classCode = child.child("Code").val();
-        var className = child.child("class-name").val();
-
-        classesList.push(className);
-        classCodes[className] = classCode;
-      });
-
-      console.log(classCodes);
-    }
-
-  }).then(() => {
-    console.log(classesList.length);
-
-    console.log(classesList);
-
-    inital = `
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-                  ${classesList[0]}
-                </button>
-        `;
-
-    selectedClass = classesList[0];
-
-    $(inital).appendTo("#selectedClassForDropdown");
-
-
-    classesList.forEach(function (item, index) {
-      console.log(item, index);
-      output = `
-          <div class="col-xl-3 col-md-6 mb-4">
-                  <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">CLASS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">${item}</div>
-                        </div>
-                        <div class="col-auto">
-                          <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          `;
-
-      output2 = `
-          <a class="collapse-item">${item}</a>
-          `;
-
-      output3 = `
-          <div class="dropdown-item" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</div>
-          `;
-
-      dropDownMenuItems += output3;
-
-      $(output3).appendTo("#dropDownMoodPicker");
-
-      $(output2).appendTo("#classesListSideBar");
-
-      $(output).appendTo("#classesRowDisplay");
-    });
-  });
-  */
 
 }
 
@@ -573,86 +499,13 @@ function updateAddClasesDropdown(studentUsername) {
     classesList.forEach(function (item, index) {
 
       output2 = `
-          <a class="collapse-item">${item}</a>
+          <a class="collapse-item" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>${item}</a>
           `;
 
 
       $(output2).appendTo("#classesListSideBar");
     });
   });;
-
-  /*
-  var _ref = firebase.database().ref().child("UserData").child(studentUsername).child("Classes");
-
-  _ref.once('value').then(function (snapshot) {
-
-    if (snapshot.val() != null) {
-      snapshot.forEach((child) => {
-        var classCode = child.child("Code").val();
-        var className = child.child("class-name").val();
-
-        classesList.push(className);
-        classCodes[className] = classCode;
-      });
-
-      console.log(classCodes);
-    }
-
-  }).then(() => {
-    console.log(classesList.length);
-
-    console.log(classesList);
-
-    inital = `
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
-                  ${classesList[0]}
-                </button>
-        `;
-
-    selectedClass = classesList[0];
-
-    $(inital).appendTo("#selectedClassForDropdown");
-
-
-    classesList.forEach(function (item, index) {
-      console.log(item, index);
-      output = `
-          <div class="col-xl-3 col-md-6 mb-4">
-                  <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">CLASS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">${item}</div>
-                        </div>
-                        <div class="col-auto">
-                          <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          `;
-
-      output2 = `
-          <a class="collapse-item">${item}</a>
-          `;
-
-      output3 = `
-          <div class="dropdown-item" onclick="setMainClassForMood('${item}', '${classesList[0]}')" id = "${item}">${item}</div>
-          `;
-
-      dropDownMenuItems += output3;
-
-      $(output3).appendTo("#dropDownMoodPicker");
-
-      $(output2).appendTo("#classesListSideBar");
-
-      $(output).appendTo("#classesRowDisplay");
-    });
-  });
-
-  */
 
 }
 
