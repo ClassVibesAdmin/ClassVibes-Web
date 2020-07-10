@@ -79,7 +79,10 @@ function getTeacherAccountStatus(pageType) {
 
             console.log('Executing 2');
 
-            document.getElementById('loader-icon').style.display = 'none';
+            if(document.getElementById('loader-icon') != null){
+              document.getElementById('loader-icon').style.display = 'none';
+            }
+
 
             if (pageType == 'meetings-page') {
               document.getElementById('main-page-content-meetings-page').style.display = "initial";
