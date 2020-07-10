@@ -724,11 +724,11 @@ function getClassDataDropdown() {
         var classCode = classData[0];
 
         output2 = `
-    <a class="collapse-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+    <a class="collapse-item" href="#" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
     `;
 
         output3 = `
-    <a class="dropdown-item" href="#" onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
+    <a class="dropdown-item" href="#" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' onclick = "storeClassPref('${classCode}', '${className}')">${className}</a>
 <div class="dropdown-divider"></div>
     
     `;
