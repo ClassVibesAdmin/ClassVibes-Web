@@ -913,9 +913,9 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                       <div class="col mr-2">
                         <h4 class="badge badge-info">${nameClass}</h4>
 
-                        <h3 style = 'font-weight: 700; margin: 2px'>${title}</h3>
+                        <h4 style = 'font-weight: 700; margin: 2px'>${title}</h4>
 
-                        <div class="h6 mb-0 font-weight-bold text-gray-800">${message}</div>
+                        <p style = 'color: gray'>${message}</p>
   
                         <div class="h6 mb-0" style = "color: #a2a39b">${date}</div>
                       </div>
