@@ -831,7 +831,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                 <div class="card border-left-success" style = 'height: max-content'>
                       <div class="card-body">
                         <p class="m-0 font-weight-bold text-primary">${nameClass}</p>
-                        <h6 style = 'font-weight: 700; margin: 2px'>${title}</h6>
+                        <h5 style = 'font-weight: 700; margin: 2px'>${title}</h5>
                         <p>${message}</p>
 
                         <p style = 'font-weight: 700; margin-bottom: -3%'>${date}</p>
