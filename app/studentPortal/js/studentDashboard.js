@@ -832,7 +832,11 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                       <div class="card-body">
                         <h4 class="badge badge-info">${nameClass}</h4>
                         <h5 style = 'font-weight: 700; margin: 2px'>${title}</h5>
-                        <p>${message}</p>
+                        <p style = '   overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2; /* number of lines to show */
+                        -webkit-box-orient: vertical;'>${message}</p>
 
                         <p style = 'font-weight: 700; margin-bottom: -3%'>${date}</p>
                       </div>
