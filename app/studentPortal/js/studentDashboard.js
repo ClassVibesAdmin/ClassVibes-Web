@@ -464,27 +464,33 @@ function addClassToStudentData(classCode) {
 }
 
 //FIRESTORE MIGRATED FULLY
-function updateAddClasesDropdown(studentUsername) {
+async function updateAddClasesDropdown(studentUsername) {
 
   let output = "";
 
   classesList = [];
 
+  let classesRef = firebase.firestore().collection('UserData').doc(studentUsername).collection("Classes");
+  let classesRefGet = await classesRef.get();
+  for(const doc of classesRefGet.docs){
+
+    var classData = doc.data();
+
+    var classCode = classData["Code"];
+
+    var className = "loading"
+
+    var x = await firebase.firestore().collection('Classes').doc(classCode).get().then(snap => {
+      var data = snap.data();
   
-  firebase.firestore().collection("UserData").doc(studentUsername).collection("Classes").get().then(function (doc) {
-  
-    doc.forEach(snapshot => {
-
-      var classData = snapshot.data();
-
-      var classCode = classData["Code"];
-      var className = classData["class-name"];
-
+      if(data != null && data != undefined){
+          className = data['class-name'];
+      }
+    }).then(() => {
       classesList.push(className);
       classCodes[className] = classCode;
-    });
-
-  }).then(() => {
+    })
+  }
 
     inital = `
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectedClassForDropdown">
@@ -505,7 +511,7 @@ function updateAddClasesDropdown(studentUsername) {
 
 
       $(output2).appendTo("#classesListSideBar");
-    });
+
   });;
 
 }
@@ -807,35 +813,8 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
     }).then(() => {
       classesListCodes.push(classCode)
       classnamesList.push(className)
-      console.log('done')
     })
   }
-
-  /*
-
-  firebase.firestore().collection('UserData').doc(email).collection("Classes").get().then(function (doc) {
-
-    doc.forEach(snapshot => {
-      var classData = snapshot.data();
-
-      if (classData != undefined && classData != null) {
-
-        var classCode = classData["Code"];
-        var className = classData["class-name"];
-
-
-        classesListCodes.push(classCode);
-
-        classnamesList.push(className);
-      }
-    });
-
-  }).then(() => {
-    */
-
-    console.log('.///////////////////////')
-
-    console.log(classesListCodes)
 
     if(pageType == 'dashboard'){
 
