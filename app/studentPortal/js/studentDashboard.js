@@ -840,7 +840,7 @@ function getAnnouncements(pageType = "annoncements-page-main") {
                         <p style = '   overflow: hidden;
                         text-overflow: ellipsis;
                         display: -webkit-box;
-                        -webkit-line-clamp: 2; /* number of lines to show */
+                        -webkit-line-clamp: 1; /* number of lines to show */
                         -webkit-box-orient: vertical;'>${message}</p>
 
                         <p style = 'font-weight: 700; margin-bottom: -3%'>${date}</p>
