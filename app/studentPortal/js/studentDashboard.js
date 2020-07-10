@@ -251,8 +251,6 @@ function getStudentClasses(studentUsername, pageType) {
         document.getElementById('noClassesSection').style.display = "initial";
 
       }
-
-
     }
 
   });
