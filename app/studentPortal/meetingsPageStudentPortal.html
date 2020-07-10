@@ -23,6 +23,8 @@
 
   <script src="js/applicationManagement.js"></script>
 
+  <script src="../app_config.js"></script>
+
       <!--BOOTSTRAP-->
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
@@ -63,6 +65,8 @@ crossorigin="anonymous"></script>
       getLiveSeverAlerts();
       getServerStatus();
       checkUserAuthStatus();
+
+      setVersionFooter();
       
       var name = localStorage.getItem("name");
       var pic = localStorage.getItem("photo");
@@ -270,7 +274,7 @@ crossorigin="anonymous"></script>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
-          <div class="copyright text-center my-auto">
+          <div class="copyright text-center my-auto" id = "footer-version-code">
             <span>Copyright &copy; Xeon Developers. v0.9.0-beta</span>
           </div>
         </div>
