@@ -586,7 +586,7 @@ function getClassData() {
             `;
 
           output3 = `
-            <a class="dropdown-item" href="#" onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
+            <a class="dropdown-item" href="#" style = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' onclick = "storeClassforChart('${classCode}')">${className.toString()}</a>
                         <div class="dropdown-divider"></div>
             
             `
