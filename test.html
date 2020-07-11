@@ -110,40 +110,6 @@
      */
     function listMajors() {
 
-      var resource = {
-  "majorDimension": "ROWS",
-  "values": [[new Date()]]
-}
-var spreadsheetId = SHEET_ID;
-var range = "Sheet1!A:A";
-var optionalArgs = {valueInputOption: "USER_ENTERED"};
-gapi.client.sheets.spreadsheets.values.insert(resource, spreadsheetId, range, optionalArgs);
-      /*
-
-      var values = [
-        [
-          'Pranav Krishna','krishnatechpranav@gmail.com'
-        ],
-        // Additional rows ...
-      ];
-
-      credentials = GoogleCredentials.get_application_default()
-service = build('sheets', 'v4', credentials=credentials)
-
-list = [["valuea1"], ["valuea2"], ["valuea3"]]
-resource = {
-  "majorDimension": "ROWS",
-  "values": list
-}
-spreadsheetId = "### spreadsheet ID"
-range = "Sheet1!A:A";
-service.spreadsheets().values().append(
-  spreadsheetId=spreadsheetId,
-  range=range,
-  body=resource,
-  valueInputOption="USER_ENTERED"
-).execute()
-
       var body = {
         values: values
       };
@@ -159,7 +125,7 @@ service.spreadsheets().values().append(
         var result = response.result;
         console.log(`${result.updatedCells} cells updated.`);
       });
-      */
+ 
 
       /*
       gapi.client.sheets.spreadsheets.values.get({
