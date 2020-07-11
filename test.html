@@ -121,13 +121,10 @@
       var body = {
         values: values
       };
-      gapi.client.sheets.spreadsheets.values.insert({
+      gapi.client.sheets.spreadsheets.values.append({
         spreadsheetId: SHEET_ID,
         range: 'Sheet1!A:A',
         valueInputOption: 'USER_ENTERED',
-        rows: [
-          Object(values)
-        ],
         resource: body
       }).then((response) => {
         var result = response.result;
