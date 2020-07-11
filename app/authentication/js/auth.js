@@ -745,7 +745,7 @@ function emailSignUp(type) {
 
                     if (type == "student") {
 
-                        appendUserDataToSheets()
+                        appendUserDataToSheets(displayName, email, "Student")
 
                         firebase.firestore().collection("UserData").doc(email).set({
                             "display-name": displayName,
