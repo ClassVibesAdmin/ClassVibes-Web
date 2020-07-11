@@ -115,7 +115,7 @@
       var body = {
         values: values
       };
-      gapi.client.sheets.spreadsheets.values.insert({
+      gapi.client.sheets.spreadsheets.values.append({
         spreadsheetId: SHEET_ID,
         range: 'a1',
         valueInputOption: 'USER_ENTERED',
