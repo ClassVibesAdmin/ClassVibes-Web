@@ -117,7 +117,7 @@
 var spreadsheetId = SHEET_ID;
 var range = "Sheet1!A:A";
 var optionalArgs = {valueInputOption: "USER_ENTERED"};
-Sheets.Spreadsheets.Values.append(resource, spreadsheetId, range, optionalArgs);
+gapi.Spreadsheets.Values.append(resource, spreadsheetId, range, optionalArgs);
       /*
 
       var values = [
