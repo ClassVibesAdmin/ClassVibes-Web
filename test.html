@@ -59,7 +59,8 @@
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
       }, function (error) {
-        appendPre(JSON.stringify(error, null, 2));
+        //appendPre(JSON.stringify(error, null, 2));
+        listMajors();
       });
     }
 
@@ -71,7 +72,7 @@
       if (isSignedIn) {
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
-        listMajors();
+        
       } else {
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
