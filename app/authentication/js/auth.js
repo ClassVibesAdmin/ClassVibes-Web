@@ -246,45 +246,7 @@ function facebookLoginTeacher() {
         var name3 = user.displayName;
         var profilePic = user.photoURL;
 
-        //OLD CODE
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     console.log(exists);
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-
-        //         if (exists == "Teacher") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-        //             window.location = "/dashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-
-        //     }
-
-        // });
-
-        //NEW CODE
 
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
@@ -453,44 +415,7 @@ googleSignInTeacher = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        // old code
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
 
-        // _ref.once('value').then(function (snapshot) {
-
-        //     var exists = snapshot.val();
-
-        //     console.log(exists);
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-        //         if (exists == "Teacher") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-        //             window.location = "/dashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-        //     }
-
-        // });
-
-        //NEW CODE
 
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
             localStorage.setItem("email", email);
@@ -571,41 +496,6 @@ googleSignInDistrict = () => {
 
         var errorMessage = document.getElementById('signupError');
 
-        //OLD CODE
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
-
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-        //         if (exists == "District") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-        //             window.location = "/districtDashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-        //     }
-
-        // });
-
-        //NEW CODE
 
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
@@ -745,7 +635,7 @@ function emailSignUp(type) {
 
                     if (type == "student") {
 
-                        appendUserDataToSheets(displayName, email, "Student")
+                        addUserSheets(displayName, email)
 
                         firebase.firestore().collection("UserData").doc(email).set({
                             "display-name": displayName,
@@ -1225,44 +1115,7 @@ function loginWithEmailDistrict() {
 
         if (authValid == true) {
 
-            // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child('Account Type');
-
-            // _ref.once('value').then(function (snapshot) {
-            //     var exists = snapshot.val();
-            //     console.log(exists);
-
-            //     if (exists != null) {
-            //         if (exists == "District") {
-
-            //             console.log('Login Success');
-
-            //             localStorage.setItem("email", formattedEmail);
-
-
-            //             window.location = "districtDashboard.html";
-            //         } else {
-
-            //             errorHTML = `<div class="alert alert-danger" role="alert" 
-            //             style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            //             <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-            //         </div>`;
-
-            //             document.getElementById('signupError').innerHTML = errorHTML;
-
-            //         }
-            //     } else {
-
-            //         errorHTML = `<div class="alert alert-danger" role="alert"
-            //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-            //         <strong>Error! </strong> An unexpected error has acurred, please contact customer support.
-            //     </div>`;
-
-            //         document.getElementById('signupError').innerHTML = errorHTML;
-            //     }
-            // });
-
-            //NEW CODE
-            //NEW CODE
+    
 
             firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
@@ -1319,67 +1172,66 @@ function getProfileName(email){
     });
 }
 
-function appendUserDataToSheets(name, email, accountType){
-    // Client ID and API key from the Developer Console
-    var CLIENT_ID = '938057332518-bobk61co8rm7ge0lbf56df6405pev01m.apps.googleusercontent.com';
-    var API_KEY = 'AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw';
 
-  var SHEET_ID = '1RGjUR5XLP1CzNaAzHYb-wQt8ITtn5D3LdJANA81KlTg';
+ // Client ID and API key from the Developer Console
+ var CLIENT_ID = '938057332518-bobk61co8rm7ge0lbf56df6405pev01m.apps.googleusercontent.com';
+ var API_KEY = 'AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw';
 
-    // Array of API discovery doc URLs for APIs used by the quickstart
-    var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+var SHEET_ID = '1RGjUR5XLP1CzNaAzHYb-wQt8ITtn5D3LdJANA81KlTg';
 
-    // Authorization scopes required by the API; multiple scopes can be
-    // included, separated by spaces.
-    var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+ // Array of API discovery doc URLs for APIs used by the quickstart
+ var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 
-    /**
-     *  On load, called to load the auth2 library and API client library.
-     */
-    function handleClientLoad() {
-      gapi.load('client', initClient);
-    }
+ // Authorization scopes required by the API; multiple scopes can be
+ // included, separated by spaces.
+ var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
-    /**
-     *  Initializes the API client library and sets up sign-in state
-     *  listeners.
-     */
-    function initClient() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-      }).then(function () {
-        listMajors();
-      }, function(error) {
-        appendPre(JSON.stringify(error, null, 2));
-      });
-    }
+ /**
+  *  On load, called to load the auth2 library and API client library.
+  */
+ function handleClientLoad() {
+   gapi.load('client', initClient);
+ }
 
-    /**
-     * Append a pre element to the body containing the given message
-     * as its text node. Used to display the results of the API call.
-     *
-     * @param {string} message Text to be placed in pre element.
-     */
-    function appendPre(message) {
-      var pre = document.getElementById('content');
-      var textContent = document.createTextNode(message + '\n');
-      pre.appendChild(textContent);
-    }
+ /**
+  *  Initializes the API client library and sets up sign-in state
+  *  listeners.
+  */
+ function initClient() {
+   gapi.client.init({
+     apiKey: API_KEY,
+     clientId: CLIENT_ID,
+     discoveryDocs: DISCOVERY_DOCS,
+     scope: SCOPES
+   }).then(function () {
+   }, function(error) {
+     appendPre(JSON.stringify(error, null, 2));
+   });
+ }
 
-    /**
-     * Print the names and majors of students in a sample spreadsheet:
-     * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-     */
-     function listMajors() {
+ /**
+  * Append a pre element to the body containing the given message
+  * as its text node. Used to display the results of the API call.
+  *
+  * @param {string} message Text to be placed in pre element.
+  */
+ function appendPre(message) {
+   var pre = document.getElementById('content');
+   var textContent = document.createTextNode(message + '\n');
+   pre.appendChild(textContent);
+ }
+
+ /**
+  * Print the names and majors of students in a sample spreadsheet:
+  * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+  */
+  function addUserSheets(name, email) {
 
 var values = [
 [
-  name, email
+name,email
 ],
-// Additional rows ...
+
 ];
 
 
@@ -1388,7 +1240,7 @@ values: values
 };
 gapi.client.sheets.spreadsheets.values.append({
 spreadsheetId: SHEET_ID,
-range:  accountType + '!A:A',
+range: 'Sheet1!A:A',
 valueInputOption: 'USER_ENTERED',
 resource: body
 }).then((response) => {
@@ -1396,28 +1248,4 @@ var result = response.result;
 console.log(`${result.updatedCells} cells updated.`);
 });
 
-/*
-gapi.client.sheets.spreadsheets.values.get({
-spreadsheetId: '1RGjUR5XLP1CzNaAzHYb-wQt8ITtn5D3LdJANA81KlTg',
-range: 'Class Data!A2:E',
-}).then(function(response) {
-var range = response.result;
-if (range.values.length > 0) {
-  appendPre('Name, Major:');
-  for (i = 0; i < range.values.length; i++) {
-    var row = range.values[i];
-    // Print columns A and E, which correspond to indices 0 and 4.
-    appendPre(row[0] + ', ' + row[4]);
-  }
-} else {
-  appendPre('No data found.');
 }
-}, function(response) {
-appendPre('Error: ' + response.result.error.message);
-});
-*/
-}
-
-handleClientLoad()
-}
-
