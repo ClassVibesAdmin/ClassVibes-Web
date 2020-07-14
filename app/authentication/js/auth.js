@@ -963,7 +963,7 @@ function loginWithEmailStudent() {
                         getProfileName(email);
 
                         setTimeout(function(){
-                            window.localStorage.setItem("email", email.toString());
+                            //window.localStorage.setItem("email", email.toString());
 
                             console.log(email);
     
