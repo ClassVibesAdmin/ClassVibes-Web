@@ -1,4 +1,4 @@
-function encrypt(){
+function encrypt(message){
   var AES_KEY = `
       MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
       0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
@@ -6,12 +6,12 @@ function encrypt(){
       GSs9e0fkp+LX193UXQIDAQAB
       `;
 
-      var data = CryptoJS.AES.encrypt(title, AES_KEY);
+      var data = CryptoJS.AES.encrypt(message, AES_KEY);
 
       return data.toString();
 }
 
-function decrypt(){
+function decrypt(message){
   var AES_KEY = `
       MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
       0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
@@ -19,7 +19,7 @@ function decrypt(){
       GSs9e0fkp+LX193UXQIDAQAB
       `;
 
-      var data = CryptoJS.AES.decrypt(title, AES_KEY);
+      var data = CryptoJS.AES.decrypt(message, AES_KEY);
 
       return data.toString();
 }
@@ -304,7 +304,7 @@ function updateReaction(reaction) {
 
   var currentDate = new Date();
 
-  var studentEmail = localStorage.getItem("email");
+  var studentEmail = decrypt(localStorage.getItem("email"))
 
 
   var classSelected = localStorage.getItem("selectedClassDropdown");
@@ -369,7 +369,7 @@ function checkIfClassCodeExists(addType) {
     firebase.firestore().collection('Classes').doc(code).get().then(function (doc) {
       var classCode = doc.data();
 
-      var email = localStorage.getItem("email");
+      var email = decrypt(localStorage.getItem("email"))
 
       if (classCode != null) {
         exists = true;
@@ -471,7 +471,8 @@ function checkIfClassCodeExists(addType) {
 //Firestore migrated fully
 function addClassToStudentData(classCode) {
 
-  var email = localStorage.getItem("email");
+  var email = decrypt(localStorage.getItem("email"))
+
   var name = localStorage.getItem('name')
 
 
@@ -602,7 +603,7 @@ function getStudentContactsList(studentUsername) {
 //FIRESTORE FULLY MIGRATED
 function getStudentStatus() {
 
-  var studentEmail = localStorage.getItem("email");
+  var studentEmail = decrypt(localStorage.getItem("email"))
 
   var page = document.getElementById('currentStatusSection');
 
@@ -632,7 +633,7 @@ function getStudentStatus() {
 //FIRESTORE MIGRATED FULLY
 function getMeetings(pageType) {
 
-  var email = localStorage.getItem("email");
+  var email = decrypt(localStorage.getItem("email"))
 
   //GETS MEETINGS FOR MEETINGS PAGE
   if(pageType == "meetingsPage"){
@@ -814,7 +815,7 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
 
   document.getElementById("loadingIndicator").style.display = "initial";
 
-  var email = localStorage.getItem("email");
+  var email = decrypt(localStorage.getItem("email"))
 
   var classesListCodes = [];
 
