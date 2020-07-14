@@ -19,9 +19,12 @@ function decrypt(message){
       GSs9e0fkp+LX193UXQIDAQAB
       `;
 
-      var data = CryptoJS.AES.decrypt(message, AES_KEY);
+      var decrypted = CryptoJS.AES.decrypt(message, AES_KEY);
+      var originalText = decrypted.toString(CryptoJS.enc.Utf8);
 
-      return data.toString();
+      console.log(originalText)
+
+      return originalText.toString();
 }
 
 function initializeFirebase() {
@@ -88,7 +91,7 @@ function getProfileInfo() {
 function getGrayStudentStatus(classCode){
 
   
-  var email = localStorage.getItem('email');
+  var email = decrypt(localStorage.getItem('email'));
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {
 
@@ -163,6 +166,7 @@ function getGrayStudentStatus(classCode){
 
 // FIRESTORE MIGRATED FULLY
 async function getStudentClasses(studentUsername, pageType) {
+
 
   if (document.getElementById("classesRowDisplay") != null) {
     document.getElementById("classesRowDisplay").innerHTML = "";
@@ -601,9 +605,7 @@ function getStudentContactsList(studentUsername) {
 
 
 //FIRESTORE FULLY MIGRATED
-function getStudentStatus() {
-
-  var studentEmail = decrypt(localStorage.getItem("email"))
+function getStudentStatus(studentEmail) {
 
   var page = document.getElementById('currentStatusSection');
 
@@ -631,9 +633,7 @@ function getStudentStatus() {
 }
 
 //FIRESTORE MIGRATED FULLY
-function getMeetings(pageType) {
-
-  var email = decrypt(localStorage.getItem("email"))
+function getMeetings(email, pageType) {
 
   //GETS MEETINGS FOR MEETINGS PAGE
   if(pageType == "meetingsPage"){
@@ -811,11 +811,9 @@ function getMeetings(pageType) {
   */
 }
 
-async function getAnnouncements(pageType = "annoncements-page-main") {
+async function getAnnouncements(email, pageType = "annoncements-page-main") {
 
   document.getElementById("loadingIndicator").style.display = "initial";
-
-  var email = decrypt(localStorage.getItem("email"))
 
   var classesListCodes = [];
 
@@ -824,9 +822,6 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
   classesList = [];
 
   var index = 0;
-
-  /////////////////////
-
 
   let classesRef = firebase.firestore().collection('UserData').doc(email).collection("Classes");
   let classesRefGet = await classesRef.get();
@@ -905,7 +900,6 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
                 `;
 
                 $(outputDashboard).appendTo("#AnnouncementsPageSection");
-              
   
               }
             });
@@ -997,14 +991,12 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
             });
           });
         }
-  
       }
   
       setTimeout(() => {
   //IF there is no annonucements
   
   if (announcementsCount == 0) {
-
 
       document.getElementById("loadingIndicator").style.display = "none";
   
@@ -1013,7 +1005,6 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
       document.getElementById("no-Announcements-section").style.display = "initial";
   
   } else {
-  
 
       document.getElementById("loadingIndicator").style.display = "none";
   
@@ -1023,9 +1014,4 @@ async function getAnnouncements(pageType = "annoncements-page-main") {
   }
        }, 1000)
     }
-
-
-
-
-  //});
 }

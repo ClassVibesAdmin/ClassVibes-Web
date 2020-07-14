@@ -69,13 +69,23 @@ crossorigin="anonymous"></script>
       checkUserAuthStatus();
 
       setVersionFooter();
-      
-      var name = localStorage.getItem("name");
-      var pic = localStorage.getItem("photo");
+
       getProfileInfo();
-      var email = localStorage.getItem("email");
-      updateAddClasesDropdown(email);
-      getMeetings('meetingsPage');
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          console.log("Firebase" + user.email);
+          var email = user.email;
+          updateAddClasesDropdown(email);
+          getMeetings(email, 'meetingsPage');
+
+        } else {
+          console.log("user Signed out");
+        }
+      })
+      
+      
+      
 });
   </script>
 

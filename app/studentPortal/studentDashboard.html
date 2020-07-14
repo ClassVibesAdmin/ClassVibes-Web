@@ -88,14 +88,14 @@
       var email = user.email;
 
       getStudentClasses(email);
-      getStudentStatus();
-      getMeetings('dashboard');
+      getStudentStatus(email);
+      getMeetings(email, 'dashboard');
 
       getLiveSeverAlerts();
       getServerStatus();
       checkUserAuthStatus();
 
-      getAnnouncements('dashboard');
+      getAnnouncements(email, 'dashboard');
 
     } else {
       console.log("user Signed out");
