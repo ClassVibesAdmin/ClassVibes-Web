@@ -1,3 +1,29 @@
+function encrypt(message){
+    var AES_KEY = `
+        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
+        0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
+        XKV1hUMBhxcfPICA60OyBR5lo/vZC8GwQIhJJBgF4EHjkFuvccYLNlLdSAzLTsVj
+        GSs9e0fkp+LX193UXQIDAQAB
+        `;
+  
+        var data = CryptoJS.AES.encrypt(message, AES_KEY);
+  
+        return data.toString();
+  }
+  
+  function decrypt(message){
+    var AES_KEY = `
+        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
+        0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
+        XKV1hUMBhxcfPICA60OyBR5lo/vZC8GwQIhJJBgF4EHjkFuvccYLNlLdSAzLTsVj
+        GSs9e0fkp+LX193UXQIDAQAB
+        `;
+  
+        var data = CryptoJS.AES.decrypt(message, AES_KEY);
+  
+        return data.toString();
+  }
+
 function initializeFirebase() {
     var firebaseConfig = {
         production: true,
@@ -26,49 +52,6 @@ function facebookLoginStudent() {
 
         var errorMessage = document.getElementById('signupError');
 
-
-        //OLD CODE
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
-
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     console.log(exists);
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-
-        //         if (exists == "Student") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-        //             window.location = "/studentDashboard.html";
-
-        //             window.location = "/studentDashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-
-        //     }
-
-        // });
-
-
-        //NEW CODE
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
             if (doc.exists) {
                 var accountType = doc.data()["Account Type"];
@@ -77,7 +60,9 @@ function facebookLoginStudent() {
                 if (accountType != null) {
                     if (accountType == "Student") {
 
-                        localStorage.setItem("email", email);
+                        let emailEncrypted = encrypt(email)
+
+                        localStorage.setItem("email", emailEncrypted);
 
                         window.location = "../studentPortal/studentDashboard.html";
                     } else {
@@ -139,49 +124,6 @@ function facebookLoginDistrict() {
 
         var errorMessage = document.getElementById('signupError');
 
-
-
-        //OLD CODE
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
-
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     console.log(exists);
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-
-        //         if (exists == "District") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-        //             window.location = "/dashboard.html";
-
-        //             window.location = "/districtDashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-
-        //     }
-
-        // });
-
-        //NEW CODE
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
 
             var accountType = doc.data()["Account Type"];
@@ -189,7 +131,10 @@ function facebookLoginDistrict() {
             if (accountType != null) {
                 if (accountType == "District") {
                     console.log('Login Success');
-                    localStorage.setItem("email", email);
+
+                    let emailEncrypted = encrypt(email)
+
+                    localStorage.setItem("email", emailEncrypted);
                     window.location = "districtDashboard.html";
                 } else {
 
@@ -255,9 +200,11 @@ function facebookLoginTeacher() {
 
             if (accountType != null) {
                 if (accountType == "Teacher") {
+
+                    let emailEncrypted = encrypt(email)
                     console.log('Login Success');
                     localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", email);
+                    localStorage.setItem("email", emailEncrypted);
                     localStorage.setItem("name", name3);
 
                     window.location = "../teacherPortal/dashboard.html";
@@ -328,9 +275,10 @@ googleSignInStudent = () => {
             if (accountType != null) {
                 if (accountType == "Student") {
                     console.log('Login Success');
+                    let emailEncrypted = encrypt(email)
 
                     localStorage.setItem("photo", profilePic);
-                    localStorage.setItem("email", email);
+                    localStorage.setItem("email", emailEncrypted);
                     localStorage.setItem("name", name3);
 
                     window.location = "../studentPortal/studentDashboard.html";
@@ -359,44 +307,6 @@ googleSignInStudent = () => {
             console.log("Error getting document:", error);
         });
 
-
-        // var _ref = firebase.database().ref().child("UserData").child(formattedEmail).child("Account Type");
-
-        // _ref.once('value').then(function (snapshot) {
-        //     var exists = snapshot.val();
-
-        //     if (exists == null) {
-        //         errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account is not yet registered. <a href = "signup.html">Sign Up</a>
-        //     </div>`;
-
-        //         errorMessage.innerHTML = errorHTML;
-
-
-        //     } else {
-        //         if (exists == "Student") {
-        //             localStorage.setItem("photo", profilePic);
-        //             localStorage.setItem("email", formattedEmail);
-        //             localStorage.setItem("name", name3);
-
-
-
-        //             window.location = "/studentDashboard.html";
-        //         } else {
-        //             errorHTML = `<div class="alert alert-danger" role="alert" 
-        //         style="margin-top: 20px; width: 94%; margin-left: 6%;">
-        //         <strong>Oops! </strong> This account was signed up as a ${exists} account. You do not have sufficient permissions.
-        //     </div>`;
-
-        //             errorMessage.innerHTML = errorHTML;
-        //         }
-        //     }
-
-        // });
-
-        //NEW CODE
-
     });
 
 }
@@ -418,7 +328,10 @@ googleSignInTeacher = () => {
 
 
         firebase.firestore().collection('UserData').doc(email).get().then(function (doc) {
-            localStorage.setItem("email", email);
+
+            let emailEncrypted = encrypt(email)
+
+            localStorage.setItem("email", emailEncrypted);
 
 
             console.log("data from doc : ", doc.data());
@@ -433,7 +346,10 @@ googleSignInTeacher = () => {
                         console.log('Login Success');
 
                         localStorage.setItem("photo", profilePic);
-                        localStorage.setItem("email", email);
+
+                        let emailEncrypted = encrypt(email)
+
+                        localStorage.setItem("email", emailEncrypted);
                         localStorage.setItem("name", name3);
 
                         var emailDisplay = localStorage.getItem("email");
@@ -513,7 +429,9 @@ googleSignInDistrict = () => {
             if (accountType != null) {
                 if (accountType == "District") {
                     console.log('Login Success');
-                    localStorage.setItem("email", email);
+                    let emailEncrypted = encrypt(email)
+
+                    localStorage.setItem("email", emailEncrypted);
                     window.location = "../districtDashboard.html";
                 } else {
 
@@ -963,7 +881,11 @@ function loginWithEmailStudent() {
                         getProfileName(email);
 
                         setTimeout(function(){
-                            //window.localStorage.setItem("email", email.toString());
+
+                            let emailEncrypted = encrypt(email)
+
+                        
+                            window.localStorage.setItem("email", emailEncrypted.toString());
 
                             console.log(email);
     
@@ -1042,7 +964,10 @@ function loginWithEmailTeacher() {
                             //localStorage.setItem("photo", profilePic);
 
                             setTimeout(function(){
-                                localStorage.setItem("email", email);
+
+                                let emailEncrypted = encrypt(email)
+
+                                localStorage.setItem("email", emailEncrypted);
                                 //localStorage.setItem("name", name3);
                                 window.location = "../../teacherPortal/dashboard.html";
                            }, 500); 
@@ -1124,7 +1049,9 @@ function loginWithEmailDistrict() {
                         getProfileName(email);
 
                         setTimeout(() => { 
-                            localStorage.setItem("email", email);
+                            let emailEncrypted = encrypt(email)
+
+                            localStorage.setItem("email", emailEncrypted);
 
                             window.location = "districtDashboard.html";
                          }, 500)

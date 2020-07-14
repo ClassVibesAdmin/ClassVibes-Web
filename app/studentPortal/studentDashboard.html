@@ -79,7 +79,11 @@
 
       setVersionFooter();
 
-      var email = localStorage.getItem('email');;
+     // var email = localStorage.getItem('email');;
+
+      firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var email = user.email;
 
       getStudentClasses(email);
       getStudentStatus();
@@ -90,6 +94,15 @@
       checkUserAuthStatus();
 
       getAnnouncements('dashboard');
+
+    } else {
+      console.log("user Signed out");
+      
+    }
+  })
+
+
+
     });
   </script>
 

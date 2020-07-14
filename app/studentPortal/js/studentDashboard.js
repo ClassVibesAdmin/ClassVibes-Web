@@ -11,6 +11,19 @@ function encrypt(){
       return data.toString();
 }
 
+function decrypt(){
+  var AES_KEY = `
+      MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7EiRUS/MhtKsEGNIq6zGsoWhE
+      0hqRK8YbBEbWJP1u+Olec5c0+CNdHt+y6oBC5wphQrpDrVQWwJgHRa6sRJMgwDz8
+      XKV1hUMBhxcfPICA60OyBR5lo/vZC8GwQIhJJBgF4EHjkFuvccYLNlLdSAzLTsVj
+      GSs9e0fkp+LX193UXQIDAQAB
+      `;
+
+      var data = CryptoJS.AES.decrypt(title, AES_KEY);
+
+      return data.toString();
+}
+
 function initializeFirebase() {
   var firebaseConfig = {
     apiKey: "AIzaSyA2ESJBkNRjibHsQr2UTHtyYPslzNleyXw",
@@ -35,25 +48,46 @@ var selectedClass = "";
 var dropDownMenuItems = ``;
 
 function getProfileInfo() {
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var name = user.displayName;
+      var pic = user.photoURL;
+
+      var outputPic = ``;
+
+      if(pic != null && pic != undefined && pic != ""){
+          outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
+      } else {
+          outputPic = `<img class="img-profile rounded-circle" src="https://thumbs.dreamstime.com/b/creative-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mockup-144849704.jpg">`;
+      }
+    
+    
+      $(outputPic).appendTo("#profilePic")
+
+      if(name != null, undefined){
+        document.getElementById("displayName").innerHTML = name
+      } else {
+        document.getElementById("displayName").innerHTML = "Error Occured"
+      }
+    
+      
+    } else {
+      console.log("user Signed out");
+      
+    }
+  })
+
   var name = localStorage.getItem("name");
   var pic = localStorage.getItem("photo");
 
-  var outputPic = ``;
 
-  if(pic != null && pic != undefined && pic != ""){
-      outputPic = `<img class="img-profile rounded-circle" src="${pic}">`;
-  } else {
-      outputPic = `<img class="img-profile rounded-circle" src="https://thumbs.dreamstime.com/b/creative-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mockup-144849704.jpg">`;
-  }
-
-
-  $(outputPic).appendTo("#profilePic")
-
-  document.getElementById("displayName").innerHTML = name
 
 }
 
 function getGrayStudentStatus(classCode){
+
+  
   var email = localStorage.getItem('email');
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {

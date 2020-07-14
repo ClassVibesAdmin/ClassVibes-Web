@@ -102,6 +102,7 @@ function logout(){
       });
 }
 
+
 function liveServerRedirects(){
   firebase.firestore().collection('Application Management').doc("ServerManagement").onSnapshot(function(result){
 
