@@ -84,7 +84,7 @@
 
             firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          console.log("Firebase" + user.email);
+          console.log("Firebase: " + user.email);
           var email = user.email;
           getStudentClasses(email, "student-joinClass");
         } else {

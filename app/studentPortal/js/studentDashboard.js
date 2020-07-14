@@ -81,17 +81,9 @@ function getProfileInfo() {
     }
   })
 
-  var name = localStorage.getItem("name");
-  var pic = localStorage.getItem("photo");
-
-
-
 }
 
-function getGrayStudentStatus(classCode){
-
-  
-  var email = decrypt(localStorage.getItem('email'));
+function getGrayStudentStatus(email, classCode){
 
   firebase.firestore().collection("Classes").doc(classCode).get().then(snapshot => {
 
@@ -198,6 +190,7 @@ async function getStudentClasses(studentUsername, pageType) {
           className = data['class-name'];
       }
     }).then(() => {
+      
       classesList.push(className);
       classCodes[className] = classCode;
     })
@@ -217,9 +210,11 @@ async function getStudentClasses(studentUsername, pageType) {
       $(inital).appendTo("#selectedClassForDropdown");
 
 
-      classesList.forEach(function (item, index) {
+      classesList.forEach(async function (item, index) {
 
         var classCode = classCodes[item]
+
+        await getGrayStudentStatus(studentUsername, classCode)
 
         localStorage.setItem("selectedClassDropdown", classCode);
 
